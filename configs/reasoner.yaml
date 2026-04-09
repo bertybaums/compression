@@ -1,0 +1,38 @@
+# Reasoner model configuration
+# 1.5B param Llama-style decoder with UGF vocabulary
+
+model:
+  d_model: 2048
+  n_layers: 32
+  n_heads: 32
+  n_kv_heads: 8
+  d_ff: 5504            # SwiGLU intermediate
+  max_seq_len: 512       # word-level tokens
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  batch_size: 8
+  grad_accum_steps: 8    # effective batch = 64
+  max_lr: 3.0e-4
+  min_lr: 3.0e-5
+  weight_decay: 0.1
+  warmup_steps: 2000
+  max_steps: 200000      # ~2B tokens at 512 * 64 effective batch
+  gradient_checkpointing: true
+  use_amp: true
+
+  log_interval: 50
+  save_interval: 5000
+  eval_interval: 1000
+  max_checkpoints: 3
+
+  checkpoint_dir: checkpoints/reasoner
+  log_dir: logs/reasoner
+
+data:
+  train_paths:
+    - corpus/processed/ugf_reasoning.jsonl
+  val_path: null          # will split from training data later
+  dataset_type: reasoning
+  num_workers: 4

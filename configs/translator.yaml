@@ -1,0 +1,18 @@
+# Translator model configuration
+# Fine-tuned T5-small for bidirectional English <-> UGF
+
+model:
+  base_model: google/flan-t5-small  # 60M params, instruction-tuned
+
+training:
+  batch_size: 32
+  lr: 3.0e-4
+  epochs: 10
+  warmup_steps: 500
+  use_amp: true
+  checkpoint_dir: checkpoints/translator
+
+data:
+  train_path: corpus/processed/parallel_corpus.jsonl
+  max_source_len: 256    # BPE tokens for input
+  max_target_len: 384    # BPE tokens for output (UGF is longer)

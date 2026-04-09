@@ -1,0 +1,26 @@
+# Corpus generation configuration
+
+mindrouter:
+  base_url: https://mindrouter.uidaho.edu/v1
+  # API key loaded from MINDROUTER_API_KEY env var or .env file
+  model: openai/gpt-oss-120b
+  max_concurrent: 8
+  max_retries: 3
+  retry_backoff_base: 2.0  # seconds, exponential
+
+generation:
+  # Parallel corpus (English <-> UGF translations)
+  parallel:
+    input_path: corpus/processed/english_passages.jsonl
+    output_path: corpus/processed/parallel_corpus.jsonl
+    progress_path: corpus/processed/parallel_progress.json
+    max_validation_retries: 3  # re-prompt on vocab violations
+    max_tokens: 1024
+    temperature: 0.3
+
+  # Pure UGF reasoning traces
+  reasoning:
+    output_path: corpus/processed/ugf_reasoning.jsonl
+    progress_path: corpus/processed/reasoning_progress.json
+    max_tokens: 2048
+    temperature: 0.7

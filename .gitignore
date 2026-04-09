@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+.env
+*.pt
+*.bin
+*.safetensors
+checkpoints/
+logs/
+wandb/
+corpus/processed/*.jsonl
+corpus/sources/
+!corpus/sources/.gitkeep
