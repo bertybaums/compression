@@ -14,7 +14,7 @@ generation:
     input_path: corpus/processed/english_passages.jsonl
     output_path: corpus/processed/parallel_corpus.jsonl
     progress_path: corpus/processed/parallel_progress.json
-    max_validation_retries: 3  # re-prompt on vocab violations
+    max_validation_retries: 4  # re-prompt on vocab violations
     max_tokens: 1024
     temperature: 0.3
 

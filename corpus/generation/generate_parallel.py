@@ -100,7 +100,12 @@ def load_wordlist_excerpt() -> str:
         f"vocabulary. For example: 'philosophy', 'argument', 'premise', "
         f"'conclusion', 'fallacy', 'probability', 'utility', 'equilibrium', "
         f"'deontological', 'consequentialism', 'inference', 'hypothesis', "
-        f"'correlation', 'variable', 'cognitive', 'bias', 'rational', etc."
+        f"'correlation', 'variable', 'cognitive', 'bias', 'rational', etc.\n\n"
+        f"Also NOT allowed (commonly mistaken as simple enough): "
+        f"'link', 'linked', 'links', 'type', 'direct', 'data', 'test', "
+        f"'result', 'example', 'common', 'rule', 'rules', 'false', 'plain', "
+        f"'tool', 'apart', 'plant', 'juice', 'ill', 'fourth', 'fifth', "
+        f"'sixth', 'conclusion'. Use allowed-word descriptions instead."
     )
 
 
@@ -118,6 +123,13 @@ For example: "equilibrium" -> "the point where things stop changing" or \
 4. It is OK if the translation is longer than the original -- that is expected.
 5. Do NOT use any word not on the list, even if it seems common.
 6. Numbers (0-9) and basic punctuation (. , ! ? ; : - ' " ( )) are allowed.
+7. Do NOT use markdown formatting. No asterisks (*), no bold, no italic, no \
+headers. Use plain text only.
+8. Single letters used as variable names (A, B, C, etc.) must be replaced with \
+numbered descriptions like "the first thing", "the second thing", "the third \
+thing", "thing number four", "thing number five", "thing number six", etc. \
+Ordinals like "fourth", "fifth", "sixth" are NOT allowed -- use "thing number \
+four" or "the one after the third" instead.
 
 {wordlist_info}"""
 
@@ -168,7 +180,7 @@ async def api_call(
     payload = {
         "model": MODEL,
         "messages": messages,
-        "max_tokens": MAX_TOKENS + 3072,  # generous budget: thinking IS the work
+        "max_tokens": MAX_TOKENS + 4096,  # generous budget: thinking IS the work
         "temperature": TEMPERATURE,
     }
 
