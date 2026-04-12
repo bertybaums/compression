@@ -37,16 +37,27 @@ class ParallelCorpusDataset(Dataset):
         max_source_len: int = 256,
         max_target_len: int = 384,
         filter_compliant: bool = True,
+        heldout_ids_path: str | Path | None = None,
     ):
         self.tokenizer = tokenizer
         self.max_source_len = max_source_len
         self.max_target_len = max_target_len
         self.examples = []
 
+        heldout_ids: set[str] = set()
+        if heldout_ids_path is not None:
+            with open(heldout_ids_path) as f:
+                heldout_ids = set(json.load(f)["heldout_passage_ids"])
+            print(f"Hold-out: excluding {len(heldout_ids)} passage IDs from {heldout_ids_path}")
+
+        n_skipped_heldout = 0
         with open(data_path) as f:
             for line in f:
                 record = json.loads(line)
                 if filter_compliant and not record.get("compliant", True):
+                    continue
+                if record.get("id") in heldout_ids:
+                    n_skipped_heldout += 1
                     continue
                 english = record.get("english", "").strip()
                 ugf = record.get("ugf", "").strip()
@@ -62,6 +73,8 @@ class ParallelCorpusDataset(Dataset):
                     })
 
         random.shuffle(self.examples)
+        if heldout_ids_path is not None:
+            print(f"Hold-out: skipped {n_skipped_heldout} records")
         print(f"Loaded {len(self.examples)} training examples ({len(self.examples)//2} pairs, both directions)")
 
     def __len__(self):
@@ -117,11 +130,13 @@ def main():
     # --- Data ---
     data_cfg = cfg.get("data", {})
     train_path = data_cfg.get("train_path", "corpus/processed/parallel_corpus.jsonl")
+    heldout_ids_path = data_cfg.get("heldout_ids_path", None)
     max_source_len = data_cfg.get("max_source_len", 256)
     max_target_len = data_cfg.get("max_target_len", 384)
 
     dataset = ParallelCorpusDataset(
-        train_path, tokenizer, max_source_len, max_target_len
+        train_path, tokenizer, max_source_len, max_target_len,
+        heldout_ids_path=heldout_ids_path,
     )
 
     # Split: 95% train, 5% val

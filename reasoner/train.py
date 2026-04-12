@@ -124,6 +124,7 @@ def main():
         print("ERROR: No training data paths specified in config.")
         return
 
+    heldout_ids_path = data_cfg.get("heldout_ids_path", None)
     train_loader = create_dataloader(
         train_paths[0],
         tokenizer,
@@ -132,6 +133,7 @@ def main():
         shuffle=True,
         num_workers=num_workers,
         dataset_type=data_cfg.get("dataset_type", "reasoning"),
+        heldout_ids_path=heldout_ids_path,
     )
     print(f"Training set: {len(train_loader.dataset)} sequences")
 
@@ -145,6 +147,7 @@ def main():
             shuffle=False,
             num_workers=num_workers,
             dataset_type=data_cfg.get("dataset_type", "reasoning"),
+            heldout_ids_path=heldout_ids_path,
         )
         print(f"Validation set: {len(val_loader.dataset)} sequences")
 

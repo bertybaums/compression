@@ -14,5 +14,6 @@ training:
 
 data:
   train_path: corpus/processed/parallel_corpus.jsonl
+  heldout_ids_path: corpus/processed/heldout_ids.json
   max_source_len: 256    # BPE tokens for input
   max_target_len: 384    # BPE tokens for output (UGF is longer)

@@ -71,19 +71,32 @@ class ParallelUGFDataset(Dataset):
         tokenizer: UGFTokenizer,
         max_seq_len: int = 512,
         filter_compliant: bool = True,
+        heldout_ids_path: str | Path | None = None,
     ):
         self.tokenizer = tokenizer
         self.max_seq_len = max_seq_len
         self.records = []
 
+        heldout_ids: set[str] = set()
+        if heldout_ids_path is not None:
+            with open(heldout_ids_path) as f:
+                heldout_ids = set(json.load(f)["heldout_passage_ids"])
+            print(f"Hold-out: excluding {len(heldout_ids)} passage IDs from {heldout_ids_path}")
+
+        n_skipped_heldout = 0
         with open(data_path, "r", encoding="utf-8") as f:
             for line in f:
                 record = json.loads(line)
                 if filter_compliant and not record.get("compliant", True):
                     continue
+                if record.get("id") in heldout_ids:
+                    n_skipped_heldout += 1
+                    continue
                 text = record.get("ugf", "")
                 if text and len(text.split()) >= 10:
                     self.records.append(text)
+        if heldout_ids_path is not None:
+            print(f"Hold-out: skipped {n_skipped_heldout} records")
 
     def __len__(self) -> int:
         return len(self.records)
@@ -139,17 +152,24 @@ def create_dataloader(
     shuffle: bool = True,
     num_workers: int = 4,
     dataset_type: str = "reasoning",
+    heldout_ids_path: str | Path | None = None,
 ) -> DataLoader:
     """Create a DataLoader for Reasoner training.
 
     Args:
         dataset_type: "reasoning" for UGF reasoning traces,
                       "parallel" for UGF side of parallel corpus.
+        heldout_ids_path: JSON file of held-out passage IDs; only applied to
+                          the "parallel" dataset (reasoning traces have
+                          independent IDs).
     """
     if dataset_type == "reasoning":
         dataset = UGFDataset(data_path, tokenizer, max_seq_len)
     elif dataset_type == "parallel":
-        dataset = ParallelUGFDataset(data_path, tokenizer, max_seq_len)
+        dataset = ParallelUGFDataset(
+            data_path, tokenizer, max_seq_len,
+            heldout_ids_path=heldout_ids_path,
+        )
     else:
         raise ValueError(f"Unknown dataset_type: {dataset_type}")
 

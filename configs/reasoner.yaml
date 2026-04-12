@@ -36,3 +36,5 @@ data:
   val_path: null          # will split from training data later
   dataset_type: reasoning
   num_workers: 4
+  # Only applied when dataset_type=parallel (reasoning traces have independent IDs).
+  heldout_ids_path: corpus/processed/heldout_ids.json
