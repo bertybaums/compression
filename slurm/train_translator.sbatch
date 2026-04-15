@@ -13,7 +13,6 @@
 source /etc/profile
 set -e
 
-module load python/3.11.11
 source ~/venvs/compression/bin/activate
 
 cd ~/compression
