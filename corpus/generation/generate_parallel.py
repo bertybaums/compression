@@ -180,14 +180,14 @@ async def api_call(
     payload = {
         "model": MODEL,
         "messages": messages,
-        "max_tokens": MAX_TOKENS + 4096,  # generous budget: thinking IS the work
+        "max_tokens": MAX_TOKENS + 12288,  # generous budget: thinking IS the work
         "temperature": TEMPERATURE,
     }
 
     for attempt in range(MAX_RETRIES):
         async with semaphore:
             try:
-                async with session.post(url, json=payload, headers=headers, timeout=aiohttp.ClientTimeout(total=180)) as resp:
+                async with session.post(url, json=payload, headers=headers, timeout=aiohttp.ClientTimeout(total=360)) as resp:
                     if resp.status == 200:
                         data = await resp.json()
                         content = data["choices"][0]["message"].get("content")
