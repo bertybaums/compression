@@ -23,7 +23,8 @@ else
 fi
 
 echo "Installing dependencies..."
-pip install aiohttp pyyaml python-dotenv tqdm transformers tokenizers
+pip install aiohttp pyyaml python-dotenv tqdm transformers tokenizers sentencepiece
+pip install torch --index-url https://download.pytorch.org/whl/cu124
 
 echo ""
 echo "Done. Venv ready at $VENV_DIR"
