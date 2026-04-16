@@ -225,7 +225,11 @@ For example: 'philosophy', 'argument', 'premise', 'conclusion', 'fallacy', \
 Also NOT allowed (commonly mistaken as simple enough): 'link', 'linked', \
 'links', 'type', 'direct', 'data', 'test', 'result', 'example', 'common', \
 'rule', 'rules', 'false', 'plain', 'tool', 'apart', 'plant', 'juice', 'ill', \
-'fourth', 'fifth', 'sixth', 'conclusion'. Use allowed-word descriptions instead.
+'fourth', 'fifth', 'sixth', 'conclusion', 'harm', 'dealt', 'deal', 'based', \
+'exact', 'handle', 'handled', 'describe', 'described'. Use allowed-word \
+descriptions instead (e.g. 'harm' -> 'hurt', 'based on' -> 'resting on', \
+'exact' -> 'the very same', 'handle' -> 'take care of', 'describe' -> \
+'tell about').
 
 Your writing should be clear, thoughtful, and detailed."""
 
