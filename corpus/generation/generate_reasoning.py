@@ -147,64 +147,87 @@ TOPICS = {
 
 CONTENT_TYPES = {
     "concept_explanation": (
-        "Write a clear explanation of the following idea, using ONLY the most "
-        "common words in English (the Up Goer Five word list -- the ten hundred "
-        "most used words). Think step by step. Make sure someone who has never "
-        "studied this before could understand.\n\n"
+        "Write a clear explanation of the following idea. Think step by step. "
+        "Make sure someone who has never studied this before could understand. "
+        "Write in plain running prose -- no asterisks, no bold, no bullet lists, "
+        "no numbered headers.\n\n"
         "Topic: {topic}\n\n"
-        "Explanation using only simple words:"
+        "Explanation:"
     ),
     "chain_of_thought": (
-        "Work through the following problem step by step, using ONLY the most "
-        "common words in English (the Up Goer Five word list). Show your thinking "
-        "at each step. Number your steps.\n\n"
+        "Work through the following problem step by step. Show your thinking "
+        "at each step. Write steps as plain sentences joined into a paragraph "
+        "(for example: 'First, we notice ... Then we can see ... This means ...'). "
+        "Do NOT use numbered lists, bullet points, asterisks, or any markdown.\n\n"
         "Problem: {topic}\n\n"
-        "Step-by-step thinking using only simple words:"
+        "Step-by-step thinking:"
     ),
     "socratic_dialogue": (
         "Write a short conversation between two people about the following topic. "
-        "One person asks questions, the other explains. Use ONLY the most common "
-        "words in English (the Up Goer Five word list). The conversation should "
-        "go at least 6 turns.\n\n"
+        "One person asks questions, the other explains. The conversation should "
+        "go at least 6 turns. Use plain text only -- no asterisks, no bold.\n\n"
         "Topic: {topic}\n\n"
-        "Conversation using only simple words:\n"
+        "Conversation:\n"
         "Person 1:"
     ),
     "argument_analysis": (
         "Someone makes the following case. Break it down into its parts: what "
         "they are saying is true, what they think follows from that, and whether "
-        "the thinking is good. Use ONLY the most common words in English (the "
-        "Up Goer Five word list).\n\n"
+        "the thinking is good. Write this as flowing paragraphs of plain prose. "
+        "Do NOT use asterisks, bold, bullet points, or numbered headers. You can "
+        "refer to ideas as 'the first idea', 'the second idea', and so on inside "
+        "the prose.\n\n"
         "The case: {topic}\n\n"
-        "Breaking this down using only simple words:"
+        "Breaking this down:"
     ),
     "thought_experiment": (
         "Walk through the following situation that makes you think. Describe what "
         "is happening, what the hard question is, and what different answers people "
-        "might give and why. Use ONLY the most common words in English (the Up "
-        "Goer Five word list).\n\n"
+        "might give and why. Write in flowing paragraphs of plain prose -- no "
+        "asterisks, no bold, no bullet points, no numbered headers.\n\n"
         "Situation: {topic}\n\n"
-        "Thinking through this using only simple words:"
+        "Thinking through this:"
     ),
 }
 
-SYSTEM_PROMPT = (
-    "You write about hard ideas using ONLY the most common words in English -- "
-    "the ten hundred most used words (the 'Up Goer Five' word list). All forms "
-    "of these words are allowed (e.g., 'think', 'thinks', 'thinking', 'thought'). "
-    "Numbers (0-9) and basic punctuation are allowed.\n\n"
-    "Words you CANNOT use include any technical, academic, or specialized words. "
-    "For example: 'philosophy', 'argument', 'premise', 'conclusion', 'fallacy', "
-    "'probability', 'utility', 'equilibrium', 'ethics', 'moral', 'virtue', "
-    "'rational', 'cognitive', 'bias', 'hypothesis', 'theory', 'logic', "
-    "'evidence', 'inference', 'deduction', 'induction', 'consequence', "
-    "'principle', 'obligation', 'autonomy', 'justice', 'welfare'.\n\n"
-    "Instead of these words, describe what they mean using simple words. "
-    "For example: 'ethics' -> 'thinking about what is right and wrong', "
-    "'argument' -> 'a set of reasons for believing something', "
-    "'probability' -> 'how likely something is to happen'.\n\n"
-    "Your writing should be clear, thoughtful, and detailed. Longer is fine."
-)
+SYSTEM_PROMPT = """You write about hard ideas using ONLY the most common words in \
+English -- specifically, the "Up Goer Five" word list (the ten hundred most used \
+words and their grammatical forms).
+
+RULES:
+1. Use ONLY words from the allowed list. All grammatical forms of allowed words \
+are permitted (e.g., if "think" is allowed, so are "thinks", "thinking", "thought").
+2. When a concept has no direct simple word, DESCRIBE it using allowed words. \
+For example: "equilibrium" -> "the point where things stop changing" or \
+"hypothesis" -> "a guess about what is true".
+3. Preserve meaning and logical structure as faithfully as you can.
+4. Longer is fine -- it is expected that explanations in simple words are \
+longer than ones using technical words.
+5. Do NOT use any word not on the list, even if it seems common.
+6. Numbers (0-9) and basic punctuation (. , ! ? ; : - ' " ( )) are allowed.
+7. Do NOT use markdown formatting. No asterisks (*), no bold, no italic, no \
+headers, no bullet points, no dashes used as list markers. Write plain running \
+prose. If you need to enumerate, write the numbers as words inside sentences \
+("First, we see ... Second, we note ...") rather than as lists.
+8. Single letters used as variable names (A, B, C, etc.) must be replaced with \
+numbered descriptions like "the first thing", "the second thing", "the third \
+thing", "thing number four", "thing number five", "thing number six", etc. \
+Ordinals like "fourth", "fifth", "sixth" are NOT allowed -- use "thing number \
+four" or "the one after the third" instead.
+
+Words NOT allowed include most technical, academic, or specialized vocabulary. \
+For example: 'philosophy', 'argument', 'premise', 'conclusion', 'fallacy', \
+'probability', 'utility', 'equilibrium', 'deontological', 'consequentialism', \
+'inference', 'hypothesis', 'correlation', 'variable', 'cognitive', 'bias', \
+'rational', 'ethics', 'moral', 'virtue', 'principle', 'obligation', 'autonomy', \
+'justice', 'welfare', 'theory', 'logic', 'evidence'.
+
+Also NOT allowed (commonly mistaken as simple enough): 'link', 'linked', \
+'links', 'type', 'direct', 'data', 'test', 'result', 'example', 'common', \
+'rule', 'rules', 'false', 'plain', 'tool', 'apart', 'plant', 'juice', 'ill', \
+'fourth', 'fifth', 'sixth', 'conclusion'. Use allowed-word descriptions instead.
+
+Your writing should be clear, thoughtful, and detailed."""
 
 
 def generate_topic_assignments(n: int) -> list[dict]:
@@ -298,10 +321,13 @@ async def generate_one(
             break
 
         correction = (
-            f"Your response contains words not in the allowed list: "
+            f"Your response contains words or symbols not in the allowed list: "
             f"{', '.join(repr(v) for v in violations[:15])}. "
-            f"Rewrite the entire response using ONLY allowed words. "
-            f"Replace each disallowed word with a description using simple words."
+            f"Rewrite the entire response. Two things to fix:\n"
+            f"  (a) Replace each disallowed word with a description using only allowed words.\n"
+            f"  (b) Remove all markdown formatting. No asterisks, no bold, no bullet lists, "
+            f"no numbered headers. Write plain running prose only -- if you need to enumerate, "
+            f"write 'First, ... Second, ... Third, ...' as sentences, not as a list."
         )
         messages.append({"role": "assistant", "content": ugf_text})
         messages.append({"role": "user", "content": correction})
