@@ -10,13 +10,18 @@
 source /etc/profile
 set -e
 
-module load python/3.11.11
 source "$HOME/venvs/compression/bin/activate"
 
 cd "$HOME/compression"
 
+TS=$(date +%Y%m%d_%H%M%S)
+LOG="logs/reasoning_generation_${TS}.log"
+mkdir -p logs
+
 echo "Starting UGF reasoning trace generation..."
-echo "Log: logs/reasoning_generation.log"
+echo "Log: $LOG"
+echo "(symlink: logs/reasoning_generation_latest.log -> $LOG)"
+ln -sfn "$(basename "$LOG")" logs/reasoning_generation_latest.log
 echo ""
 
-python3 corpus/generation/generate_reasoning.py 2>&1 | tee logs/reasoning_generation.log
+python3 corpus/generation/generate_reasoning.py "$@" 2>&1 | tee "$LOG"
