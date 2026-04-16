@@ -308,6 +308,7 @@ async def api_call(
         "temperature": TEMPERATURE,
     }
 
+    tag = teacher["id"].split("/")[-1][:20]
     for attempt in range(MAX_RETRIES):
         async with semaphore:
             try:
@@ -316,14 +317,22 @@ async def api_call(
                         data = await resp.json()
                         content = data["choices"][0]["message"].get("content")
                         if content is None:
+                            print(f"  [{tag}] content=null (thinking budget exhausted)")
                             return None
                         return content.strip()
                     elif resp.status == 429:
                         wait = RETRY_BACKOFF * (2 ** attempt)
+                        print(f"  [{tag}] 429 rate-limited, waiting {wait:.0f}s (attempt {attempt+1}/{MAX_RETRIES})")
                         await asyncio.sleep(wait)
                     else:
+                        body = (await resp.text())[:120]
+                        print(f"  [{tag}] HTTP {resp.status}: {body} (attempt {attempt+1}/{MAX_RETRIES})")
                         await asyncio.sleep(RETRY_BACKOFF * (2 ** attempt))
-            except (aiohttp.ClientError, asyncio.TimeoutError):
+            except asyncio.TimeoutError:
+                print(f"  [{tag}] timeout (attempt {attempt+1}/{MAX_RETRIES})")
+                await asyncio.sleep(RETRY_BACKOFF * (2 ** attempt))
+            except aiohttp.ClientError as e:
+                print(f"  [{tag}] client error: {type(e).__name__}: {e} (attempt {attempt+1}/{MAX_RETRIES})")
                 await asyncio.sleep(RETRY_BACKOFF * (2 ** attempt))
 
     return None
@@ -411,7 +420,13 @@ async def main(
     output_path: Path | None = None,
     progress_path: Path | None = None,
     equal_teacher_weights: bool = False,
+    teachers_override_json: Path | None = None,
 ):
+    global TEACHERS
+    if teachers_override_json is not None:
+        with open(teachers_override_json) as f:
+            TEACHERS = json.load(f)
+        print(f"Teacher list overridden from {teachers_override_json} ({len(TEACHERS)} teachers)")
     # 86 topics × 5 content_types = 430 unique combos. For the full corpus we
     # aim for ~2M traces; the default below is a short iteration batch.
     n_total = limit or 2000
@@ -520,6 +535,8 @@ if __name__ == "__main__":
                         help="Override progress json path (for pilots)")
     parser.add_argument("--equal-teacher-weights", action="store_true",
                         help="Give each teacher an equal share (for controlled pilots)")
+    parser.add_argument("--teachers-override-json", type=Path,
+                        help="JSON file with an alternate teacher list (for pilots)")
     args = parser.parse_args()
 
     asyncio.run(main(
@@ -528,4 +545,5 @@ if __name__ == "__main__":
         output_path=args.output_path,
         progress_path=args.progress_path,
         equal_teacher_weights=args.equal_teacher_weights,
+        teachers_override_json=args.teachers_override_json,
     ))
