@@ -480,7 +480,7 @@ async def main(
     # MindRouter uses a self-signed certificate (campus-internal service)
     connector = aiohttp.TCPConnector(ssl=False, limit=0)
     async with aiohttp.ClientSession(connector=connector) as session:
-        batch_size = 50
+        batch_size = 100
         for batch_start in range(0, len(remaining), batch_size):
             batch = remaining[batch_start:batch_start + batch_size]
 
