@@ -22,12 +22,12 @@ mindrouter:
   # after first ~500 traces if fail rate stays <1% and tok/s has headroom.
   reasoning_teachers:
     - id: openai/gpt-oss-120b
-      weight: 55
-      max_concurrent: 80
+      weight: 40
+      max_concurrent: 60
       max_tokens_overhead: 12288
     - id: google/gemma-4-26b
-      weight: 45
-      max_concurrent: 60
+      weight: 60
+      max_concurrent: 100
       max_tokens_overhead: 8192
 
 generation:
