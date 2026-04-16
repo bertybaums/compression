@@ -1,10 +1,11 @@
 #!/bin/bash
 #SBATCH --job-name=ugf-translator
 #SBATCH --partition=gpu-8
+#SBATCH --exclude=n113,n118,n121,n122
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
-#SBATCH --time=4:00:00
+#SBATCH --time=48:00:00
 #SBATCH --output=logs/%j_translator.out
 #SBATCH --error=logs/%j_translator.err
 
