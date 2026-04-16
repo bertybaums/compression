@@ -477,28 +477,45 @@ async def main(
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # MindRouter uses a self-signed certificate (campus-internal service)
+    async def _run_one(assignment):
+        """Wrapper: call generate_one and return (assignment, result)."""
+        teacher = teachers_by_id[assignment["teacher_id"]]
+        sem = semaphores[assignment["teacher_id"]]
+        result = await generate_one(session, assignment, teacher, sem)
+        return assignment, result
+
+    # MindRouter uses a self-signed certificate (campus-internal service).
+    # limit=0 disables aiohttp's per-host connection cap so our 100+ concurrent
+    # calls aren't throttled by the client library.
     connector = aiohttp.TCPConnector(ssl=False, limit=0)
+    save_interval = 100
     async with aiohttp.ClientSession(connector=connector) as session:
-        batch_size = 100
-        for batch_start in range(0, len(remaining), batch_size):
-            batch = remaining[batch_start:batch_start + batch_size]
+        # Spawn every assignment as its own task up front; each immediately
+        # awaits its teacher's semaphore, so only `sum(max_concurrent)` are
+        # actually in-flight at a time. The rest sit cheaply queued.
+        #
+        # Using asyncio.as_completed lets us process each result the instant
+        # it lands, rather than waiting for the slowest call in a batch-of-N
+        # to finish. That removes the cross-teacher coupling at batch
+        # boundaries: gpt-oss calls finish as fast as gpt-oss can serve them,
+        # independently of any slow gemma tail calls.
+        tasks = [asyncio.create_task(_run_one(a)) for a in remaining]
+        print(f"Created {len(tasks)} tasks. Processing as they complete...")
 
-            tasks = []
-            for a in batch:
-                teacher = teachers_by_id[a["teacher_id"]]
-                sem = semaphores[a["teacher_id"]]
-                tasks.append(generate_one(session, a, teacher, sem))
-            results = await asyncio.gather(*tasks)
+        completed_count = 0
+        last_save_count = 0
+        with open(output_path, "a", encoding="utf-8") as out_f:
+            for fut in asyncio.as_completed(tasks):
+                assignment, result = await fut
+                completed_count += 1
+                model_id = assignment["teacher_id"]
 
-            with open(output_path, "a", encoding="utf-8") as f:
-                for a, result in zip(batch, results):
-                    model_id = a["teacher_id"]
-                    if result is None:
-                        stats["failed"] += 1
-                        stats["per_model"][model_id]["failed"] += 1
-                        continue
-                    f.write(json.dumps(result, ensure_ascii=False) + "\n")
+                if result is None:
+                    stats["failed"] += 1
+                    stats["per_model"][model_id]["failed"] += 1
+                else:
+                    out_f.write(json.dumps(result, ensure_ascii=False) + "\n")
+                    out_f.flush()  # durability: don't lose rows on crash
                     completed_ids.add(result["id"])
                     if result["compliant"]:
                         stats["compliant"] += 1
@@ -507,21 +524,26 @@ async def main(
                         stats["non_compliant"] += 1
                         stats["per_model"][model_id]["non_compliant"] += 1
 
-            stats["completed"] = len(completed_ids)
-            save_progress(progress_path, completed_ids, stats)
+                if completed_count - last_save_count >= save_interval:
+                    stats["completed"] = len(completed_ids)
+                    save_progress(progress_path, completed_ids, stats)
+                    last_save_count = completed_count
+                    pct = completed_count / len(remaining) * 100
+                    per_model_str = " | ".join(
+                        f"{mid.split('/')[-1][:16]}: "
+                        f"{s['compliant']}/{s['compliant']+s['non_compliant']+s['failed']}"
+                        for mid, s in stats["per_model"].items()
+                    )
+                    print(
+                        f"  [{completed_count}/{len(remaining)}] ({pct:.1f}%) "
+                        f"compliant={stats['compliant']} "
+                        f"non_compliant={stats['non_compliant']} "
+                        f"failed={stats['failed']}  ||  {per_model_str}"
+                    )
 
-            total_done = batch_start + len(batch)
-            pct = total_done / len(remaining) * 100
-            per_model_str = " | ".join(
-                f"{mid.split('/')[-1][:16]}: {s['compliant']}/{s['compliant']+s['non_compliant']+s['failed']}"
-                for mid, s in stats["per_model"].items()
-            )
-            print(
-                f"  [{total_done}/{len(remaining)}] ({pct:.1f}%) "
-                f"compliant={stats['compliant']} non_compliant={stats['non_compliant']} "
-                f"failed={stats['failed']}  ||  {per_model_str}"
-            )
-
+    # Final save
+    stats["completed"] = len(completed_ids)
+    save_progress(progress_path, completed_ids, stats)
     print(f"\nDone. Overall stats: {json.dumps(stats, indent=2)}")
 
 
