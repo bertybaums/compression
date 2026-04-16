@@ -463,8 +463,6 @@ async def main(
         print("ERROR: MINDROUTER_API_KEY not set.")
         sys.exit(1)
 
-    # Per-teacher semaphore and quick lookup by id
-    semaphores = {t["id"]: asyncio.Semaphore(t["max_concurrent"]) for t in TEACHERS}
     teachers_by_id = {t["id"]: t for t in TEACHERS}
 
     stats = {
@@ -477,37 +475,67 @@ async def main(
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    async def _run_one(assignment):
-        """Wrapper: call generate_one and return (assignment, result)."""
-        teacher = teachers_by_id[assignment["teacher_id"]]
-        sem = semaphores[assignment["teacher_id"]]
-        result = await generate_one(session, assignment, teacher, sem)
-        return assignment, result
+    # Producer-consumer architecture:
+    #
+    # - One asyncio.Queue per teacher, seeded with that teacher's assignments.
+    # - max_concurrent workers per teacher pull from that teacher's queue,
+    #   run generate_one, and push (assignment, result) onto a single results
+    #   queue.
+    # - A single writer coroutine consumes results, writes to file, updates
+    #   progress periodically.
+    #
+    # Why this and not asyncio.as_completed over pre-created tasks: with N
+    # tasks, as_completed scans all pending tasks on each completion (O(N)),
+    # giving O(N^2) total. At N=200K that dominates. Queues give O(1) per
+    # completion. Per-teacher queues also mean the two teachers' throughput
+    # is fully decoupled (no shared semaphore, no shared batch boundary).
+    per_teacher_queues: dict[str, asyncio.Queue] = {
+        t["id"]: asyncio.Queue() for t in TEACHERS
+    }
+    for a in remaining:
+        per_teacher_queues[a["teacher_id"]].put_nowait(a)
+
+    # Small maxsize on results queue so workers don't run arbitrarily ahead
+    # of the writer (prevents unbounded memory use if the writer gets slow).
+    results_queue: asyncio.Queue = asyncio.Queue(maxsize=1024)
 
     # MindRouter uses a self-signed certificate (campus-internal service).
-    # limit=0 disables aiohttp's per-host connection cap so our 100+ concurrent
-    # calls aren't throttled by the client library.
+    # limit=0 disables aiohttp's per-host connection cap.
     connector = aiohttp.TCPConnector(ssl=False, limit=0)
     save_interval = 100
-    async with aiohttp.ClientSession(connector=connector) as session:
-        # Spawn every assignment as its own task up front; each immediately
-        # awaits its teacher's semaphore, so only `sum(max_concurrent)` are
-        # actually in-flight at a time. The rest sit cheaply queued.
-        #
-        # Using asyncio.as_completed lets us process each result the instant
-        # it lands, rather than waiting for the slowest call in a batch-of-N
-        # to finish. That removes the cross-teacher coupling at batch
-        # boundaries: gpt-oss calls finish as fast as gpt-oss can serve them,
-        # independently of any slow gemma tail calls.
-        tasks = [asyncio.create_task(_run_one(a)) for a in remaining]
-        print(f"Created {len(tasks)} tasks. Processing as they complete...")
+    flush_interval = 50  # fsync to disk every N results (durability vs overhead)
 
-        completed_count = 0
+    async def teacher_worker(teacher: dict, session: aiohttp.ClientSession):
+        """Pull assignments for one teacher and run them one at a time.
+
+        N workers per teacher (N = teacher["max_concurrent"]) == N concurrent
+        calls to that teacher. No semaphore needed.
+        """
+        q = per_teacher_queues[teacher["id"]]
+        # A dummy semaphore with limit=1 so generate_one's existing signature
+        # still works but acts as a no-op (one task in flight per worker).
+        dummy_sem = asyncio.Semaphore(1)
+        while True:
+            try:
+                a = q.get_nowait()
+            except asyncio.QueueEmpty:
+                return  # no more work for this teacher
+            try:
+                result = await generate_one(session, a, teacher, dummy_sem)
+            except Exception as e:
+                print(f"  worker error ({teacher['id']}): {type(e).__name__}: {e}")
+                result = None
+            await results_queue.put((a, result))
+
+    async def writer(total_expected: int):
+        """Consume results, write to file, update progress periodically."""
+        completed_this_session = 0
         last_save_count = 0
+        last_flush_count = 0
         with open(output_path, "a", encoding="utf-8") as out_f:
-            for fut in asyncio.as_completed(tasks):
-                assignment, result = await fut
-                completed_count += 1
+            while completed_this_session < total_expected:
+                assignment, result = await results_queue.get()
+                completed_this_session += 1
                 model_id = assignment["teacher_id"]
 
                 if result is None:
@@ -515,7 +543,6 @@ async def main(
                     stats["per_model"][model_id]["failed"] += 1
                 else:
                     out_f.write(json.dumps(result, ensure_ascii=False) + "\n")
-                    out_f.flush()  # durability: don't lose rows on crash
                     completed_ids.add(result["id"])
                     if result["compliant"]:
                         stats["compliant"] += 1
@@ -524,22 +551,45 @@ async def main(
                         stats["non_compliant"] += 1
                         stats["per_model"][model_id]["non_compliant"] += 1
 
-                if completed_count - last_save_count >= save_interval:
+                if completed_this_session - last_flush_count >= flush_interval:
+                    out_f.flush()
+                    last_flush_count = completed_this_session
+
+                if completed_this_session - last_save_count >= save_interval:
                     stats["completed"] = len(completed_ids)
                     save_progress(progress_path, completed_ids, stats)
-                    last_save_count = completed_count
-                    pct = completed_count / len(remaining) * 100
+                    last_save_count = completed_this_session
+                    pct = completed_this_session / total_expected * 100
                     per_model_str = " | ".join(
                         f"{mid.split('/')[-1][:16]}: "
                         f"{s['compliant']}/{s['compliant']+s['non_compliant']+s['failed']}"
                         for mid, s in stats["per_model"].items()
                     )
                     print(
-                        f"  [{completed_count}/{len(remaining)}] ({pct:.1f}%) "
+                        f"  [{completed_this_session}/{total_expected}] ({pct:.1f}%) "
                         f"compliant={stats['compliant']} "
                         f"non_compliant={stats['non_compliant']} "
                         f"failed={stats['failed']}  ||  {per_model_str}"
                     )
+            # Final flush on exit
+            out_f.flush()
+
+    async with aiohttp.ClientSession(connector=connector) as session:
+        # Spawn max_concurrent workers per teacher
+        worker_tasks = []
+        for t in TEACHERS:
+            for _ in range(t["max_concurrent"]):
+                worker_tasks.append(asyncio.create_task(teacher_worker(t, session)))
+        writer_task = asyncio.create_task(writer(len(remaining)))
+
+        total_workers = sum(t["max_concurrent"] for t in TEACHERS)
+        print(f"Spawned {total_workers} workers across {len(TEACHERS)} teachers.")
+        print("Processing...")
+
+        # Wait for the writer to drain. Workers naturally exit when their
+        # queues are empty; await them to clean up.
+        await writer_task
+        await asyncio.gather(*worker_tasks, return_exceptions=True)
 
     # Final save
     stats["completed"] = len(completed_ids)
