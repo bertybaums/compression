@@ -264,7 +264,25 @@ async def translate_passage(
     }
 
 
-async def main(dry_run: bool = False, limit: int | None = None):
+async def main(
+    dry_run: bool = False,
+    limit: int | None = None,
+    input_path: Path | None = None,
+    output_path: Path | None = None,
+    progress_path: Path | None = None,
+):
+    global INPUT_PATH, OUTPUT_PATH, PROGRESS_PATH
+    if input_path is not None:
+        INPUT_PATH = input_path
+    if output_path is not None:
+        OUTPUT_PATH = output_path
+    if progress_path is not None:
+        PROGRESS_PATH = progress_path
+
+    print(f"Input:    {INPUT_PATH}")
+    print(f"Output:   {OUTPUT_PATH}")
+    print(f"Progress: {PROGRESS_PATH}")
+
     # Load passages
     passages = []
     with open(INPUT_PATH) as f:
@@ -349,6 +367,18 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate parallel English-UGF corpus")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be translated")
     parser.add_argument("--limit", type=int, help="Limit number of passages to translate")
+    parser.add_argument("--input-path", type=Path,
+                        help="Override input english_passages.jsonl path")
+    parser.add_argument("--output-path", type=Path,
+                        help="Override output parallel_corpus.jsonl path")
+    parser.add_argument("--progress-path", type=Path,
+                        help="Override progress json path")
     args = parser.parse_args()
 
-    asyncio.run(main(dry_run=args.dry_run, limit=args.limit))
+    asyncio.run(main(
+        dry_run=args.dry_run,
+        limit=args.limit,
+        input_path=args.input_path,
+        output_path=args.output_path,
+        progress_path=args.progress_path,
+    ))
