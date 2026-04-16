@@ -3,10 +3,34 @@
 mindrouter:
   base_url: https://mindrouter.uidaho.edu/v1
   # API key loaded from MINDROUTER_API_KEY env var or .env file
-  model: openai/gpt-oss-120b
-  max_concurrent: 8
+  model: openai/gpt-oss-120b         # used by generate_parallel.py (single model)
+  max_concurrent: 16                 # used by generate_parallel.py
   max_retries: 3
   retry_backoff_base: 2.0  # seconds, exponential
+
+  # Teacher ensemble for reasoning-trace generation (used by generate_reasoning.py).
+  # Each entry: id, weight (for weighted sampling), max_concurrent (per-teacher
+  # semaphore), max_tokens_overhead (added on top of generation.reasoning.max_tokens
+  # to give thinking-mode models a generous budget before they emit content).
+  # Rationale: 4 lineages (OpenAI/Alibaba/Google/Nvidia), high-backend models only
+  # (avoid single-backend teachers -> cold-start tax under MindRouter's WDRR).
+  reasoning_teachers:
+    - id: openai/gpt-oss-120b          # 6 backends, thinking, validated 88%+ compliance
+      weight: 30
+      max_concurrent: 16
+      max_tokens_overhead: 12288
+    - id: qwen/qwen3.5-122b            # 7 backends, thinking
+      weight: 25
+      max_concurrent: 16
+      max_tokens_overhead: 8192
+    - id: google/gemma-4-26b           # 2 backends, thinking, MoE (fast per call)
+      weight: 25
+      max_concurrent: 12
+      max_tokens_overhead: 8192
+    - id: Nemotron-3-Super-120b        # 3 backends, thinking
+      weight: 20
+      max_concurrent: 10
+      max_tokens_overhead: 8192
 
 generation:
   # Parallel corpus (English <-> UGF translations)

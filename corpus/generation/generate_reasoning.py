@@ -46,14 +46,23 @@ load_dotenv(Path(__file__).parent.parent.parent / ".env")
 
 MINDROUTER_BASE_URL = CONFIG["mindrouter"]["base_url"]
 MINDROUTER_API_KEY = os.environ.get("MINDROUTER_API_KEY", "")
-MODEL = CONFIG["mindrouter"]["model"]
-MAX_CONCURRENT = CONFIG["mindrouter"]["max_concurrent"]
 MAX_RETRIES = CONFIG["mindrouter"]["max_retries"]
 RETRY_BACKOFF = CONFIG["mindrouter"]["retry_backoff_base"]
 
+# Teacher ensemble: list of dicts with id, weight, max_concurrent, max_tokens_overhead.
+# Falls back to single-model config for backward compat.
+TEACHERS = CONFIG["mindrouter"].get("reasoning_teachers")
+if not TEACHERS:
+    TEACHERS = [{
+        "id": CONFIG["mindrouter"]["model"],
+        "weight": 100,
+        "max_concurrent": CONFIG["mindrouter"].get("max_concurrent", 8),
+        "max_tokens_overhead": 3072,
+    }]
+
 REASONING_CONFIG = CONFIG["generation"]["reasoning"]
-OUTPUT_PATH = Path(__file__).parent.parent.parent / REASONING_CONFIG["output_path"]
-PROGRESS_PATH = Path(__file__).parent.parent.parent / REASONING_CONFIG["progress_path"]
+DEFAULT_OUTPUT_PATH = Path(__file__).parent.parent.parent / REASONING_CONFIG["output_path"]
+DEFAULT_PROGRESS_PATH = Path(__file__).parent.parent.parent / REASONING_CONFIG["progress_path"]
 MAX_TOKENS = REASONING_CONFIG["max_tokens"]
 TEMPERATURE = REASONING_CONFIG["temperature"]
 
@@ -260,28 +269,49 @@ def generate_topic_assignments(n: int) -> list[dict]:
     return assignments
 
 
+def assign_teachers(assignments: list[dict], teachers: list[dict],
+                    seed: int = 42, equal: bool = False) -> None:
+    """Attach a teacher_id to each assignment via weighted sampling.
+
+    When equal=True, each teacher receives approximately the same number of
+    assignments (for controlled pilots). Otherwise, the teacher's `weight`
+    field determines its share.
+    """
+    rng = random.Random(seed)
+    if equal:
+        # Deterministic round-robin so each teacher gets a near-equal share.
+        for i, a in enumerate(assignments):
+            a["teacher_id"] = teachers[i % len(teachers)]["id"]
+        rng.shuffle(assignments)  # re-shuffle so batches are mixed
+    else:
+        weights = [t["weight"] for t in teachers]
+        for a in assignments:
+            a["teacher_id"] = rng.choices(teachers, weights=weights, k=1)[0]["id"]
+
+
 async def api_call(
     session: aiohttp.ClientSession,
     messages: list[dict],
+    teacher: dict,
     semaphore: asyncio.Semaphore,
 ) -> str | None:
-    """Make a single API call with retries."""
+    """Make a single API call to the given teacher's model."""
     url = f"{MINDROUTER_BASE_URL}/chat/completions"
     headers = {
         "Authorization": f"Bearer {MINDROUTER_API_KEY}",
         "Content-Type": "application/json",
     }
     payload = {
-        "model": MODEL,
+        "model": teacher["id"],
         "messages": messages,
-        "max_tokens": MAX_TOKENS + 3072,  # generous: thinking improves quality
+        "max_tokens": MAX_TOKENS + teacher.get("max_tokens_overhead", 3072),
         "temperature": TEMPERATURE,
     }
 
     for attempt in range(MAX_RETRIES):
         async with semaphore:
             try:
-                async with session.post(url, json=payload, headers=headers, timeout=aiohttp.ClientTimeout(total=180)) as resp:
+                async with session.post(url, json=payload, headers=headers, timeout=aiohttp.ClientTimeout(total=360)) as resp:
                     if resp.status == 200:
                         data = await resp.json()
                         content = data["choices"][0]["message"].get("content")
@@ -302,9 +332,10 @@ async def api_call(
 async def generate_one(
     session: aiohttp.ClientSession,
     assignment: dict,
+    teacher: dict,
     semaphore: asyncio.Semaphore,
 ) -> dict | None:
-    """Generate a single UGF reasoning trace with validation."""
+    """Generate a single UGF reasoning trace with validation via one teacher."""
     prompt_template = CONTENT_TYPES[assignment["content_type"]]
     user_prompt = prompt_template.format(topic=assignment["topic"])
 
@@ -313,7 +344,7 @@ async def generate_one(
         {"role": "user", "content": user_prompt},
     ]
 
-    ugf_text = await api_call(session, messages, semaphore)
+    ugf_text = await api_call(session, messages, teacher, semaphore)
     if ugf_text is None:
         return None
 
@@ -336,7 +367,7 @@ async def generate_one(
         messages.append({"role": "assistant", "content": ugf_text})
         messages.append({"role": "user", "content": correction})
 
-        ugf_text = await api_call(session, messages, semaphore)
+        ugf_text = await api_call(session, messages, teacher, semaphore)
         if ugf_text is None:
             return None
 
@@ -347,21 +378,22 @@ async def generate_one(
         "ugf_text": ugf_text,
         "content_type": assignment["content_type"],
         "topic": assignment["topic"],
+        "source_model": teacher["id"],
         "metadata": {"domain": assignment["domain"]},
         "compliant": is_valid,
         "remaining_violations": violations if not is_valid else [],
     }
 
 
-def load_progress() -> set[str]:
-    if PROGRESS_PATH.exists():
-        with open(PROGRESS_PATH) as f:
+def load_progress(progress_path: Path) -> set[str]:
+    if progress_path.exists():
+        with open(progress_path) as f:
             return set(json.load(f).get("completed_ids", []))
     return set()
 
 
-def save_progress(completed_ids: set[str], stats: dict):
-    with open(PROGRESS_PATH, "w") as f:
+def save_progress(progress_path: Path, completed_ids: set[str], stats: dict):
+    with open(progress_path, "w") as f:
         json.dump({
             "completed_ids": list(completed_ids),
             "stats": stats,
@@ -369,15 +401,28 @@ def save_progress(completed_ids: set[str], stats: dict):
         }, f)
 
 
-async def main(dry_run: bool = False, limit: int | None = None):
-    # Default: generate enough to cover each topic × content_type multiple times
-    # 86 topics × 5 content_types = 430 unique combos
-    # For the full corpus we want ~2M passages, but start with a manageable batch
-    n_total = limit or 2000  # Start with 2K for iteration, scale up later
+def _empty_model_stats(teachers: list[dict]) -> dict:
+    return {t["id"]: {"compliant": 0, "non_compliant": 0, "failed": 0} for t in teachers}
+
+
+async def main(
+    dry_run: bool = False,
+    limit: int | None = None,
+    output_path: Path | None = None,
+    progress_path: Path | None = None,
+    equal_teacher_weights: bool = False,
+):
+    # 86 topics × 5 content_types = 430 unique combos. For the full corpus we
+    # aim for ~2M traces; the default below is a short iteration batch.
+    n_total = limit or 2000
+
+    output_path = output_path or DEFAULT_OUTPUT_PATH
+    progress_path = progress_path or DEFAULT_PROGRESS_PATH
 
     assignments = generate_topic_assignments(n_total)
+    assign_teachers(assignments, TEACHERS, equal=equal_teacher_weights)
 
-    completed_ids = load_progress()
+    completed_ids = load_progress(progress_path)
     remaining = [a for a in assignments if a["id"] not in completed_ids]
 
     print(f"Total assignments: {len(assignments)}")
@@ -385,63 +430,102 @@ async def main(dry_run: bool = False, limit: int | None = None):
     print(f"Remaining: {len(remaining)}")
     print(f"Topics: {sum(len(t) for t in TOPICS.values())} across {len(TOPICS)} domains")
     print(f"Content types: {len(CONTENT_TYPES)}")
+    print(f"Teachers ({len(TEACHERS)}):")
+    from collections import Counter
+    share = Counter(a["teacher_id"] for a in remaining)
+    for t in TEACHERS:
+        n = share.get(t["id"], 0)
+        pct = (n / len(remaining) * 100) if remaining else 0
+        print(f"  {t['id']:35} concurrency={t['max_concurrent']:<3} share={n} ({pct:.1f}%)")
 
     if dry_run:
         print("\n[DRY RUN] First 5 assignments:")
         for a in remaining[:5]:
-            print(f"  [{a['content_type']}] {a['topic'][:70]}...")
+            print(f"  [{a['teacher_id']}] [{a['content_type']}] {a['topic'][:60]}")
         return
 
     if not MINDROUTER_API_KEY:
         print("ERROR: MINDROUTER_API_KEY not set.")
         sys.exit(1)
 
-    semaphore = asyncio.Semaphore(MAX_CONCURRENT)
-    stats = {"completed": len(completed_ids), "compliant": 0, "non_compliant": 0, "failed": 0}
+    # Per-teacher semaphore and quick lookup by id
+    semaphores = {t["id"]: asyncio.Semaphore(t["max_concurrent"]) for t in TEACHERS}
+    teachers_by_id = {t["id"]: t for t in TEACHERS}
 
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    stats = {
+        "completed": len(completed_ids),
+        "compliant": 0,
+        "non_compliant": 0,
+        "failed": 0,
+        "per_model": _empty_model_stats(TEACHERS),
+    }
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
 
     # MindRouter uses a self-signed certificate (campus-internal service)
-    connector = aiohttp.TCPConnector(ssl=False)
+    connector = aiohttp.TCPConnector(ssl=False, limit=0)
     async with aiohttp.ClientSession(connector=connector) as session:
         batch_size = 50
         for batch_start in range(0, len(remaining), batch_size):
             batch = remaining[batch_start:batch_start + batch_size]
 
-            tasks = [generate_one(session, a, semaphore) for a in batch]
+            tasks = []
+            for a in batch:
+                teacher = teachers_by_id[a["teacher_id"]]
+                sem = semaphores[a["teacher_id"]]
+                tasks.append(generate_one(session, a, teacher, sem))
             results = await asyncio.gather(*tasks)
 
-            with open(OUTPUT_PATH, "a", encoding="utf-8") as f:
-                for result in results:
+            with open(output_path, "a", encoding="utf-8") as f:
+                for a, result in zip(batch, results):
+                    model_id = a["teacher_id"]
                     if result is None:
                         stats["failed"] += 1
+                        stats["per_model"][model_id]["failed"] += 1
                         continue
                     f.write(json.dumps(result, ensure_ascii=False) + "\n")
                     completed_ids.add(result["id"])
                     if result["compliant"]:
                         stats["compliant"] += 1
+                        stats["per_model"][model_id]["compliant"] += 1
                     else:
                         stats["non_compliant"] += 1
+                        stats["per_model"][model_id]["non_compliant"] += 1
 
             stats["completed"] = len(completed_ids)
-            save_progress(completed_ids, stats)
+            save_progress(progress_path, completed_ids, stats)
 
             total_done = batch_start + len(batch)
             pct = total_done / len(remaining) * 100
+            per_model_str = " | ".join(
+                f"{mid.split('/')[-1][:16]}: {s['compliant']}/{s['compliant']+s['non_compliant']+s['failed']}"
+                for mid, s in stats["per_model"].items()
+            )
             print(
                 f"  [{total_done}/{len(remaining)}] ({pct:.1f}%) "
-                f"compliant={stats['compliant']} "
-                f"non_compliant={stats['non_compliant']} "
-                f"failed={stats['failed']}"
+                f"compliant={stats['compliant']} non_compliant={stats['non_compliant']} "
+                f"failed={stats['failed']}  ||  {per_model_str}"
             )
 
-    print(f"\nDone. Stats: {json.dumps(stats, indent=2)}")
+    print(f"\nDone. Overall stats: {json.dumps(stats, indent=2)}")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate UGF reasoning traces")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--limit", type=int, help="Number of traces to generate")
+    parser.add_argument("--output-path", type=Path,
+                        help="Override output jsonl path (for pilots)")
+    parser.add_argument("--progress-path", type=Path,
+                        help="Override progress json path (for pilots)")
+    parser.add_argument("--equal-teacher-weights", action="store_true",
+                        help="Give each teacher an equal share (for controlled pilots)")
     args = parser.parse_args()
 
-    asyncio.run(main(dry_run=args.dry_run, limit=args.limit))
+    asyncio.run(main(
+        dry_run=args.dry_run,
+        limit=args.limit,
+        output_path=args.output_path,
+        progress_path=args.progress_path,
+        equal_teacher_weights=args.equal_teacher_weights,
+    ))
