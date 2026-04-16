@@ -56,6 +56,7 @@ We've been scaling concurrency to probe the effective ceiling:
 | 140 | 80 | 60 | gather(batch=100) | 94 | +36% for +40% conc., **7% fail on gpt-oss** |
 | 160 | 60 | 100 | gather(batch=100) | 77 | 0% fail, but regressed |
 | 160 | 60 | 100 | as_completed(200K tasks) | 47 | smooth tok/s (see below), total regressed |
+| 160 | 60 | 100 | producer-consumer (Queue + N workers/teacher) | **280** | smooth tok/s, **3× best prior throughput**, 0% fail, 99% compliant |
 
 Across all runs MindRouter itself showed no queue backup (per the
 dashboard) and responded well. `gemma-4-26b` appears to scale linearly
@@ -84,6 +85,17 @@ Our read on this:
 Planned next step: replace `as_completed` with a producer-consumer
 (`asyncio.Queue` + N workers per teacher, N = per-teacher concurrency).
 That gives the decoupling benefit without the O(n²).
+
+**Update after the producer-consumer refactor:** 5-min measurement
+over a steady window showed **1400 new traces in 300 s = 280/min**.
+That's 3× the best prior (94/min at 140-concurrent gather) and 6× the
+broken `as_completed` experiment. Smooth tok/s profile held, with 0%
+API failures and ~99% UGF-vocab compliance. Per-teacher this session:
+`gpt-oss-120b` at 60 workers delivered 330 compliant / 16 non-compliant
+(95% compliance). `gemma-4-26b` at 100 workers delivered 1047 compliant
+/ 7 non-compliant (99% compliance). Gemma accounted for ~75% of total
+volume — it's both more compliant and considerably faster per worker
+at this concurrency. 200K-trace ETA at this rate: **~12 hours**.
 
 ## Questions for the admin
 
