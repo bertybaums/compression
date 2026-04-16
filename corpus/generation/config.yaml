@@ -10,26 +10,24 @@ mindrouter:
 
   # Teacher ensemble for reasoning-trace generation (used by generate_reasoning.py).
   # Each entry: id, weight (for weighted sampling), max_concurrent (per-teacher
-  # semaphore), max_tokens_overhead (added on top of generation.reasoning.max_tokens
-  # to give thinking-mode models a generous budget before they emit content).
-  # Rationale: 4 lineages (OpenAI/Alibaba/Google/Nvidia), high-backend models only
-  # (avoid single-backend teachers -> cold-start tax under MindRouter's WDRR).
+  # semaphore), max_tokens_overhead (added on top of generation.reasoning.max_tokens).
+  #
+  # Narrowed to 2 teachers after pilot on April 15, 2026:
+  #   - gpt-oss-120b: 92% compliant, 0% fail
+  #   - gemma-4-26b : 95% compliant, 0% fail (MoE, fast per call)
+  # Dropped (pilot): qwen3.5-122b (thinking exhaustion), Nemotron-3-Super-120b
+  # (73% fail under concurrency, short outputs), phi4-reasoning:14b (41%
+  # compliance), magistral:24b (26% compliance).
+  # Start concurrency conservative (half of backend-weighted targets); bump
+  # after first ~500 traces if fail rate stays <1% and tok/s has headroom.
   reasoning_teachers:
-    - id: openai/gpt-oss-120b          # 6 backends, thinking, validated 88%+ compliance
-      weight: 30
-      max_concurrent: 16
+    - id: openai/gpt-oss-120b
+      weight: 55
+      max_concurrent: 30
       max_tokens_overhead: 12288
-    - id: qwen/qwen3.5-122b            # 7 backends, thinking
-      weight: 25
-      max_concurrent: 16
-      max_tokens_overhead: 8192
-    - id: google/gemma-4-26b           # 2 backends, thinking, MoE (fast per call)
-      weight: 25
-      max_concurrent: 12
-      max_tokens_overhead: 8192
-    - id: Nemotron-3-Super-120b        # 3 backends, thinking
-      weight: 20
-      max_concurrent: 10
+    - id: google/gemma-4-26b
+      weight: 45
+      max_concurrent: 20
       max_tokens_overhead: 8192
 
 generation:
