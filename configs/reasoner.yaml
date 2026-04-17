@@ -34,7 +34,7 @@ data:
   train_paths:
     - corpus/processed/ugf_reasoning.jsonl            # main topic-driven corpus (~222K+ as of April 17)
     - corpus/processed/ugf_reasoning_cxbot.jsonl      # counterexample_analysis from cx-bot (4,266)
-    - corpus/processed/ugf_reasoning_misccorpora.jsonl  # analogy + conditional extracted from misc-corpora (populated after misc-corpora translation resumes)
+    # - corpus/processed/ugf_reasoning_misccorpora.jsonl  # UN-COMMENT once misc-corpora translation completes + extraction runs
   val_path: null          # will split from training data later
   dataset_type: reasoning
   num_workers: 4
