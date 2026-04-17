@@ -33,6 +33,8 @@ Reasoner dataset loader) MUST load heldout_ids.json and filter out any
 passage whose id appears in heldout_passage_ids.
 """
 
+from __future__ import annotations
+
 import argparse
 import json
 import random
