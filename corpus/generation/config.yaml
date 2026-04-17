@@ -20,15 +20,20 @@ mindrouter:
   # compliance), magistral:24b (26% compliance).
   # Start concurrency conservative (half of backend-weighted targets); bump
   # after first ~500 traces if fail rate stays <1% and tok/s has headroom.
+  # Defaults targeting ~70 req/min sustained, well under the admin-set
+  # 100 req/min MR cap. reasoning_effort=medium on gpt-oss-120b gives ~40%
+  # richer content per call vs default-high, with no token-budget concern
+  # since MR has no per-account token quota.
   reasoning_teachers:
     - id: openai/gpt-oss-120b
       weight: 40
-      max_concurrent: 60
-      max_tokens_overhead: 12288
+      max_concurrent: 10
+      max_tokens_overhead: 8192
+      reasoning_effort: medium
     - id: google/gemma-4-26b
       weight: 60
-      max_concurrent: 100
-      max_tokens_overhead: 8192
+      max_concurrent: 12
+      max_tokens_overhead: 4096
 
 generation:
   # Parallel corpus (English <-> UGF translations)

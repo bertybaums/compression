@@ -307,6 +307,10 @@ async def api_call(
         "max_tokens": MAX_TOKENS + teacher.get("max_tokens_overhead", 3072),
         "temperature": TEMPERATURE,
     }
+    # Optional OpenAI-style reasoning control (e.g. gpt-oss models):
+    # teacher config may set "reasoning_effort": low|medium|high.
+    if "reasoning_effort" in teacher:
+        payload["reasoning_effort"] = teacher["reasoning_effort"]
 
     tag = teacher["id"].split("/")[-1][:20]
     for attempt in range(MAX_RETRIES):
