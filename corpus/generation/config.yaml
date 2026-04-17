@@ -8,6 +8,12 @@ mindrouter:
   max_retries: 3
   retry_backoff_base: 2.0  # seconds, exponential
 
+  # Client-side global rate limiter used by generate_reasoning.py.
+  # MR's enforced cap shows as ~200 req/min and is shared across all campus
+  # users. We self-impose a lower ceiling to leave headroom.
+  max_req_per_minute: 100
+  burst_capacity: 10
+
   # Teacher ensemble for reasoning-trace generation (used by generate_reasoning.py).
   # Each entry: id, weight (for weighted sampling), max_concurrent (per-teacher
   # semaphore), max_tokens_overhead (added on top of generation.reasoning.max_tokens).

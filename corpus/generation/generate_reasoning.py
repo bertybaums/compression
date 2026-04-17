@@ -49,6 +49,14 @@ MINDROUTER_API_KEY = os.environ.get("MINDROUTER_API_KEY", "")
 MAX_RETRIES = CONFIG["mindrouter"]["max_retries"]
 RETRY_BACKOFF = CONFIG["mindrouter"]["retry_backoff_base"]
 
+# Client-side global rate limiting (shared across all teachers).
+# MindRouter reports its hard cap as ~200 req/min, but that is shared with
+# other users on campus. Self-imposed default of 100 req/min leaves headroom.
+# Fast-failing retries amplify request rate, so the limiter runs on every
+# outgoing call (not just successes).
+MAX_REQ_PER_MINUTE = CONFIG["mindrouter"].get("max_req_per_minute", 100)
+BURST_CAPACITY = CONFIG["mindrouter"].get("burst_capacity", 10)
+
 # Teacher ensemble: list of dicts with id, weight, max_concurrent, max_tokens_overhead.
 # Falls back to single-model config for backward compat.
 TEACHERS = CONFIG["mindrouter"].get("reasoning_teachers")
@@ -65,6 +73,46 @@ DEFAULT_OUTPUT_PATH = Path(__file__).parent.parent.parent / REASONING_CONFIG["ou
 DEFAULT_PROGRESS_PATH = Path(__file__).parent.parent.parent / REASONING_CONFIG["progress_path"]
 MAX_TOKENS = REASONING_CONFIG["max_tokens"]
 TEMPERATURE = REASONING_CONFIG["temperature"]
+
+
+# --- Rate limiter ---
+#
+# Token bucket that refills at a configured per-second rate, shared across
+# all teacher workers. Every outgoing API call (success or failed retry)
+# acquires one token first. This prevents the fast-failing-retry cascade
+# from spiralling past MR's request-rate cap: if a 429 comes back in 200 ms
+# and the worker immediately retries, the limiter throttles that retry to
+# the target rate instead of letting it contribute to cap exhaustion.
+
+class AsyncTokenBucket:
+    """Shared async token bucket. Acquire blocks until a token is available."""
+
+    def __init__(self, rate_per_sec: float, burst: float):
+        self.rate = rate_per_sec
+        self.burst = max(1.0, burst)
+        self._tokens = self.burst
+        self._last_refill = time.monotonic()
+        self._lock = asyncio.Lock()
+
+    async def acquire(self) -> None:
+        while True:
+            wait_time = 0.0
+            async with self._lock:
+                now = time.monotonic()
+                elapsed = now - self._last_refill
+                self._tokens = min(self.burst, self._tokens + elapsed * self.rate)
+                self._last_refill = now
+                if self._tokens >= 1.0:
+                    self._tokens -= 1.0
+                    return
+                wait_time = (1.0 - self._tokens) / self.rate
+            # Release lock before sleeping so other waiters can make progress
+            await asyncio.sleep(wait_time)
+
+
+# Single process-wide bucket; initialised in main() so --config changes apply.
+_RATE_LIMITER: AsyncTokenBucket | None = None
+
 
 # --- Topic bank ---
 # Drawn from good-thinking-bot taxonomy + intro-ethics textbook
@@ -315,6 +363,10 @@ async def api_call(
     tag = teacher["id"].split("/")[-1][:20]
     for attempt in range(MAX_RETRIES):
         async with semaphore:
+            # Global rate limit: wait for a token before firing any request
+            # (including retries — so 429 cascades can't spiral).
+            if _RATE_LIMITER is not None:
+                await _RATE_LIMITER.acquire()
             try:
                 async with session.post(url, json=payload, headers=headers, timeout=aiohttp.ClientTimeout(total=360)) as resp:
                     if resp.status == 200:
@@ -426,11 +478,18 @@ async def main(
     equal_teacher_weights: bool = False,
     teachers_override_json: Path | None = None,
 ):
-    global TEACHERS
+    global TEACHERS, _RATE_LIMITER
     if teachers_override_json is not None:
         with open(teachers_override_json) as f:
             TEACHERS = json.load(f)
         print(f"Teacher list overridden from {teachers_override_json} ({len(TEACHERS)} teachers)")
+
+    # Global rate limiter (see notes above the AsyncTokenBucket class).
+    _RATE_LIMITER = AsyncTokenBucket(
+        rate_per_sec=MAX_REQ_PER_MINUTE / 60.0,
+        burst=BURST_CAPACITY,
+    )
+    print(f"Rate limit: {MAX_REQ_PER_MINUTE} req/min, burst {BURST_CAPACITY}")
     # 86 topics × 5 content_types = 430 unique combos. For the full corpus we
     # aim for ~2M traces; the default below is a short iteration batch.
     n_total = limit or 2000
