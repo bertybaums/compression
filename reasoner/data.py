@@ -15,7 +15,15 @@ from tokenizer.ugf_tokenizer import UGFTokenizer
 
 
 class UGFDataset(Dataset):
-    """Dataset of tokenized UGF reasoning traces."""
+    """Dataset of tokenized UGF reasoning traces.
+
+    The `heldout_ids_path` hook filters out any record whose
+    `rsplit('-', 1)[0]` doc-key matches a held-out passage's doc-key.
+    Main reasoning traces (ids like `reasoning-NNNNNNN`) never match, so
+    the filter is a no-op for them. Derived reasoning traces that link
+    back to parallel-corpus passages (cxbot, misc-corpora) are filtered
+    consistently with the Translator's hold-out.
+    """
 
     def __init__(
         self,
@@ -24,19 +32,35 @@ class UGFDataset(Dataset):
         max_seq_len: int = 512,
         text_field: str = "ugf_text",
         filter_compliant: bool = True,
+        heldout_ids_path: str | Path | None = None,
     ):
         self.tokenizer = tokenizer
         self.max_seq_len = max_seq_len
         self.records = []
 
+        heldout_doc_ids: set[str] = set()
+        if heldout_ids_path is not None:
+            with open(heldout_ids_path) as f:
+                passage_ids = json.load(f)["heldout_passage_ids"]
+            heldout_doc_ids = {pid.rsplit("-", 1)[0] for pid in passage_ids}
+
+        n_skipped_heldout = 0
         with open(data_path, "r", encoding="utf-8") as f:
             for line in f:
                 record = json.loads(line)
                 if filter_compliant and not record.get("compliant", True):
                     continue
+                if heldout_doc_ids:
+                    rid = record.get("id", "")
+                    if rid and rid.rsplit("-", 1)[0] in heldout_doc_ids:
+                        n_skipped_heldout += 1
+                        continue
                 text = record.get(text_field, "")
                 if text and len(text.split()) >= 10:  # skip very short
                     self.records.append(text)
+
+        if heldout_ids_path is not None and n_skipped_heldout:
+            print(f"Hold-out: skipped {n_skipped_heldout} reasoning records from {data_path}")
 
     def __len__(self) -> int:
         return len(self.records)
@@ -159,12 +183,19 @@ def create_dataloader(
     Args:
         dataset_type: "reasoning" for UGF reasoning traces,
                       "parallel" for UGF side of parallel corpus.
-        heldout_ids_path: JSON file of held-out passage IDs; only applied to
-                          the "parallel" dataset (reasoning traces have
-                          independent IDs).
+        heldout_ids_path: JSON file of held-out passage IDs. For "parallel"
+                          dataset, filters by exact ID match. For "reasoning"
+                          dataset, filters by doc-key (so cxbot/misc-corpora
+                          reasoning traces whose IDs link back to a held-out
+                          passage are excluded; main reasoning-NNNNNNN traces
+                          have no doc-key collision so the filter is a no-op
+                          for them).
     """
     if dataset_type == "reasoning":
-        dataset = UGFDataset(data_path, tokenizer, max_seq_len)
+        dataset = UGFDataset(
+            data_path, tokenizer, max_seq_len,
+            heldout_ids_path=heldout_ids_path,
+        )
     elif dataset_type == "parallel":
         dataset = ParallelUGFDataset(
             data_path, tokenizer, max_seq_len,

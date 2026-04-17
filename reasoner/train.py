@@ -27,7 +27,8 @@ import torch.nn.functional as F
 import yaml
 
 from reasoner.model import Reasoner, ReasonerConfig
-from reasoner.data import create_dataloader
+from reasoner.data import UGFDataset, ParallelUGFDataset, collate_fn
+from torch.utils.data import ConcatDataset, DataLoader
 from tokenizer.ugf_tokenizer import UGFTokenizer
 
 
@@ -119,37 +120,54 @@ def main():
     batch_size = train_cfg.get("batch_size", 8)
     num_workers = data_cfg.get("num_workers", 4)
 
-    # For now, support a single training path (can extend to multiple later)
     if not train_paths:
         print("ERROR: No training data paths specified in config.")
         return
 
     heldout_ids_path = data_cfg.get("heldout_ids_path", None)
-    train_loader = create_dataloader(
-        train_paths[0],
-        tokenizer,
-        max_seq_len=max_seq_len,
+    dataset_type = data_cfg.get("dataset_type", "reasoning")
+
+    def _make_dataset(path: str):
+        if dataset_type == "reasoning":
+            return UGFDataset(path, tokenizer, max_seq_len=max_seq_len,
+                              heldout_ids_path=heldout_ids_path)
+        elif dataset_type == "parallel":
+            return ParallelUGFDataset(path, tokenizer, max_seq_len=max_seq_len,
+                                      heldout_ids_path=heldout_ids_path)
+        else:
+            raise ValueError(f"Unknown dataset_type: {dataset_type}")
+
+    train_datasets = []
+    for path in train_paths:
+        ds = _make_dataset(path)
+        print(f"  {path}: {len(ds)} sequences")
+        train_datasets.append(ds)
+
+    combined_train = ConcatDataset(train_datasets) if len(train_datasets) > 1 else train_datasets[0]
+    train_loader = DataLoader(
+        combined_train,
         batch_size=batch_size,
         shuffle=True,
         num_workers=num_workers,
-        dataset_type=data_cfg.get("dataset_type", "reasoning"),
-        heldout_ids_path=heldout_ids_path,
+        collate_fn=lambda batch: collate_fn(batch, pad_id=tokenizer.pad_token_id),
+        pin_memory=True,
+        drop_last=True,
     )
-    print(f"Training set: {len(train_loader.dataset)} sequences")
+    print(f"Training set: {len(combined_train)} sequences total across {len(train_datasets)} source(s)")
 
     val_loader = None
     if val_path:
-        val_loader = create_dataloader(
-            val_path,
-            tokenizer,
-            max_seq_len=max_seq_len,
+        val_ds = _make_dataset(val_path)
+        val_loader = DataLoader(
+            val_ds,
             batch_size=batch_size,
             shuffle=False,
             num_workers=num_workers,
-            dataset_type=data_cfg.get("dataset_type", "reasoning"),
-            heldout_ids_path=heldout_ids_path,
+            collate_fn=lambda batch: collate_fn(batch, pad_id=tokenizer.pad_token_id),
+            pin_memory=True,
+            drop_last=True,
         )
-        print(f"Validation set: {len(val_loader.dataset)} sequences")
+        print(f"Validation set: {len(val_ds)} sequences")
 
     # --- Optimizer ---
     max_lr = train_cfg.get("max_lr", 3e-4)

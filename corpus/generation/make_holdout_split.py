@@ -7,18 +7,23 @@ Holds out whole source-documents (not individual passages) so that:
     generation, and thus from Reasoner training.
   - End-to-end evaluation on held-out docs is free of data contamination.
 
-Sampling is stratified by source (good-thinking-bot, intro-ethics) so each
-source contributes proportionally to both the train and held-out sets.
+Sampling is stratified by `source` so each source (good-thinking-bot,
+intro-ethics, cx-bot, misc-analogies, misc-conditionals, etc.) contributes
+proportionally to both the train and held-out sets.
 
 Document key:
   passage_id.rsplit('-', 1)[0]
-Works for both sources:
-  gtb-A3.5-COR0000-scenario_text        -> gtb-A3.5-COR0000
-  ethics-appendix-a-reading-guides-0000 -> ethics-appendix-a-reading-guides
+Works for all sources:
+  gtb-A3.5-COR0000-scenario_text                    -> gtb-A3.5-COR0000
+  ethics-appendix-a-reading-guides-0000             -> ethics-appendix-a-reading-guides
+  cxbot-defcx-defcx-aesthetics-beauty-0001-passage  -> cxbot-defcx-defcx-aesthetics-beauty-0001
+  misc-analogies-...-0001-passage                   -> misc-analogies-...-0001
 
 Usage:
     python corpus/generation/make_holdout_split.py \
         --input corpus/processed/english_passages.jsonl \
+                corpus/processed/english_passages_cxbot.jsonl \
+                corpus/processed/english_passages_misccorpora.jsonl \
         --output corpus/processed/heldout_ids.json \
         --fraction 0.05 \
         --seed 42
@@ -40,12 +45,13 @@ def doc_id_of(passage_id: str) -> str:
     return passage_id.rsplit("-", 1)[0]
 
 
-def main(input_path: Path, output_path: Path, fraction: float, seed: int):
+def main(input_paths: list[Path], output_path: Path, fraction: float, seed: int):
     docs_by_source: dict[str, dict[str, list[str]]] = defaultdict(lambda: defaultdict(list))
-    with open(input_path) as f:
-        for line in f:
-            r = json.loads(line)
-            docs_by_source[r["source"]][doc_id_of(r["id"])].append(r["id"])
+    for input_path in input_paths:
+        with open(input_path) as f:
+            for line in f:
+                r = json.loads(line)
+                docs_by_source[r["source"]][doc_id_of(r["id"])].append(r["id"])
 
     rng = random.Random(seed)
     heldout_passage_ids: list[str] = []
@@ -93,7 +99,10 @@ def main(input_path: Path, output_path: Path, fraction: float, seed: int):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--input", type=Path, default=Path("corpus/processed/english_passages.jsonl"))
+    p.add_argument("--input", type=Path, nargs="+",
+                   default=[Path("corpus/processed/english_passages.jsonl")],
+                   help="One or more english_passages*.jsonl files. Per-source "
+                        "stratification groups records by their `source` field.")
     p.add_argument("--output", type=Path, default=Path("corpus/processed/heldout_ids.json"))
     p.add_argument("--fraction", type=float, default=0.05)
     p.add_argument("--seed", type=int, default=42)
