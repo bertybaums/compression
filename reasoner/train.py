@@ -114,33 +114,38 @@ def main():
     model = model.to(device)
 
     # --- Data ---
-    train_paths = data_cfg.get("train_paths", [])
+    train_paths = data_cfg.get("train_paths", [])                   # reasoning-trace format
+    parallel_train_paths = data_cfg.get("parallel_train_paths", []) # parallel-corpus UGF-side format
     val_path = data_cfg.get("val_path", None)
     max_seq_len = model_cfg.get("max_seq_len", 512)
     batch_size = train_cfg.get("batch_size", 8)
     num_workers = data_cfg.get("num_workers", 4)
 
-    if not train_paths:
+    if not train_paths and not parallel_train_paths:
         print("ERROR: No training data paths specified in config.")
         return
 
     heldout_ids_path = data_cfg.get("heldout_ids_path", None)
     dataset_type = data_cfg.get("dataset_type", "reasoning")
 
-    def _make_dataset(path: str):
-        if dataset_type == "reasoning":
+    def _make_dataset(path: str, ds_type: str):
+        if ds_type == "reasoning":
             return UGFDataset(path, tokenizer, max_seq_len=max_seq_len,
                               heldout_ids_path=heldout_ids_path)
-        elif dataset_type == "parallel":
+        elif ds_type == "parallel":
             return ParallelUGFDataset(path, tokenizer, max_seq_len=max_seq_len,
                                       heldout_ids_path=heldout_ids_path)
         else:
-            raise ValueError(f"Unknown dataset_type: {dataset_type}")
+            raise ValueError(f"Unknown dataset_type: {ds_type}")
 
     train_datasets = []
     for path in train_paths:
-        ds = _make_dataset(path)
-        print(f"  {path}: {len(ds)} sequences")
+        ds = _make_dataset(path, dataset_type)
+        print(f"  {path} ({dataset_type}): {len(ds)} sequences")
+        train_datasets.append(ds)
+    for path in parallel_train_paths:
+        ds = _make_dataset(path, "parallel")
+        print(f"  {path} (parallel): {len(ds)} sequences")
         train_datasets.append(ds)
 
     combined_train = ConcatDataset(train_datasets) if len(train_datasets) > 1 else train_datasets[0]
@@ -157,7 +162,7 @@ def main():
 
     val_loader = None
     if val_path:
-        val_ds = _make_dataset(val_path)
+        val_ds = _make_dataset(val_path, dataset_type)
         val_loader = DataLoader(
             val_ds,
             batch_size=batch_size,
