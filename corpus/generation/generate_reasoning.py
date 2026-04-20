@@ -200,6 +200,24 @@ TOPICS = {
         "why we should be careful about thinking everything happens for a reason",
         "how to build your own set of rules for making hard choices",
     ],
+    # Added April 19, 2026: probability / inductive reasoning — strengthens the
+    # coverage of decision-theory-adjacent critical thinking about uncertainty.
+    "probability_induction": [
+        "why seeing many of one thing makes us think more of the same will come",
+        "the problem of using what was to guess what will be",
+        "how to pick the best reason out of many that could be right",
+        "when we have good reason to think a thing will or will not happen",
+        "how we build a picture of the world from small pieces of what we see",
+        "the difference between knowing for sure and having a good reason to think so",
+    ],
+    # Added April 19, 2026: epistemology, narrowly scoped to belief-justification
+    # and testimony — topics that sit on the foundations of critical thinking.
+    "epistemology": [
+        "why a true belief for bad reasons is not the same as knowing",
+        "how we come to trust what other people tell us",
+        "how to tell when what someone says gives us a good reason to believe it",
+        "what it means to really know a thing and not just believe it",
+    ],
 }
 
 CONTENT_TYPES = {
