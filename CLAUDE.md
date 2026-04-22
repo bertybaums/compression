@@ -83,6 +83,7 @@ Or (cleaner, not yet done): port the `AsyncTokenBucket` pattern into `generate_p
 - **Generated corpus**: `corpus/processed/ugf_reasoning.jsonl` (main) + `ugf_reasoning_cxbot.jsonl` + `ugf_reasoning_misccorpora.jsonl`.
 - **Heldout**: `corpus/processed/heldout_ids.json` — 5% stratified per source. Applied by Reasoner data loader via doc-key match.
 - **Admin writeup**: `docs/mindrouter-usage-notes-2026-04-16.md` — context on our relationship with the MR service.
+- **Model-size literature scan**: `docs/small-model-cot-literature-2026-04-22.md` — what published work tells us about whether CoT works at small sizes in restricted-vocab, narrow-domain, distillation settings. Summary: encouraging. Suggests 200M–500M Reasoner is viable; a three-size scaling study would strengthen the paper.
 
 ---
 
