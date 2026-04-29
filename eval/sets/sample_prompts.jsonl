@@ -1,0 +1,10 @@
+{"id": "sample-001", "kind": "ethics-counterexample", "prompt": "Some people say it is always wrong to say a thing that is not true. But think about a person who says a thing that is not true to keep someone safe from being hurt."}
+{"id": "sample-002", "kind": "ethics-conditional", "prompt": "If a person should always do the thing that brings the most good to the most people, then in some cases that person must do a thing that hurts one to help many."}
+{"id": "sample-003", "kind": "epistemology-doubt", "prompt": "How can we know that what we see and what we feel really tells us about the world? Maybe our minds make us see things that are not really there."}
+{"id": "sample-004", "kind": "ethics-analogy", "prompt": "Think of two people walking by a small river. One person sees a child who is going to die in the water, and the other person does not. Now think about people who can give money to keep a child far away from dying."}
+{"id": "sample-005", "kind": "metaphysics-identity", "prompt": "Take a ship. Over many years, every part of it is changed for a new part. Is it still the same ship at the end?"}
+{"id": "sample-006", "kind": "free-will-conditional", "prompt": "If everything that happens is set by what came before, then can a person really pick what to do? Or are all picks just what was going to happen?"}
+{"id": "sample-007", "kind": "ethics-rule-vs-result", "prompt": "Some say it is the rule you follow that makes a thing right or wrong, not what comes out of it. Others say it is what comes out of it that matters, not the rule."}
+{"id": "sample-008", "kind": "knowledge-condition", "prompt": "What does it mean to know a thing? Is it enough to think it is true and to be right? Or do you need more than that?"}
+{"id": "sample-009", "kind": "personal-identity", "prompt": "If a person's mind could be put into a different body, would the person still be the same person? Or would it be a new person?"}
+{"id": "sample-010", "kind": "ethics-aggregation", "prompt": "Is it right to make one person feel a small bit of pain so that many people can feel a big bit of joy? What if the joy is very big and the pain is very small?"}

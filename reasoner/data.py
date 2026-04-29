@@ -3,8 +3,20 @@ Dataset and data loading for Reasoner training.
 
 Reads JSONL files of pure UGF reasoning traces, tokenizes with UGFTokenizer,
 and produces padded/truncated sequences for the training loop.
+
+Hold-out mechanism: a record is held-out if EITHER
+  (a) its doc-key (`id.rsplit('-', 1)[0]`) appears in heldout_ids_path's
+      passage-ID list (used for cxbot, misccorpora, parallel — sources
+      where reasoning records derive from a specific source passage), OR
+  (b) `random_val_fraction > 0` and its stable hash falls in the chosen
+      bucket (used for the main `reasoning-NNNNNNN` corpus, where there's
+      no source-passage parent for the doc-key trick to bite on).
+
+Both conditions can apply to the same record harmlessly. The combined
+held-out subset is at least `random_val_fraction` for any source.
 """
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -12,6 +24,15 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 
 from tokenizer.ugf_tokenizer import UGFTokenizer
+
+
+def _stable_hash_in_val(rid: str, fraction: float, buckets: int = 10000) -> bool:
+    """Stable, process-independent hash-based val selection."""
+    if fraction <= 0 or not rid:
+        return False
+    digest = hashlib.md5(rid.encode("utf-8")).digest()
+    bucket = int.from_bytes(digest[:4], "big") % buckets
+    return bucket < int(fraction * buckets)
 
 
 class UGFDataset(Dataset):
@@ -33,6 +54,8 @@ class UGFDataset(Dataset):
         text_field: str = "ugf_text",
         filter_compliant: bool = True,
         heldout_ids_path: str | Path | None = None,
+        include_only_heldout: bool = False,
+        random_val_fraction: float = 0.0,
     ):
         self.tokenizer = tokenizer
         self.max_seq_len = max_seq_len
@@ -44,23 +67,33 @@ class UGFDataset(Dataset):
                 passage_ids = json.load(f)["heldout_passage_ids"]
             heldout_doc_ids = {pid.rsplit("-", 1)[0] for pid in passage_ids}
 
-        n_skipped_heldout = 0
+        n_skipped = 0
         with open(data_path, "r", encoding="utf-8") as f:
             for line in f:
                 record = json.loads(line)
                 if filter_compliant and not record.get("compliant", True):
                     continue
-                if heldout_doc_ids:
-                    rid = record.get("id", "")
-                    if rid and rid.rsplit("-", 1)[0] in heldout_doc_ids:
-                        n_skipped_heldout += 1
+                rid = record.get("id", "")
+                doc_key = rid.rsplit("-", 1)[0] if rid else ""
+                is_heldout = (
+                    (bool(heldout_doc_ids) and doc_key in heldout_doc_ids)
+                    or _stable_hash_in_val(rid, random_val_fraction)
+                )
+                if include_only_heldout:
+                    if not is_heldout:
+                        n_skipped += 1
+                        continue
+                else:
+                    if is_heldout:
+                        n_skipped += 1
                         continue
                 text = record.get(text_field, "")
                 if text and len(text.split()) >= 10:  # skip very short
                     self.records.append(text)
 
-        if heldout_ids_path is not None and n_skipped_heldout:
-            print(f"Hold-out: skipped {n_skipped_heldout} reasoning records from {data_path}")
+        if (heldout_ids_path is not None or random_val_fraction > 0) and n_skipped:
+            mode = "kept-only" if include_only_heldout else "skipped"
+            print(f"Hold-out: {mode} {n_skipped} reasoning records ({data_path})")
 
     def __len__(self) -> int:
         return len(self.records)
@@ -96,6 +129,8 @@ class ParallelUGFDataset(Dataset):
         max_seq_len: int = 512,
         filter_compliant: bool = True,
         heldout_ids_path: str | Path | None = None,
+        include_only_heldout: bool = False,
+        random_val_fraction: float = 0.0,
     ):
         self.tokenizer = tokenizer
         self.max_seq_len = max_seq_len
@@ -105,22 +140,32 @@ class ParallelUGFDataset(Dataset):
         if heldout_ids_path is not None:
             with open(heldout_ids_path) as f:
                 heldout_ids = set(json.load(f)["heldout_passage_ids"])
-            print(f"Hold-out: excluding {len(heldout_ids)} passage IDs from {heldout_ids_path}")
 
-        n_skipped_heldout = 0
+        n_skipped = 0
         with open(data_path, "r", encoding="utf-8") as f:
             for line in f:
                 record = json.loads(line)
                 if filter_compliant and not record.get("compliant", True):
                     continue
-                if record.get("id") in heldout_ids:
-                    n_skipped_heldout += 1
-                    continue
+                rid = record.get("id", "")
+                is_heldout = (
+                    (rid in heldout_ids)
+                    or _stable_hash_in_val(rid, random_val_fraction)
+                )
+                if include_only_heldout:
+                    if not is_heldout:
+                        n_skipped += 1
+                        continue
+                else:
+                    if is_heldout:
+                        n_skipped += 1
+                        continue
                 text = record.get("ugf", "")
                 if text and len(text.split()) >= 10:
                     self.records.append(text)
-        if heldout_ids_path is not None:
-            print(f"Hold-out: skipped {n_skipped_heldout} records")
+        if (heldout_ids_path is not None or random_val_fraction > 0) and n_skipped:
+            mode = "kept-only" if include_only_heldout else "skipped"
+            print(f"Hold-out: {mode} {n_skipped} records ({data_path})")
 
     def __len__(self) -> int:
         return len(self.records)
