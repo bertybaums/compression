@@ -35,6 +35,7 @@ from eval.training_probes import (
     generate_samples,
     compute_probe_metrics,
     write_samples_log,
+    write_rank_freq,
 )
 
 
@@ -391,16 +392,19 @@ def main():
                 )
                 metrics = compute_probe_metrics(samples, tokenizer)
                 out_path = write_samples_log(samples, step, sample_log_dir)
+                rf_path = write_rank_freq(metrics, step, sample_log_dir, tokenizer)
                 print(
                     f"  probe[step={step}]: unk_rate={metrics['unk_rate']:.4f} "
                     f"unique={metrics['unique_tokens']} "
                     f"coverage={metrics['coverage']:.3f} "
+                    f"zipf_slope={metrics['zipf_slope']:.3f} "
                     f"-> {out_path}"
                 )
                 if writer:
                     writer.add_scalar("probe/unk_rate", metrics["unk_rate"], step)
                     writer.add_scalar("probe/unique_tokens", metrics["unique_tokens"], step)
                     writer.add_scalar("probe/coverage", metrics["coverage"], step)
+                    writer.add_scalar("probe/zipf_slope", metrics["zipf_slope"], step)
 
             model.train()
 

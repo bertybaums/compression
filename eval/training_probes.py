@@ -15,7 +15,17 @@ modes a held-out PPL number alone would miss:
     over a sample of generations. Low entropy = model has collapsed to a
     small subset of the vocabulary (a few stock phrases).
 
+  - Zipf slope: log-rank vs. log-frequency OLS slope on the top-N tokens.
+    Natural English is ~ -1. A much-shallower (closer to 0) slope = uniform
+    use across vocabulary; a much-steeper slope = collapse to a few stock
+    tokens. Tracking this over training surfaces emergent power-law
+    structure (cf. Ramji et al. 2026, "Thinking Without Words", Figure 4 —
+    they find Zipfian emerges over abstract vocab during RL).
+
   - Sample generations themselves: written to disk for human inspection.
+
+  - Token rank-frequency table: written to disk per step, so we can plot the
+    distribution evolution over training without re-running.
 
 The "compliance rate" metric you'd expect here is structurally 100% — the
 output head is sized to the UGF vocab so the model literally cannot emit a
@@ -82,8 +92,35 @@ def generate_samples(
     return out
 
 
-def compute_probe_metrics(samples: list[dict], tokenizer) -> dict[str, float]:
-    """Compute UNK rate and vocabulary-coverage entropy across the sample set."""
+def _zipf_slope(sorted_counts: list[int], top_n: int = 200) -> float:
+    """Fit log(rank) vs log(frequency) with simple OLS on the top-N tokens.
+
+    Returns the slope. For natural English this is ~ -1 (Zipf's law).
+    Closer to 0 = flatter / more uniform usage.
+    More negative than -1 = sharper concentration on top tokens.
+    Returns 0.0 if there's not enough data to fit (< 5 distinct tokens).
+    """
+    pos_counts = [c for c in sorted_counts if c > 0]
+    n = min(len(pos_counts), top_n)
+    if n < 5:
+        return 0.0
+    log_ranks = [math.log(r + 1) for r in range(n)]   # rank 1, 2, ..., n
+    log_freqs = [math.log(c) for c in pos_counts[:n]]
+    mean_x = sum(log_ranks) / n
+    mean_y = sum(log_freqs) / n
+    num = sum((log_ranks[i] - mean_x) * (log_freqs[i] - mean_y) for i in range(n))
+    den = sum((log_ranks[i] - mean_x) ** 2 for i in range(n))
+    if den == 0:
+        return 0.0
+    return num / den
+
+
+def compute_probe_metrics(samples: list[dict], tokenizer) -> dict:
+    """Compute UNK rate, vocabulary-coverage entropy, and Zipf slope.
+
+    Returns a dict with scalar metrics plus a `rank_freq` list (top-100
+    [token_id, count] entries) for offline plotting.
+    """
     unk_id = tokenizer.unk_token_id
     special_ids = {
         tokenizer.pad_token_id, tokenizer.bos_token_id,
@@ -117,16 +154,22 @@ def compute_probe_metrics(samples: list[dict], tokenizer) -> dict[str, float]:
         for c in counts.values():
             p = c / total
             h -= p * math.log(p)
-        # Normalize: max entropy is log(vocab_size) — but practical max is
-        # log(distinct_tokens). We report raw entropy + a coverage ratio
-        # vs. log(vocab_size).
         max_h = math.log(tokenizer.vocab_size)
         coverage = h / max_h if max_h > 0 else 0.0
         unique_tokens = len(counts)
+
+        # Zipf rank-frequency: sort counts descending, fit log-rank vs log-freq
+        sorted_counts = sorted(counts.values(), reverse=True)
+        zipf_slope = _zipf_slope(sorted_counts, top_n=200)
+        # Top-100 (token_id, count) for offline analysis. Convert to list of pairs.
+        sorted_items = sorted(counts.items(), key=lambda kv: kv[1], reverse=True)[:100]
+        rank_freq = [[int(tid), int(c)] for tid, c in sorted_items]
     else:
         h = 0.0
         coverage = 0.0
         unique_tokens = 0
+        zipf_slope = 0.0
+        rank_freq = []
 
     return {
         "unk_rate": unk_rate,
@@ -134,6 +177,8 @@ def compute_probe_metrics(samples: list[dict], tokenizer) -> dict[str, float]:
         "coverage": coverage,           # h / log(vocab_size), in [0, 1]
         "unique_tokens": unique_tokens,
         "n_total_tokens": n_total,
+        "zipf_slope": zipf_slope,       # ~ -1 for natural English
+        "rank_freq": rank_freq,         # top-100 [token_id, count] for plotting
     }
 
 
@@ -150,4 +195,32 @@ def write_samples_log(samples: list[dict], step: int, log_dir: str | Path) -> Pa
             f.write(f"PROMPT: {s['prompt']}\n\n")
             f.write(f"COMPLETION: {s['completion_text']}\n")
             f.write("\n" + "-" * 70 + "\n\n")
+    return out_path
+
+
+def write_rank_freq(metrics: dict, step: int, log_dir: str | Path, tokenizer) -> Path:
+    """Append a per-step rank-frequency snapshot for offline plotting.
+
+    Format: one JSON line per step in `rank_freq.jsonl`. Includes the top-100
+    [token_str, count] pairs and summary metrics so a plotting script can
+    pull the file and reconstruct the distribution evolution.
+    """
+    log_dir = Path(log_dir)
+    log_dir.mkdir(parents=True, exist_ok=True)
+    out_path = log_dir / "rank_freq.jsonl"
+    rf_with_strings = [
+        [tokenizer.convert_ids_to_tokens(tid), c]
+        for tid, c in metrics.get("rank_freq", [])
+    ]
+    record = {
+        "step": step,
+        "zipf_slope": metrics.get("zipf_slope", 0.0),
+        "entropy_nats": metrics.get("entropy_nats", 0.0),
+        "coverage": metrics.get("coverage", 0.0),
+        "unique_tokens": metrics.get("unique_tokens", 0),
+        "n_total_tokens": metrics.get("n_total_tokens", 0),
+        "rank_freq": rf_with_strings,
+    }
+    with open(out_path, "a", encoding="utf-8") as f:
+        f.write(json.dumps(record, ensure_ascii=False) + "\n")
     return out_path
