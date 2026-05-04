@@ -11,7 +11,7 @@ mindrouter:
   # Client-side global rate limiter used by generate_reasoning.py.
   # MR's enforced cap shows as ~200 req/min and is shared across all campus
   # users. We self-impose a lower ceiling to leave headroom.
-  max_req_per_minute: 100
+  max_req_per_minute: 200
   burst_capacity: 10
 
   # Teacher ensemble for reasoning-trace generation (used by generate_reasoning.py).
@@ -32,14 +32,15 @@ mindrouter:
   # since MR has no per-account token quota.
   reasoning_teachers:
     - id: openai/gpt-oss-120b
-      weight: 40
-      max_concurrent: 10
+      weight: 15
+      max_concurrent: 20
       max_tokens_overhead: 8192
       reasoning_effort: medium
-    - id: google/gemma-4-26b
-      weight: 60
-      max_concurrent: 12
+    - id: qwen/qwen3.6-27b
+      weight: 85
+      max_concurrent: 30
       max_tokens_overhead: 4096
+      enable_thinking: false   # ~16x faster than thinking mode; relies on retry loop for compliance
 
 generation:
   # Parallel corpus (English <-> UGF translations)

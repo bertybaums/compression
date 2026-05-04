@@ -378,6 +378,14 @@ async def api_call(
     if "reasoning_effort" in teacher:
         payload["reasoning_effort"] = teacher["reasoning_effort"]
 
+    # Optional Qwen-style thinking-mode control (e.g. qwen3.6 models):
+    # teacher config may set "enable_thinking": true|false to control whether
+    # the model emits a hidden reasoning_content trace before content. Setting
+    # false yields ~16x faster calls but more vocabulary violations (relies on
+    # the retry loop to fix). MR honors this on qwen3.6-{27,35}b as of 2026-04-30.
+    if "enable_thinking" in teacher:
+        payload["chat_template_kwargs"] = {"enable_thinking": teacher["enable_thinking"]}
+
     tag = teacher["id"].split("/")[-1][:20]
     for attempt in range(MAX_RETRIES):
         async with semaphore:
@@ -412,6 +420,24 @@ async def api_call(
     return None
 
 
+
+# Few-shot exemplars: 2 short compliant traces from the existing corpus, picked
+# to span content_type templates (chain_of_thought + concept_explanation). Anchor
+# qwen-style models on the right register. Tested 2026-04-30: Variant C (few-shot
+# + enable_thinking=false) reduced qwen mean violations 10.0 -> 4.0.
+# Each entry: (rendered_user_prompt, compliant_response).
+FEWSHOT_EXEMPLARS = [
+    (
+        CONTENT_TYPES["chain_of_thought"].format(topic="how a story about one person does not tell us about everyone"),
+        "First, we see that a story tells about the one person in it. Then we notice that each person can have a different life and can think and feel in ways that are not the same as the one in the story. This means that the one story does not give us enough facts to know about all people. Next, we think that to know about many people we would need many stories or many times we see people. This shows that using only one story to say how all people are would be a bad idea. Finally, we understand that a story about one person can still be good to learn about that person, but it does not tell us about everyone.",
+    ),
+    (
+        CONTENT_TYPES["concept_explanation"].format(topic="when one person doing something first changes what others do"),
+        "First, when a person does something, the rest of the people can see it. When they see it, they may choose to do the same thing or do some other thing. The first act can make a line of people change what they do. This can happen because the rest of the people think the first act shows a good way, or because they do not want to be left out. Now the rest of the people may change again when another person does something new. All the people can see how one act can make a big change in what many people do. This means that the first thing a person does can shape what the rest of the people will do.",
+    ),
+]
+
+
 async def generate_one(
     session: aiohttp.ClientSession,
     assignment: dict,
@@ -422,10 +448,12 @@ async def generate_one(
     prompt_template = CONTENT_TYPES[assignment["content_type"]]
     user_prompt = prompt_template.format(topic=assignment["topic"])
 
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": user_prompt},
-    ]
+    messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+    # Inject few-shot exemplars between system and user prompt.
+    for ex_user, ex_assistant in FEWSHOT_EXEMPLARS:
+        messages.append({"role": "user", "content": ex_user})
+        messages.append({"role": "assistant", "content": ex_assistant})
+    messages.append({"role": "user", "content": user_prompt})
 
     ugf_text = await api_call(session, messages, teacher, semaphore)
     if ugf_text is None:
@@ -516,7 +544,7 @@ async def main(
     progress_path = progress_path or DEFAULT_PROGRESS_PATH
 
     assignments = generate_topic_assignments(n_total)
-    assign_teachers(assignments, TEACHERS, equal=equal_teacher_weights)
+    assign_teachers(assignments, TEACHERS, seed=43, equal=equal_teacher_weights)  # seed=43 breaks correlation with 42-seed historical assignments so all 3 teachers get fresh uniform shares of remaining work
 
     completed_ids = load_progress(progress_path)
     remaining = [a for a in assignments if a["id"] not in completed_ids]
