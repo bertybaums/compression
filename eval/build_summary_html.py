@@ -88,7 +88,114 @@ code { font-family: 'SF Mono', Menlo, monospace; font-size: 0.92em;
   text-decoration: none; color: #2a4a75;
 }
 .report-link:hover { background: #d4e2f0; }
+
+/* Representative samples */
+details.sample {
+  margin: 1em 0; border: 1px solid #ccd;
+  border-radius: 6px; padding: 0.6em 1em; background: #fafbff;
+}
+details.sample summary {
+  cursor: pointer; font-weight: 600;
+  color: #1a4a75; padding: 0.2em 0;
+}
+details.sample summary:hover { color: #0a2a55; }
+.sample-id { font-family: 'SF Mono', Menlo, monospace; color: #888;
+              font-weight: normal; margin-right: 0.5em; font-size: 0.9em; }
+.sample-type-tag {
+  display: inline-block; background: #e0e8f5; color: #2a4a75;
+  padding: 0.1em 0.5em; border-radius: 3px; font-size: 0.78em;
+  margin-right: 0.5em; font-family: 'SF Mono', Menlo, monospace;
+  font-weight: normal;
+}
+.qa-block { margin: 0.6em 0; }
+.qa-label { font-size: 0.85em; color: #555; font-weight: 600; margin: 0.4em 0 0.2em 0; }
+.qa-content {
+  background: #ffffff; padding: 0.5em 0.8em; border-radius: 4px;
+  border: 1px solid #e0e0e0; white-space: pre-wrap;
+  font-size: 0.92em;
+}
+.qa-content.expected { background: #fdf8e8; border-color: #d4c890; }
+.qa-content.reasoner { background: #f4fbf3; border-color: #b0d4b0; }
+.qa-content.comparator { background: #f0f4f9; border-color: #b0c4d4; }
+.pipeline-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.8em; margin: 0.4em 0;
+}
+.pipeline-row > div > .qa-label { margin-top: 0; }
+.note-link { font-size: 0.85em; color: #888; }
 """
+
+
+def pick_samples(items_r, items_c, type_picks):
+    """For each (type, prefer_short) tuple, pick the first item from that type.
+
+    Returns a list of (reasoner_item, comparator_item) tuples.
+    """
+    r_by_type = defaultdict(list)
+    for it in items_r:
+        r_by_type[it.get("type", "")].append(it)
+    c_by_id = {it["id"]: it for it in items_c}
+    out = []
+    for t, prefer_short in type_picks:
+        candidates = r_by_type.get(t, [])
+        if not candidates:
+            continue
+        if prefer_short:
+            shortish = [c for c in candidates if words(c.get("english_response", "")) < 20]
+            chosen = shortish[0] if shortish else candidates[0]
+        else:
+            chosen = candidates[0]
+        comp = c_by_id.get(chosen["id"])
+        if comp:
+            out.append((chosen, comp))
+    return out
+
+
+def render_sample(reasoner_item, comparator_item, bench_label):
+    """Render one representative sample as a collapsible <details>."""
+    r = reasoner_item
+    c = comparator_item
+    iid = r.get("id", "?")
+    t = r.get("type", "?")
+    question = r.get("question", "")
+    expected = r.get("expected_answer", "")
+
+    P = []
+    P.append(f'<details class="sample">')
+    q_short = question[:140] + ("..." if len(question) > 140 else "")
+    P.append(
+        f'<summary>'
+        f'<span class="sample-id">{html.escape(iid)}</span>'
+        f'<span class="sample-type-tag">{html.escape(t)}</span>'
+        f'{html.escape(q_short)}'
+        f'</summary>'
+    )
+    P.append('<div class="qa-block">')
+    P.append('<div class="qa-label">Question</div>')
+    P.append(f'<div class="qa-content">{html.escape(question)}</div>')
+    P.append('</div>')
+
+    P.append('<div class="qa-block">')
+    P.append(f'<div class="qa-label">Expected answer ({"corpus heldout teacher trace" if "heldout" in bench_label else "textbook"})</div>')
+    expected_short = expected if len(expected) < 600 else expected[:600] + "…"
+    P.append(f'<div class="qa-content expected">{html.escape(expected_short)}</div>')
+    P.append('</div>')
+
+    P.append('<div class="pipeline-row">')
+    P.append('<div>')
+    P.append('<div class="qa-label">Reasoner pipeline (final English)</div>')
+    r_eng = r.get("english_response", "") or "<empty>"
+    P.append(f'<div class="qa-content reasoner">{html.escape(r_eng)}</div>')
+    P.append('</div>')
+
+    P.append('<div>')
+    P.append('<div class="qa-label">Teacher-in-UGF comparator (final English)</div>')
+    c_eng = c.get("english_response", "") or "<empty>"
+    P.append(f'<div class="qa-content comparator">{html.escape(c_eng)}</div>')
+    P.append('</div>')
+    P.append('</div>')
+
+    P.append('</details>')
+    return "\n".join(P)
 
 
 def render(tb_r, tb_c, ho_r, ho_c, out_path):
@@ -173,6 +280,36 @@ def render(tb_r, tb_c, ho_r, ho_c, out_path):
     P.append('<div class="box success">')
     P.append("<p><strong>Key observation:</strong> the Reasoner's failure rate drops from <strong>7.0% → 0.6%</strong> when moving from the chatbot pipeline (textbook) to direct prompting (holdout). The Reasoner produces <em>more</em> English-side content than the comparator on holdout (204 vs 180 mean words), and <em>less</em> on textbook (159 vs 175). The 30+ word reduction in the textbook setting is consistent with truncated / short / off-topic Reasoner outputs that don't survive the round-trip through the Translator.</p>")
     P.append("</div>")
+
+    # Representative samples
+    P.append("<h2>Representative samples</h2>")
+    P.append("<p>A handful of actual outputs across types, picked to span the kinds of behavior visible in the full reports. Click to expand.</p>")
+
+    # Textbook samples — pick from 4 different types, biased to show pipeline failures
+    textbook_picks = [
+        ("statement_vs_nonstatement", False),     # simple categorization
+        ("statistical_fallacy", True),            # Reasoner short-rate is high here
+        ("analogical_argument_strength", False),  # long-form
+        ("identify_argument", False),             # substantive
+    ]
+    textbook_samples = pick_samples(tb_r, tb_c, textbook_picks)
+    P.append("<h3>Textbook benchmark samples (full pipeline through Translator)</h3>")
+    P.append('<p class="subtle">Each example shows a student-style English question, the textbook expected answer, and the final English response from each pipeline. The full intermediate stages (UGF query, wrapped prompt, UGF response) are in <a href="report_logic_textbook.html">report_logic_textbook.html</a>.</p>')
+    for r, c in textbook_samples:
+        P.append(render_sample(r, c, "textbook"))
+
+    # Holdout samples — pick from 4 types where Reasoner shines or is competitive
+    holdout_picks = [
+        ("concept_explanation", False),       # Reasoner produces 2x comparator length here
+        ("chain_of_thought", False),           # Reasoner produces 1.5x
+        ("counterexample_analysis", False),    # cxbot - largest category
+        ("conditional_analysis", False),       # misccorpora
+    ]
+    holdout_samples = pick_samples(ho_r, ho_c, holdout_picks)
+    P.append("<h3>Holdout benchmark samples (Reasoner alone, no Translator(En→UGF))</h3>")
+    P.append('<p class="subtle">Each example shows a corpus-style prompt fed directly to the Reasoner (skipping the English→UGF translation, since these are already in the training-distribution format). The expected answer is the held-out trace from the corpus. Full intermediates in <a href="report_holdout.html">report_holdout.html</a>.</p>')
+    for r, c in holdout_samples:
+        P.append(render_sample(r, c, "heldout"))
 
     # Per-type holdout
     P.append("<h2>Per-type holdout (where the Reasoner shines)</h2>")

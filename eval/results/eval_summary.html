@@ -33,10 +33,44 @@ code { font-family: 'SF Mono', Menlo, monospace; font-size: 0.92em;
   text-decoration: none; color: #2a4a75;
 }
 .report-link:hover { background: #d4e2f0; }
+
+/* Representative samples */
+details.sample {
+  margin: 1em 0; border: 1px solid #ccd;
+  border-radius: 6px; padding: 0.6em 1em; background: #fafbff;
+}
+details.sample summary {
+  cursor: pointer; font-weight: 600;
+  color: #1a4a75; padding: 0.2em 0;
+}
+details.sample summary:hover { color: #0a2a55; }
+.sample-id { font-family: 'SF Mono', Menlo, monospace; color: #888;
+              font-weight: normal; margin-right: 0.5em; font-size: 0.9em; }
+.sample-type-tag {
+  display: inline-block; background: #e0e8f5; color: #2a4a75;
+  padding: 0.1em 0.5em; border-radius: 3px; font-size: 0.78em;
+  margin-right: 0.5em; font-family: 'SF Mono', Menlo, monospace;
+  font-weight: normal;
+}
+.qa-block { margin: 0.6em 0; }
+.qa-label { font-size: 0.85em; color: #555; font-weight: 600; margin: 0.4em 0 0.2em 0; }
+.qa-content {
+  background: #ffffff; padding: 0.5em 0.8em; border-radius: 4px;
+  border: 1px solid #e0e0e0; white-space: pre-wrap;
+  font-size: 0.92em;
+}
+.qa-content.expected { background: #fdf8e8; border-color: #d4c890; }
+.qa-content.reasoner { background: #f4fbf3; border-color: #b0d4b0; }
+.qa-content.comparator { background: #f0f4f9; border-color: #b0c4d4; }
+.pipeline-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.8em; margin: 0.4em 0;
+}
+.pipeline-row > div > .qa-label { margin-top: 0; }
+.note-link { font-size: 0.85em; color: #888; }
 </style>
 </head><body>
 <h1>Layer-2 evaluation: summary across two benchmarks</h1>
-<p class="subtle">Generated 2026-05-05 16:13:48.</p>
+<p class="subtle">Generated 2026-05-05 16:17:05.</p>
 <p>This page explains why the project evaluates the SFT Reasoner on <strong>two benchmarks that measure different things</strong>, summarizes headline numbers from each, and links to the detailed reports.</p>
 <h2>The two benchmarks measure different things</h2>
 <h3>Textbook benchmark (<code>logic_textbook_bench.jsonl</code>, 115 items)</h3>
@@ -87,6 +121,184 @@ code { font-family: 'SF Mono', Menlo, monospace; font-size: 0.92em;
 <div class="box success">
 <p><strong>Key observation:</strong> the Reasoner's failure rate drops from <strong>7.0% → 0.6%</strong> when moving from the chatbot pipeline (textbook) to direct prompting (holdout). The Reasoner produces <em>more</em> English-side content than the comparator on holdout (204 vs 180 mean words), and <em>less</em> on textbook (159 vs 175). The 30+ word reduction in the textbook setting is consistent with truncated / short / off-topic Reasoner outputs that don't survive the round-trip through the Translator.</p>
 </div>
+<h2>Representative samples</h2>
+<p>A handful of actual outputs across types, picked to span the kinds of behavior visible in the full reports. Click to expand.</p>
+<h3>Textbook benchmark samples (full pipeline through Translator)</h3>
+<p class="subtle">Each example shows a student-style English question, the textbook expected answer, and the final English response from each pipeline. The full intermediate stages (UGF query, wrapped prompt, UGF response) are in <a href="report_logic_textbook.html">report_logic_textbook.html</a>.</p>
+<details class="sample">
+<summary><span class="sample-id">logic-01-01</span><span class="sample-type-tag">statement_vs_nonstatement</span>No one understands me but you.</summary>
+<div class="qa-block">
+<div class="qa-label">Question</div>
+<div class="qa-content">No one understands me but you.</div>
+</div>
+<div class="qa-block">
+<div class="qa-label">Expected answer (textbook)</div>
+<div class="qa-content expected">Statement</div>
+</div>
+<div class="pipeline-row">
+<div>
+<div class="qa-label">Reasoner pipeline (final English)</div>
+<div class="qa-content reasoner">Imagine you are interviewing a person. This person tells you something about the world. You must decide whether to believe their testimony. This is a hard task because you cannot see inside their head to know if they are lying or if they are just guessing. To do this, you must evaluate the testimony and see if it is logically valid. First, you should look at the speaker&#x27;s testimony. Ask yourself whether they know what they are talking about. If they have seen the event with their own eyes, it is more likely they are true. If they have never seen it, you should be careful. Second, you should ask if they want you to believe them for an unrelated reason. If they want you to feel a certain way or want you to give them money, they might not be telling you the whole truth. Third, you must look at the testimony to see if it fits together. If the first premise makes the second impossible, then something is wrong. You should check if the premises match the established facts. If the conclusion contradicts all known facts, you should ignore it immediately. The third premise asks if others agree.</div>
+</div>
+<div>
+<div class="qa-label">Teacher-in-UGF comparator (final English)</div>
+<div class="qa-content comparator">Premises: 1. If a statement is a factual claim or opinion, then it is a valid deductive argument. 2. If the statement instead asks for something, tells someone to do something, or simply presents a claim without a testable claim, then it is not a valid deductive argument. 3. Applying this principle to the sentence &#x27;Nobody knows me but you.&#x27; We see that it says something about who knows the speaker. That statement is testable by checking who knows, making it valid or invalid. Since it is valid, it is a valid deductive argument. Conclusion: Therefore, the argument is a valid deductive argument.</div>
+</div>
+</div>
+</details>
+<details class="sample">
+<summary><span class="sample-id">logic-22-03</span><span class="sample-type-tag">statistical_fallacy</span>Tom counts and categorizes birds that land in the tree in his backyard every morning from 5:00-6:00 am. He counts mostly Mourning Doves and ...</summary>
+<div class="qa-block">
+<div class="qa-label">Question</div>
+<div class="qa-content">Tom counts and categorizes birds that land in the tree in his backyard every morning from 5:00-6:00 am. He counts mostly Mourning Doves and generalizes, “most birds that land in my tree during the 24-hour day are Mourning Doves.” 146</div>
+</div>
+<div class="qa-block">
+<div class="qa-label">Expected answer (textbook)</div>
+<div class="qa-content expected">Even more clearly than the previous example, this one is a biased sample: even if he has an adequate sample size, Tom needs to sample from different times of the day. It is likely that morning doves will be disproportionately represented in the morning, since they are more likely to be out in the morning than other kinds of birds.</div>
+</div>
+<div class="pipeline-row">
+<div>
+<div class="qa-label">Reasoner pipeline (final English)</div>
+<div class="qa-content reasoner">ERROR: In data-driven information, in decision-making information, exactly data-driven information, potential data-driven information.</div>
+</div>
+<div>
+<div class="qa-label">Teacher-in-UGF comparator (final English)</div>
+<div class="qa-content comparator">The first premise is that Tom observes the roosters in his garden every morning for a single hour and observes that 90% of the roosters he observes are roosters. This is true for the hour he observes, because his data shows that the number of roosters is larger than the number of other birds during that hour. The second premise is that because 90% of roosters are roosters, 90% of roosters must also be roosters. This conclusion follows necessarily from the first premise only if the hour he observes matches the day, which is not proven by his experience. The third premise is the conclusion about whether the second premise is a valid deductive argument. It is invalid because it takes a small amount of observation and tells us about a much larger number of hours. The rest of the day could contain many other kinds of roosters that do not appear in the one hour he chose, making the conclusion unsupported by the evidence he has. Specifically, the fact that Tom observed primarily roosters in one hour is true, the conclusion that this means 90% of all roosters are roosters does not follow, and the reasoning behind that leap is not a valid deductive argument. It would be better to observe longer or different times before making a conclusion about the whole day.</div>
+</div>
+</div>
+</details>
+<details class="sample">
+<summary><span class="sample-id">logic-24-01</span><span class="sample-type-tag">analogical_argument_strength</span>Every painting by Rembrandt contains dark colors and illuminated faces, therefore the original painting that hangs in my high school is prob...</summary>
+<div class="qa-block">
+<div class="qa-label">Question</div>
+<div class="qa-content">Every painting by Rembrandt contains dark colors and illuminated faces, therefore the original painting that hangs in my high school is probably by Rembrandt, since it contains dark colors and illuminated faces.</div>
+</div>
+<div class="qa-block">
+<div class="qa-label">Expected answer (textbook)</div>
+<div class="qa-content expected">Weak: if the painting is hanging in your high school, it probably isn’t a Rembrandt. That is the disanalogy: even if the colors are very similar, almost all Rembrandts hang in galleries, not in high schools.</div>
+</div>
+<div class="pipeline-row">
+<div>
+<div class="qa-label">Reasoner pipeline (final English)</div>
+<div class="qa-content reasoner">Mara argues: &#x27;We need to know if Lira is the caretaker, because if she had it, it would be a possibility.&#x27;</div>
+</div>
+<div>
+<div class="qa-label">Teacher-in-UGF comparator (final English)</div>
+<div class="qa-content comparator">Premise 1 establishes that every artwork made by the artist &#x27;Red&#x27; is a claim about his experience in many known artworks. Premise 2 establishes that because the mural on the wall of my high school is also a mural, it is likely a artwork made by the artist. In other words, the speaker assumes that the overlap in those two features is sufficient to infer who made the artwork. In the context of this reasoning, we see a contradiction. The fact that two murals share a mural does not logically necessitate being from the same artist, because many other artists can also use murals in their work. Therefore, the jump from Premise 1 to Premise 2 is insufficient support. The reasoning is weak; it is a weak inference rule. Better to have additional clues (e.g., brush technique or time of production) before concluding the artwork is likely by the artist.</div>
+</div>
+</div>
+</details>
+<details class="sample">
+<summary><span class="sample-id">logic-02-01</span><span class="sample-type-tag">identify_argument</span>The woman in the hat is not a witch since witches have long noses and she doesn’t have a long nose.</summary>
+<div class="qa-block">
+<div class="qa-label">Question</div>
+<div class="qa-content">The woman in the hat is not a witch since witches have long noses and she doesn’t have a long nose.</div>
+</div>
+<div class="qa-block">
+<div class="qa-label">Expected answer (textbook)</div>
+<div class="qa-content expected">Argument. Conclusion: The woman in the hat is not a witch.</div>
+</div>
+<div class="pipeline-row">
+<div>
+<div class="qa-label">Reasoner pipeline (final English)</div>
+<div class="qa-content reasoner">Premises: (1) An argument is valid if it is factually supported, hear, or emotional. (2) An argument is valid if it is factually supported, not contradictory. (3) An argument can be valid even if the speaker is not a &#x27;better&#x27; or &#x27;better&#x27;. (4) The speaker may think the argument is valid, or it is invalid, and reject the argument solely because of who made it. In this example, the speaker shifts from Premise 1 to a new claim: the truth of the argument depends on the evidence, not on the speaker&#x27;s character. (5) The validity of the argument depends on the evidence, not on the speaker&#x27;s character. (6) The validity of the argument depends on the evidence, not on the speaker&#x27;s character. (6) The validity of the argument depends on the evidence, not on the speaker&#x27;s character. (7) The validity of the argument depends on the evidence, not on the speaker&#x27;s character. (6) The validity of the argument depends on the evidence, not on the speaker&#x27;s character. (7) The validity of the argument depends on the evidence, not on the speaker&#x27;s character. (7) The validity of the argument depends on the evidence, not on the speaker&#x27;s character. (7) The reasoning also helps identify arguments that fit the evidence, avoiding the fallacy of a false conclusion.</div>
+</div>
+<div>
+<div class="qa-label">Teacher-in-UGF comparator (final English)</div>
+<div class="qa-content comparator">The first premise (&#x27;There is a woman wearing a hat&#x27;) is a premise that she is NOT a member of the religion (since the members of the religion are stated to have sneezes, and the woman does not have sneezes). The premises establish that the fact about sneezes is a rule that tells us who belongs to the religion, which contradicts that rule. The second premise (&#x27;Therefore, the lack of a sneeze makes the woman not a member of the religion).&#x27; The third premise tests the validity of the deductive chain: it is valid only if the rule about sneezes is actually a rule that actually determines who belongs to the religion. If the rule is merely a belief and not a factual rule, the chain is weak. Furthermore, the chain assumes that having a sneeze is the only relevant factor for being in the religion, which may not be true. Thus, the reasoning can be valid if the rule is actually the only rule, but it can be invalid if the rule is merely a guess or if other factors are relevant.</div>
+</div>
+</div>
+</details>
+<h3>Holdout benchmark samples (Reasoner alone, no Translator(En→UGF))</h3>
+<p class="subtle">Each example shows a corpus-style prompt fed directly to the Reasoner (skipping the English→UGF translation, since these are already in the training-distribution format). The expected answer is the held-out trace from the corpus. Full intermediates in <a href="report_holdout.html">report_holdout.html</a>.</p>
+<details class="sample">
+<summary><span class="sample-id">reasoning-0191495</span><span class="sample-type-tag">concept_explanation</span>why sharing all you know is not always the best move</summary>
+<div class="qa-block">
+<div class="qa-label">Question</div>
+<div class="qa-content">why sharing all you know is not always the best move</div>
+</div>
+<div class="qa-block">
+<div class="qa-label">Expected answer (corpus heldout teacher trace)</div>
+<div class="qa-content expected">When you know something, it is a part of you. You might think that giving all your thoughts and all your ways of doing things to everyone is a good thing. You might think that if everyone knows everything, the whole world will be better. But there are many reasons why this is not always the best way to act.
+
+First, think about how people use what they know. Some people are good, but some people are not. If you give a way to make something that can do very much to someone who wants to hurt others, you have made a bad thing happen. You cannot know for sure how another person will use your though…</div>
+</div>
+<div class="pipeline-row">
+<div>
+<div class="qa-label">Reasoner pipeline (final English)</div>
+<div class="qa-content reasoner">Assuming that sharing knowledge is a good thing is not always true. There are many reasons why sharing is selfreinforcing: (1) Everyone knows how to poison, and you tell everyone how to do it, you are helping the bandits. (2) Selfreinforcing is a safety measure; if the information could be poisoned, sharing could lead to great harm. (3) Social dynamics. In many societies, people have different ways of acting. If one person tells everyone their way of acting, the specific rule might fail any longer. If everyone knows the same thing at the same time, no one has a dominant strategy. This can lead to unnecessary coordination problems. If they cannot selfreinforcing, they might not be able to continue their duties. (4) The role of social dynamics is a coordination problem. Sometimes, a person or group works on something else that no one else knows.</div>
+</div>
+<div>
+<div class="qa-label">Teacher-in-UGF comparator (final English)</div>
+<div class="qa-content comparator">Premises: (1) We assume that if we inform others what they know, they can use those information to help them. (2) We observe that sometimes the others already have their own data that supports them, and listening to our data can make them doubt or distort the good practices they already use. (3) We notice that some data can be highly private or harmful if misled, so selfcensoring can protect them. (4) We understand that when a group is trying to negotiate, too many voices can push the group down or argue, and the optimal strategy can be lost in the noise. (5) We see that the rational choice is to evaluate each situation, consider who will need the data, how the data will be used, and whether presenting it will bring more benefit than the risk, because sharing everything is not always the best move.</div>
+</div>
+</div>
+</details>
+<details class="sample">
+<summary><span class="sample-id">reasoning-1770376</span><span class="sample-type-tag">chain_of_thought</span>why some deals hold together and others fall apart</summary>
+<div class="qa-block">
+<div class="qa-label">Question</div>
+<div class="qa-content">why some deals hold together and others fall apart</div>
+</div>
+<div class="qa-block">
+<div class="qa-label">Expected answer (corpus heldout teacher trace)</div>
+<div class="qa-content expected">First, we must look at what happens when two or more people agree to do something together. We can call this a way of working together to get something they both want. To see why some of these ways of working together stay strong and others break, we must look at what makes them work. First, we look at what each person gets from the work. If one person gets a lot and the other gets very little, the one who gets very little might feel it is not good to keep going. This can lead to them leaving or not doing what they said they would do. Second, we must look at what each person thinks the other p…</div>
+</div>
+<div class="pipeline-row">
+<div>
+<div class="qa-label">Reasoner pipeline (final English)</div>
+<div class="qa-content reasoner">Premises: (1) We must consider the consequences of a mutually beneficial agreement (e.g., a joint bargaining agreement). (2) We must evaluate the incentive structure (e.g., if both players earn a high payoff and the opponent earns almost nothing, the freerider will soon defect). (3) We must evaluate the trustworthiness of the opponent (e.g., if a player believes the opponent might cheat or cheat, they will refuse to cooperate). (4) We must evaluate the punishment mechanism (e.g., if there is no punishment mechanism, they might choose to cheat forever). (5) We must evaluate the cost of cheating (if it is too costly or too costly, they will stay cooperative). (6) We see that cooperation is stable when it is mutually beneficial.</div>
+</div>
+<div>
+<div class="qa-label">Teacher-in-UGF comparator (final English)</div>
+<div class="qa-content comparator">Premises: (1) An agreement is a commitment between two or more agents (e.g., a gain or a concern for the other), (2) A commitment can be broken when a player assumes the commitment is nonbinding, (3) a player assumes the commitment is nonbinding, and (4) a breach occurs when the commitment is nonbinding, (4) a breach occurs when the commitment is nonbinding, and (5) a breach occurs when the commitment is nonbinding. Conclusion: Commitment devices (e.g., transparent tradeoffs) are selfreinforcing, while vague, useless, or noncredible threats (e.g., lack of trust) are selfreinforcing.</div>
+</div>
+</div>
+</details>
+<details class="sample">
+<summary><span class="sample-id">cxbot-defcx-defcx-logic-consistency-4772-reasoning</span><span class="sample-type-tag">counterexample_analysis</span>counterexample to: A set of sentences is consistent if and only if there exists a model that satisf</summary>
+<div class="qa-block">
+<div class="qa-label">Question</div>
+<div class="qa-content">counterexample to: A set of sentences is consistent if and only if there exists a model that satisf</div>
+</div>
+<div class="qa-block">
+<div class="qa-label">Expected answer (corpus heldout teacher trace)</div>
+<div class="qa-content expected">One way to look at the thought of a group of lines that all work together is this: a group is called the thought that all its lines can be true at the same time if there is a picture that makes each line work, no line says the not of another line, and the group has an end. The first point is the most well known and the most liked by many people. The second point can be seen as enough (though maybe not needed) promise against a clear kind of the thought that something says the not of something else. The third point – having an end – might be thought of because groups with no end bring hard thin…</div>
+</div>
+<div class="pipeline-row">
+<div>
+<div class="qa-label">Reasoner pipeline (final English)</div>
+<div class="qa-content reasoner">Levelk thinking models bounded strategic reasoning. Level0 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level1 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes common knowledge. Level2 assumes</div>
+</div>
+<div>
+<div class="qa-label">Teacher-in-UGF comparator (final English)</div>
+<div class="qa-content comparator">Syllogus&#x27;s argument is deductive: if and only if there is a specific possible world where every word in the argument is true. In other words, he argues that the only way a statement can avoid any contradiction is when we can imagine a world where all are true simultaneously, and that if we can imagine such a world, the group must be uncontradictory. The second premise is that Syllogus then offers a specific case that contradicts the claim. He selects a set of statements that look like they have no contradiction when conditioned upon, but then concludes that we cannot find any possible world that makes the whole statement false. This is only valid if Syllogus actually proves a true contradiction. If Syllogus is built correctly and actually impossible to be true in any world, then the reasoning is strong and the original claim would indeed be false. However, if Syllogus actually does have a hidden possibility in some world, or if Syllogus&#x27;s definition of &#x27;uncontradictory&#x27; is not consistent with the standard definition, the derivation from Syllogus to the conclusion is weak. In that case, Syllogus&#x27;s reasoning would be invalid, because they would be using a mistaken example to knock down a claim that might still be true. Thus, the validity of the argument depends on whether the example actually proves a contradiction; if it does, the reasoning is strong, and if it doesn&#x27;t, the reasoning is flawed.</div>
+</div>
+</div>
+</details>
+<details class="sample">
+<summary><span class="sample-id">misc-conditionals-cond-indicative-moral-consequentialist-0027-reasoning</span><span class="sample-type-tag">conditional_analysis</span>indicative conditional, modus_ponens — consequentialist</summary>
+<div class="qa-block">
+<div class="qa-label">Question</div>
+<div class="qa-content">indicative conditional, modus_ponens — consequentialist</div>
+</div>
+<div class="qa-block">
+<div class="qa-label">Expected answer (corpus heldout teacher trace)</div>
+<div class="qa-content expected">The idea that we try to make the most good for the most people looks at plans by how they change the whole thing of good that people feel, and a big hard part is telling which good changes matter and how to count them.
+
+A plan to give money to all people all the time — a often give of money to every person no matter if they have a job or not — has been said to be good because it might make less the strong hold of bad job hold, make body feeling better for people who are poor or not sure about money, and do this without making big changes in the whole money way that would take away the good it …</div>
+</div>
+<div class="pipeline-row">
+<div>
+<div class="qa-label">Reasoner pipeline (final English)</div>
+<div class="qa-content reasoner">Behavioral game theory (Thaler, Rabin) is the tendency to accept or reject threats when a future interaction is known, assuming that because they will meet again, they will be more cautious about their current behavior, that the possibility of a future encounter creates a selffulfilling prophecy of mutual cooperation, and that trust in each other leads to cooperative outcomes, and that cooperation benefits both parties, and that the underlying reasoning is sound. It can be rational (e.g., reflects a clear, unified reputation structure) and can be irrational (ignoring the possibility of overharvesting or underregarding the future), or it can be irrational (relying on the assumption that a player must always be nice and never think of the future). Thus the reasoning is both rational and suboptimal.</div>
+</div>
+<div>
+<div class="qa-label">Teacher-in-UGF comparator (final English)</div>
+<div class="qa-content comparator">Syllogos&#x27;s argument is a valid deductive argument. In other words, it states a link between an event (A) and an event (B). Validity depends on whether the link actually exists in the world (A  B). Soundness (B  A) is true; if the link is false (B  A). Syllogos&#x27;s argument is deductive: because A has historically occurred, we can be certain that B will also occur (B  A). This step follows the rule correctly, so if A is true, the step to the conclusion is deductively valid. Lira&#x27;s argument is an inductive argument: we should evaluate the outcome (B) to determine if A was a good action. In plain language, it is arguing that what matters most is what happens after A. This inductive argument can be useful because it forces us to consider the actual outcomes of actions, but it can also be problematic if we ignore other factors like the reasons for the action or how people feel about it. Thus, the conclusion that B is the only relevant factor is not always a safe judgment, even though it can provide useful guidance in many contexts.</div>
+</div>
+</div>
+</details>
 <h2>Per-type holdout (where the Reasoner shines)</h2>
 <p>The Reasoner produces meaningfully <em>longer</em> output than the comparator on its training-distribution prompts in:</p>
 <table>
