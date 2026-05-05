@@ -44,14 +44,17 @@ training:
   sample_log_dir: logs/reasoner_sft/samples
 
 data:
-  # SFT requires content_type to format the prompt — only reasoning JSONLs are
-  # eligible. The parallel corpus (english <-> ugf pairs) has no content_type
-  # and is excluded from SFT; pretraining was the only place those examples
-  # appear.
+  # SFT requires content_type to format the prompt. Only ugf_reasoning.jsonl
+  # uses the 5 standard content_types from generate_reasoning.py
+  # (concept_explanation, chain_of_thought, socratic_dialogue,
+  # argument_analysis, thought_experiment). cxbot uses counterexample_analysis
+  # and misccorpora uses analogical_analysis / conditional_analysis — no
+  # generation templates available for those, so they're excluded from SFT v1.
+  # Pretraining already covered them. Future SFT versions could add explicit
+  # templates if those content types prove valuable.
+  # Parallel corpus has no content_type and is similarly excluded.
   train_paths:
     - corpus/processed/ugf_reasoning.jsonl
-    - corpus/processed/ugf_reasoning_cxbot.jsonl
-    - corpus/processed/ugf_reasoning_misccorpora.jsonl
 
   per_source_val: true
   sample_prompts_path: eval/sets/sample_prompts.jsonl
