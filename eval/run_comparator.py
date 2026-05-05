@@ -37,6 +37,50 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 
 # ============================================================================
+# Process-global async token bucket — defense-in-depth against rate over-shoot
+#
+# Mirrors the AsyncTokenBucket pattern in
+# corpus/generation/generate_reasoning.py. Required because concurrency-limit
+# alone gives only inferential rate compliance: with N concurrent workers and
+# per-call latency T, sustained rpm = N/T * 60. If MR-side latency drops
+# (e.g., backend warm-cache, fewer competing users) the rate jumps. The token
+# bucket enforces an absolute ceiling regardless of latency.
+#
+# Per project convention (memory/feedback_mindrouter_concurrency.md and the
+# project CLAUDE.md): MR enforces 200 req/min per-account; we self-impose a
+# lower ceiling (default 100 here) to leave headroom.
+# ============================================================================
+
+class AsyncTokenBucket:
+    """Shared async token bucket. Acquire blocks until a token is available."""
+
+    def __init__(self, rate_per_sec: float, burst: float):
+        self.rate = rate_per_sec
+        self.burst = max(1.0, burst)
+        self._tokens = self.burst
+        self._last_refill = time.monotonic()
+        self._lock = asyncio.Lock()
+
+    async def acquire(self) -> None:
+        while True:
+            wait_time = 0.0
+            async with self._lock:
+                now = time.monotonic()
+                elapsed = now - self._last_refill
+                self._tokens = min(self.burst, self._tokens + elapsed * self.rate)
+                self._last_refill = now
+                if self._tokens >= 1.0:
+                    self._tokens -= 1.0
+                    return
+                wait_time = (1.0 - self._tokens) / self.rate
+            await asyncio.sleep(wait_time)
+
+
+# Process-wide bucket — set in main_async() once we know the configured rate.
+_RATE_LIMITER: AsyncTokenBucket | None = None
+
+
+# ============================================================================
 # Constants — must match corpus/generation/generate_reasoning.py
 # (inlined here, not imported, because generate_reasoning.py reads .env and
 # config.yaml at module import time which we don't want here)
@@ -206,6 +250,11 @@ async def call_mr(
         "reasoning_effort": reasoning_effort,
     }
     async with semaphore:
+        # Acquire a rate-bucket token before firing. Blocks if we'd otherwise
+        # exceed --max-req-per-minute. Defense in depth on top of the
+        # concurrency limit.
+        if _RATE_LIMITER is not None:
+            await _RATE_LIMITER.acquire()
         t0 = time.time()
         try:
             async with session.post(
@@ -257,6 +306,12 @@ async def process_one(
 
 
 async def main_async(args):
+    # Initialize process-wide token bucket
+    global _RATE_LIMITER
+    rate_per_sec = args.max_req_per_minute / 60.0
+    _RATE_LIMITER = AsyncTokenBucket(rate_per_sec=rate_per_sec, burst=args.burst)
+    print(f"Rate limit: {args.max_req_per_minute} req/min, burst {args.burst}")
+
     # Load API key
     api_key = os.environ.get("MINDROUTER_API_KEY", "")
     if not api_key:
@@ -322,6 +377,11 @@ def main():
                         help="max_tokens overhead for gpt-oss-120b (with thinking)")
     parser.add_argument("--concurrency", type=int, default=5,
                         help="Concurrent MR calls (kept low for politeness)")
+    parser.add_argument("--max-req-per-minute", type=int, default=100,
+                        help="Hard rate ceiling enforced by token bucket "
+                             "(default: 100, well under MR's 200 cap)")
+    parser.add_argument("--burst", type=int, default=10,
+                        help="Token-bucket burst capacity")
     args = parser.parse_args()
     asyncio.run(main_async(args))
 
