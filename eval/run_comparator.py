@@ -191,6 +191,7 @@ FEWSHOT_EXEMPLARS = [
 
 # Same mapping as eval/run_logic_bench.py for parity
 BENCH_TYPE_TO_TEMPLATE = {
+    # textbook types
     "statement_vs_nonstatement":     "concept_explanation",
     "identify_argument":             "argument_analysis",
     "argument_vs_explanation":       "argument_analysis",
@@ -200,6 +201,16 @@ BENCH_TYPE_TO_TEMPLATE = {
     "statistical_fallacy":           "argument_analysis",
     "analogical_argument_strength":  "argument_analysis",
     "correlation_causation":         "argument_analysis",
+    # corpus content_type -> identity (for holdout benchmark)
+    "concept_explanation":           "concept_explanation",
+    "chain_of_thought":              "chain_of_thought",
+    "socratic_dialogue":             "socratic_dialogue",
+    "argument_analysis":             "argument_analysis",
+    "thought_experiment":            "thought_experiment",
+    # cxbot/misccorpora content_types fall back to argument_analysis
+    "counterexample_analysis":       "argument_analysis",
+    "analogical_analysis":           "argument_analysis",
+    "conditional_analysis":          "argument_analysis",
 }
 
 
@@ -220,7 +231,9 @@ def build_messages(item: dict) -> list[dict]:
     """
     template_name = BENCH_TYPE_TO_TEMPLATE.get(item["type"], "argument_analysis")
     template = CONTENT_TYPES[template_name]
-    english_query = f"{item['instruction']}\n\n{item['question']}"
+    instruction = (item.get("instruction") or "").strip()
+    question = item["question"].strip()
+    english_query = f"{instruction}\n\n{question}" if instruction else question
     user_content = template.format(topic=english_query)
 
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]

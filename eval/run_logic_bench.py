@@ -34,6 +34,7 @@ from tokenizer.ugf_tokenizer import UGFTokenizer
 # argument-analytic in form; sentence-classification (statement_vs_nonstatement)
 # fits concept_explanation better.
 BENCH_TYPE_TO_TEMPLATE = {
+    # textbook types -> CONTENT_TYPES keys
     "statement_vs_nonstatement":     "concept_explanation",
     "identify_argument":             "argument_analysis",
     "argument_vs_explanation":       "argument_analysis",
@@ -43,13 +44,28 @@ BENCH_TYPE_TO_TEMPLATE = {
     "statistical_fallacy":           "argument_analysis",
     "analogical_argument_strength":  "argument_analysis",
     "correlation_causation":         "argument_analysis",
+    # corpus content_type -> identity (for holdout benchmark)
+    "concept_explanation":           "concept_explanation",
+    "chain_of_thought":              "chain_of_thought",
+    "socratic_dialogue":             "socratic_dialogue",
+    "argument_analysis":             "argument_analysis",
+    "thought_experiment":            "thought_experiment",
+    # cxbot/misccorpora content_types fall back to argument_analysis
+    "counterexample_analysis":       "argument_analysis",
+    "analogical_analysis":           "argument_analysis",
+    "conditional_analysis":          "argument_analysis",
 }
 
 
 def build_user_query_english(item: dict) -> str:
     """Construct the English query a 'student' would ask, combining
-    instruction + specific question."""
-    return f"{item['instruction']}\n\n{item['question']}"
+    instruction + specific question. If instruction is empty (holdout
+    benchmark format), just returns the question."""
+    instruction = (item.get("instruction") or "").strip()
+    question = item["question"].strip()
+    if instruction:
+        return f"{instruction}\n\n{question}"
+    return question
 
 
 def wrap_in_template(ugf_query: str, content_type: str) -> str:
@@ -92,6 +108,10 @@ def main():
     parser.add_argument("--temperature", type=float, default=0.8)
     parser.add_argument("--top-k", type=int, default=50)
     parser.add_argument("--top-p", type=float, default=0.9)
+    parser.add_argument("--skip-translate-en2ugf", action="store_true",
+                        help="Skip Translator(English->UGF) — feed query directly "
+                             "as UGF (use when bench questions are already UGF-formatted, "
+                             "e.g., the holdout corpus).")
     args = parser.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -139,11 +159,14 @@ def main():
             t0 = time.time()
             english_query = build_user_query_english(item)
 
-            # English -> UGF (Translator)
-            try:
-                ugf_query = translator.to_ugf(english_query)
-            except Exception as e:
-                ugf_query = f"<TRANSLATOR_ERROR: {e}>"
+            # English -> UGF (Translator) — unless caller asked to skip it
+            if args.skip_translate_en2ugf:
+                ugf_query = english_query  # already UGF/simple-English
+            else:
+                try:
+                    ugf_query = translator.to_ugf(english_query)
+                except Exception as e:
+                    ugf_query = f"<TRANSLATOR_ERROR: {e}>"
 
             # Wrap in CONTENT_TYPES template
             template_name = BENCH_TYPE_TO_TEMPLATE.get(item["type"], "argument_analysis")
