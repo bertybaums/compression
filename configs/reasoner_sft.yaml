@@ -1,0 +1,63 @@
+# Reasoner SFT (Phase 2) configuration
+#
+# Initializes from a Phase-1 pretrain checkpoint (resume via SLURM script's
+# --resume flag) and fine-tunes with explicit (prompt, response) pairs using
+# the same CONTENT_TYPES templates that drove corpus generation. Loss masks
+# prompt tokens so it only flows from the response.
+#
+# Path conventions (strict separation from pretrain):
+#   - checkpoint_dir: checkpoints/reasoner_sft_v1   (vs pretrain: reasoner_pretrain_v1)
+#   - log_dir:        logs/reasoner_sft             (vs pretrain: logs/reasoner_pretrain_v1)
+#   - sample_log_dir: logs/reasoner_sft/samples
+#   - dataset_type:   sft                            (vs pretrain: reasoning / parallel)
+
+model:
+  # MUST match the pretrain checkpoint architecture. We're loading those weights.
+  d_model: 1024
+  n_layers: 16
+  n_heads: 16
+  n_kv_heads: 4
+  d_ff: 3072
+  max_seq_len: 512
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  batch_size: 8
+  grad_accum_steps: 8        # effective batch = 64
+  max_lr: 5.0e-5             # 6x lower than pretrain's 3e-4 (typical SFT discount)
+  min_lr: 5.0e-6
+  weight_decay: 0.05         # lower than pretrain's 0.1
+  warmup_steps: 500          # short — starting from a good init
+  max_steps: 30000           # ~1 epoch over ~1.96M (prompt, response) pairs at effective batch 64
+  gradient_checkpointing: true
+  use_amp: true
+
+  log_interval: 50
+  save_interval: 2000
+  eval_interval: 500
+  sample_probe_every_n_evals: 4
+
+  max_checkpoints: 3
+  checkpoint_dir: checkpoints/reasoner_sft_v1
+  log_dir: logs/reasoner_sft
+  sample_log_dir: logs/reasoner_sft/samples
+
+data:
+  # SFT requires content_type to format the prompt — only reasoning JSONLs are
+  # eligible. The parallel corpus (english <-> ugf pairs) has no content_type
+  # and is excluded from SFT; pretraining was the only place those examples
+  # appear.
+  train_paths:
+    - corpus/processed/ugf_reasoning.jsonl
+    - corpus/processed/ugf_reasoning_cxbot.jsonl
+    - corpus/processed/ugf_reasoning_misccorpora.jsonl
+
+  per_source_val: true
+  sample_prompts_path: eval/sets/sample_prompts.jsonl
+
+  dataset_type: sft
+  num_workers: 4
+
+  heldout_ids_path: corpus/processed/heldout_ids.json
+  random_val_fraction: 0.05
