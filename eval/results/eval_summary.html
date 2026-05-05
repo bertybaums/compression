@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Layer-2 evaluation summary</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 960px; margin: 0 auto; padding: 1.5em 2em;
+  color: #222; line-height: 1.55;
+}
+h1 { border-bottom: 2px solid #888; padding-bottom: 0.3em; }
+h2 { border-bottom: 1px solid #ccc; padding-bottom: 0.2em; margin-top: 2em; }
+h3 { color: #1a4a75; margin-top: 1.5em; }
+table { border-collapse: collapse; margin: 1em 0; width: 100%; }
+th, td { border: 1px solid #ccc; padding: 0.5em 0.8em; text-align: left; }
+th { background: #f5f5f5; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.highlight { background: #fff7e0; }
+.subtle { color: #777; font-size: 0.9em; }
+.box {
+  background: #f8fafd; border-left: 4px solid #4a6fa5;
+  padding: 0.8em 1.2em; margin: 1em 0;
+}
+.box.warn { background: #fff7ee; border-left-color: #d97; }
+.box.success { background: #f4fbf3; border-left-color: #5a8c5a; }
+code { font-family: 'SF Mono', Menlo, monospace; font-size: 0.92em;
+       background: #f0f0f0; padding: 0.1em 0.4em; border-radius: 3px; }
+.pipeline-arrow { color: #888; font-style: italic; font-size: 0.92em; }
+.report-link {
+  display: inline-block; margin: 0.4em 0;
+  background: #e8f0fa; padding: 0.4em 0.8em; border-radius: 4px;
+  text-decoration: none; color: #2a4a75;
+}
+.report-link:hover { background: #d4e2f0; }
+</style>
+</head><body>
+<h1>Layer-2 evaluation: summary across two benchmarks</h1>
+<p class="subtle">Generated 2026-05-05 16:13:48.</p>
+<p>This page explains why the project evaluates the SFT Reasoner on <strong>two benchmarks that measure different things</strong>, summarizes headline numbers from each, and links to the detailed reports.</p>
+<h2>The two benchmarks measure different things</h2>
+<h3>Textbook benchmark (<code>logic_textbook_bench.jsonl</code>, 115 items)</h3>
+<div class="box">
+<p><strong>Question it answers:</strong> if a student types a plain English logic-textbook question into the chatbot, can the <em>full pipeline</em> produce a useful answer?</p>
+<p><strong>What it stresses:</strong></p>
+<ul>
+<li>The <strong>whole user-facing system</strong>: English in, English out</li>
+<li>Translator(English → UGF) on out-of-distribution input (proper nouns, technical phrasing)</li>
+<li>Reasoner on prompts whose <em>content</em> is in distribution but whose <em>form</em> (wrapped in CONTENT_TYPES around a translated query) is slightly off-distribution</li>
+<li>Translator(UGF → English) on Reasoner output</li>
+</ul>
+<p><strong>Pipeline:</strong></p>
+<p class="pipeline-arrow">English question → Translator(En→UGF) → wrap in CONTENT_TYPES template → SFT Reasoner → UGF response → Translator(UGF→En) → English response</p>
+</div>
+<h3>Holdout benchmark (<code>holdout_bench.jsonl</code>, 170 items)</h3>
+<div class="box">
+<p><strong>Question it answers:</strong> if we feed the Reasoner exactly the kind of prompt it was trained on, does it produce something teacher-quality?</p>
+<p><strong>What it stresses:</strong></p>
+<ul>
+<li>The <strong>Reasoner alone</strong>, isolated from Translator-induced distribution shift</li>
+<li>Whether the Reasoner has internalized the teacher distribution well enough to reproduce equivalent traces on <em>held-out</em> topics</li>
+</ul>
+<p><strong>Pipeline:</strong></p>
+<p class="pipeline-arrow">(already-formatted prompt from corpus) → SFT Reasoner → UGF response → Translator(UGF→En) → English response</p>
+<p>The Translator(En → UGF) step is <em>skipped</em> (<code>--skip-translate-en2ugf</code>) because holdout prompts are already in the corpus prompt format.</p>
+</div>
+<h3>Why the two together is informative</h3>
+<p>The benchmarks decompose the Reasoner-vs-pipeline question:</p>
+<table>
+<tr><th>holdout</th><th>textbook</th><th>implication</th></tr>
+<tr><td>strong</td><td>strong</td><td>full system works</td></tr>
+<tr class="highlight"><td><strong>strong</strong></td><td><strong>weak</strong></td><td><strong>Reasoner is fine; chatbot pipeline is the bottleneck</strong></td></tr>
+<tr><td>weak</td><td>strong</td><td>unlikely (Reasoner doesn't reproduce its training but works on harder input)</td></tr>
+<tr><td>weak</td><td>weak</td><td>Reasoner needs more training</td></tr>
+</table>
+<p>What we observe falls in the highlighted row.</p>
+<h2>Headline numbers</h2>
+<table>
+<tr><th>metric</th><th>Reasoner (textbook)</th><th>Comparator (textbook)</th><th>Reasoner (holdout)</th><th>Comparator (holdout)</th></tr>
+<tr><td>n</td><td class='num'>115</td><td class='num'>115</td><td class='num'>170</td><td class='num'>170</td></tr>
+<tr class='highlight'><td>Short responses (&lt;20 words)</td><td class='num'><strong>8 (7.0%)</strong></td><td class='num'>0 (0.0%)</td><td class='num'><strong>1 (0.6%)</strong></td><td class='num'>0 (0.0%)</td></tr>
+<tr><td>English response mean words</td><td class='num'>159</td><td class='num'>175</td><td class='num'><strong>204</strong></td><td class='num'>180</td></tr>
+<tr><td>English response median words</td><td class='num'>158</td><td class='num'>165</td><td class='num'>184</td><td class='num'>173</td></tr>
+<tr><td>UGF response mean words</td><td class='num'>205</td><td class='num'>236</td><td class='num'>233</td><td class='num'>257</td></tr>
+<tr><td>Median per-item latency (s)</td><td class='num'>7.8</td><td class='num'>6.9</td><td class='num'>7.1</td><td class='num'>7.8</td></tr>
+</table>
+<div class="box success">
+<p><strong>Key observation:</strong> the Reasoner's failure rate drops from <strong>7.0% → 0.6%</strong> when moving from the chatbot pipeline (textbook) to direct prompting (holdout). The Reasoner produces <em>more</em> English-side content than the comparator on holdout (204 vs 180 mean words), and <em>less</em> on textbook (159 vs 175). The 30+ word reduction in the textbook setting is consistent with truncated / short / off-topic Reasoner outputs that don't survive the round-trip through the Translator.</p>
+</div>
+<h2>Per-type holdout (where the Reasoner shines)</h2>
+<p>The Reasoner produces meaningfully <em>longer</em> output than the comparator on its training-distribution prompts in:</p>
+<table>
+<tr><th>type</th><th>n</th><th>Reasoner mean words</th><th>Comparator mean words</th><th>difference</th></tr>
+<tr class='highlight'><td><code>concept_explanation</code></td><td class='num'>25</td><td class='num'>241</td><td class='num'>128</td><td class='num'>+112</td></tr>
+<tr class='highlight'><td><code>socratic_dialogue</code></td><td class='num'>15</td><td class='num'>212</td><td class='num'>154</td><td class='num'>+58</td></tr>
+<tr class='highlight'><td><code>chain_of_thought</code></td><td class='num'>14</td><td class='num'>146</td><td class='num'>98</td><td class='num'>+48</td></tr>
+<tr class='highlight'><td><code>conditional_analysis</code></td><td class='num'>27</td><td class='num'>201</td><td class='num'>166</td><td class='num'>+35</td></tr>
+<tr class=''><td><code>thought_experiment</code></td><td class='num'>7</td><td class='num'>242</td><td class='num'>222</td><td class='num'>+20</td></tr>
+<tr class=''><td><code>argument_analysis</code></td><td class='num'>9</td><td class='num'>214</td><td class='num'>203</td><td class='num'>+11</td></tr>
+<tr class=''><td><code>analogical_analysis</code></td><td class='num'>23</td><td class='num'>189</td><td class='num'>204</td><td class='num'>-15</td></tr>
+<tr class=''><td><code>counterexample_analysis</code></td><td class='num'>50</td><td class='num'>201</td><td class='num'>223</td><td class='num'>-22</td></tr>
+</table>
+<p class='subtle'>Highlighted rows: Reasoner produces &gt;30 more words than comparator on average. Even the negative gaps are within roughly 1 standard deviation of length variance.</p>
+<h2>Implications for next steps</h2>
+<ul>
+<li><strong>The holdout result is encouraging:</strong> the SFT Reasoner is doing approximately what we want within its training distribution. It produces traces of comparable length and (qualitatively, from sample inspection) comparable structure to the gpt-oss-120b teacher under the same UGF system prompt.</li>
+<li><strong>The textbook result identifies the chatbot pipeline as the next thing to improve</strong>, specifically:
+<ul>
+<li>Translator(English → UGF) on out-of-distribution natural-English questions (proper nouns lost, wording simplified)</li>
+<li>Translator(UGF → English) hallucinating proper names ('Mara', 'Lira', 'Thorne') when given UGF that contains 'the first person' / 'the second person' patterns</li>
+<li>The wrapping-then-Translator-then-Reasoner-then-Translator chain may compound minor distortions</li>
+</ul></li>
+<li>These are <strong>fixable independently</strong>: the Reasoner doesn't need re-training right now; the Translator and the prompt-formatting between Translator and Reasoner do.</li>
+<li>Layer 3 LLM-judge scoring (when we run it) will turn these length/short-rate observations into per-dimension rubric scores. The rubric (engagement, coherence, substance, expressive_adequacy) will pick up quality differences that length doesn't capture.</li>
+</ul>
+<h2>Detailed reports</h2>
+<table>
+<tr><th>file</th><th>what's in it</th></tr>
+<tr><td><a class="report-link" href="report_logic_textbook.html">report_logic_textbook.html</a></td><td>Interactive textbook-benchmark report (115 items, full pipeline detail per item, filters, search)</td></tr>
+<tr><td><a class="report-link" href="report_logic_textbook.md">report_logic_textbook.md</a></td><td>Markdown version of the textbook report</td></tr>
+<tr><td><a class="report-link" href="report_holdout.html">report_holdout.html</a></td><td>Interactive holdout-benchmark report (170 items, full pipeline detail per item, filters, search)</td></tr>
+<tr><td><a class="report-link" href="report_holdout.md">report_holdout.md</a></td><td>Markdown version of the holdout report</td></tr>
+<tr><td><a class="report-link" href="eval_summary.md">eval_summary.md</a></td><td>Markdown version of this summary</td></tr>
+</table>
+<p class='subtle'>Both detailed HTML reports are self-contained — open them in any browser, no server needed. Each has filter dropdowns (by type, &quot;only short responses&quot;, free-text search) and per-type collapsible sections.</p>
+</body></html>
