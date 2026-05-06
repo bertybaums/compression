@@ -1,0 +1,863 @@
+{
+  "summaries": {
+    "reasoner_textbook": {
+      "label": "reasoner_textbook",
+      "expected_n": 115,
+      "received_n": 115,
+      "scored_n": 115,
+      "per_dim_mean": {
+        "engagement": 0.278,
+        "coherence": 1.791,
+        "substance": 1.104,
+        "expressive_adequacy": 1.748
+      },
+      "per_dim_hist": {
+        "engagement": {
+          "0": 93,
+          "1": 15,
+          "2": 4,
+          "3": 3,
+          "4": 0
+        },
+        "coherence": {
+          "0": 22,
+          "1": 32,
+          "2": 18,
+          "3": 34,
+          "4": 9
+        },
+        "substance": {
+          "0": 47,
+          "1": 25,
+          "2": 31,
+          "3": 8,
+          "4": 4
+        },
+        "expressive_adequacy": {
+          "0": 26,
+          "1": 28,
+          "2": 20,
+          "3": 31,
+          "4": 10
+        }
+      },
+      "per_type": {
+        "statement_vs_nonstatement": {
+          "n": 15,
+          "mean": {
+            "engagement": 0,
+            "coherence": 2.2,
+            "substance": 1.467,
+            "expressive_adequacy": 2.333
+          }
+        },
+        "identify_argument": {
+          "n": 15,
+          "mean": {
+            "engagement": 0.133,
+            "coherence": 2.667,
+            "substance": 2,
+            "expressive_adequacy": 2.667
+          }
+        },
+        "argument_vs_explanation": {
+          "n": 10,
+          "mean": {
+            "engagement": 0,
+            "coherence": 2.6,
+            "substance": 2.2,
+            "expressive_adequacy": 2.5
+          }
+        },
+        "validity_judgment": {
+          "n": 10,
+          "mean": {
+            "engagement": 0.2,
+            "coherence": 1,
+            "substance": 0.3,
+            "expressive_adequacy": 1.1
+          }
+        },
+        "missing_premise": {
+          "n": 15,
+          "mean": {
+            "engagement": 0.067,
+            "coherence": 2,
+            "substance": 1.067,
+            "expressive_adequacy": 2
+          }
+        },
+        "rhetorical_technique": {
+          "n": 10,
+          "mean": {
+            "engagement": 0.1,
+            "coherence": 1.9,
+            "substance": 0.7,
+            "expressive_adequacy": 1.6
+          }
+        },
+        "statistical_fallacy": {
+          "n": 15,
+          "mean": {
+            "engagement": 0.4,
+            "coherence": 0.6,
+            "substance": 0.267,
+            "expressive_adequacy": 0.467
+          }
+        },
+        "analogical_argument_strength": {
+          "n": 15,
+          "mean": {
+            "engagement": 0.467,
+            "coherence": 1.6,
+            "substance": 0.867,
+            "expressive_adequacy": 1.467
+          }
+        },
+        "correlation_causation": {
+          "n": 10,
+          "mean": {
+            "engagement": 1.3,
+            "coherence": 1.5,
+            "substance": 1,
+            "expressive_adequacy": 1.5
+          }
+        }
+      }
+    },
+    "comparator_textbook": {
+      "label": "comparator_textbook",
+      "expected_n": 115,
+      "received_n": 115,
+      "scored_n": 115,
+      "per_dim_mean": {
+        "engagement": 3.635,
+        "coherence": 3.835,
+        "substance": 2.983,
+        "expressive_adequacy": 3.678
+      },
+      "per_dim_hist": {
+        "engagement": {
+          "0": 0,
+          "1": 4,
+          "2": 7,
+          "3": 16,
+          "4": 88
+        },
+        "coherence": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 19,
+          "4": 96
+        },
+        "substance": {
+          "0": 0,
+          "1": 2,
+          "2": 24,
+          "3": 63,
+          "4": 26
+        },
+        "expressive_adequacy": {
+          "0": 0,
+          "1": 0,
+          "2": 2,
+          "3": 33,
+          "4": 80
+        }
+      },
+      "per_type": {
+        "statistical_fallacy": {
+          "n": 15,
+          "mean": {
+            "engagement": 4,
+            "coherence": 4,
+            "substance": 3.333,
+            "expressive_adequacy": 3.867
+          }
+        },
+        "validity_judgment": {
+          "n": 10,
+          "mean": {
+            "engagement": 4,
+            "coherence": 3.9,
+            "substance": 3.4,
+            "expressive_adequacy": 3.9
+          }
+        },
+        "correlation_causation": {
+          "n": 10,
+          "mean": {
+            "engagement": 3,
+            "coherence": 3.8,
+            "substance": 3,
+            "expressive_adequacy": 3.7
+          }
+        },
+        "rhetorical_technique": {
+          "n": 10,
+          "mean": {
+            "engagement": 3,
+            "coherence": 3.6,
+            "substance": 2.9,
+            "expressive_adequacy": 3.3
+          }
+        },
+        "identify_argument": {
+          "n": 15,
+          "mean": {
+            "engagement": 3.133,
+            "coherence": 3.6,
+            "substance": 2.667,
+            "expressive_adequacy": 3.467
+          }
+        },
+        "statement_vs_nonstatement": {
+          "n": 15,
+          "mean": {
+            "engagement": 3.933,
+            "coherence": 3.8,
+            "substance": 2.2,
+            "expressive_adequacy": 3.467
+          }
+        },
+        "analogical_argument_strength": {
+          "n": 15,
+          "mean": {
+            "engagement": 4,
+            "coherence": 3.933,
+            "substance": 3.4,
+            "expressive_adequacy": 4
+          }
+        },
+        "missing_premise": {
+          "n": 15,
+          "mean": {
+            "engagement": 3.867,
+            "coherence": 4,
+            "substance": 3.267,
+            "expressive_adequacy": 3.8
+          }
+        },
+        "argument_vs_explanation": {
+          "n": 10,
+          "mean": {
+            "engagement": 3.4,
+            "coherence": 3.8,
+            "substance": 2.7,
+            "expressive_adequacy": 3.5
+          }
+        }
+      }
+    },
+    "reasoner_holdout": {
+      "label": "reasoner_holdout",
+      "expected_n": 170,
+      "received_n": 170,
+      "scored_n": 170,
+      "per_dim_mean": {
+        "engagement": 2.082,
+        "coherence": 3.341,
+        "substance": 2.259,
+        "expressive_adequacy": 3.171
+      },
+      "per_dim_hist": {
+        "engagement": {
+          "0": 46,
+          "1": 25,
+          "2": 22,
+          "3": 23,
+          "4": 54
+        },
+        "coherence": {
+          "0": 0,
+          "1": 2,
+          "2": 18,
+          "3": 70,
+          "4": 80
+        },
+        "substance": {
+          "0": 16,
+          "1": 22,
+          "2": 38,
+          "3": 90,
+          "4": 4
+        },
+        "expressive_adequacy": {
+          "0": 0,
+          "1": 2,
+          "2": 19,
+          "3": 97,
+          "4": 52
+        }
+      },
+      "per_type": {
+        "thought_experiment": {
+          "n": 7,
+          "mean": {
+            "engagement": 3.857,
+            "coherence": 3.286,
+            "substance": 2.714,
+            "expressive_adequacy": 3.571
+          }
+        },
+        "socratic_dialogue": {
+          "n": 15,
+          "mean": {
+            "engagement": 3.6,
+            "coherence": 3.533,
+            "substance": 2.667,
+            "expressive_adequacy": 3.533
+          }
+        },
+        "concept_explanation": {
+          "n": 25,
+          "mean": {
+            "engagement": 3.88,
+            "coherence": 3.6,
+            "substance": 2.92,
+            "expressive_adequacy": 3.72
+          }
+        },
+        "chain_of_thought": {
+          "n": 14,
+          "mean": {
+            "engagement": 3.643,
+            "coherence": 2.857,
+            "substance": 2.857,
+            "expressive_adequacy": 3.071
+          }
+        },
+        "argument_analysis": {
+          "n": 9,
+          "mean": {
+            "engagement": 3.667,
+            "coherence": 3.667,
+            "substance": 2.667,
+            "expressive_adequacy": 3.556
+          }
+        },
+        "counterexample_analysis": {
+          "n": 50,
+          "mean": {
+            "engagement": 0.08,
+            "coherence": 3.28,
+            "substance": 1.42,
+            "expressive_adequacy": 2.78
+          }
+        },
+        "conditional_analysis": {
+          "n": 27,
+          "mean": {
+            "engagement": 1.704,
+            "coherence": 3.333,
+            "substance": 2.407,
+            "expressive_adequacy": 3.074
+          }
+        },
+        "analogical_analysis": {
+          "n": 23,
+          "mean": {
+            "engagement": 1.826,
+            "coherence": 3.261,
+            "substance": 2.261,
+            "expressive_adequacy": 3.087
+          }
+        }
+      }
+    },
+    "comparator_holdout": {
+      "label": "comparator_holdout",
+      "expected_n": 170,
+      "received_n": 170,
+      "scored_n": 170,
+      "per_dim_mean": {
+        "engagement": 3.612,
+        "coherence": 3.771,
+        "substance": 2.671,
+        "expressive_adequacy": 3.547
+      },
+      "per_dim_hist": {
+        "engagement": {
+          "0": 1,
+          "1": 1,
+          "2": 3,
+          "3": 53,
+          "4": 112
+        },
+        "coherence": {
+          "0": 0,
+          "1": 0,
+          "2": 3,
+          "3": 33,
+          "4": 134
+        },
+        "substance": {
+          "0": 2,
+          "1": 11,
+          "2": 57,
+          "3": 71,
+          "4": 29
+        },
+        "expressive_adequacy": {
+          "0": 0,
+          "1": 0,
+          "2": 11,
+          "3": 55,
+          "4": 104
+        }
+      },
+      "per_type": {
+        "concept_explanation": {
+          "n": 25,
+          "mean": {
+            "engagement": 3.56,
+            "coherence": 3.72,
+            "substance": 2.16,
+            "expressive_adequacy": 3.8
+          }
+        },
+        "conditional_analysis": {
+          "n": 27,
+          "mean": {
+            "engagement": 3.778,
+            "coherence": 3.778,
+            "substance": 3.111,
+            "expressive_adequacy": 3.63
+          }
+        },
+        "argument_analysis": {
+          "n": 9,
+          "mean": {
+            "engagement": 4,
+            "coherence": 4,
+            "substance": 3.111,
+            "expressive_adequacy": 4
+          }
+        },
+        "counterexample_analysis": {
+          "n": 50,
+          "mean": {
+            "engagement": 3.42,
+            "coherence": 3.7,
+            "substance": 2.58,
+            "expressive_adequacy": 3.1
+          }
+        },
+        "socratic_dialogue": {
+          "n": 15,
+          "mean": {
+            "engagement": 3.733,
+            "coherence": 3.733,
+            "substance": 2.333,
+            "expressive_adequacy": 3.867
+          }
+        },
+        "chain_of_thought": {
+          "n": 14,
+          "mean": {
+            "engagement": 3.929,
+            "coherence": 3.714,
+            "substance": 2.643,
+            "expressive_adequacy": 3.571
+          }
+        },
+        "thought_experiment": {
+          "n": 7,
+          "mean": {
+            "engagement": 3.857,
+            "coherence": 3.857,
+            "substance": 3.143,
+            "expressive_adequacy": 4
+          }
+        },
+        "analogical_analysis": {
+          "n": 23,
+          "mean": {
+            "engagement": 3.391,
+            "coherence": 3.913,
+            "substance": 2.826,
+            "expressive_adequacy": 3.609
+          }
+        }
+      }
+    }
+  },
+  "deltas": {
+    "textbook": {
+      "engagement": -3.357,
+      "coherence": -2.044,
+      "substance": -1.879,
+      "expressive_adequacy": -1.93
+    },
+    "holdout": {
+      "engagement": -1.53,
+      "coherence": -0.43,
+      "substance": -0.412,
+      "expressive_adequacy": -0.376
+    }
+  },
+  "per_type_deltas": {
+    "textbook": {
+      "analogical_argument_strength": {
+        "n": 15,
+        "delta": {
+          "engagement": -3.533,
+          "coherence": -2.333,
+          "substance": -2.533,
+          "expressive_adequacy": -2.533
+        },
+        "reasoner_mean": {
+          "engagement": 0.467,
+          "coherence": 1.6,
+          "substance": 0.867,
+          "expressive_adequacy": 1.467
+        },
+        "comparator_mean": {
+          "engagement": 4,
+          "coherence": 3.933,
+          "substance": 3.4,
+          "expressive_adequacy": 4
+        }
+      },
+      "argument_vs_explanation": {
+        "n": 10,
+        "delta": {
+          "engagement": -3.4,
+          "coherence": -1.2,
+          "substance": -0.5,
+          "expressive_adequacy": -1.0
+        },
+        "reasoner_mean": {
+          "engagement": 0,
+          "coherence": 2.6,
+          "substance": 2.2,
+          "expressive_adequacy": 2.5
+        },
+        "comparator_mean": {
+          "engagement": 3.4,
+          "coherence": 3.8,
+          "substance": 2.7,
+          "expressive_adequacy": 3.5
+        }
+      },
+      "correlation_causation": {
+        "n": 10,
+        "delta": {
+          "engagement": -1.7,
+          "coherence": -2.3,
+          "substance": -2,
+          "expressive_adequacy": -2.2
+        },
+        "reasoner_mean": {
+          "engagement": 1.3,
+          "coherence": 1.5,
+          "substance": 1,
+          "expressive_adequacy": 1.5
+        },
+        "comparator_mean": {
+          "engagement": 3,
+          "coherence": 3.8,
+          "substance": 3,
+          "expressive_adequacy": 3.7
+        }
+      },
+      "identify_argument": {
+        "n": 15,
+        "delta": {
+          "engagement": -3.0,
+          "coherence": -0.933,
+          "substance": -0.667,
+          "expressive_adequacy": -0.8
+        },
+        "reasoner_mean": {
+          "engagement": 0.133,
+          "coherence": 2.667,
+          "substance": 2,
+          "expressive_adequacy": 2.667
+        },
+        "comparator_mean": {
+          "engagement": 3.133,
+          "coherence": 3.6,
+          "substance": 2.667,
+          "expressive_adequacy": 3.467
+        }
+      },
+      "missing_premise": {
+        "n": 15,
+        "delta": {
+          "engagement": -3.8,
+          "coherence": -2,
+          "substance": -2.2,
+          "expressive_adequacy": -1.8
+        },
+        "reasoner_mean": {
+          "engagement": 0.067,
+          "coherence": 2,
+          "substance": 1.067,
+          "expressive_adequacy": 2
+        },
+        "comparator_mean": {
+          "engagement": 3.867,
+          "coherence": 4,
+          "substance": 3.267,
+          "expressive_adequacy": 3.8
+        }
+      },
+      "rhetorical_technique": {
+        "n": 10,
+        "delta": {
+          "engagement": -2.9,
+          "coherence": -1.7,
+          "substance": -2.2,
+          "expressive_adequacy": -1.7
+        },
+        "reasoner_mean": {
+          "engagement": 0.1,
+          "coherence": 1.9,
+          "substance": 0.7,
+          "expressive_adequacy": 1.6
+        },
+        "comparator_mean": {
+          "engagement": 3,
+          "coherence": 3.6,
+          "substance": 2.9,
+          "expressive_adequacy": 3.3
+        }
+      },
+      "statement_vs_nonstatement": {
+        "n": 15,
+        "delta": {
+          "engagement": -3.933,
+          "coherence": -1.6,
+          "substance": -0.733,
+          "expressive_adequacy": -1.134
+        },
+        "reasoner_mean": {
+          "engagement": 0,
+          "coherence": 2.2,
+          "substance": 1.467,
+          "expressive_adequacy": 2.333
+        },
+        "comparator_mean": {
+          "engagement": 3.933,
+          "coherence": 3.8,
+          "substance": 2.2,
+          "expressive_adequacy": 3.467
+        }
+      },
+      "statistical_fallacy": {
+        "n": 15,
+        "delta": {
+          "engagement": -3.6,
+          "coherence": -3.4,
+          "substance": -3.066,
+          "expressive_adequacy": -3.4
+        },
+        "reasoner_mean": {
+          "engagement": 0.4,
+          "coherence": 0.6,
+          "substance": 0.267,
+          "expressive_adequacy": 0.467
+        },
+        "comparator_mean": {
+          "engagement": 4,
+          "coherence": 4,
+          "substance": 3.333,
+          "expressive_adequacy": 3.867
+        }
+      },
+      "validity_judgment": {
+        "n": 10,
+        "delta": {
+          "engagement": -3.8,
+          "coherence": -2.9,
+          "substance": -3.1,
+          "expressive_adequacy": -2.8
+        },
+        "reasoner_mean": {
+          "engagement": 0.2,
+          "coherence": 1,
+          "substance": 0.3,
+          "expressive_adequacy": 1.1
+        },
+        "comparator_mean": {
+          "engagement": 4,
+          "coherence": 3.9,
+          "substance": 3.4,
+          "expressive_adequacy": 3.9
+        }
+      }
+    },
+    "holdout": {
+      "analogical_analysis": {
+        "n": 23,
+        "delta": {
+          "engagement": -1.565,
+          "coherence": -0.652,
+          "substance": -0.565,
+          "expressive_adequacy": -0.522
+        },
+        "reasoner_mean": {
+          "engagement": 1.826,
+          "coherence": 3.261,
+          "substance": 2.261,
+          "expressive_adequacy": 3.087
+        },
+        "comparator_mean": {
+          "engagement": 3.391,
+          "coherence": 3.913,
+          "substance": 2.826,
+          "expressive_adequacy": 3.609
+        }
+      },
+      "argument_analysis": {
+        "n": 9,
+        "delta": {
+          "engagement": -0.333,
+          "coherence": -0.333,
+          "substance": -0.444,
+          "expressive_adequacy": -0.444
+        },
+        "reasoner_mean": {
+          "engagement": 3.667,
+          "coherence": 3.667,
+          "substance": 2.667,
+          "expressive_adequacy": 3.556
+        },
+        "comparator_mean": {
+          "engagement": 4,
+          "coherence": 4,
+          "substance": 3.111,
+          "expressive_adequacy": 4
+        }
+      },
+      "chain_of_thought": {
+        "n": 14,
+        "delta": {
+          "engagement": -0.286,
+          "coherence": -0.857,
+          "substance": 0.214,
+          "expressive_adequacy": -0.5
+        },
+        "reasoner_mean": {
+          "engagement": 3.643,
+          "coherence": 2.857,
+          "substance": 2.857,
+          "expressive_adequacy": 3.071
+        },
+        "comparator_mean": {
+          "engagement": 3.929,
+          "coherence": 3.714,
+          "substance": 2.643,
+          "expressive_adequacy": 3.571
+        }
+      },
+      "concept_explanation": {
+        "n": 25,
+        "delta": {
+          "engagement": 0.32,
+          "coherence": -0.12,
+          "substance": 0.76,
+          "expressive_adequacy": -0.08
+        },
+        "reasoner_mean": {
+          "engagement": 3.88,
+          "coherence": 3.6,
+          "substance": 2.92,
+          "expressive_adequacy": 3.72
+        },
+        "comparator_mean": {
+          "engagement": 3.56,
+          "coherence": 3.72,
+          "substance": 2.16,
+          "expressive_adequacy": 3.8
+        }
+      },
+      "conditional_analysis": {
+        "n": 27,
+        "delta": {
+          "engagement": -2.074,
+          "coherence": -0.445,
+          "substance": -0.704,
+          "expressive_adequacy": -0.556
+        },
+        "reasoner_mean": {
+          "engagement": 1.704,
+          "coherence": 3.333,
+          "substance": 2.407,
+          "expressive_adequacy": 3.074
+        },
+        "comparator_mean": {
+          "engagement": 3.778,
+          "coherence": 3.778,
+          "substance": 3.111,
+          "expressive_adequacy": 3.63
+        }
+      },
+      "counterexample_analysis": {
+        "n": 50,
+        "delta": {
+          "engagement": -3.34,
+          "coherence": -0.42,
+          "substance": -1.16,
+          "expressive_adequacy": -0.32
+        },
+        "reasoner_mean": {
+          "engagement": 0.08,
+          "coherence": 3.28,
+          "substance": 1.42,
+          "expressive_adequacy": 2.78
+        },
+        "comparator_mean": {
+          "engagement": 3.42,
+          "coherence": 3.7,
+          "substance": 2.58,
+          "expressive_adequacy": 3.1
+        }
+      },
+      "socratic_dialogue": {
+        "n": 15,
+        "delta": {
+          "engagement": -0.133,
+          "coherence": -0.2,
+          "substance": 0.334,
+          "expressive_adequacy": -0.334
+        },
+        "reasoner_mean": {
+          "engagement": 3.6,
+          "coherence": 3.533,
+          "substance": 2.667,
+          "expressive_adequacy": 3.533
+        },
+        "comparator_mean": {
+          "engagement": 3.733,
+          "coherence": 3.733,
+          "substance": 2.333,
+          "expressive_adequacy": 3.867
+        }
+      },
+      "thought_experiment": {
+        "n": 7,
+        "delta": {
+          "engagement": 0.0,
+          "coherence": -0.571,
+          "substance": -0.429,
+          "expressive_adequacy": -0.429
+        },
+        "reasoner_mean": {
+          "engagement": 3.857,
+          "coherence": 3.286,
+          "substance": 2.714,
+          "expressive_adequacy": 3.571
+        },
+        "comparator_mean": {
+          "engagement": 3.857,
+          "coherence": 3.857,
+          "substance": 3.143,
+          "expressive_adequacy": 4
+        }
+      }
+    }
+  }
+}

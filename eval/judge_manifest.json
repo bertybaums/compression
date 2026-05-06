@@ -1,0 +1,114 @@
+[
+  {
+    "label": "reasoner_textbook",
+    "batch": 1,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/reasoner_textbook_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/reasoner_textbook_batch_01.jsonl"
+  },
+  {
+    "label": "reasoner_textbook",
+    "batch": 2,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/reasoner_textbook_batch_02.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/reasoner_textbook_batch_02.jsonl"
+  },
+  {
+    "label": "reasoner_textbook",
+    "batch": 3,
+    "n_items": 35,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/reasoner_textbook_batch_03.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/reasoner_textbook_batch_03.jsonl"
+  },
+  {
+    "label": "comparator_textbook",
+    "batch": 1,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/comparator_textbook_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/comparator_textbook_batch_01.jsonl"
+  },
+  {
+    "label": "comparator_textbook",
+    "batch": 2,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/comparator_textbook_batch_02.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/comparator_textbook_batch_02.jsonl"
+  },
+  {
+    "label": "comparator_textbook",
+    "batch": 3,
+    "n_items": 35,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/comparator_textbook_batch_03.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/comparator_textbook_batch_03.jsonl"
+  },
+  {
+    "label": "reasoner_holdout",
+    "batch": 1,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/reasoner_holdout_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/reasoner_holdout_batch_01.jsonl"
+  },
+  {
+    "label": "reasoner_holdout",
+    "batch": 2,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/reasoner_holdout_batch_02.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/reasoner_holdout_batch_02.jsonl"
+  },
+  {
+    "label": "reasoner_holdout",
+    "batch": 3,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/reasoner_holdout_batch_03.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/reasoner_holdout_batch_03.jsonl"
+  },
+  {
+    "label": "reasoner_holdout",
+    "batch": 4,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/reasoner_holdout_batch_04.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/reasoner_holdout_batch_04.jsonl"
+  },
+  {
+    "label": "reasoner_holdout",
+    "batch": 5,
+    "n_items": 10,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/reasoner_holdout_batch_05.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/reasoner_holdout_batch_05.jsonl"
+  },
+  {
+    "label": "comparator_holdout",
+    "batch": 1,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/comparator_holdout_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/comparator_holdout_batch_01.jsonl"
+  },
+  {
+    "label": "comparator_holdout",
+    "batch": 2,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/comparator_holdout_batch_02.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/comparator_holdout_batch_02.jsonl"
+  },
+  {
+    "label": "comparator_holdout",
+    "batch": 3,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/comparator_holdout_batch_03.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/comparator_holdout_batch_03.jsonl"
+  },
+  {
+    "label": "comparator_holdout",
+    "batch": 4,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/comparator_holdout_batch_04.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/comparator_holdout_batch_04.jsonl"
+  },
+  {
+    "label": "comparator_holdout",
+    "batch": 5,
+    "n_items": 10,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/comparator_holdout_batch_05.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/comparator_holdout_batch_05.jsonl"
+  }
+]

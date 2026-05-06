@@ -1,0 +1,272 @@
+{
+  "reasoner_textbook": {
+    "high": null,
+    "mid": {
+      "id": "logic-02-01",
+      "type": "identify_argument",
+      "english_query": "Identify whether each passage is an argument or not. If it is, identify its conclusion.\n\nThe woman in the hat is not a witch since witches have long noses and she doesn\u2019t have a long nose.",
+      "ugf_response": "First, the first idea says that a talk is true when it fits what we can see, hear, or feel. It says that a talk that fits the facts we have is a true talk, not a talk that does not fit the facts. The talk can be true even if the speaker is not a person who makes people think they are better or worse.\n\nSecond, the second idea says that because a talk is true does not fit the facts, we should think that the talk is not true just because the speaker is a person who makes people think they are better. The speaker may think that the talk is true, or that it is not true, and that we should say no to the talk just because of the one who made it. In this way the speaker moves from the first idea to a new thought: the truth of the talk is tied to the facts, not to the way the speaker acts.\n\nThird, the third idea looks at whether this way of thinking is good. It is good because it keeps us from putting together the two and makes us look at the words themselves. When we look at the words we can see if they fit what we know, and we do not let the way the speaker acts or feels stop us from seeing a true point. The thinking also helps us find ideas that fit the facts, so we do not end up with wrong ideas just because the speaker is liked. In",
+      "scores": {
+        "engagement": {
+          "score": 0,
+          "justification": "Prompt asks whether the witch passage is an argument and to identify the conclusion. Response instead expounds on speaker-vs-claim and correspondence \u2014 does not address argument identification."
+        },
+        "coherence": {
+          "score": 3,
+          "justification": "Three numbered ideas connect, building from correspondence theory to the conclusion that ad hominem is bad reasoning. Cuts off but readable."
+        },
+        "substance": {
+          "score": 2,
+          "justification": "Restates a familiar position but does not pull a non-obvious distinction or counterexample; gestures with light follow-through."
+        },
+        "expressive_adequacy": {
+          "score": 3,
+          "justification": "UGF carries the points adequately; some clunky paraphrases ('makes people think they are better or worse') but recoverable."
+        }
+      },
+      "notes": "Misses the analytical task entirely.",
+      "tier_count": 39
+    },
+    "low": {
+      "id": "logic-01-10",
+      "type": "statement_vs_nonstatement",
+      "english_query": "Identify whether each sentence is a statement (something that can be true or false) or not.\n\nSome things with wings cannot fly.",
+      "ugf_response": "the air that we breathe moves and people can feel the hurt of that air. We see that these things are not like the world we live in.",
+      "scores": {
+        "engagement": {
+          "score": 0,
+          "justification": "Prompt asks whether 'Some things with wings cannot fly' is a statement. Response is two short sentences about air and pain that bear no relation to the prompt."
+        },
+        "coherence": {
+          "score": 1,
+          "justification": "The two sentences barely connect to each other and certainly not to anything else. Fragmentary."
+        },
+        "substance": {
+          "score": 0,
+          "justification": "No work; truisms at best."
+        },
+        "expressive_adequacy": {
+          "score": 1,
+          "justification": "What little is said is opaque \u2014 'people can feel the hurt of that air' is unclear without charitable reading."
+        }
+      },
+      "notes": "Severe truncation or generation failure.",
+      "tier_count": 71
+    }
+  },
+  "comparator_textbook": {
+    "high": {
+      "id": "logic-22-11",
+      "type": "statistical_fallacy",
+      "english_query": "Identify what kind of problem, if any, the statistical generalization has.\n\nA high school principal conducts a survey of how satisfied students are with his high school by asking students in detention to fill out a satisfaction survey. Generalizing from that sample, he infers that 79% of students are dissatisfied with their high school experience. He is surprised and saddened by the result. 147",
+      "ugf_response": "The first idea is that the head teacher asked only the students who were being kept after class to answer a set of questions about how happy they feel with school. The second idea is that from the answers of that small group the head teacher says that about seventy nine out of every hundred students are not happy with school, and he feels surprised and sad about the thing that came out. The thinking that follows is that because this one small group gave that answer, the head teacher thinks the same answer must be true for all the students at the school. That thinking is not good because the group he asked is not like the whole school; the students who are kept after class are more likely to be upset, so using their answers to guess what all students think is a weak guess. A stronger guess would need answers from many different students, not just those who are being kept after class.",
+      "scores": {
+        "engagement": {
+          "score": 4,
+          "justification": "Identifies the problem \u2014 biased sample (only detention students)."
+        },
+        "coherence": {
+          "score": 4,
+          "justification": "Reasoning flows cleanly from observation to diagnosis."
+        },
+        "substance": {
+          "score": 4,
+          "justification": "Real work \u2014 explains why detention students are systematically more likely to be dissatisfied, naming the specific mechanism that biases the sample. Suggests the fix (a broader sample)."
+        },
+        "expressive_adequacy": {
+          "score": 4,
+          "justification": "Reads cleanly."
+        }
+      },
+      "notes": "",
+      "tier_count": 88
+    },
+    "mid": {
+      "id": "logic-26-08",
+      "type": "correlation_causation",
+      "english_query": "For each correlation, identify whether A causes B, B causes A, a common cause is at work, or the correlation is accidental.\n\nThe girth of an adult\u2019s waist (A) is negatively correlated with the height of their vertical leap (B).",
+      "ugf_response": "The first idea is that there is a pattern in which the size of a grown up\u2019s waist and the height that the same grown up can jump move in opposite ways. In other words, when the waist gets larger the jump height tends to get lower, and when the waist gets smaller the jump height tends to get higher. If this pattern shows up in the numbers that people have measured, then the first idea can be said to be true.\n\nThe second idea is that from this opposite pattern we should be able to say one of four things: either a bigger waist makes the jump height go down, or a higher jump makes the waist get smaller, or something else that both the waist size and the jump height share makes them move opposite, or the pattern is just something that happened by chance and does not mean anything. This is the claim that the first idea leads to a decision about which of those four possibilities is the right one.\n\nThe thinking that the second idea follows automatically from the first idea is not very good. Knowing that two things move opposite does not tell us which way the cause goes, whether there is a same cause, or whether it is just by chance. To tell the difference we would need more information, such as an experiment that changes waist size and watches jump height, or a study that looks for other things that affect both. Without that extra work, the step from the pattern to a claim about cause or chance is a weak step. So while the first idea may be true, the jump to the four possible explanations is not a solid piece of thinking.",
+      "scores": {
+        "engagement": {
+          "score": 2,
+          "justification": "Lists the four options but declines to pick. The expected answer is 'common cause' (overall fitness/body composition affects both)."
+        },
+        "coherence": {
+          "score": 4,
+          "justification": "Internally consistent."
+        },
+        "substance": {
+          "score": 2,
+          "justification": "Frames the four options correctly but does not develop the most plausible explanation (general fitness as common cause). Gestures at experiments and confounders without specifying."
+        },
+        "expressive_adequacy": {
+          "score": 4,
+          "justification": "UGF is clean; the negative correlation and four-options framing come through clearly."
+        }
+      },
+      "notes": "Same pattern as the other correlation prompts: refuses to commit.",
+      "tier_count": 18
+    },
+    "low": null
+  },
+  "reasoner_holdout": {
+    "high": {
+      "id": "reasoning-0051444",
+      "type": "thought_experiment",
+      "english_query": "how a group can agree on rules that are good for everyone",
+      "ugf_response": "a group of people wants to live or work together in one place. To stay safe and feel good, they must agree on how they will act. They must decide what is okay to do and what is not okay to do. If everyone does what they want without any thought for others, things will become bad. People might take things that do not belong to them, or they might hurt others to get what they want. This makes life hard and makes people feel fear.\n\nThe hard question is this. How can a group make a set of ways to act that are good for every person in that group? How do we know which ways are the best for everyone?\n\nFirst, some people might say that the best way is to do what makes the most people feel good. They think if a way of acting makes one hundred people feel good but makes ten people feel bad, it is still a good way to act. They look at how much good feeling there is in all and try to make that number as big as it can be. They think the group should do what helps the most people.\n\nSecond, other people might say that this is wrong. They think that every person is important and cannot be used just to make others feel good. They think that even if a way of acting makes many people feel good, it is bad if it hurts one person in a bad way. They",
+      "scores": {
+        "engagement": {
+          "score": 4,
+          "justification": "Engages the social-contract / rule-justification question directly and stages a real dialectic."
+        },
+        "coherence": {
+          "score": 4,
+          "justification": "Clean setup, then the consequentialist position, then a developing deontic-style critique \u2014 all internally consistent."
+        },
+        "substance": {
+          "score": 3,
+          "justification": "Sets up the utilitarian vs. rights-respecting tension cleanly; substantive philosophical staging, though truncated before resolution."
+        },
+        "expressive_adequacy": {
+          "score": 4,
+          "justification": "UGF reads naturally; the aggregation-vs-rights tension is recoverable cleanly."
+        }
+      },
+      "notes": "Truncated.",
+      "tier_count": 42
+    },
+    "mid": {
+      "id": "reasoning-1294236",
+      "type": "chain_of_thought",
+      "english_query": "why some deals hold together and others fall apart",
+      "ugf_response": "First, we see that a promise is a word that two or more people give each other. Then we note that a promise stays when the people in it trust each other and keep what they said they would do. This means that when the promise feels good for both sides, they try to keep it. Next, we see that a promise can break when one side does not keep what they said, when the other side does not give what was said, or when the thing that was given becomes too big for the one who did not give. This also means that if something changes in the world, like a new law or a new need, the promise may no longer fit the new situation. Then we see that a promise can break when the people do not feel the same about what they want, when they think the other side is not keeping their part, or when they think the other side is not keeping their part. This means that not being sure or not having trust can make a promise break. Also, we see that when the people have the power to do what they said, when they have a plan for the new state, and when they talk a lot about what they need to do, the promise can stay. When these things are not there, the promise can break. Finally, we see that the only way to keep a promise together is to keep trust, keep what they said, and have a plan for the new state;",
+      "scores": {
+        "engagement": {
+          "score": 3,
+          "justification": "Engages why agreements hold or fail, but with significant internal repetition rather than tight argument."
+        },
+        "coherence": {
+          "score": 2,
+          "justification": "One sentence repeats itself almost verbatim ('when they think the other side is not keeping their part, or when they think the other side is not keeping their part') \u2014 a clear coherence defect."
+        },
+        "substance": {
+          "score": 2,
+          "justification": "Names trust, mutual benefit, exogenous change, and capacity, which is a reasonable list, but does not develop any single thread or distinction."
+        },
+        "expressive_adequacy": {
+          "score": 3,
+          "justification": "UGF carries the points; the repetition is more of a generation defect than a vocabulary one."
+        }
+      },
+      "notes": "Verbatim repetition is a notable problem.",
+      "tier_count": 80
+    },
+    "low": {
+      "id": "cxbot-defcx-defcx-logic-consistency-4772-reasoning",
+      "type": "counterexample_analysis",
+      "english_query": "counterexample to: A set of sentences is consistent if and only if there exists a model that satisf",
+      "ugf_response": "The first idea is that a person can say the same thing many times. The second idea is that saying a thing many times does not make that thing become true. The person says that even if you say a thing one hundred times, it stays the same as it was before you started talking.\n\nThe thing that follows from these ideas is that we should not believe something just because we hear it many times. If we hear a thing over and over, we might think it is true, but we must look for other ways to know if it is true. We cannot let the number of times a thing is said change what we know to be true.\n\nThe way this person thinks is good. It is a good way to think because it keeps our minds from being made to believe things that are not true. If we only believe what we hear many times, we might believe things that are not true. By looking for other ways to know if a thing is true, we stay closer to what is actually true. This way of thinking helps us stay away from things that are not true.",
+      "scores": {
+        "engagement": {
+          "score": 0,
+          "justification": "The prompt asks for a counterexample to a biconditional definition of consistency in terms of model existence (a logic/semantics question), but the response answers a different prompt about repetition and truth."
+        },
+        "coherence": {
+          "score": 3,
+          "justification": "Internally the response on its own topic is coherent, but it is not the response to this prompt."
+        },
+        "substance": {
+          "score": 0,
+          "justification": "No engagement with the actual definitional target; no counterexample to the consistency biconditional is even attempted."
+        },
+        "expressive_adequacy": {
+          "score": 2,
+          "justification": "Cannot really assess UGF adequacy for the intended philosophical content because the content does not match the prompt."
+        }
+      },
+      "notes": "Apparent prompt/response mismatch.",
+      "tier_count": 19
+    }
+  },
+  "comparator_holdout": {
+    "high": {
+      "id": "reasoning-1959722",
+      "type": "socratic_dialogue",
+      "english_query": "\n\nthe idea that the right thing to do is what leads to the most good",
+      "ugf_response": "Person 1: What do we mean when we say the right thing to do is the one that brings the most good?  \nPerson 2: It means we look at what will make the biggest amount of good for the most people.  \nPerson 1: How do we know what will bring the most good?  \nPerson 2: We try to think about the results of each choice and see which one helps more people or helps them more.  \nPerson 1: What if one choice helps a lot of people but hurts a few?  \nPerson 2: Then we have to weigh the hurt against the help and see if the total good is still bigger.  \nPerson 1: Does that mean we always pick the choice with the biggest total good, even if it feels hard?  \nPerson 2: Yes, if we follow that idea we pick the choice that ends up with the most good overall, even if it is not easy.  \nPerson 1: Can we be sure we are right about the amount of good?  \nPerson 2: We can never be 100% sure, but we try to use the best facts we have and think carefully.",
+      "scores": {
+        "engagement": {
+          "score": 4,
+          "justification": "Directly engages utilitarian principle via dialogue, including the counting-good problem and the hurts-the-few worry."
+        },
+        "coherence": {
+          "score": 4,
+          "justification": "Dialogue stays focused; each exchange follows logically from the prior."
+        },
+        "substance": {
+          "score": 3,
+          "justification": "Touches the genuine challenges (aggregation, sacrificing the few, epistemic uncertainty about consequences) but does not develop them deeply or adjudicate."
+        },
+        "expressive_adequacy": {
+          "score": 4,
+          "justification": "Reads naturally; consequentialist machinery (total good, weighing) comes through cleanly."
+        }
+      },
+      "notes": "",
+      "tier_count": 102
+    },
+    "mid": {
+      "id": "cxbot-abdcx-abdcx-philosophy-of-religion-existence-of-god-0200-reasoning",
+      "type": "counterexample_analysis",
+      "english_query": "\n\ncounterexample to: An argument for God's existence is compelling if and only if (i) it proceeds fro",
+      "ugf_response": "The first idea they put forward is that a talk that tries to show the big power is real can be strong only when it does a certain set of things. They say this point is true and that without those things the talk cannot be strong. The second idea they think follows from that claim is that because the talk they look at does not do those things, it must not be strong. In other words, they see a case where the talk is missing the required parts and then say that this case shows the rule they stated does not work. The third part is an evaluation of the thinking. The thinking is clear in that it follows a simple pattern: look at the rule, see a case that does not fit the rule, and then say the rule must be wrong. This can be a good way to test a rule, but it can also miss other ways the talk might be strong that do not need the exact set of things the rule mentions. So the thinking is useful for pointing out a problem, but it may not be enough to decide for sure whether the whole idea about what makes a talk strong is right or not.",
+      "scores": {
+        "engagement": {
+          "score": 2,
+          "justification": "Engages the structure of evaluating an argument-for-God's-existence rule abstractly but never engages with the specific religion content; very generic."
+        },
+        "coherence": {
+          "score": 3,
+          "justification": "Coherent in describing the test-the-rule pattern but stays so abstract that the content is hard to evaluate."
+        },
+        "substance": {
+          "score": 2,
+          "justification": "Identifies the general meta-point that finding a non-conforming case may not refute a rule (other ways to be strong might exist) but does no specific work on the content."
+        },
+        "expressive_adequacy": {
+          "score": 3,
+          "justification": "UGF renders 'big power' for God and 'talk' for argument; readable but somewhat impoverished. The abstraction is more about the prompt than the vocabulary."
+        }
+      },
+      "notes": "The prompt is heavily truncated so the response cannot ground itself; abstract frame is partly forced.",
+      "tier_count": 46
+    },
+    "low": {
+      "id": "misc-analogies-analogy-abstraction-scientific-physics-0011-reasoning",
+      "type": "analogical_analysis",
+      "english_query": "\n\nabstraction analogy (explanatory) \u2014 physics",
+      "ugf_response": "I\u2019m ready to look at the case and separate it into the parts you asked for, but I need the actual words of the case. Could you please share the full statement that makes the \u201cabstraction analogy \u2013 physics\u201d argument? Once I have that, I can show what the person says is true, what they think follows from it, and whether that step of thinking holds up, all written as flowing prose without any list formatting.",
+      "scores": {
+        "engagement": {
+          "score": 0,
+          "justification": "The response declines to engage on the grounds that the prompt is too short, requesting more content. No philosophical work is attempted."
+        },
+        "coherence": {
+          "score": 3,
+          "justification": "What is said is coherent \u2014 a clear request for more information."
+        },
+        "substance": {
+          "score": 0,
+          "justification": "No substance produced."
+        },
+        "expressive_adequacy": {
+          "score": 3,
+          "justification": "Clean UGF in the request; nothing to evaluate substantively."
+        }
+      },
+      "notes": "Declines to attempt the prompt.",
+      "tier_count": 1
+    }
+  }
+}
