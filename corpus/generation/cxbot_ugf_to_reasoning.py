@@ -54,7 +54,7 @@ def main():
                 # Human-readable topic string for downstream analysis
                 topic = f"{cx_type.upper()} — {subdomain}"
                 if meta.get("definition"):
-                    topic = f"counterexample to: {meta['definition'][:80]}"
+                    topic = f"counterexample to: {meta['definition']}"
 
                 out.write(json.dumps({
                     "id": r["id"].replace("-passage", "-reasoning"),
