@@ -211,6 +211,17 @@ BENCH_TYPE_TO_TEMPLATE = {
     "counterexample_analysis":       "argument_analysis",
     "analogical_analysis":           "argument_analysis",
     "conditional_analysis":          "argument_analysis",
+    # Layer-4 stress bench: all use concept_explanation wrapper
+    "stress_modal":                  "concept_explanation",
+    "stress_deontic":                "concept_explanation",
+    "stress_supervenience":          "concept_explanation",
+    "stress_use_mention":            "concept_explanation",
+    "stress_intensional":            "concept_explanation",
+    "stress_self_reference":         "concept_explanation",
+    "stress_vagueness":              "concept_explanation",
+    "stress_counterfactual":         "concept_explanation",
+    "stress_abstract":               "concept_explanation",
+    "stress_phenomenal":             "concept_explanation",
 }
 
 
@@ -307,9 +318,9 @@ async def process_one(
     return {
         "id": item["id"],
         "type": item["type"],
-        "instruction": item["instruction"],
+        "instruction": item.get("instruction", ""),
         "question": item["question"],
-        "expected_answer": item["expected_answer"],
+        "expected_answer": item.get("expected_answer", ""),
         "english_query": english_query,
         "template": template_name,
         "comparator_model": MODEL_ID,
