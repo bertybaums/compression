@@ -1,13 +1,13 @@
 """
-Quick analysis of the May 6 comparator runs:
-- Stress bench (30 items, comparator only — Reasoner side pending fortyfive)
-- Patched-cx (50 items, comparator only — Reasoner side pending fortyfive)
+Analysis of the May 6/7 runs:
+- Stress bench (30 items, Reasoner + Comparator)
+- Patched-cx (50 items, Reasoner + Comparator)
 
 Reports:
-- comparator_stress: per-category D1-D4 means (the diagnostic for which UGF
-  categories the 120B teacher itself can/can't carry well)
-- comparator_cx_patched: overall D1-D4 means + comparison to the original
-  (truncated) cx subset's comparator scores from Layer-3
+- Per-system per-dimension means
+- Reasoner−Comparator deltas (per benchmark)
+- Stress: per-category D1-D4 means for both systems + delta
+- cx_patched: comparison to original (truncated) cx scores from Layer-3
 """
 
 import json
@@ -35,61 +35,94 @@ def mean(xs):
     return statistics.mean(xs) if xs else float("nan")
 
 
-def stress_per_category():
-    # Need to join scores back to original items for category
+def system_means(label):
+    scores = load_label(label)
+    return scores, {d: mean([s[d]["score"] for s in scores]) for d in DIMS}
+
+
+def section_stress():
+    print("=" * 70)
+    print("STRESS BENCH (Layer-4)")
+    print("=" * 70)
+
     bench = {}
     with open(ROOT / "sets" / "stress_bench.jsonl") as fh:
         for line in fh:
             r = json.loads(line)
             bench[r["id"]] = r
 
-    scores = load_label("comparator_stress")
-    print(f"comparator_stress: {len(scores)} scored items")
+    r_scores, r_means = system_means("reasoner_stress")
+    c_scores, c_means = system_means("comparator_stress")
 
-    per_cat = defaultdict(lambda: {d: [] for d in DIMS})
-    overall = {d: [] for d in DIMS}
-    for s in scores:
-        cat = bench.get(s["id"], {}).get("category", "unknown")
+    print(f"\nPer-system means (n_reasoner={len(r_scores)}, n_comparator={len(c_scores)})")
+    print(f"  {'system':<12}  " + "  ".join(f"{d[:8]:>8}" for d in DIMS))
+    print(f"  {'Reasoner':<12}  " + "  ".join(f"{r_means[d]:>8.2f}" for d in DIMS))
+    print(f"  {'Comparator':<12}  " + "  ".join(f"{c_means[d]:>8.2f}" for d in DIMS))
+    print(f"  {'Δ (R-C)':<12}  " + "  ".join(f"{(r_means[d] - c_means[d]):>+8.2f}" for d in DIMS))
+
+    # Per-category
+    def by_category(scores):
+        per = defaultdict(lambda: {d: [] for d in DIMS})
+        for s in scores:
+            cat = bench.get(s["id"], {}).get("category", "unknown")
+            for d in DIMS:
+                per[cat][d].append(s[d]["score"])
+        return per
+
+    r_by_cat = by_category(r_scores)
+    c_by_cat = by_category(c_scores)
+
+    print(f"\nPer-category means (Reasoner | Comparator | Δ)")
+    print(f"  {'category':<28}  {'D1 R/C/Δ':>16}  {'D2 R/C/Δ':>16}  {'D3 R/C/Δ':>16}  {'D4 R/C/Δ':>16}")
+    for cat in sorted(r_by_cat):
+        cells = []
         for d in DIMS:
-            per_cat[cat][d].append(s[d]["score"])
-            overall[d].append(s[d]["score"])
+            r_m = mean(r_by_cat[cat][d])
+            c_m = mean(c_by_cat[cat][d])
+            cells.append(f"{r_m:.1f}/{c_m:.1f}/{r_m-c_m:+.1f}")
+        print(f"  {cat:<28}  " + "  ".join(f"{c:>16}" for c in cells))
 
+
+def section_cx():
     print()
-    print(f"{'category':<28} {'n':>3}  " + "  ".join(f"{d[:8]:>8}" for d in DIMS))
-    for cat in sorted(per_cat):
-        row = per_cat[cat]
-        n = len(row[DIMS[0]])
-        print(f"  {cat:<26} {n:>3}  " + "  ".join(f"{mean(row[d]):>8.2f}" for d in DIMS))
-    print(f"  {'OVERALL':<26} {len(scores):>3}  " + "  ".join(f"{mean(overall[d]):>8.2f}" for d in DIMS))
-    return overall
+    print("=" * 70)
+    print("PATCHED CX SUBSET (50 items)")
+    print("=" * 70)
 
+    r_scores, r_means = system_means("reasoner_cx_patched")
+    c_scores, c_means = system_means("comparator_cx_patched")
 
-def cx_patched_vs_original():
-    # New patched comparator
-    new_scores = load_label("comparator_cx_patched")
-    print(f"\ncomparator_cx_patched (NEW, full definitions): {len(new_scores)} items")
-    new_means = {d: mean([s[d]["score"] for s in new_scores]) for d in DIMS}
-    print(f"  " + "  ".join(f"{d[:8]:>8}" for d in DIMS))
-    print(f"  " + "  ".join(f"{new_means[d]:>8.2f}" for d in DIMS))
+    print(f"\nPer-system means (n_reasoner={len(r_scores)}, n_comparator={len(c_scores)})")
+    print(f"  {'system':<14}  " + "  ".join(f"{d[:8]:>8}" for d in DIMS))
+    print(f"  {'Reasoner':<14}  " + "  ".join(f"{r_means[d]:>8.2f}" for d in DIMS))
+    print(f"  {'Comparator':<14}  " + "  ".join(f"{c_means[d]:>8.2f}" for d in DIMS))
+    print(f"  {'Δ (R-C)':<14}  " + "  ".join(f"{(r_means[d] - c_means[d]):>+8.2f}" for d in DIMS))
 
-    # Original (truncated) comparator scores on cx items, from Layer-3
-    # Filter comparator_holdout scores by ids that match cxbot- counterexample items
+    # Compare to original (truncated) cx scores from Layer-3
     bench = {}
     with open(ROOT / "sets" / "holdout_bench.jsonl") as fh:
         for line in fh:
             r = json.loads(line)
             bench[r["id"]] = r
     cx_ids = {rid for rid, r in bench.items() if r.get("type") == "counterexample_analysis"}
+    orig_r = [s for s in load_label("reasoner_holdout") if s["id"] in cx_ids]
+    orig_c = [s for s in load_label("comparator_holdout") if s["id"] in cx_ids]
 
-    orig_scores = [s for s in load_label("comparator_holdout") if s["id"] in cx_ids]
-    print(f"\ncomparator_holdout (ORIGINAL, truncated definitions, cx subset): {len(orig_scores)} items")
-    orig_means = {d: mean([s[d]["score"] for s in orig_scores]) for d in DIMS}
-    print(f"  " + "  ".join(f"{orig_means[d]:>8.2f}" for d in DIMS))
+    orig_r_means = {d: mean([s[d]["score"] for s in orig_r]) for d in DIMS}
+    orig_c_means = {d: mean([s[d]["score"] for s in orig_c]) for d in DIMS}
 
-    print(f"\nDelta (NEW − ORIGINAL): how much did patching the prompts help?")
-    print(f"  " + "  ".join(f"{(new_means[d] - orig_means[d]):>+8.2f}" for d in DIMS))
+    print(f"\nOriginal (Layer-3, truncated prompts) cx subset:")
+    print(f"  {'system':<14}  " + "  ".join(f"{d[:8]:>8}" for d in DIMS))
+    print(f"  {'Reasoner':<14}  " + "  ".join(f"{orig_r_means[d]:>8.2f}" for d in DIMS))
+    print(f"  {'Comparator':<14}  " + "  ".join(f"{orig_c_means[d]:>8.2f}" for d in DIMS))
+    print(f"  {'Δ (R-C)':<14}  " + "  ".join(f"{(orig_r_means[d] - orig_c_means[d]):>+8.2f}" for d in DIMS))
+
+    print(f"\nPatching effect on each system (NEW − ORIGINAL):")
+    print(f"  {'system':<14}  " + "  ".join(f"{d[:8]:>8}" for d in DIMS))
+    print(f"  {'Reasoner':<14}  " + "  ".join(f"{(r_means[d] - orig_r_means[d]):>+8.2f}" for d in DIMS))
+    print(f"  {'Comparator':<14}  " + "  ".join(f"{(c_means[d] - orig_c_means[d]):>+8.2f}" for d in DIMS))
 
 
 if __name__ == "__main__":
-    stress_per_category()
-    cx_patched_vs_original()
+    section_stress()
+    section_cx()

@@ -1,23 +1,23 @@
 [
   {
-    "label": "comparator_stress",
+    "label": "reasoner_stress",
     "batch": 1,
     "n_items": 30,
-    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/comparator_stress_batch_01.jsonl",
-    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/comparator_stress_batch_01.jsonl"
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/reasoner_stress_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/reasoner_stress_batch_01.jsonl"
   },
   {
-    "label": "comparator_cx_patched",
+    "label": "reasoner_cx_patched",
     "batch": 1,
     "n_items": 30,
-    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/comparator_cx_patched_batch_01.jsonl",
-    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/comparator_cx_patched_batch_01.jsonl"
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/reasoner_cx_patched_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/reasoner_cx_patched_batch_01.jsonl"
   },
   {
-    "label": "comparator_cx_patched",
+    "label": "reasoner_cx_patched",
     "batch": 2,
     "n_items": 20,
-    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/comparator_cx_patched_batch_02.jsonl",
-    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/comparator_cx_patched_batch_02.jsonl"
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input/reasoner_cx_patched_batch_02.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output/reasoner_cx_patched_batch_02.jsonl"
   }
 ]
