@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Can a thousand common words do philosophy? — RCDS presentation, May 11 2026</title>
+<style>
+:root {
+  --gold: #F1B82D;
+  --gold-dark: #B58A1D;
+  --ink: #1c1c1c;
+  --ink-soft: #2A2A2A;
+  --silver: #C7C9C8;
+  --paper: #FBFAF6;
+  --rule: #E2E0D8;
+  --tech: #2d4a5c;
+  --tech-bg: #eaf1f7;
+  --warn: #8a3a2e;
+  --warn-bg: #f7ece8;
+  --good: #2f6437;
+  --good-bg: #ecf3ed;
+  --code: #f0eee4;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-soft);
+  font: 17px/1.6 Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+}
+
+/* Layout */
+.shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+nav.toc {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 24px 18px 24px 24px;
+  border-right: 1px solid var(--rule);
+  background: #fff;
+  font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+nav.toc h2 {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 14px;
+}
+nav.toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: tocn;
+}
+nav.toc li {
+  counter-increment: tocn;
+  margin: 7px 0;
+  padding-left: 28px;
+  position: relative;
+}
+nav.toc li::before {
+  content: counter(tocn);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  text-align: right;
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+nav.toc a {
+  color: var(--ink);
+  text-decoration: none;
+  display: inline-block;
+}
+nav.toc a:hover { color: var(--gold-dark); }
+nav.toc a.active { color: var(--gold-dark); font-weight: 600; }
+nav.toc .brand {
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--gold);
+}
+nav.toc .brand b { display: block; font-size: 13px; color: var(--ink); }
+nav.toc .brand span { display: block; font-size: 11px; color: #888; margin-top: 2px; }
+
+main { max-width: 820px; margin: 0 auto; padding: 56px 36px 96px; }
+
+/* Hero */
+.hero {
+  border-bottom: 4px solid var(--gold);
+  padding-bottom: 28px;
+  margin-bottom: 48px;
+}
+.hero .eyebrow {
+  font: 600 12px/1.2 -apple-system, sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+}
+.hero h1 {
+  font: 700 42px/1.15 "Iowan Old Style", Georgia, serif;
+  margin: 14px 0 14px;
+  color: var(--ink);
+}
+.hero .sub {
+  font: 400 19px/1.4 Georgia, serif;
+  color: #555;
+  font-style: italic;
+}
+.hero .meta {
+  font: 13px/1.4 -apple-system, sans-serif;
+  color: #777;
+  margin-top: 24px;
+}
+
+/* Section blocks */
+section { margin: 56px 0; }
+section h2 {
+  font: 700 26px/1.25 "Iowan Old Style", Georgia, serif;
+  color: var(--ink);
+  margin: 0 0 6px;
+  scroll-margin-top: 14px;
+}
+section .sect-num {
+  display: inline-block;
+  font: 700 11px/1 -apple-system, sans-serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 8px;
+}
+section h3 {
+  font: 600 18px/1.3 -apple-system, sans-serif;
+  color: var(--ink);
+  margin: 28px 0 8px;
+}
+section p { margin: 14px 0; }
+
+a { color: var(--gold-dark); }
+
+/* Examples and callouts */
+.callout {
+  border-left: 3px solid var(--gold);
+  background: #fffcf2;
+  padding: 14px 18px;
+  margin: 22px 0;
+  font: 16px/1.55 Georgia, serif;
+}
+.callout .label {
+  font: 600 11px/1 -apple-system, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold-dark);
+  margin-bottom: 8px;
+  display: block;
+}
+.callout.tech { border-left-color: var(--tech); background: var(--tech-bg); }
+.callout.tech .label { color: var(--tech); }
+.callout.warn { border-left-color: var(--warn); background: var(--warn-bg); }
+.callout.warn .label { color: var(--warn); }
+.callout.good { border-left-color: var(--good); background: var(--good-bg); }
+.callout.good .label { color: var(--good); }
+
+.example {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 16px 18px;
+  margin: 18px 0;
+  font: 15px/1.55 Georgia, serif;
+}
+.example .label {
+  font: 600 11px/1 -apple-system, sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 8px;
+  display: block;
+}
+.example .prompt {
+  font-style: italic;
+  color: #555;
+  margin: 6px 0 10px;
+  padding-left: 12px;
+  border-left: 2px solid var(--silver);
+}
+.example .resp {
+  font-family: Georgia, serif;
+}
+.example .resp.ugf {
+  background: #fbf9f0;
+  padding: 10px 12px;
+  border-radius: 3px;
+  margin-top: 6px;
+}
+.example .resp.bad {
+  background: #fbecea;
+  padding: 10px 12px;
+  border-radius: 3px;
+  margin-top: 6px;
+  color: #5a2a25;
+}
+.example .scores {
+  font: 12px/1.4 -apple-system, sans-serif;
+  color: #777;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--rule);
+}
+
+/* Expandable technical details */
+details.tech {
+  background: var(--tech-bg);
+  border-left: 3px solid var(--tech);
+  padding: 0;
+  margin: 22px 0;
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+details.tech summary {
+  cursor: pointer;
+  padding: 12px 18px;
+  font: 600 12px/1.2 -apple-system, sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tech);
+  list-style: none;
+  position: relative;
+}
+details.tech summary::-webkit-details-marker { display: none; }
+details.tech summary::after {
+  content: "+";
+  position: absolute;
+  right: 18px;
+  top: 12px;
+  font-weight: 400;
+  font-size: 16px;
+}
+details.tech[open] summary::after { content: "−"; }
+details.tech .body { padding: 0 18px 16px; }
+details.tech p { margin: 8px 0; }
+details.tech code { background: var(--code); padding: 1px 5px; border-radius: 3px; font-size: 13px; }
+
+/* Tables */
+table.numbers {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  font: 14px/1.4 -apple-system, sans-serif;
+}
+table.numbers th, table.numbers td {
+  padding: 8px 10px;
+  text-align: right;
+  border-bottom: 1px solid var(--rule);
+}
+table.numbers th { text-align: right; background: #f8f6ee; font-weight: 600; }
+table.numbers th:first-child, table.numbers td:first-child { text-align: left; }
+table.numbers tr.head th { border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+table.numbers td.neg { color: var(--warn); }
+table.numbers td.pos { color: var(--good); font-weight: 600; }
+table.numbers .strong { font-weight: 700; }
+
+/* Stats box */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 24px 0;
+  font: 14px/1.3 -apple-system, sans-serif;
+}
+.stat {
+  background: #fff;
+  border: 1px solid var(--rule);
+  padding: 12px 14px;
+  border-radius: 4px;
+}
+.stat .n { font: 700 22px/1 "Iowan Old Style", Georgia, serif; color: var(--ink); }
+.stat .l { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #777; margin-top: 4px; }
+
+/* Bars (per-category D4 chart, etc.) */
+.bars { margin: 18px 0; font: 13px/1.4 -apple-system, sans-serif; }
+.bar-row { display: grid; grid-template-columns: 200px 1fr 40px; gap: 10px; align-items: center; padding: 4px 0; }
+.bar { background: var(--rule); height: 14px; border-radius: 2px; position: relative; }
+.bar .fill { background: var(--gold); height: 100%; border-radius: 2px; }
+.bar.r .fill { background: #d18a2e; }
+.bar.c .fill { background: var(--tech); }
+.bar-row .val { text-align: right; color: #555; }
+
+/* SVG diagrams */
+.diagram { margin: 24px 0; }
+.diagram svg { width: 100%; height: auto; }
+
+/* Pull quote */
+.pull {
+  font: italic 22px/1.4 "Iowan Old Style", Georgia, serif;
+  color: var(--ink);
+  border-left: 4px solid var(--gold);
+  padding: 6px 0 6px 22px;
+  margin: 32px 0;
+}
+.pull cite { display: block; font-size: 13px; color: #777; margin-top: 8px; font-style: normal; }
+
+/* Footer */
+footer {
+  border-top: 2px solid var(--gold);
+  margin-top: 80px;
+  padding: 28px 0;
+  font: 13px/1.5 -apple-system, sans-serif;
+  color: #777;
+}
+footer a { color: var(--ink); }
+footer p { margin: 6px 0; }
+footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+
+/* Timeline */
+.timeline {
+  margin: 26px 0;
+  border-left: 2px solid var(--gold);
+  padding-left: 20px;
+}
+.timeline .ev { padding: 4px 0; font: 14px/1.5 -apple-system, sans-serif; }
+.timeline .ev b { display: inline-block; min-width: 90px; color: var(--gold-dark); }
+
+/* Mobile */
+@media (max-width: 880px) {
+  .shell { grid-template-columns: 1fr; }
+  nav.toc { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--rule); }
+  main { padding: 32px 22px 64px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .bar-row { grid-template-columns: 130px 1fr 32px; }
+  .hero h1 { font-size: 30px; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<nav class="toc">
+  <div class="brand">
+    <b>RCDS Presentation</b>
+    <span>University of Idaho · May 11, 2026</span>
+  </div>
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#q">The question</a></li>
+    <li><a href="#sheffer">The Sheffer-stroke move</a></li>
+    <li><a href="#ugf">What's in Up Goer Five</a></li>
+    <li><a href="#design">Two-model design</a></li>
+    <li><a href="#scratch">Why from scratch</a></li>
+    <li><a href="#corpus">The corpus campaign</a></li>
+    <li><a href="#training">Pretraining + SFT</a></li>
+    <li><a href="#eval-plan">How we'd know if it worked</a></li>
+    <li><a href="#layer2">First results — and a trap</a></li>
+    <li><a href="#degen">Discovery: the Translator hallucinates</a></li>
+    <li><a href="#judge">Judging UGF directly</a></li>
+    <li><a href="#layer3">Layer-3: a happy ending?</a></li>
+    <li><a href="#layer4">Discovery: the prompt-attention deficit</a></li>
+    <li><a href="#learned">What we actually learned</a></li>
+    <li><a href="#open">Open questions</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<header class="hero">
+  <div class="eyebrow">RCDS / Philosophy · University of Idaho</div>
+  <h1>Can a thousand common words do philosophy?</h1>
+  <p class="sub">A from-scratch language model, a 1,000-word vocabulary, and the surprising places it broke.</p>
+  <p class="meta">Bert Baumgaertner · with Claude · May 11, 2026 · presented to Research Computing &amp; Data Services</p>
+</header>
+
+<!-- ============================================================== -->
+<section id="q">
+<span class="sect-num">§ 1</span>
+<h2>The question</h2>
+
+<p>Pick up Randall Munroe's <em>Thing Explainer</em>. The whole book is written using only the thousand most-used English words. The Saturn V rocket becomes the "up-goer five". A nuclear reactor becomes the "machine for power that uses really hot small things". The book is funny because the constraint is severe — but it is also, surprisingly, comprehensible. You can <em>still tell what's going on</em>.</p>
+
+<p>That observation is the seed of this project. <strong>Suppose we required the same constraint of philosophy.</strong> Could you do logic, ethics, decision theory, and game theory while saying nothing but words from that ~1,000-word vocabulary? Or does the practice of philosophy actually depend on the technical lexicon — "supervenience," "deontic," "qua," "modal," "intensional" — in a way that can't be paraphrased away?</p>
+
+<p>This is a question that sits between philosophy of language and machine learning. The philosophical claim — that an idea can or cannot be expressed in a given vocabulary — used to require a hand-built proof. Now we can put it to a different kind of test: <strong>train a model that <em>has no choice but</em> to reason in that vocabulary, and see what it does.</strong></p>
+
+<p class="pull">If the model can do the work, the vocabulary is expressively adequate. If it can't, we want to know exactly where and why it fails.<cite>The project's working thesis</cite></p>
+</section>
+
+<!-- ============================================================== -->
+<section id="sheffer">
+<span class="sect-num">§ 2</span>
+<h2>The Sheffer-stroke move</h2>
+
+<p>Here is the analogy that motivates the design. In propositional logic, we usually work with several connectives at once: "and," "or," "not," "if-then," "if-and-only-if." But the logician Henry Sheffer showed in 1913 that a <em>single</em> connective — the Sheffer stroke, NAND — suffices to express all of them. The dictionary shrinks to one entry. The expressive power doesn't change. <strong>What does change is the length of the sentences.</strong> Anything you can say with the usual connectives, you can still say with NAND alone — it just takes more of them.</p>
+
+<p>This is the trade we want to investigate for natural language. The Up Goer Five vocabulary is a smaller "dictionary." If it is expressively adequate for philosophy, the trade is the same as Sheffer's: the dictionary is smaller, the sentences may have to be longer or more circumlocutory, but nothing of substance is lost. If it is not expressively adequate, we should be able to point to specific philosophical moves that <em>cannot be paraphrased</em> — places where the vocabulary genuinely runs out.</p>
+
+<details class="tech">
+<summary>Why this isn't just word-counting</summary>
+<div class="body">
+<p>The Up Goer Five vocabulary is small (~1,000 lemmas, ~3,600 surface forms once you include capitalizations and inflections), but the question isn't whether you can <em>name</em> the same things — it's whether you can <em>reason</em> with the same precision. "Supervenience" picks out a specific asymmetric dependence relation that "rests on" can gesture at but not pin down. Whether the gesture is good enough for working philosophy is an empirical question.</p>
+<p>Compare to Quine's holism or Carnap's frameworks: the claim that "every meaningful statement has a translation" is famously contested. Our test is operational — does a model trained <em>only</em> in this restricted register produce reasoning that holds up to evaluation?</p>
+</div>
+</details>
+</section>
+
+<!-- ============================================================== -->
+<section id="ugf">
+<span class="sect-num">§ 3</span>
+<h2>What's in Up Goer Five</h2>
+
+<p>The exact word list comes from Munroe's analysis of the Google Books n-gram corpus, with a hand-curated cutoff. The list has:</p>
+
+<div class="stats">
+  <div class="stat"><div class="n">~1,000</div><div class="l">lemmas (base words)</div></div>
+  <div class="stat"><div class="n">~3,616</div><div class="l">surface forms (with inflections)</div></div>
+  <div class="stat"><div class="n">0</div><div class="l">philosophical jargon</div></div>
+  <div class="stat"><div class="n">0</div><div class="l">scientific jargon</div></div>
+</div>
+
+<p>It includes most everyday function words ("and," "the," "if," "should," "must," "could," "would"), a wide stock of common nouns ("person," "thing," "way," "world," "life," "mind," "rule"), and many ordinary verbs. It does <em>not</em> include "necessary," "possible," "permissible," "supervene," "intensional," "qua," "the morning star," "proposition," "premise," "conclusion." Even "explain" is borderline — we found that "explanation" was out-of-vocabulary in our final tokenizer.</p>
+
+<p>Here is a real reasoning trace from our training corpus, on a question from care ethics, written entirely within this constraint:</p>
+
+<div class="example">
+<span class="label">Corpus trace · concept_explanation · teacher: gemma-4-26b</span>
+<p class="prompt">how paying close attention to what someone needs is a kind of good</p>
+<div class="resp ugf">First, we look at what it means to pay close attention. This is when we really look at another person and try to see what they are feeling or what they want. We do not just guess. We watch their face and hear their words. We try to understand the hard things they are going through. Then we think about why this is a good thing. When we see what a person needs, we can help them. If we know they need to eat, we can give them food. If we know they are sad, we can sit with them. This help makes their life better. It also makes the person who is watching feel good. They feel near to the other person. This being near is a kind of love or care. So, paying close attention is good because it leads to…</div>
+</div>
+
+<p>This is care ethics in Up Goer Five. It isn't <em>Held</em> or <em>Tronto</em> — there's no machinery here for the dependency-relations framework or for distinguishing first-order from second-order care. But it is engaging with the same question. Whether that is enough for a philosophy classroom is exactly what we wanted to find out.</p>
+</section>
+
+<!-- ============================================================== -->
+<section id="design">
+<span class="sect-num">§ 4</span>
+<h2>Two models, not one</h2>
+
+<p>The first big design decision was to use <strong>two models, not one</strong>:</p>
+
+<div class="diagram">
+<svg viewBox="0 0 720 230" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#1c1c1c"/>
+    </marker>
+  </defs>
+  <!-- Translator left -->
+  <rect x="20" y="80" width="160" height="70" fill="#fffcf2" stroke="#F1B82D" stroke-width="2" rx="6"/>
+  <text x="100" y="105" text-anchor="middle" font-family="Georgia" font-size="15" font-weight="700">Translator</text>
+  <text x="100" y="125" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#555">T5-small encoder–decoder</text>
+  <text x="100" y="140" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#555">English ↔ UGF</text>
+  <!-- Reasoner middle -->
+  <rect x="260" y="60" width="200" height="110" fill="#fffcf2" stroke="#F1B82D" stroke-width="3" rx="6"/>
+  <text x="360" y="92" text-anchor="middle" font-family="Georgia" font-size="17" font-weight="700">Reasoner</text>
+  <text x="360" y="112" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#555">200M Llama-style decoder</text>
+  <text x="360" y="127" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#555">Trained from scratch</text>
+  <text x="360" y="145" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#555">UGF tokens only</text>
+  <text x="360" y="160" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="600" fill="#B58A1D">the star of the show</text>
+  <!-- Translator right -->
+  <rect x="540" y="80" width="160" height="70" fill="#fffcf2" stroke="#F1B82D" stroke-width="2" rx="6"/>
+  <text x="620" y="105" text-anchor="middle" font-family="Georgia" font-size="15" font-weight="700">Translator</text>
+  <text x="620" y="125" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#555">UGF → English</text>
+  <text x="620" y="140" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#555">(same model, reverse direction)</text>
+  <!-- Arrows -->
+  <line x1="180" y1="115" x2="260" y2="115" stroke="#1c1c1c" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="460" y1="115" x2="540" y2="115" stroke="#1c1c1c" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- Labels above arrows -->
+  <text x="220" y="105" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#555">UGF</text>
+  <text x="500" y="105" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#555">UGF</text>
+  <!-- Outside labels -->
+  <text x="20" y="50" font-family="Georgia" font-size="14" font-style="italic" fill="#555">English question</text>
+  <text x="700" y="50" text-anchor="end" font-family="Georgia" font-size="14" font-style="italic" fill="#555">English answer</text>
+  <!-- bottom caption -->
+  <text x="360" y="205" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="#777">Translator is infrastructure. Reasoner is what we want to learn about.</text>
+</svg>
+</div>
+
+<p>The <strong>Translator</strong> is a relatively small encoder–decoder (T5-small) trained on a parallel corpus of English↔UGF pairs. Its only job is to bridge the world — English in, UGF out, or vice versa.</p>
+
+<p>The <strong>Reasoner</strong> is the object of study. It is a 200-million-parameter decoder-only transformer, trained from scratch, with a <em>vocabulary that contains only Up Goer Five tokens plus punctuation</em>. It cannot produce the word "necessary" — not because we punished it, but because that word is not a token in its world.</p>
+
+<p>The two-model split lets us ask two different questions cleanly. The Translator handles "can we go in and out of UGF at all?" The Reasoner handles "what does reasoning look like when you have no other option?"</p>
+
+<details class="tech">
+<summary>Why the Reasoner constraint is on both input <em>and</em> output</summary>
+<div class="body">
+<p>An easier version of this project would let the Reasoner read full English and only emit UGF. That asymmetry would be a real concession — the model's <em>representations</em> would be built out of the larger vocabulary, and only the surface form would be restricted. The hard expressive-adequacy question wants the entire computation to live inside UGF. So both input and output are constrained, and the round-trip uses the Translator at both ends.</p>
+</div>
+</details>
+</section>
+
+<!-- ============================================================== -->
+<section id="scratch">
+<span class="sect-num">§ 5</span>
+<h2>Why from scratch, why 200M</h2>
+
+<p>The obvious shortcut would be to start with an existing pretrained language model and fine-tune it on UGF. We didn't, for one reason: <strong>fine-tuning would leak.</strong> Whatever broader-English representations the model learned during pretraining would still be there. We wouldn't be testing "can UGF carry philosophical reasoning"; we'd be testing "can a model that knows English-philosophy <em>also</em> output UGF."</p>
+
+<p>So the Reasoner is initialized fresh. Random weights, custom UGF tokenizer, all training happens on UGF data.</p>
+
+<p>The size — 200 million parameters — was chosen pragmatically:</p>
+
+<div class="stats">
+  <div class="stat"><div class="n">200M</div><div class="l">parameters (Reasoner)</div></div>
+  <div class="stat"><div class="n">1024</div><div class="l">d_model</div></div>
+  <div class="stat"><div class="n">16 / 16 / 4</div><div class="l">layers / heads / kv-heads (GQA)</div></div>
+  <div class="stat"><div class="n">3072</div><div class="l">d_ff (SwiGLU)</div></div>
+</div>
+
+<p>200M is a careful threshold. Smaller, and prior work (and our own internal "Numerals" project) suggests chain-of-thought reasoning doesn't reliably emerge. Larger would require more compute than fits comfortably on a single GPU. 200M is the floor at which the question is asked under fair conditions.</p>
+
+<details class="tech">
+<summary>Architectural specifics</summary>
+<div class="body">
+<p>The Reasoner is a Llama-style decoder: <code>RMSNorm</code>, Grouped-Query Attention with 4 KV heads, Rotary Position Embeddings, SwiGLU feed-forward, tied input/output embeddings. <code>max_seq_len=512</code> — enough for the median trace (~210 words) plus the prompt template.</p>
+<p>Because the vocabulary is so small (~3,600 tokens), the embedding and output-projection matrices use only ~4M parameters combined — almost all 200M are in the transformer blocks themselves. By comparison, a GPT-2-class model with a 50k vocabulary spends ~40M on the embedding table alone.</p>
+<p>Hardware: single RTX A6000 (48GB) on the <code>gpu-8</code> partition of fortyfive. bf16 mixed precision; no gradient checkpointing required at this scale.</p>
+</div>
+</details>
+</section>
+
+<!-- ============================================================== -->
+<section id="corpus">
+<span class="sect-num">§ 6</span>
+<h2>The corpus campaign</h2>
+
+<p>The Reasoner needs training data, and that data has to satisfy three constraints at once: <strong>(a)</strong> it must be in Up Goer Five, <strong>(b)</strong> it must be <em>philosophical reasoning</em>, not just trivia or chit-chat, and <strong>(c)</strong> there has to be a lot of it. Hand-writing this was a non-starter. So we built a generation pipeline that used large existing language models — gpt-oss-120b, gemma-4-26b, qwen3.6-27b — as <strong>teachers</strong>, prompted to produce UGF-compliant reasoning traces from short philosophical topics drawn from our source materials.</p>
+
+<div class="stats">
+  <div class="stat"><div class="n">1,962,272</div><div class="l">compliant traces</div></div>
+  <div class="stat"><div class="n">98.09%</div><div class="l">UGF-compliance rate (final)</div></div>
+  <div class="stat"><div class="n">~580M</div><div class="l">tokens of training data</div></div>
+  <div class="stat"><div class="n">~6 weeks</div><div class="l">generation campaign (Apr–May 2026)</div></div>
+</div>
+
+<h3>Sources</h3>
+<p>The topics come from two places:</p>
+<ul>
+<li><strong>good-thinking-bot:</strong> 27,252 records covering logic, critical thinking, decision theory, game theory, cognitive biases, and microeconomics. Built from Bert's prior teaching of these topics.</li>
+<li><strong>intro-ethics:</strong> Aristotle, Plato, Rawls, Rousseau, Shaw, Held, Tronto, Dennett — the standard introductory canon plus contemporary care ethics, drawn from the PHIL 1103 syllabus and in-progress textbook.</li>
+<li><strong>cx-bot:</strong> 4,474 philosophical counterexamples across 16 domains, contributed for a specific reasoning content-type.</li>
+</ul>
+
+<h3>Teacher ensemble</h3>
+<p>One teacher would have given the corpus a single stylistic register. We deliberately used three, weighted so that their philosophical "voices" mix:</p>
+
+<table class="numbers">
+<tr class="head"><th>Teacher</th><th>Share of corpus</th><th>Stylistic register</th></tr>
+<tr><td>gemma-4-26b</td><td>~67%</td><td style="text-align:left">Narrative-flowing prose with conjunctions ("However," "Because"). Frames problems as motivation/psychology.</td></tr>
+<tr><td>gpt-oss-120b</td><td>~24%</td><td style="text-align:left">Procedural-mechanical, step-marker logic ("First,… Then,… This means…"). Frames problems as coordination/structure.</td></tr>
+<tr><td>qwen3.6-27b</td><td>~19%</td><td style="text-align:left">Structural-payoff with first-person ("If I do X… if I do Y…"). Frames problems game-theoretically.</td></tr>
+</table>
+
+<p>(Shares sum to >100% because of accounting quirks across re-runs; final file-based attribution is roughly 67/24/19.)</p>
+
+<details class="tech">
+<summary>Operational lessons from the generation campaign</summary>
+<div class="body">
+<p>Six weeks of multi-teacher generation produced its share of operational drama. Three lessons that mattered:</p>
+<p><strong>1. Rate limiting is non-optional.</strong> Our institutional LLM gateway (MindRouter) enforces a 200-request-per-minute cap. Without a client-side token-bucket limiter, 429 responses (which return in ~200ms) cause retries to fire immediately, amplifying the outgoing rate and triggering self-reinforcing cascades. We learned this the hard way on April 17, 2026.</p>
+<p><strong>2. Few-shot exemplars beat wordlist injection.</strong> Putting the entire 3,616-form UGF vocabulary in the system prompt gave 0/3 compliant outputs on first try. Replacing it with two short compliant example traces (one chain_of_thought, one concept_explanation) lifted post-retry compliance from ~42% to 97%. Models follow patterns, not lookup tables.</p>
+<p><strong>3. The newer model isn't always the better one.</strong> Qwen3.6 comes in 27B and 35B variants. The 35B model is newer and supposedly stronger — but on our few-shot UGF prompt, it produced 73% compliance vs 27B's 97%. Smaller, more constrained models stayed closer to the exemplars.</p>
+</div>
+</details>
+
+<details class="tech">
+<summary>Length distribution and Zipf check</summary>
+<div class="body">
+<p>Median trace length: 206 words (qwen-era) to 285 words (early gemma-era). About 22% of traces exceed 512 tokens and get truncated at training. The rank-frequency distribution of the final corpus follows a Zipf law with slope −0.976, very close to the −1.0 expected for natural language — a quick sanity check that the corpus isn't pathologically narrow.</p>
+</div>
+</details>
+</section>
+
+<!-- ============================================================== -->
+<section id="training">
+<span class="sect-num">§ 7</span>
+<h2>Pretraining + SFT</h2>
+
+<p>The Reasoner's training has two phases:</p>
+
+<div class="timeline">
+<div class="ev"><b>Phase 1</b> · <strong>Pretraining.</strong> 100,000 steps on the full 2M-trace corpus. Standard next-token prediction, no special structure. Validation loss ends at 0.79. Zipf slope of the model's own outputs: −0.979 — the model has learned the rank-frequency structure of UGF.</div>
+<div class="ev"><b>Phase 2</b> · <strong>Supervised fine-tuning (SFT).</strong> 30,000 additional steps, now with prompt-masked labels: the model is only scored on producing the reasoning trace given the prompt, not on regenerating the prompt itself. Final validation loss 0.74. Zipf slope −0.976. Checkpoint: <code>checkpoints/reasoner_sft_v1/final.pt</code> on fortyfive.</div>
+</div>
+
+<p>Total wall-clock compute was modest by current standards — both training phases together used a single A6000 GPU for under a week. By the time the SFT model is loaded, the Reasoner can produce fluent, compliant UGF on most prompts. Whether that fluent UGF is doing <em>real philosophical work</em> is what we set out to test in evaluation.</p>
+
+<details class="tech">
+<summary>SFT details</summary>
+<div class="body">
+<p>SFT uses the same architecture and the same tokenizer; the only differences from pretraining are (a) the loss is masked on the prompt portion of each sequence, so the model is only credited for generating the response, and (b) a slightly lower learning rate (<code>max_lr=5e-5</code>) and shorter schedule. Data loader is <code>reasoner/data_sft.py</code>; training script is <code>reasoner/train_sft.py</code>; config <code>configs/reasoner_sft.yaml</code>. We kept SFT strictly separate from the pretrain script per a hard "don't mix concerns" rule — meant we could revert to the pretrain checkpoint cleanly if SFT collapsed.</p>
+</div>
+</details>
+</section>
+
+<!-- ============================================================== -->
+<section id="eval-plan">
+<span class="sect-num">§ 8</span>
+<h2>How we'd know if it worked</h2>
+
+<p>The hardest part of this project, in retrospect, was not building the model. It was figuring out what to measure. A language model in a restricted vocabulary can fail in several distinct ways:</p>
+
+<ul>
+<li>It can produce <em>non-UGF</em> tokens (we ruled this out architecturally — they're not in the vocabulary).</li>
+<li>It can produce <em>fluent UGF</em> that isn't really about anything (the "philosophy-shaped-text" failure).</li>
+<li>It can <em>answer the wrong question</em> (the prompt-attention failure).</li>
+<li>It can <em>answer the right question</em>, but with the vocabulary genuinely hobbling the philosophical content (the expressive-adequacy failure).</li>
+<li>It can <em>answer the right question well</em> (success).</li>
+</ul>
+
+<p>We needed an evaluation that could tell these apart. We landed on a four-layer plan:</p>
+
+<table class="numbers">
+<tr class="head"><th>Layer</th><th>What it asks</th><th>How</th></tr>
+<tr><td>1</td><td style="text-align:left">Does the model output UGF at all?</td><td style="text-align:left">Mechanical: every token is in the vocabulary by construction.</td></tr>
+<tr><td>2</td><td style="text-align:left">Does it produce structurally-plausible output?</td><td style="text-align:left">Length distributions, short-response rates, sample inspection.</td></tr>
+<tr><td>3</td><td style="text-align:left">Does it produce <em>good philosophical reasoning</em>?</td><td style="text-align:left">A four-dimensional rubric, applied by an LLM judge, against a comparable teacher-in-UGF baseline.</td></tr>
+<tr><td>4</td><td style="text-align:left">Where does it break down?</td><td style="text-align:left">Hand-crafted stress prompts targeting UGF-hard concepts.</td></tr>
+</table>
+
+<p>The Layer-3 rubric is the one that does the real evaluative work. Four dimensions:</p>
+
+<div class="example">
+<span class="label">Evaluation rubric (0–4 per dimension)</span>
+<p><strong>D1 · Engagement.</strong> Does the response address the prompt's actual question?</p>
+<p><strong>D2 · Coherence.</strong> Is the response internally consistent, with each step following from prior ones?</p>
+<p><strong>D3 · Substance.</strong> Does it do real philosophical work — develop a counterexample, draw a distinction the prompt didn't supply, trace an analogy — or only paraphrase?</p>
+<p><strong>D4 · Expressive adequacy under UGF.</strong> Does the philosophical content come through cleanly, or does the vocabulary restriction visibly degrade the argument? <em>This is the project-question dimension.</em></p>
+</div>
+
+<p>We score the Reasoner's output and we score a comparator's output independently (blinded), then compute deltas per dimension. The comparator is a much larger model (gpt-oss-120b) <em>also</em> instructed to write in UGF — this controls for "is this UGF too restrictive for a competent reasoner" rather than "is our small model too small."</p>
+</section>
+
+<!-- ============================================================== -->
+<section id="layer2">
+<span class="sect-num">§ 9</span>
+<h2>First results — and a trap</h2>
+
+<p>The first Layer-2 numbers landed on May 5, 2026. Two benchmarks:</p>
+
+<ul>
+<li><strong>Textbook</strong>: 115 questions from Van Cleave's <em>Intro to Logic</em> (CC-BY 4.0) — natural English textbook questions that a student might ask the chatbot.</li>
+<li><strong>Holdout</strong>: 170 items sampled from the corpus's held-out validation slice — prompts in the same form the Reasoner was trained on.</li>
+</ul>
+
+<p>Headline aggregate stats looked like this:</p>
+
+<table class="numbers">
+<tr class="head"><th></th><th>n</th><th>Mean English words</th><th>Short responses (&lt;20 wd)</th></tr>
+<tr><td>Reasoner — textbook</td><td>115</td><td>159</td><td class="neg">8 (7.0%)</td></tr>
+<tr><td>Comparator — textbook</td><td>115</td><td>175</td><td>0</td></tr>
+<tr><td>Reasoner — holdout</td><td>170</td><td class="pos">204</td><td>1 (0.6%)</td></tr>
+<tr><td>Comparator — holdout</td><td>170</td><td>180</td><td>0</td></tr>
+</table>
+
+<p>On the holdout — that is, on prompts in the form the model trained on — <em>the Reasoner produced longer English responses than the 120-billion-parameter teacher</em>. The first interpretation we landed on: "the Reasoner shines on holdout; the textbook pipeline is the weak link."</p>
+
+<p>This interpretation was wrong, and we found out why by looking at the actual outputs.</p>
+</section>
+
+<!-- ============================================================== -->
+<section id="degen">
+<span class="sect-num">§ 10</span>
+<h2>Discovery: the Translator hallucinates</h2>
+
+<p>Bert pushed back: <em>"the holdout benchmark seems not great, or maybe I'm reading this wrong?"</em> So we read the actual outputs. The Reasoner's UGF responses were broadly reasonable. The <em>English</em> renderings — produced by running the Reasoner's UGF through our Translator(UGF→English) — were not.</p>
+
+<div class="example">
+<span class="label">Round-trip failure: ethics prompt, holdout</span>
+<p class="prompt">what it means to live a good life by being a good person</p>
+<div class="resp ugf"><strong>Reasoner output (in UGF) — fine:</strong><br>The first idea says that a good life is a life that feels happy and safe, and that being a good person means doing things that make you and other people feel happy too. It also says that when you do things that bring a feeling of happy to yourself and to other people, you will feel that your life ha…</div>
+<div class="resp bad"><strong>Translator's English rendering — collapsed into a loop:</strong><br>Premises: (1) Virtue is a good life, (2) It is a good life, (3) It is a good life, and (4) It is a good life. (2) It is a good life. (3) It is a good life. (4) It is a good life. (5) It is a good life. (6) It is a good life. (7) It is a bad life. (8) It is a bad life. (9) It is a bad life… <em>[× 14]</em></div>
+</div>
+
+<p>On other items the Translator invented technical jargon that wasn't there ("Levelk thinking models bounded strategic reasoning"), fabricated proper names ("Mara," "Lira," "Thorne") when the UGF used "the first person" / "the second person," or collapsed two distinct claims into a single repeated one. The Translator's training-data distribution didn't include enough Reasoner-style UGF, so on that distribution it degenerated.</p>
+
+<div class="callout warn">
+<span class="label">The trap</span>
+Length statistics — and any other measurement that operated on the English-side output — were <em>actually measuring Translator competence on the Reasoner's distribution</em>, not Reasoner competence. We had built a chatbot pipeline (English→UGF→Reasoner→UGF→English) and then evaluated only its final stage.
+</div>
+
+<p>The fix was structural: stop evaluating the English-side output. Evaluate the Reasoner's UGF responses <em>directly</em>. The judge model — Claude — can read UGF perfectly well; it's just English with a restricted vocabulary.</p>
+</section>
+
+<!-- ============================================================== -->
+<section id="judge">
+<span class="sect-num">§ 11</span>
+<h2>Judging UGF directly</h2>
+
+<p>We needed an external judge to apply the four-dimensional rubric to ~570 items (Reasoner + Comparator, across both benchmarks). The rubric specifies "an external Claude (Opus 4.7 or Sonnet 4.6) via the Anthropic API," but we didn't have an API key set up. Two options: get the key, or use Claude another way.</p>
+
+<p>The "another way" turned out to be remarkably clean. The Claude Code CLI can dispatch <em>subagents</em> — independent Claude sessions, each with file access, that can be spawned in parallel. We split the items into 16 blinded batches, dispatched all 16 subagents simultaneously, and they wrote scored JSONL files back to disk. End-to-end wall time: about three minutes.</p>
+
+<div class="diagram">
+<svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="80" width="140" height="50" fill="#fffcf2" stroke="#F1B82D" stroke-width="2" rx="4"/>
+  <text x="90" y="100" text-anchor="middle" font-family="Georgia" font-size="13" font-weight="700">570 items</text>
+  <text x="90" y="116" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#555">4 systems × benchmarks</text>
+  <line x1="160" y1="105" x2="200" y2="105" stroke="#1c1c1c" stroke-width="2" marker-end="url(#arrow2)"/>
+  <defs>
+    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#1c1c1c"/>
+    </marker>
+  </defs>
+  <rect x="200" y="70" width="140" height="70" fill="#eaf1f7" stroke="#2d4a5c" stroke-width="2" rx="4"/>
+  <text x="270" y="92" text-anchor="middle" font-family="Georgia" font-size="13" font-weight="700">16 blinded batches</text>
+  <text x="270" y="108" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#555">strip system identity</text>
+  <text x="270" y="122" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#555">keep id + query + UGF</text>
+  <line x1="340" y1="105" x2="380" y2="105" stroke="#1c1c1c" stroke-width="2" marker-end="url(#arrow2)"/>
+  <rect x="380" y="20" width="160" height="30" fill="#fff" stroke="#2d4a5c" stroke-width="1" rx="3"/>
+  <text x="460" y="40" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11">Claude subagent 1</text>
+  <rect x="380" y="55" width="160" height="30" fill="#fff" stroke="#2d4a5c" stroke-width="1" rx="3"/>
+  <text x="460" y="75" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11">Claude subagent 2</text>
+  <text x="460" y="105" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#777">⋮</text>
+  <rect x="380" y="125" width="160" height="30" fill="#fff" stroke="#2d4a5c" stroke-width="1" rx="3"/>
+  <text x="460" y="145" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11">Claude subagent 16</text>
+  <line x1="540" y1="85" x2="580" y2="105" stroke="#1c1c1c" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="540" y1="125" x2="580" y2="105" stroke="#1c1c1c" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <rect x="580" y="85" width="120" height="40" fill="#ecf3ed" stroke="#2f6437" stroke-width="2" rx="4"/>
+  <text x="640" y="105" text-anchor="middle" font-family="Georgia" font-size="13" font-weight="700">Scored JSONL</text>
+  <text x="640" y="118" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#555">~3 min wall time</text>
+  <text x="360" y="180" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#777">Each subagent reads the rubric, scores its batch independently, writes a file.</text>
+</svg>
+</div>
+
+<details class="tech">
+<summary>One operational footnote: the content filter</summary>
+<div class="body">
+<p>One batch of 40 items (reasoner_textbook_02) hit Anthropic's content filter and returned a usage-policy refusal twice in a row on Opus 4.7. The items were innocuous logic-textbook fallacy examples — likely some specific phrasing trip-wired a classifier. Switching that single batch to Sonnet 4.6 with slightly softened framing solved it. Everything else ran cleanly on Opus.</p>
+<p>Worth flagging because it's the kind of small operational reality that doesn't show up in papers but eats a real chunk of project time.</p>
+</div>
+</details>
+</section>
+
+<!-- ============================================================== -->
+<section id="layer3">
+<span class="sect-num">§ 12</span>
+<h2>Layer-3: a happy ending?</h2>
+
+<p>The first set of judge results, on May 5, looked very encouraging. Per-dimension means on the holdout:</p>
+
+<table class="numbers">
+<tr class="head"><th>system</th><th>n</th><th>engagement</th><th>coherence</th><th>substance</th><th>D4 expr. adequacy</th></tr>
+<tr><td>Reasoner — holdout</td><td>170</td><td>2.08</td><td>3.34</td><td>2.26</td><td>3.17</td></tr>
+<tr><td>Comparator — holdout</td><td>170</td><td>3.61</td><td>3.77</td><td>2.67</td><td>3.55</td></tr>
+<tr><td><strong>Δ (R − C)</strong></td><td></td><td class="neg">−1.53</td><td class="neg">−0.43</td><td class="neg">−0.41</td><td class="neg">−0.38</td></tr>
+</table>
+
+<p>Three of the four dimensions are within 0.5 of the 120B teacher. <strong>D4 (expressive adequacy) is at 3.17 for the Reasoner and 3.55 for the Comparator</strong> — both well above the "recoverable but clunky" anchor at 2, and approaching the "feels native" anchor at 4. That is the dimension this whole project was about, and on this evaluation it answers the question affirmatively.</p>
+
+<p>And there were content-types on which our 200M from-scratch Reasoner <em>beat</em> the 120B teacher on philosophical substance:</p>
+
+<table class="numbers">
+<tr class="head"><th>holdout type</th><th>n</th><th>Δ engagement</th><th>Δ substance</th></tr>
+<tr><td>concept_explanation</td><td>25</td><td class="pos">+0.32</td><td class="pos">+0.76</td></tr>
+<tr><td>socratic_dialogue</td><td>15</td><td>−0.13</td><td class="pos">+0.33</td></tr>
+<tr><td>chain_of_thought</td><td>14</td><td>−0.29</td><td class="pos">+0.21</td></tr>
+</table>
+
+<p>Here is one of those high-scored holdout responses:</p>
+
+<div class="example">
+<span class="label">Reasoner output · holdout · scored D1=4, D2=4, D3=3, D4=4</span>
+<p class="prompt">how a group can agree on rules that are good for everyone</p>
+<div class="resp ugf">a group of people wants to live or work together in one place. To stay safe and feel good, they must agree on how they will act. They must decide what is okay to do and what is not okay to do. If everyone does what they want without any thought for others, things will become bad. People might take things that do not belong to them, or they might hurt others to get what they want. This makes life hard and makes people feel fear.<br><br>The hard question is this. How can a group make a set of ways to act that are good for every person in that group? How do we know which ways are the best for everyone?<br><br>First, some people might say that the best way is to do what makes the most people feel good. They think if a way of acting makes one hundred people feel good but makes ten people feel bad, it is still a good way to act…</div>
+<div class="scores">Judge note: "Engages the social-contract / rule-justification question directly and stages a real dialectic between consequentialist aggregation and a developing deontic-style critique."</div>
+</div>
+
+<p>This is a 200-million-parameter network, trained from scratch, with no English vocabulary beyond Up Goer Five, doing recognizable utilitarianism-vs-deontology in a paragraph. It is the kind of result you write a paper about.</p>
+
+<p>We then spent a few days writing a paper about it, and then we ran the Layer-4 evaluation.</p>
+</section>
+
+<!-- ============================================================== -->
+<section id="layer4">
+<span class="sect-num">§ 13</span>
+<h2>Discovery: the prompt-attention deficit</h2>
+
+<p>Layer 4 was supposed to be the stress test — 30 hand-crafted prompts targeting concepts that should be specifically <em>hard</em> for UGF (modal claims, supervenience, intensional contexts, the type/token distinction). The plan was to map UGF's expressive ceiling: identify the topics where the vocabulary genuinely runs out.</p>
+
+<p>We also re-ran a 50-item subset on which we'd discovered a separate bug — the counterexample prompts in the corpus had been truncated mid-sentence by an unnoticed slice-by-80-characters in the corpus generator. With the truncation fixed (full definitions restored from the cx-bot source), we had cleaner data.</p>
+
+<p>Here are the Layer-4 stress numbers:</p>
+
+<table class="numbers">
+<tr class="head"><th>system</th><th>n</th><th>engagement</th><th>coherence</th><th>substance</th><th>D4 expr. adequacy</th></tr>
+<tr><td>Reasoner — stress</td><td>30</td><td class="strong neg">0.13</td><td>2.10</td><td>1.03</td><td>2.07</td></tr>
+<tr><td>Comparator — stress</td><td>30</td><td>3.77</td><td>3.43</td><td>2.43</td><td>2.97</td></tr>
+<tr><td><strong>Δ (R − C)</strong></td><td></td><td class="neg">−3.63</td><td class="neg">−1.33</td><td class="neg">−1.40</td><td class="neg">−0.90</td></tr>
+</table>
+
+<p><strong>Reasoner engagement is essentially zero.</strong> Not on one category — across <em>all ten</em> stress categories the Reasoner's engagement score is 0.0 or 0.3 out of 4. This is dramatically worse than holdout.</p>
+
+<p>We opened the raw outputs to see what was happening:</p>
+
+<div class="example">
+<span class="label">Reasoner stress output, scored D1=0 (no engagement)</span>
+<p class="prompt">Could the laws of physics have been different than they are? Why or why not? What hangs on the answer?</p>
+<div class="resp bad">First, we look at what it means to follow the ways we are told to act. These ways are made by people who say what is right or wrong. They help keep order in a group. But they cannot cover every single thing that happens in life. There are times when no way says what to do. Then we think about the kind of person you are. This means your heart and your mind. It is about being kind and doing what is good for others…</div>
+<div class="scores">Judge note: "Coherent paragraph, but answering a different question entirely — appears to discuss moral rules and virtue rather than modal contingency of physical law."</div>
+</div>
+
+<div class="example">
+<span class="label">Reasoner output, patched counterexample prompt</span>
+<p class="prompt">counterexample to: A region has a particular climate if and only if (i) average temperature and precipitation are stable over a long period, (ii) the region can be assigned to a recognised climatic zone, and (iii) the climatic conditions are determined by the region's latitude and altitude.</p>
+<div class="resp bad">The first idea is that a person can do many good things. This person can do good things many times. The second idea is that when a person does these good things many times, it changes who that person is. The person does not just do the good things, but the person becomes a good person…</div>
+<div class="scores">Judge note: "Virtue ethics essay on a climate-science definition prompt. Engagement = 0."</div>
+</div>
+
+<p>The model is producing <strong>fluent, structurally-correct UGF essays that are about something else entirely.</strong> Asked about modal contingency of physical law, it writes about virtue and moral rules. Asked for a counterexample to a climate definition, it writes about character formation. The English is recoverable; the philosophy is coherent on its own terms; it is just not <em>the philosophy that was asked for</em>.</p>
+
+<div class="callout warn">
+<span class="label">The diagnosis</span>
+The Reasoner has learned "produce a philosophical essay in UGF." It has not (or has not reliably) learned "respond to the specific content of <em>this</em> prompt." When the prompt is in the form the corpus used — short, declarative topic phrases like "why X matters" or "the way to think about Y" — the model's generic-essay template happens to fit, and the result looks like targeted reasoning. When the prompt is interrogative, long, or contains specific formal content, the model produces a generic essay anyway, and the mismatch becomes visible.
+</div>
+
+<p>Going back to the holdout numbers with this in mind: counterexample analysis was <em>already</em> at engagement 0.27 in the Layer-3 holdout — we'd attributed this to the truncated prompts. With the patched prompts, engagement is still 0.02. The bug fix didn't help. The model was already failing for the deeper reason; the truncation just made the failure invisible by giving the model an excuse.</p>
+</section>
+
+<!-- ============================================================== -->
+<section id="learned">
+<span class="sect-num">§ 14</span>
+<h2>What we actually learned</h2>
+
+<p>The May-7 results forced a rewrite of the project's headline. The clean "small model, restricted vocabulary, near-teacher reasoning" story isn't quite right. The more careful story splits the question into two:</p>
+
+<h3>1. Is Up Goer Five expressively adequate for philosophical reasoning?</h3>
+<p>For this question, the <strong>Comparator-side</strong> numbers are the cleanest evidence — because the comparator (gpt-oss-120b) has full English understanding and is <em>choosing</em> to write in UGF under our system prompt. Its D4 score is the ceiling of "what can be expressed in UGF if a competent reasoner is doing the expressing."</p>
+
+<div class="bars">
+<p><strong>Comparator D4 by stress category (out of 4):</strong></p>
+<div class="bar-row"><span>use_mention</span><div class="bar c"><div class="fill" style="width:91.7%"></div></div><span class="val">3.67</span></div>
+<div class="bar-row"><span>counterfactual</span><div class="bar c"><div class="fill" style="width:83.3%"></div></div><span class="val">3.33</span></div>
+<div class="bar-row"><span>phenomenal_qualia</span><div class="bar c"><div class="fill" style="width:75%"></div></div><span class="val">3.00</span></div>
+<div class="bar-row"><span>deontic</span><div class="bar c"><div class="fill" style="width:75%"></div></div><span class="val">3.00</span></div>
+<div class="bar-row"><span>intensional</span><div class="bar c"><div class="fill" style="width:75%"></div></div><span class="val">3.00</span></div>
+<div class="bar-row"><span>vagueness/sorites</span><div class="bar c"><div class="fill" style="width:75%"></div></div><span class="val">3.00</span></div>
+<div class="bar-row"><span>modal</span><div class="bar c"><div class="fill" style="width:66.7%"></div></div><span class="val">2.67</span></div>
+<div class="bar-row"><span>supervenience</span><div class="bar c"><div class="fill" style="width:66.7%"></div></div><span class="val">2.67</span></div>
+<div class="bar-row"><span>self_reference</span><div class="bar c"><div class="fill" style="width:66.7%"></div></div><span class="val">2.67</span></div>
+<div class="bar-row"><span>abstract_objects</span><div class="bar c"><div class="fill" style="width:66.7%"></div></div><span class="val">2.67</span></div>
+</div>
+
+<p>So: <strong>modestly yes, with calibrated exceptions.</strong> Use/mention distinctions, counterfactual conditionals, dispositional properties — UGF handles cleanly. Modal contingency, supervenience, type/token distinctions, recursive self-reference — UGF strains, with the philosophical content visibly degraded but mostly recoverable. The vocabulary doesn't <em>break</em>; it just thins out at the edges. That is itself an interesting positive result, and it gives us a calibrated map of where the limits actually are.</p>
+
+<h3>2. Did our 200M Reasoner learn to do philosophical reasoning in UGF?</h3>
+<p>For this question, the answer is more qualified than the Layer-3 numbers initially suggested. The Reasoner produces fluent UGF reliably. On three holdout content types — concept_explanation, socratic_dialogue, chain_of_thought — its responses are recognizable philosophical reasoning, often comparable to the 120B teacher on substance. But on prompts whose <em>form</em> differs from the corpus distribution (interrogative, longer, more specific), the model produces a generic essay rather than answering. This is a <strong>prompt-attention deficit</strong>, separable from the expressive-adequacy question.</p>
+
+<p>This is the more honest paper. It is also, frankly, a more interesting paper: it identifies a specific failure mode of small-model-from-scratch training on a narrow prompt distribution, and it cleanly separates the model-capability question from the vocabulary-adequacy question.</p>
+
+<div class="callout">
+<span class="label">The amended headline</span>
+Up Goer Five appears expressively adequate for practical philosophical reasoning — within calibrated limits. A 200M-parameter model can be trained to produce UGF that the judge rates as cleanly carrying philosophical content. But "produces good UGF" and "answers what was asked" are different capabilities, and our training corpus over-rewarded the first at the expense of the second.
+</div>
+</section>
+
+<!-- ============================================================== -->
+<section id="open">
+<span class="sect-num">§ 15</span>
+<h2>Open questions</h2>
+
+<p>The project is roughly six weeks old as of this presentation. Many threads remain.</p>
+
+<h3>For the paper, near-term:</h3>
+<ul>
+<li><strong>Inter-rater calibration.</strong> All judge scores come from one model family (Claude). Bert hand-rates 30–50 items blind; we compute Spearman ρ between Bert and judge per dimension. The rubric's decision rule: ρ &gt; 0.7 → judge acceptable; ρ &lt; 0.5 → redesign the anchors. Without this, the headline numbers are uncalibrated.</li>
+<li><strong>A second judge.</strong> Re-score a subsample with a different judge family (Mistral-large via MindRouter, or GPT-5 if accessible). This is the harder test.</li>
+<li><strong>Diagnose the prompt-attention deficit.</strong> Is this a corpus-distribution narrowness issue (corpus prompts are too uniform in form)? An SFT prompt-format issue? Something fixable with a second SFT pass on more diverse prompt forms?</li>
+</ul>
+
+<h3>For the longer arc:</h3>
+<ul>
+<li><strong>The Sheffer-stroke contingency.</strong> Train a same-size (200M) model on regular English reasoning, compare against the UGF Reasoner. The cleanest "size-matched, vocabulary as only difference" comparison. This is real compute, but it would let us isolate what's UGF and what's small-model.</li>
+<li><strong>A scaling study.</strong> Train at 100M, 500M, 1B on the same UGF corpus. The "Numerals" project (a sibling investigation) suggests small chain-of-thought is brittle around 100M but stable past 500M. Does the prompt-attention deficit scale away, or is it intrinsic to the corpus?</li>
+<li><strong>Chatbot pipeline (separate workstream).</strong> The Translator(UGF→En) hallucination is a real bottleneck for any user-facing deployment, but no longer the primary scientific question. A second Translator pass with Reasoner-style UGF in its training distribution should help.</li>
+</ul>
+
+<h3>What this experience teaches about doing this kind of research:</h3>
+<ul>
+<li><strong>Length is not quality.</strong> The whole May-5 confusion came from treating mean-words-per-response as a proxy for "the model produces good output." Subsequent rubric scoring told a different story; raw-output inspection told a third.</li>
+<li><strong>Bugs in the evaluation pipeline look like findings about the model.</strong> The Translator-degeneracy discovery and the prompt-truncation discovery both started as "huh, that's a strange Reasoner result." Always read the raw outputs.</li>
+<li><strong>Parallel subagents are a real research tool.</strong> 16 Claude instances writing scored JSONL files concurrently produced research-grade evaluation in three minutes of wall time and cost roughly nothing on top of standard CLI usage. The pattern generalizes.</li>
+</ul>
+
+<p>Project memory and code live at <code>github.com/bertybaums/compression</code>. Comments, questions, and (especially) disagreements about the rubric anchors are very welcome.</p>
+</section>
+
+<footer>
+<p><strong>Acknowledgements.</strong> Research Computing &amp; Data Services, University of Idaho. fortyfive HPC. The MindRouter institutional LLM gateway. The <code>cx-bot</code> counterexample corpus. Bert Baumgaertner (PI). Claude (research collaborator). All philosophical errors are mine.</p>
+<p><strong>Code &amp; data.</strong> <a href="https://github.com/bertybaums/compression">github.com/bertybaums/compression</a> · all reports in <code>eval/results/</code> · presentation source in <code>docs/rcds-presentation-2026-05-11.html</code>.</p>
+<p><strong>Related project.</strong> Munroe, R. <em>Thing Explainer</em>. Houghton Mifflin Harcourt, 2015.</p>
+<p>· University of Idaho · College of Letters, Arts, and Social Sciences · May 11, 2026 ·</p>
+</footer>
+
+</main>
+</div>
+
+<script>
+// Highlight current section in TOC while scrolling
+(function() {
+  const links = Array.from(document.querySelectorAll('nav.toc a'));
+  const sections = links.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+  function onScroll() {
+    let active = sections[0];
+    const fromTop = window.scrollY + 80;
+    for (const s of sections) {
+      if (s.offsetTop <= fromTop) active = s;
+    }
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + active.id));
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  // Arrow-key navigation between sections (talk mode)
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'PageDown' && e.key !== 'PageUp') return;
+    e.preventDefault();
+    const fromTop = window.scrollY + 80;
+    let idx = sections.findIndex(s => s.offsetTop > fromTop);
+    if (idx === -1) idx = sections.length;
+    let target;
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') target = sections[Math.min(idx, sections.length - 1)];
+    else target = sections[Math.max(0, idx - 2)];
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+
+</body>
+</html>
