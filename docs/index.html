@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Can a thousand common words do philosophy? — RCDS presentation, May 11 2026</title>
+<title>Can a thousand common words do philosophy? — Compression project, progress report</title>
 <style>
 :root {
   --gold: #F1B82D;
@@ -345,8 +345,8 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
 
 <nav class="toc">
   <div class="brand">
-    <b>RCDS Presentation</b>
-    <span>University of Idaho · May 11, 2026</span>
+    <b>Compression Project</b>
+    <span>Progress report · Updated May 12, 2026</span>
   </div>
   <h2>Contents</h2>
   <ol>
@@ -365,6 +365,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
     <li><a href="#layer4">Discovery: the prompt-attention deficit</a></li>
     <li><a href="#learned">What we actually learned</a></li>
     <li><a href="#open">Open questions</a></li>
+    <li><a href="#diversify">The diversification campaign</a></li>
     <li><a href="#program">A research program</a></li>
   </ol>
 </nav>
@@ -372,10 +373,10 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
 <main>
 
 <header class="hero">
-  <div class="eyebrow">RCDS / Philosophy · University of Idaho</div>
+  <div class="eyebrow">Compression project · Progress report · University of Idaho</div>
   <h1>Can a thousand common words do philosophy?</h1>
-  <p class="sub">A from-scratch language model, a 1,000-word vocabulary, and the surprising places it broke.</p>
-  <p class="meta">Bert Baumgaertner · with Claude · May 11, 2026 · presented to Research Computing &amp; Data Services</p>
+  <p class="sub">A from-scratch language model, a 1,000-word vocabulary, and the surprising places it broke. A live progress report — content originated as an RCDS presentation on May 11, 2026, and continues to grow.</p>
+  <p class="meta">Bert Baumgaertner · with Claude · originally presented to Research Computing &amp; Data Services on May 11, 2026 · last updated May 12, 2026</p>
 </header>
 
 <!-- ============================================================== -->
@@ -893,8 +894,83 @@ Up Goer Five appears expressively adequate for practical philosophical reasoning
 </section>
 
 <!-- ============================================================== -->
-<section id="program">
+<section id="diversify">
 <span class="sect-num">§ 16</span>
+<h2>The diversification campaign: form as a training signal</h2>
+
+<p>One of the open questions above is the prompt-attention deficit — why the Reasoner produces fluent UGF essays on out-of-distribution prompts rather than engaging the specific question. Since the RCDS presentation on May 11, the project has made meaningful progress on this question. The hypothesis we now hold, and the work we have built to test it, is the subject of this section.</p>
+
+<h3>The insight: form is itself a training signal</h3>
+
+<p>Our v1 corpus is uniformly short-topic-phrase prompts ("why X matters", "the way to think about Y") followed by extended UGF essays. The Reasoner has learned that form correctly — and learned it so well that the form runs even when the prompt does not warrant it. The principled fix is not to add more diverse prompts to the same kind of corpus; it is to draw the corpus from canonical philosophical <em>forms</em>. The sharpest version: <strong>a Socratic dialogue is, structurally, a prompt-attention training corpus by construction.</strong> The interlocutor must engage the specific point being made or the dialogue collapses. You cannot insert a generic philosophical essay into <em>Phaedo</em> — Socrates would catch it on the next line and say "but that is not what I asked." The form <em>enforces</em> what we want the model to learn. The same is true with variations for Berkeley's <em>Three Dialogues</em>, Hume's <em>Dialogues Concerning Natural Religion</em>, Aquinas's <em>Summa</em> objection-and-reply structure, and Sextus's skeptical-mode arguments.</p>
+
+<h3>Names: a methodological decision</h3>
+
+<p>Building a dialogue corpus surfaced a question we already had in our research notes (filed under "names as rigid designators"): should the model ever see proper nouns? The original UGF parallel corpus stripped them; the new dialogue form's first-pass prompt kept them. To resolve the inconsistency we adopted <strong>Policy A: zero proper nouns in training data, including dialogue speakers.</strong> Each character is replaced by a stable UGF-vocabulary descriptor used consistently across every passage:</p>
+
+<ul>
+<li>Socrates → "the old teacher"</li>
+<li>Meno → "the young man"</li>
+<li>Cleanthes → "the man who sees plans"</li>
+<li>Demea → "the church man"</li>
+<li>Philo → "the careful one"</li>
+</ul>
+
+<p>The descriptor functions as a single referring unit composed of inferentially-active vocabulary. Whether the trained Reasoner comes to treat it as a name with rigid-designation properties is now an empirical post-training test — what we are calling the <em>name-recovery experiment</em>: hold out canonical (original-name, descriptor) pairs, train a probe on the Reasoner's descriptor-in-context representations, measure recovery rate. High recovery is evidence for an inferentialist account of singular-term content; low recovery is evidence of a frontier where inferential role does not suffice for naming.</p>
+
+<h3>Phase 1: ~2,800 pairs from four canonical sources, ready to ship</h3>
+
+<p>Four source-text parsers covering ten dialogues and treatises, all Project Gutenberg, all public domain:</p>
+
+<div class="stats">
+<div class="stat"><div class="n">7</div><div class="l">Plato dialogues</div></div>
+<div class="stat"><div class="n">1</div><div class="l">Hume <em>Dialogues</em></div></div>
+<div class="stat"><div class="n">576</div><div class="l">Aquinas articles (<em>Summa</em> I)</div></div>
+<div class="stat"><div class="n">17</div><div class="l">Sextus Tropes (incl. Agrippa's five)</div></div>
+</div>
+
+<p>Each source is parsed into form-appropriate units: consecutive (A, B) dialogue turns for Plato and Hume, (objection, reply) pairs for Aquinas, dogmatic-claim-and-counter chunks for Sextus. A 231-pair smoke test on May 12 confirms the pipeline works end-to-end:</p>
+
+<div class="stats">
+<div class="stat"><div class="n">100%</div><div class="l">API / JSON discipline</div></div>
+<div class="stat"><div class="n">97%</div><div class="l">UGF compliance (with retry loop)</div></div>
+<div class="stat"><div class="n">~300K</div><div class="l">UGF training tokens (Phase 1)</div></div>
+<div class="stat"><div class="n">~5 MB</div><div class="l">corpus on disk (Phase 1)</div></div>
+</div>
+
+<p>The retry-on-violations correction loop is the same pattern that took v1's first-shot compliance from ~60% to 99%; the form-diverse pipeline lands at exactly the same place. Hard API failures are zero on the smoke test. The descriptor-substitution policy works robustly — only sentence-initial false-positives ("Indeed", "Patience") survive as PN slips.</p>
+
+<div class="example">
+<span class="label">Plato <em>Meno</em>, pair 002 — descriptor as referring unit</span>
+<div class="prompt">SOURCE (Jowett 1871): "Why, Socrates, even now I am not able to follow you in the attempt to get at one common notion of virtue as of other things."</div>
+<div class="resp ugf">UGF: "Why old teacher, even now I cannot follow you as you try to find one same idea of good like other things?"</div>
+<div class="resp ugf" style="background:#f0f8e8">UGF response by 'the old teacher': "That makes sense; but I will try to get closer if I can, because you know that all things have a same idea."</div>
+</div>
+
+<h3>What this run will tell us</h3>
+
+<p>A Path-A continuation-SFT run on the v1 Reasoner with the form-diverse corpus tests two predictions at once:</p>
+
+<ol>
+<li><strong>That the prompt-attention deficit is a corpus-form artifact rather than a model-capacity limit.</strong> If the deficit closes after continuation training, the headline of the original RCDS story shifts from "amended" to "characterized and addressed." If it persists, the prompt-attention question becomes a frontier in its own right.</li>
+<li><strong>That descriptors come to function as rigid designators in the trained model.</strong> The name-recovery experiment runs as a post-training probe. The compression project is now, accidentally on purpose, a direct empirical test of inferentialism about singular terms — a question philosophy of language has largely had to argue about from the armchair.</li>
+</ol>
+
+<details class="tech">
+<summary>technical detail — pipeline location</summary>
+<div class="body">
+<p>The production runner is at <code>corpus/generation/generate_forms.py</code>. Per-form prompts, few-shot exemplars, and correction templates live in <code>corpus/generation/forms.py</code> (forms: <code>dialogue</code>, <code>objection_reply</code>, <code>skeptical_mode</code>). The token-bucket-shared rate limiter (<code>corpus/generation/rate_limiter.py</code>) now respects time-of-day caps: 100 req/min during business hours (5am–5pm Pacific), 200 req/min overnight, so other RCDS users have MR headroom. Source-text parsers are in <code>corpus/poc/parse_*.py</code> with shared descriptor maps. SLURM submission script is <code>slurm/generate_forms_corpus.sbatch</code>. The full plan and provenance are at <code>docs/followups/corpus-diversification.md</code>.</p>
+</div>
+</details>
+
+<p class="pull">If the prompt-attention deficit is form-driven, this corpus closes it. If it is not, then we have built a clean empirical apparatus to localize what else is going on. Either outcome is publishable; both are interesting.</p>
+
+</section>
+
+
+<!-- ============================================================== -->
+<section id="program">
+<span class="sect-num">§ 17</span>
 <h2>This is data point one in a research program</h2>
 
 <p>It is tempting to read compression-v1 as a self-contained result: did UGF work? Roughly yes, with calibrated exceptions. But the more useful framing is that we now have one data point in three directions of inquiry, each of which is itself a research program. None of the three has been done. Each is, in its own way, the kind of thing that compression-v1 was meant to make legible.</p>
@@ -927,9 +1003,9 @@ The compression-v1 paper is the proof of concept. The interesting science is wha
 
 <footer>
 <p><strong>Acknowledgements.</strong> Research Computing &amp; Data Services, University of Idaho. fortyfive HPC. The MindRouter institutional LLM gateway. The <code>cx-bot</code> counterexample corpus. Bert Baumgaertner (PI). Claude (research collaborator). All philosophical errors are mine.</p>
-<p><strong>Code &amp; data.</strong> <a href="https://github.com/bertybaums/compression">github.com/bertybaums/compression</a> · all reports in <code>eval/results/</code> · presentation source in <code>docs/rcds-presentation-2026-05-11.html</code>.</p>
+<p><strong>Code &amp; data.</strong> <a href="https://github.com/bertybaums/compression">github.com/bertybaums/compression</a> · all reports in <code>eval/results/</code> · this progress report's source in <code>docs/index.html</code>.</p>
 <p><strong>Related project.</strong> Munroe, R. <em>Thing Explainer</em>. Houghton Mifflin Harcourt, 2015.</p>
-<p>· University of Idaho · College of Letters, Arts, and Social Sciences · May 11, 2026 ·</p>
+<p>· University of Idaho · College of Letters, Arts, and Social Sciences · Last updated May 12, 2026 ·</p>
 </footer>
 
 </main>

@@ -20,16 +20,17 @@ The headline answer splits into two pieces:
 
 The discovery-first writeup is in the RCDS presentation (link below). The amended headline of the project is now: *Up Goer Five appears expressively adequate; learning to do practical philosophy in it on a small model from scratch is a separate problem, and we have characterized a specific way the small-model version fails.*
 
-## View the RCDS presentation online (no install needed)
+## View the progress report online
 
-The 16-section presentation is a self-contained HTML file that works as either slides (arrow-key navigation) or a long-form web essay. Render it in any browser via githack — a free CDN that serves raw GitHub content with correct MIME types:
+The progress report is a self-contained HTML file (originally an RCDS presentation, now updated as the project evolves) that works as either slides (arrow-key navigation) or a long-form web essay.
 
-**👉 [Open the presentation](https://rawcdn.githack.com/bertybaums/compression/main/docs/rcds-presentation-2026-05-11.html)**
+**👉 [Open the progress report](https://bertybaums.github.io/compression/)** — served via GitHub Pages from `docs/index.html`.
 
-Or, if githack is unavailable, the htmlpreview wrapper works as a fallback:
-[htmlpreview.github.io fallback](https://htmlpreview.github.io/?https://github.com/bertybaums/compression/blob/main/docs/rcds-presentation-2026-05-11.html).
+If Pages is unavailable or hasn't been built yet, two third-party renderers work as fallbacks:
+- [raw.githack.com](https://rawcdn.githack.com/bertybaums/compression/main/docs/index.html) (CDN-cached)
+- [htmlpreview.github.io](https://htmlpreview.github.io/?https://github.com/bertybaums/compression/blob/main/docs/index.html)
 
-The raw source is at [`docs/rcds-presentation-2026-05-11.html`](docs/rcds-presentation-2026-05-11.html).
+The raw source is at [`docs/index.html`](docs/index.html).
 
 ## Current architecture
 
@@ -44,7 +45,7 @@ Two models, but only one is doing scientific work right now.
 
 ### Translator — separate workstream
 
-A bidirectional English ↔ UGF model (T5-small with constrained decoding) was originally meant to enable round-trip evaluation. **The UGF → English direction turned out to be degenerate** on Reasoner-style UGF (May 5, 2026 discovery — see `docs/rcds-presentation-2026-05-11.html` §10). We pivoted the evaluation methodology to UGF-direct LLM-judge scoring; the Translator is now a chatbot-pipeline concern, not part of the scientific apparatus.
+A bidirectional English ↔ UGF model (T5-small with constrained decoding) was originally meant to enable round-trip evaluation. **The UGF → English direction turned out to be degenerate** on Reasoner-style UGF (May 5, 2026 discovery — see the [progress report §10](docs/index.html)). We pivoted the evaluation methodology to UGF-direct LLM-judge scoring; the Translator is now a chatbot-pipeline concern, not part of the scientific apparatus.
 
 ## Evaluation
 
@@ -101,7 +102,7 @@ Models and large data live on the U-Idaho HPC, not here. What this repo gives yo
 2. The eval pipeline + rubric + benchmarks + scored JSONL outputs from every evaluation layer (`eval/`).
 3. The full corpus generation pipeline — both the v1 reasoning-trace generator and the new form-diverse extractor (`corpus/generation/`).
 4. The four parsers for public-domain philosophical source texts (`corpus/poc/parse_*.py`) and the resulting (source-pair) JSONL files.
-5. The discovery-first RCDS presentation as a single self-contained HTML file (`docs/rcds-presentation-2026-05-11.html`).
+5. The progress report (originally an RCDS presentation, updated as work continues) as a single self-contained HTML file (`docs/index.html`).
 6. The paper draft skeleton and the three followup-program skeletons (`docs/`, `docs/followups/`).
 
 To regenerate the form-diverse corpus pipeline locally (against the institutional MindRouter endpoint, which requires a `MINDROUTER_API_KEY` we don't share):
