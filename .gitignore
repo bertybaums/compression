@@ -11,5 +11,13 @@ checkpoints/
 logs/
 wandb/
 corpus/processed/*.jsonl
+corpus/processed/forms_progress.json
+corpus/processed/reasoning_progress.json
 corpus/sources/
 !corpus/sources/.gitkeep
+# Source-text raw files (Project Gutenberg) — auto-downloaded by parsers
+# in corpus/poc/parse_*.py, no need to track ~5MB of regenerable text.
+corpus/poc/*_raw.txt
+# Bulky third-party reference PDFs; cite them in docs but don't ship them.
+docs/*.pdf
+eval/*.pdf
