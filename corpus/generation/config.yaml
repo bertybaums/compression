@@ -8,11 +8,23 @@ mindrouter:
   max_retries: 3
   retry_backoff_base: 2.0  # seconds, exponential
 
-  # Client-side global rate limiter used by generate_reasoning.py.
-  # MR's enforced cap shows as ~200 req/min and is shared across all campus
-  # users. We self-impose a lower ceiling to leave headroom.
-  max_req_per_minute: 200
+  # Client-side global rate limiter used by generate_reasoning.py and
+  # generate_forms.py. MR's enforced cap is ~200 req/min and is shared with
+  # other campus users. We respect that cap during work hours and consume
+  # more aggressively overnight when other users are likely idle.
+  #
+  # `max_req_per_minute` is the legacy fallback used when no schedule is set.
+  # `rate_schedule`, if present, dynamically updates the limiter based on
+  # wall-clock time in the configured timezone.
+  max_req_per_minute: 100
   burst_capacity: 10
+  rate_schedule:
+    enabled: true
+    timezone: America/Los_Angeles   # Pacific Time (Moscow, ID's clock zone)
+    night_start: "17:00"            # 5pm PT: bump to night_rate
+    day_start:   "05:00"            # 5am PT: drop back to day_rate
+    night_rate: 200                 # req/min between night_start and day_start
+    day_rate:   100                 # req/min between day_start and night_start
 
   # Teacher ensemble for reasoning-trace generation (used by generate_reasoning.py).
   # Each entry: id, weight (for weighted sampling), max_concurrent (per-teacher

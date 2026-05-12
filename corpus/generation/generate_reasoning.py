@@ -36,6 +36,9 @@ from dotenv import load_dotenv
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from corpus.generation.validate_ugf import validate_ugf, build_correction_prompt
+from corpus.generation.rate_limiter import (
+    AsyncTokenBucket, make_bucket, rate_schedule_ticker,
+)
 
 # --- Config ---
 CONFIG_PATH = Path(__file__).parent / "config.yaml"
@@ -77,40 +80,13 @@ TEMPERATURE = REASONING_CONFIG["temperature"]
 
 # --- Rate limiter ---
 #
-# Token bucket that refills at a configured per-second rate, shared across
-# all teacher workers. Every outgoing API call (success or failed retry)
-# acquires one token first. This prevents the fast-failing-retry cascade
-# from spiralling past MR's request-rate cap: if a 429 comes back in 200 ms
-# and the worker immediately retries, the limiter throttles that retry to
-# the target rate instead of letting it contribute to cap exhaustion.
+# Shared with generate_forms.py via corpus/generation/rate_limiter.py. The
+# bucket refills at a configured per-second rate (or a time-of-day schedule
+# that flips between day/night caps); every outgoing API call (success or
+# failed retry) acquires one token first. This prevents the 429 retry-cascade
+# from spiralling past MR's request-rate cap, and respects shared-tenant
+# headroom during business hours when other RCDS users are likely active.
 
-class AsyncTokenBucket:
-    """Shared async token bucket. Acquire blocks until a token is available."""
-
-    def __init__(self, rate_per_sec: float, burst: float):
-        self.rate = rate_per_sec
-        self.burst = max(1.0, burst)
-        self._tokens = self.burst
-        self._last_refill = time.monotonic()
-        self._lock = asyncio.Lock()
-
-    async def acquire(self) -> None:
-        while True:
-            wait_time = 0.0
-            async with self._lock:
-                now = time.monotonic()
-                elapsed = now - self._last_refill
-                self._tokens = min(self.burst, self._tokens + elapsed * self.rate)
-                self._last_refill = now
-                if self._tokens >= 1.0:
-                    self._tokens -= 1.0
-                    return
-                wait_time = (1.0 - self._tokens) / self.rate
-            # Release lock before sleeping so other waiters can make progress
-            await asyncio.sleep(wait_time)
-
-
-# Single process-wide bucket; initialised in main() so --config changes apply.
 _RATE_LIMITER: AsyncTokenBucket | None = None
 
 
@@ -530,12 +506,13 @@ async def main(
             TEACHERS = json.load(f)
         print(f"Teacher list overridden from {teachers_override_json} ({len(TEACHERS)} teachers)")
 
-    # Global rate limiter (see notes above the AsyncTokenBucket class).
-    _RATE_LIMITER = AsyncTokenBucket(
-        rate_per_sec=MAX_REQ_PER_MINUTE / 60.0,
-        burst=BURST_CAPACITY,
-    )
-    print(f"Rate limit: {MAX_REQ_PER_MINUTE} req/min, burst {BURST_CAPACITY}")
+    # Global rate limiter — shared module handles fixed-rate or time-scheduled
+    # caps. The scheduler task (if configured) flips the bucket's rate at the
+    # configured day/night boundaries.
+    _RATE_LIMITER, _sched = make_bucket(CONFIG)
+    _schedule_task: asyncio.Task | None = None
+    if _sched is not None:
+        _schedule_task = asyncio.create_task(rate_schedule_ticker(_RATE_LIMITER, _sched))
     # 86 topics × 5 content_types = 430 unique combos. For the full corpus we
     # aim for ~2M traces; the default below is a short iteration batch.
     n_total = limit or 2000

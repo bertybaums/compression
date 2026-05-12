@@ -1,0 +1,73 @@
+# Source-text registry for the form-diverse corpus campaign.
+#
+# Each entry points generate_forms.py at one parsed source-pair JSONL (output
+# of one of the corpus/poc/parse_*.py parsers), tags it with a label (used as
+# the `source` field in output records), and specifies which form's
+# extraction prompt to apply.
+#
+# To add a new source: write a parser that emits the form's expected
+# input_keys (see corpus/generation/forms.py FORMS[<form>]["input_keys"]),
+# run it to produce a JSONL, and add an entry here.
+
+sources:
+  # ---- Dialogue form ----
+  # Plato (Jowett translations, all Project Gutenberg, all PD). Descriptors
+  # for all characters live in corpus/poc/parse_plato.py CHARACTER_DESCRIPTORS,
+  # which is shared across dialogues so that (e.g.) SOCRATES becomes "the old
+  # teacher" everywhere in the corpus.
+  - label: plato_meno
+    path: corpus/poc/meno_pairs.jsonl
+    form: dialogue
+    notes: "Plato, Meno (Gutenberg #1643). SOCRATES, MENO, ANYTUS, BOY."
+  - label: plato_crito
+    path: corpus/poc/crito_pairs.jsonl
+    form: dialogue
+    notes: "Plato, Crito (Gutenberg #1657). SOCRATES, CRITO."
+  - label: plato_euthyphro
+    path: corpus/poc/euthyphro_pairs.jsonl
+    form: dialogue
+    notes: "Plato, Euthyphro (Gutenberg #1642). SOCRATES, EUTHYPHRO."
+  - label: plato_phaedo
+    path: corpus/poc/phaedo_pairs.jsonl
+    form: dialogue
+    notes: "Plato, Phaedo (Gutenberg #1658). Largely narrated form; we extract the framing exchange (~17 pairs)."
+  - label: plato_gorgias
+    path: corpus/poc/gorgias_pairs.jsonl
+    form: dialogue
+    notes: "Plato, Gorgias (Gutenberg #1672). SOCRATES, GORGIAS, POLUS, CALLICLES, CHAEREPHON."
+  - label: plato_theaetetus
+    path: corpus/poc/theaetetus_pairs.jsonl
+    form: dialogue
+    notes: "Plato, Theaetetus (Gutenberg #1726). SOCRATES, THEAETETUS, THEODORUS."
+  - label: plato_protagoras
+    path: corpus/poc/protagoras_pairs.jsonl
+    form: dialogue
+    notes: "Plato, Protagoras (Gutenberg #1591). Largely narrated; we extract the SOCRATES/COMPANION framing exchange."
+
+  # Hume's late-Enlightenment philosophical dialogue.
+  - label: hume_dialogues
+    path: corpus/poc/hume_pairs.jsonl
+    form: dialogue
+    notes: |
+      Hume, Dialogues Concerning Natural Religion (1779, Gutenberg #4583).
+      DEMEA, CLEANTHES, PHILO. Descriptors per DESCRIPTOR_MAP in
+      corpus/poc/parse_hume.py.
+
+  # ---- Objection-and-reply form ----
+  - label: aquinas_summa_1
+    path: corpus/poc/aquinas_pairs.jsonl
+    form: objection_reply
+    notes: |
+      Aquinas, Summa Theologica Part I (Fathers of the English Dominican
+      Province 1911, Gutenberg #17611). Each (objection, reply) pair
+      extracted from one article. ~1678 pairs available.
+
+  # ---- Skeptical-mode form ----
+  - label: sextus_outlines_1
+    path: corpus/poc/sextus_pairs.jsonl
+    form: skeptical_mode
+    notes: |
+      Sextus Empiricus, Outlines of Pyrrhonism Book I, translated by Mary
+      Mills Patrick 1899 (Gutenberg #17556). Coverage: Aenesidemus's classic
+      Ten Tropes (Ch XIV) + the Five Tropes of Agrippa (Ch XV) + the Two
+      Tropes (Ch XVI). 25 chunks total.
