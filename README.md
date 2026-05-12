@@ -47,6 +47,8 @@ Two models, but only one is doing scientific work right now.
 
 A bidirectional English ↔ UGF model (T5-small with constrained decoding) was originally meant to enable round-trip evaluation. **The UGF → English direction turned out to be degenerate** on Reasoner-style UGF (May 5, 2026 discovery — see the [progress report §10](docs/index.html)). We pivoted the evaluation methodology to UGF-direct LLM-judge scoring; the Translator is now a chatbot-pipeline concern, not part of the scientific apparatus.
 
+Technical writeup of how the Translator was actually trained — architecture, constrained decoding, parallel corpus, hyperparameters, the May-5 degeneracy discovery, and what would need to change to fix it: [`docs/translator-training.md`](docs/translator-training.md).
+
 ## Evaluation
 
 Four-dimension rubric (engagement, coherence, substance, expressive_adequacy), 0–4 anchored, judged by parallel Claude subagents writing scored JSONL files (research-grade LLM-as-judge methodology; see `eval/rubric.md`). Three benchmarks:
