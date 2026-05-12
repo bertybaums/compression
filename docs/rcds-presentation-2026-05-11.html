@@ -365,6 +365,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
     <li><a href="#layer4">Discovery: the prompt-attention deficit</a></li>
     <li><a href="#learned">What we actually learned</a></li>
     <li><a href="#open">Open questions</a></li>
+    <li><a href="#program">A research program</a></li>
   </ol>
 </nav>
 
@@ -889,6 +890,39 @@ Up Goer Five appears expressively adequate for practical philosophical reasoning
 </ul>
 
 <p>Project memory and code live at <code>github.com/bertybaums/compression</code>. Comments, questions, and (especially) disagreements about the rubric anchors are very welcome.</p>
+</section>
+
+<!-- ============================================================== -->
+<section id="program">
+<span class="sect-num">§ 16</span>
+<h2>This is data point one in a research program</h2>
+
+<p>It is tempting to read compression-v1 as a self-contained result: did UGF work? Roughly yes, with calibrated exceptions. But the more useful framing is that we now have one data point in three directions of inquiry, each of which is itself a research program. None of the three has been done. Each is, in its own way, the kind of thing that compression-v1 was meant to make legible.</p>
+
+<div class="callout good">
+<span class="label">The reframe</span>
+The compression-v1 paper is the proof of concept. The interesting science is what follows from being able to ask: <em>for a given cognitive domain, what is the minimum vocabulary that can carry it?</em>
+</div>
+
+<h3>1. Vocabulary × parameter scaling (the empirical program)</h3>
+<p>Compression-v1 sits at one cell of a 2D grid: 200M parameters × ~1K-word vocabulary. The natural next experiment is the full sweep — three sizes ({~50M, ~200M, ~1B}) × three vocabularies ({1K-UGF, ~5K Basic English / Globish, ~50K standard tokenizer}) — and the question is whether vocabulary structure is partially <em>substitutable</em> for parameter count. The output would be iso-performance curves in the (params, vocab) plane: "a model with vocabulary V<sub>1</sub> and parameter count <em>p</em> performs as a model with vocabulary V<sub>2</sub> and parameter count <em>p′</em>, where <em>p′/p</em> depends on the structural properties of the vocabularies." That is a scaling-law result of the kind ML venues care about, and it speaks to a question that interpretability work has been circling for some time.</p>
+
+<h3>2. Minimal sufficient vocabularies for other cognitive domains (the Sheffer-stroke program for cognition)</h3>
+<p>UGF-philosophy is one instance of a more general question. For each cognitive domain D — mathematical reasoning, legal reasoning, scientific explanation, ethics-only — there is presumably some minimal vocabulary V<sub>D</sub> sufficient for D's signature inferences. Each candidate has existing source material: intro-textbook headwords for math, the Plain English Legal Glossary for law, VOA Special English for science. The compression-v1 methodology generalizes directly: pick a domain, pick a candidate vocabulary, distill a teacher corpus, train, evaluate. After two or three domains the question becomes theoretical: what <em>features</em> of a vocabulary — polysemy coverage, compositional productivity, closure under definition — make it expressively complete for a given kind of reasoning? That is a contribution to cognitive science.</p>
+
+<h3>3. An inferentialist reading, developed (the philosophical program)</h3>
+<p>The prompt-attention deficit is the most original empirical finding of compression-v1, and it admits a philosophical reading that we suspect is the most underrated thing in the project. Brandom's inferentialism (1994, with roots in Sellars 1956) holds that conceptual content is constituted by inferential role rather than lexical label. The claim has been mostly armchair because there has been no good way to strip away vocabulary while preserving inferential structure. Compression-v1 is, almost by accident, exactly that experiment. The within-distribution result is a partial vindication of inferentialism: inferential role survives vocabulary compression. The deficit identifies a frontier: input-recognition — the capacity to read a prompt as <em>demanding</em> particular inferences — is a separable cognitive function that inferentialism does not, by itself, fix. That is a contribution to philosophy of mind / language, and the data are already in hand. No new compute needed; the work is in the writing.</p>
+
+<div class="callout">
+<span class="label">Where the followup skeletons live</span>
+<p><code>docs/followups/scaling.md</code> · <code>docs/followups/sheffer.md</code> · <code>docs/followups/inferentialism.md</code></p>
+<p>And the seeded compression-v1 paper draft at <code>docs/paper-draft.md</code>. Each followup has a thesis, venue candidates, methods, dependencies, and a passage ready to drop into paper-G's Future Work or Discussion.</p>
+</div>
+
+<p>None of the three programs needs the others to start. The scaling sweep is the most compute-expensive and the most ML-conference-shaped; the multi-domain program is the most generative and the longest-horizon; the inferentialist paper is the cheapest and the most likely to age well. The shared anchor is compression-v1 itself — its methodology, its data, and the way it makes the underlying question testable in the first place.</p>
+
+<p class="pull">If compression-v1 is the proof that you can do philosophy in a thousand words, the program is the question of what else you can do with that small a vocabulary, in what other domains, and what it would mean if it kept working.</p>
+
 </section>
 
 <footer>
