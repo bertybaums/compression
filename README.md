@@ -155,4 +155,8 @@ Research Computing and Data Services, University of Idaho; the fortyfive HPC clu
 
 ## License
 
-Code: TBD. Documents and presentation: TBD. Project Gutenberg sources are public domain. Van Cleave textbook excerpts in `eval/sets/logic_textbook_bench.jsonl` are CC-BY 4.0.
+- **Code** (everything in `corpus/`, `tokenizer/`, `reasoner/`, `eval/`, `slurm/`, `wordlist/`, and root-level Python files): [Apache License 2.0](LICENSE).
+- **Documents** in `docs/` — the progress report (`docs/index.html`), the paper draft (`docs/paper-draft.md`), and the followup-program skeletons (`docs/followups/*.md`): [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/) (CC-BY 4.0).
+- **Inherited content** retains its original license: Project Gutenberg sources used by the form-diversification parsers are public domain; the Van Cleave textbook content in `eval/sets/logic_textbook_bench.jsonl` is CC-BY 4.0 (attribution to Matthew J. Van Cleave, *Introduction to Logic and Critical Thinking v2.0*, 2016).
+
+A [`NOTICE`](NOTICE) file at the repo root collects the third-party attributions required by these licenses (Up Goer Five wordlist origin, Van Cleave textbook, Project Gutenberg sources, cx-bot corpus, MindRouter infrastructure).

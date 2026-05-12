@@ -1,0 +1,84 @@
+Compression Project — Expressive Adequacy of a Radically Constrained
+Vocabulary for Philosophical Reasoning
+
+Copyright 2026 Bert Baumgaertner
+Licensed under the Apache License, Version 2.0 (the "License");
+see the LICENSE file at the repository root for the full text.
+
+================================================================================
+Third-party content
+================================================================================
+
+This project incorporates or builds on content from several third-party sources.
+Each retains its original license; the attribution requirements are summarized
+below.
+
+--------------------------------------------------------------------------------
+1. Up Goer Five vocabulary
+--------------------------------------------------------------------------------
+The ~1,000-word "Up Goer Five" vocabulary was popularized by Randall Munroe's
+XKCD Simple Writer (https://xkcd.com/simplewriter/) and used in his book
+"Thing Explainer" (Houghton Mifflin Harcourt, 2015). The word list itself is
+not under copyright; Munroe's books and the XKCD comic are © Randall Munroe.
+We use the word list only; we do not redistribute Munroe's prose.
+
+--------------------------------------------------------------------------------
+2. Van Cleave, "Introduction to Logic and Critical Thinking"
+--------------------------------------------------------------------------------
+Excerpts adapted into the logic-textbook benchmark in
+  eval/sets/logic_textbook_bench.jsonl
+are drawn from Matthew J. Van Cleave, "Introduction to Logic and Critical
+Thinking v2.0" (2016). Released under Creative Commons Attribution 4.0
+International (CC-BY 4.0). The source PDF is not redistributed in this
+repository.
+
+--------------------------------------------------------------------------------
+3. Project Gutenberg sources (public domain)
+--------------------------------------------------------------------------------
+The form-diversification pipeline parses public-domain translations of
+philosophical texts obtained from Project Gutenberg. All are in the public
+domain in the United States; many are also PD elsewhere. The parsers in
+corpus/poc/parse_*.py auto-download these source files; we do not
+redistribute the raw text in the repository (see .gitignore).
+
+  - Plato, "Meno," "Crito," "Euthyphro," "Phaedo," "Gorgias,"
+    "Theaetetus," "Protagoras" — Benjamin Jowett translation (1871),
+    Project Gutenberg eBooks #1643, #1657, #1642, #1658, #1672, #1726, #1591.
+  - Hume, David, "Dialogues Concerning Natural Religion" (1779),
+    Project Gutenberg eBook #4583.
+  - Aquinas, Thomas, "Summa Theologica" Part I — Fathers of the English
+    Dominican Province translation (1911), Project Gutenberg eBook #17611.
+  - Patrick, Mary Mills, "Sextus Empiricus and Greek Scepticism" (1899),
+    Project Gutenberg eBook #17556. (Contains Patrick's English translation
+    of Sextus's "Outlines of Pyrrhonism" Book I.)
+
+--------------------------------------------------------------------------------
+4. cx-bot (counterexample corpus)
+--------------------------------------------------------------------------------
+The counterexample passages folded into the v1 Reasoner training corpus are
+drawn from the cx-bot project (https://github.com/bertybaums/good-thinking-bot)
+under the same author. See its repository for that project's license.
+
+--------------------------------------------------------------------------------
+5. MindRouter / U-Idaho institutional infrastructure
+--------------------------------------------------------------------------------
+Teacher distillation calls were routed through the University of Idaho's
+MindRouter LLM gateway, which proxies several third-party model providers
+(OpenAI's gpt-oss family, Google's Gemma family, Qwen, etc.). Outputs from
+those teachers are mixed into the training corpus under fair-use research
+norms; no claim is made over the proprietary weights or interfaces of the
+underlying providers.
+
+================================================================================
+Attribution scope
+================================================================================
+
+When redistributing this work or derivative works, please preserve this NOTICE
+file. The attributions above pertain to portions of this project's training
+data, evaluation benchmarks, and methodological inspirations — not to the code
+in this repository, which is licensed under Apache 2.0 in full.
+
+Documents in docs/ (the progress report, the paper draft, and the followup-
+program skeletons) are released under Creative Commons Attribution 4.0
+International (CC-BY 4.0); see the README "License" section for the precise
+boundary between code (Apache 2.0) and prose (CC-BY 4.0).
