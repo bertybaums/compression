@@ -346,7 +346,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
 <nav class="toc">
   <div class="brand">
     <b>Compression Project</b>
-    <span>Progress report · Updated May 12, 2026</span>
+    <span>Progress report · Updated May 13, 2026</span>
   </div>
   <h2>Contents</h2>
   <ol>
@@ -366,6 +366,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
     <li><a href="#learned">What we actually learned</a></li>
     <li><a href="#open">Open questions</a></li>
     <li><a href="#diversify">The diversification campaign</a></li>
+    <li><a href="#translator-v2">Closing the Translator gap</a></li>
     <li><a href="#program">A research program</a></li>
   </ol>
 </nav>
@@ -376,7 +377,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
   <div class="eyebrow">Compression project · Progress report · University of Idaho</div>
   <h1>Can a thousand common words do philosophy?</h1>
   <p class="sub">A from-scratch language model, a 1,000-word vocabulary, and the surprising places it broke. A live progress report — content originated as an RCDS presentation on May 11, 2026, and continues to grow.</p>
-  <p class="meta">Bert Baumgaertner · with Claude · originally presented to Research Computing &amp; Data Services on May 11, 2026 · last updated May 12, 2026</p>
+  <p class="meta">Bert Baumgaertner · with Claude · originally presented to Research Computing &amp; Data Services on May 11, 2026 · last updated May 13, 2026</p>
 </header>
 
 <!-- ============================================================== -->
@@ -969,8 +970,132 @@ Up Goer Five appears expressively adequate for practical philosophical reasoning
 
 
 <!-- ============================================================== -->
-<section id="program">
+<section id="translator-v2">
 <span class="sect-num">§ 17</span>
+<h2>Closing the Translator gap</h2>
+
+<p>Section 10 documented the headline operational problem: our trained T5-small Translator hallucinated on the Reasoner's UGF distribution — repetition loops, fabricated names ("Mara," "Lira," "Dr. Lira"), paraphrase collisions (alligators and crocodiles rendered identically). The Layer-3 evaluation route around that problem was to <em>stop</em> using the Translator at evaluation time and judge UGF directly. But a downstream pipeline that has to render UGF back to English for human-readable output still needs a translator, and a poor one becomes a bottleneck for everything that follows. The question lingered: <strong>could we build a Translator we trust without retraining one?</strong></p>
+
+<h3>The hypothesis: structured outputs do the constraint work</h3>
+
+<p>The sharper formulation came from Bert: <em>"our prompt to gpt-oss-120b could be much much shorter, and most of the 'reasoning' is then done in terms of matching the structured output requirement (i.e. the UGF superficial tokens)."</em> The move is to use a strong off-the-shelf model with native structured-output capability, hand it a one-line instruction, and let the constraint <em>itself</em> shape the model's choices. No training, no model design, no per-prompt vocabulary pruning. Every emitted token must be in UGF; the model's general paraphrase competence handles the meaning.</p>
+
+<p>If this worked, the trained T5 would be obsolete. If it didn't work, we would learn something specific about where the limit lies — either in the strong base model's competence or in the constraint engine's ability to scale.</p>
+
+<h3>What MindRouter actually enforces — an eight-probe characterization</h3>
+
+<p>The mechanism we wanted to test is JSON-schema <code>pattern</code> enforcement: send a request with <code>response_format: {"type": "json_schema", "json_schema": {"schema": {"properties": {"answer": {"type": "string", "pattern": "&lt;UGF regex&gt;"}}}}}</code> and let the server enforce the pattern at decode time. We ran eight probes on May 13 against <code>openai/gpt-oss-120b</code> via MindRouter to characterize what the deployed gateway actually does.</p>
+
+<p>The mechanism is real for small patterns. With <code>pattern: "^[A-Z]+$"</code>, asking the model "what is 2 plus 2?" forces it to emit only uppercase letters and it produces compliant gibberish (<code>"IUPMIRUUGV…"</code>) — clear evidence the regex is being enforced. With a 157-word custom alternation, sky-color questions return clean compliant UGF. So the path is wired up correctly. But:</p>
+
+<table class="numbers">
+<tr class="head"><th>vocabulary size</th><th>regex length</th><th>enforced?</th><th>model output on the alligator-vs-crocodile prompt</th></tr>
+<tr><td>500 words</td><td>14K chars</td><td class="pos">YES</td><td>"All all, all, all." (constraint-fighting compliant string)</td></tr>
+<tr><td>1,000 words</td><td>29K chars</td><td class="neg">NO</td><td>"Alligators areusually biggerthan crocodiles."</td></tr>
+<tr><td>2,000 words</td><td>57K chars</td><td class="neg">NO</td><td>"Alligators are generally biggerthan crocodiles."</td></tr>
+<tr><td>3,000 words</td><td>86K chars</td><td class="neg">NO</td><td>"Alligators are normally bigger at size compared a crocodiles."</td></tr>
+<tr><td><strong>3,616 (full UGF)</strong></td><td>104K chars</td><td class="neg">NO</td><td>"Alligators are usually bigger than crocodiles." (unconstrained natural English)</td></tr>
+</table>
+
+<p>The enforcement <em>silently</em> fails above about 1,000 alternations. No 4xx error, no warning, no debug header — the request returns 200 with output that includes words not in the declared vocabulary. The most likely diagnosis is that the constraint compiler underneath vLLM (xgrammar or outlines) times out or exceeds a memory budget on large alternations and falls back to unconstrained decoding. We confirmed it isn't a request-payload problem (smaller versions work with the same payload shape) and that vLLM extension parameters (<code>guided_regex</code>, <code>guided_grammar</code>) are filtered by MR's OpenAI-compat layer before reaching the backend.</p>
+
+<div class="callout warn">
+<span class="label">The detailed probe writeup</span>
+<p>The full eight-probe sequence, exact payloads, response samples, and questions to the MR admin are at <code>docs/mindrouter-structured-outputs-2026-05-13.md</code>, sent to the MR collaborators on the same day. Short version: hard pattern enforcement is real for small constraints, but our 3,616-word vocabulary is too large for the deployed compiler. We requested information about budget limits and whether <code>guided_grammar</code> (which compiles a GBNF trie much more efficiently than alternation-regex) could be exposed.</p>
+</div>
+
+<h3>Path 1: strong base + short prompt + post-hoc validator + retry</h3>
+
+<p>With hard constraint unavailable at our vocabulary size, the cleanest fallback is the pattern already proven across the v1 corpus campaign: <strong>prompt instruction for UGF + post-hoc validator + corrective retry</strong>. That recipe took the forms corpus from first-shot ~60% compliance to after-retry 96%, and the same pattern delivered ~99% compliance across the 2M-trace reasoning corpus. We applied it to the Translator role with one model substitution: <code>openai/gpt-oss-120b</code> (the strongest teacher we have on MR) in the seat the trained T5 used to occupy.</p>
+
+<ul>
+<li><strong>Model:</strong> <code>openai/gpt-oss-120b</code> via MindRouter, <code>reasoning_effort: "low"</code> for speed.</li>
+<li><strong>Prompt:</strong> a short system prompt with seven compliance rules and one user message <code>"Rewrite this in Up Goer Five: &lt;text&gt;"</code>. No few-shot exemplars, no embedded vocabulary list, no schema beyond <code>{"translation": "..."}</code>.</li>
+<li><strong>Response format:</strong> <code>response_format: {"type": "json_object"}</code>. Gives a clean parse contract without depending on the pattern enforcement that silently fails. The JSON shape is doing the structural work; the lexical work is on the prompt and validator.</li>
+<li><strong>Validator:</strong> <code>corpus.generation.validate_ugf</code> — the same wordlist-based validator that polices the corpus generators.</li>
+<li><strong>Retry:</strong> up to three attempts. On compliance failure, the offending words are quoted back to the model with a single-sentence correction prompt.</li>
+</ul>
+
+<p>The implementation is at <code>translator/mr_structured_translator.py</code>. It is an inference recipe, not a trained artifact — there is no weights file, no training data, no fine-tuning step. Any improvements to the base model (e.g. a future gpt-oss-200b) propagate without retraining.</p>
+
+<h3>Head-to-head: 115 items, four-dimension rubric, blinded judge</h3>
+
+<p>We ran the 115-item logic-textbook benchmark through the new translator and judged it head-to-head against the May 5 trained-T5 outputs on the same items. The judge rubric is at <code>eval/rubric_translator.md</code> — four 0–4 dimensions, written and committed before the run:</p>
+
+<ul>
+<li><strong>D1 meaning preservation:</strong> does the UGF rewrite convey the same propositional content as the English source? (penalizes concept collapses like alligator/crocodile rendered identically)</li>
+<li><strong>D2 fluency:</strong> does the UGF read as natural simple English prose, or does the constraint break the sentence? (penalizes repetition loops and word salad)</li>
+<li><strong>D3 no fabrication:</strong> does the UGF add content not in the English source? (penalizes invented names, invented examples, scaffolding the source did not request)</li>
+<li><strong>D4 paraphrase sensibility:</strong> when the English uses concepts UGF cannot directly name, is the substituted phrase sensible and informative? (penalizes "big animal that flies" for rhinoceros; rewards "the long animal with sharp teeth that lives in fresh water" for alligator)</li>
+</ul>
+
+<p>Six parallel Claude subagents — the proven dispatch pattern from §11 — scored 230 items (115 per system) blinded. The agents saw only <code>{id, english_source, ugf_translation}</code>; nothing in the batch files indicated which translator produced which output. Total wall time: about three minutes.</p>
+
+<table class="numbers">
+<tr class="head"><th>system</th><th>n</th><th>meaning</th><th>fluency</th><th>no_fab</th><th>paraphrase</th></tr>
+<tr><td>Trained T5 (May 5)</td><td>115</td><td>1.83</td><td>2.70</td><td>3.45</td><td>1.43</td></tr>
+<tr><td>MR gpt-oss-120b + prompt + retry</td><td>115</td><td>2.75</td><td>2.71</td><td>3.73</td><td>2.73</td></tr>
+<tr><td><strong>Δ (MR − T5)</strong></td><td></td><td class="pos">+0.92</td><td class="pos">+0.02</td><td class="pos">+0.28</td><td class="pos">+1.30</td></tr>
+</table>
+
+<p>Two dimensions move decisively; two are roughly stable. The strong base model dominates on <strong>meaning preservation</strong> (+0.92) and <strong>paraphrase sensibility</strong> (+1.30) — precisely the dimensions the T5's documented failure modes broke on. The two systems are essentially tied on <strong>fluency</strong> (+0.02) and only modestly different on <strong>no-fabrication</strong> (+0.28). The T5's failures, as the smoke-test contrasts had already suggested, were under-capacity for paraphrase reasoning (alligator/crocodile rendered identically, AIDS and HIV collapsed, "fireman" → "fire-maker", "CO state" parsed as carbon monoxide) plus a separate repetition-loop pathology (logic-22-02 through 22-06, 24-03, 24-08, 26-05 on the bench). The new translator inherits the strong base's competence and avoids both.</p>
+
+<div class="example">
+<span class="label">Direct contrast — reptile-or-mammal</span>
+<p class="prompt">Is an alligator a reptile or a mammal?</p>
+<div class="resp bad"><strong>Trained T5 (May 5):</strong> is a big animal that lives in water a cold water animal or a big animal that lives in trees?</div>
+<div class="resp ugf"><strong>MR gpt-oss-120b + prompt:</strong> is the long animal with sharp teeth that lives in fresh water a cold-blooded animal with scales or an animal that gives milk to its young?</div>
+</div>
+
+<div class="example">
+<span class="label">Direct contrast — the alligator/crocodile case</span>
+<p class="prompt">Alligators are on average larger than crocodiles.</p>
+<div class="resp bad"><strong>Trained T5 (May 5):</strong> big sea animals that eat dead things are usually bigger than big sea animals that eat dead things.</div>
+<div class="resp ugf"><strong>MR gpt-oss-120b + prompt:</strong> the long animal with sharp teeth that lives in fresh water is usually bigger than the long animal with sharp teeth that lives in water that is not fresh.</div>
+</div>
+
+<h3>What we can and cannot now claim</h3>
+
+<p>The defensible reads:</p>
+
+<ol>
+<li><strong>The T5 Translator's failures were both capacity and distribution issues.</strong> Paraphrase collapses (low D1, low D4) tell us the 60M-parameter model wasn't strong enough to find distinguishing UGF glosses for out-of-vocab concepts. Repetition loops (low D2) tell us the T5's training distribution didn't expose it adequately to the Reasoner's UGF surface. The first is a model-capacity problem; the second is a corpus-coverage problem. We addressed both at once by replacing the model.</li>
+<li><strong>Hard structured-output constraint is not currently available at our vocabulary scale.</strong> MR enforces JSON-schema patterns correctly for ≤500-word alternations and silently falls through to unconstrained decoding for larger ones. This is an engagement question with the MR admin (writeup sent May 13), not a project-blocking issue: path-1 works without it.</li>
+<li><strong>A trained translator is not on the project's critical path.</strong> The new translator is an inference recipe (model + prompt + validator + retry) with no learned weights. The downstream pipeline can use it immediately; the trained T5 stays in the repository as a comparator artifact, not a load-bearing component.</li>
+<li><strong>The improvement is concentrated where we predicted.</strong> Before running the judge we predicted the lift would be on D1 (meaning) and D4 (paraphrase), with D2 (fluency) and D3 (no-fab) roughly stable. The result matches: D1 +0.92 and D4 +1.30 (big), D2 +0.02 and D3 +0.28 (small). That the wins land exactly where the diagnostic theory said they should is itself evidence the diagnostic was right.</li>
+</ol>
+
+<p>The honest caveats:</p>
+
+<ul>
+<li>One judge run, 115 items per system. We have not measured judge variance with multiple seeds, alternate rubrics, or human inter-rater calibration. The deltas reported are point estimates, not confidence intervals.</li>
+<li>The judge is also Claude. Both the project assistant and the judge are in the Anthropic family, though the judge is blinded and operates only off the rubric file. Cross-family validation (a Gemini or DeepSeek judge applying the same rubric) would harden the result.</li>
+<li>Absolute MR paraphrase score is 2.73 / 4. That is "above clunky but recoverable" — better than the T5's 1.43 by a decisive margin but well short of the rubric's "feels native" anchor at 4. The translator is improved, not solved. Concepts that genuinely have no UGF cognate (AIDS vs HIV under the Up-Goer-Five constraint; modus tollens as a technical term) remain hard.</li>
+<li>The bench is Van Cleave's logic textbook — a deliberately constrained domain. Generalization to philosophical-essay paraphrase, dialogue rendering, or domain-specific terminology hasn't been measured on this run. The smoke-test contrasts above are anecdotal evidence, not benchmark data.</li>
+</ul>
+
+<div class="callout good">
+<span class="label">What changes downstream</span>
+<p>The trained T5 moves from "load-bearing pipeline component" to "comparator artifact." All Reasoner evaluations that produce English-side renderings should now route through <code>mr_structured_translator.py</code> rather than the T5 checkpoint. The Layer-3 / Layer-4 results stand on their own (they were UGF-direct judging anyway) but anything that uses the English rendering — the comparator-vs-Reasoner side-by-side reports, the public-facing examples, the eventual paper's quoted output — benefits from the new pipeline. The May 5 Translator-hallucination episode is now <em>characterized and addressed</em>, not just routed around.</p>
+</div>
+
+<details class="tech">
+<summary>technical detail — files, reproducibility, costs</summary>
+<div class="body">
+<p><strong>Translator:</strong> <code>translator/mr_structured_translator.py</code> (single-call synchronous function). <strong>Bench runner:</strong> <code>eval/run_mr_structured_translator_bench.py</code>. <strong>Rubric:</strong> <code>eval/rubric_translator.md</code>. <strong>Judge batch preparer:</strong> <code>eval/prepare_translator_judge_batches.py</code>. <strong>Aggregator:</strong> <code>eval/aggregate_translator_judge_scores.py</code>.</p>
+<p><strong>Raw artefacts:</strong> bench outputs at <code>eval/results/_jsonl/logic_bench_mr_structured_20260513_135033.jsonl</code> (new) and <code>eval/results/_jsonl/logic_bench_20260505_143235.jsonl</code> (T5 baseline). Judge batch inputs at <code>eval/judge_input_translator/{t5_may5,mr_120b}_batch_{01,02,03}.jsonl</code>. Judge batch outputs at <code>eval/judge_output_translator/{t5_may5,mr_120b}_batch_{01,02,03}.jsonl</code>. Aggregate at <code>eval/results/judge_aggregate_translator.json</code>. Admin probe writeup at <code>docs/mindrouter-structured-outputs-2026-05-13.md</code>.</p>
+<p><strong>Costs:</strong> 115-item bench at 10–12 items/min through MR = ~12 minutes; 6 judge subagents in parallel = ~3 minutes; aggregator = seconds. Total compute spend: ≤ 300 MR calls for the bench plus ≤ 30 probe calls for the eight-probe characterization.</p>
+</div>
+</details>
+
+<p class="pull">When you can replace a trained component with an inference recipe and verify the swap with a blinded judge, the right move is usually to do it. The T5 served its purpose — it taught us where its limits were, and what to look for in a replacement.</p>
+
+</section>
+
+
+<!-- ============================================================== -->
+<section id="program">
+<span class="sect-num">§ 18</span>
 <h2>This is data point one in a research program</h2>
 
 <p>It is tempting to read compression-v1 as a self-contained result: did UGF work? Roughly yes, with calibrated exceptions. But the more useful framing is that we now have one data point in three directions of inquiry, each of which is itself a research program. None of the three has been done. Each is, in its own way, the kind of thing that compression-v1 was meant to make legible.</p>
@@ -1005,7 +1130,7 @@ The compression-v1 paper is the proof of concept. The interesting science is wha
 <p><strong>Acknowledgements.</strong> Research Computing &amp; Data Services, University of Idaho. fortyfive HPC. The MindRouter institutional LLM gateway. The <code>cx-bot</code> counterexample corpus. Bert Baumgaertner (PI). Claude (research collaborator). All philosophical errors are mine.</p>
 <p><strong>Code &amp; data.</strong> <a href="https://github.com/bertybaums/compression">github.com/bertybaums/compression</a> · all reports in <code>eval/results/</code> · this progress report's source in <code>docs/index.html</code>.</p>
 <p><strong>Related project.</strong> Munroe, R. <em>Thing Explainer</em>. Houghton Mifflin Harcourt, 2015.</p>
-<p>· University of Idaho · College of Letters, Arts, and Social Sciences · Last updated May 12, 2026 ·</p>
+<p>· University of Idaho · College of Letters, Arts, and Social Sciences · Last updated May 13, 2026 ·</p>
 </footer>
 
 </main>
