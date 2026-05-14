@@ -33,7 +33,9 @@ from dotenv import load_dotenv
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from corpus.generation.generate_reasoning import CONTENT_TYPES, SYSTEM_PROMPT
+from corpus.generation.generate_reasoning import (
+    CONTENT_TYPES, SYSTEM_PROMPT, FEWSHOT_EXEMPLARS,
+)
 from corpus.generation.validate_ugf import validate_ugf
 from translator.mr_structured_translator import translate as mr_translate
 from reasoner.model import Reasoner, ReasonerConfig
@@ -82,20 +84,35 @@ def mr_chat(messages: list[dict], model: str = "openai/gpt-oss-120b",
     }
 
 
-def generate_p4(english_query: str, max_tokens: int = 2000) -> dict:
-    """Q_EN → gpt-oss-120b (EN reasoning) → TL → R_UGF."""
+def generate_p4(english_query: str,
+                en_max_tokens: int = 4000,
+                en_reasoning_effort: str = "medium",
+                translator_max_retries: int = 5) -> dict:
+    """Q_EN → gpt-oss-120b (EN reasoning, medium effort) → TL → R_UGF.
+
+    Uses medium reasoning_effort for the English reasoning step (matching the
+    v1 corpus generator's setting for gpt-oss-120b). The translator step uses
+    a higher retry budget than the bench default because long English
+    reasoning traces have more chances for OOV words to slip through.
+    """
     t0 = time.time()
     en = mr_chat(
         [{"role": "user", "content": english_query}],
-        max_tokens=max_tokens,
-        reasoning_effort="low",
+        max_tokens=en_max_tokens,
+        reasoning_effort=en_reasoning_effort,
     )
     en_response = en["content"]
     if not en_response:
         return {"ugf": "", "en_intermediate": "", "compliant": False,
                 "violations": [], "translator_attempts": 0,
                 "latency_s": round(time.time() - t0, 2)}
-    tl = mr_translate(en_response)
+    # Translator uses more retries + medium reasoning for long inputs.
+    tl = mr_translate(
+        en_response,
+        max_retries=translator_max_retries,
+        reasoning_effort="medium",
+        max_tokens=6000,
+    )
     return {
         "ugf": tl["translation"],
         "en_intermediate": en_response,
@@ -106,21 +123,41 @@ def generate_p4(english_query: str, max_tokens: int = 2000) -> dict:
     }
 
 
-def generate_p5(english_query: str, max_tokens: int = 2000,
+def generate_p5(english_query: str, content_type: str,
+                topic: str,
+                max_tokens: int = 10240,
+                reasoning_effort: str = "medium",
                 max_retries: int = 3) -> dict:
-    """Q_EN → gpt-oss-120b with UGF system prompt → R_UGF, with retry."""
+    """Q_EN → gpt-oss-120b with UGF system prompt → R_UGF.
+
+    Faithful reproduction of corpus/generation/generate_reasoning.generate_one()
+    in synchronous form: same SYSTEM_PROMPT, same FEWSHOT_EXEMPLARS injection
+    between system and user, same reasoning_effort=medium, same generous
+    max_tokens (2048 + 8192 overhead) used in the v1 campaign that hit
+    95–99% compliance.
+    """
     t0 = time.time()
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": english_query},
-    ]
+    # The system prompt + few-shot anchors the model on UGF register; the
+    # template re-wraps the user prompt the way the v1 corpus generator did.
+    user_prompt = CONTENT_TYPES[content_type].format(topic=topic)
+
+    messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+    for ex_user, ex_assistant in FEWSHOT_EXEMPLARS:
+        messages.append({"role": "user", "content": ex_user})
+        messages.append({"role": "assistant", "content": ex_assistant})
+    messages.append({"role": "user", "content": user_prompt})
+
     response_text = ""
     compliant = False
     violations: list[str] = []
     attempts = 0
     for attempt in range(max_retries):
         attempts += 1
-        r = mr_chat(messages, max_tokens=max_tokens, reasoning_effort="low")
+        r = mr_chat(
+            messages,
+            max_tokens=max_tokens,
+            reasoning_effort=reasoning_effort,
+        )
         response_text = r["content"]
         if not response_text:
             break
@@ -131,10 +168,11 @@ def generate_p5(english_query: str, max_tokens: int = 2000,
         messages.append({
             "role": "user",
             "content": (
-                f"Your response contains words not in the allowed list: "
+                f"Your response contains words or symbols not in the allowed list: "
                 f"{', '.join(repr(v) for v in violations[:15])}. "
-                f"Rewrite the entire response, replacing each disallowed word "
-                f"with a description using only allowed words."
+                f"Rewrite the entire response. Replace each disallowed word with "
+                f"a description using only allowed words. Remove any markdown "
+                f"formatting."
             ),
         })
     return {
@@ -264,9 +302,14 @@ def main():
                 p4 = {"ugf": f"<P4_ERROR: {e}>", "compliant": False}
                 print(f"  P4 ERROR: {e}")
 
-            # P5
+            # P5 — uses the v1 corpus-generator recipe: SYSTEM_PROMPT +
+            # FEWSHOT_EXEMPLARS + content-type wrapping + medium effort.
             try:
-                p5 = generate_p5(prompt["english_query"])
+                p5 = generate_p5(
+                    prompt["english_query"],
+                    content_type=prompt["content_type"],
+                    topic=prompt["topic"],
+                )
                 p5_f.write(json.dumps({
                     "id": pid,
                     "english_query": prompt["english_query"],
