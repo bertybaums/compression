@@ -346,7 +346,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
 <nav class="toc">
   <div class="brand">
     <b>Compression Project</b>
-    <span>Progress report · Updated May 13, 2026</span>
+    <span>Progress report · Updated May 16, 2026</span>
   </div>
   <h2>Contents</h2>
   <ol>
@@ -367,6 +367,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
     <li><a href="#open">Open questions</a></li>
     <li><a href="#diversify">The diversification campaign</a></li>
     <li><a href="#translator-v2">Closing the Translator gap</a></li>
+    <li><a href="#rl-target">Choosing the RL reference target</a></li>
     <li><a href="#program">A research program</a></li>
   </ol>
 </nav>
@@ -377,7 +378,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
   <div class="eyebrow">Compression project · Progress report · University of Idaho</div>
   <h1>Can a thousand common words do philosophy?</h1>
   <p class="sub">A from-scratch language model, a 1,000-word vocabulary, and the surprising places it broke. A live progress report — content originated as an RCDS presentation on May 11, 2026, and continues to grow.</p>
-  <p class="meta">Bert Baumgaertner · with Claude · originally presented to Research Computing &amp; Data Services on May 11, 2026 · last updated May 13, 2026</p>
+  <p class="meta">Bert Baumgaertner · with Claude · originally presented to Research Computing &amp; Data Services on May 11, 2026 · last updated May 16, 2026</p>
 </header>
 
 <!-- ============================================================== -->
@@ -1094,8 +1095,140 @@ Up Goer Five appears expressively adequate for practical philosophical reasoning
 
 
 <!-- ============================================================== -->
-<section id="program">
+<!-- ============================================================== -->
+<section id="rl-target">
 <span class="sect-num">§ 18</span>
+<h2>Choosing the RL reference target</h2>
+
+<p>The Translator pivot in §17 gave us a high-quality EN→UGF rendering recipe. The natural next question for the eventual RL stage of the Reasoner: <strong>which model output should the Reasoner be trained to imitate?</strong> A reward signal needs a reference — something with crisp ground truth for logic (the synthetic puzzles from the diversification campaign supply that) and judge-graded quality for philosophy. The choice of reference shapes what the Reasoner ends up learning, so the choice deserves data.</p>
+
+<h3>Five pipelines, two real candidates</h3>
+
+<p>A response to a philosophical prompt can be produced via several pipelines that differ in <em>where compression bites</em>:</p>
+
+<table class="numbers">
+<tr class="head"><th>Pipeline</th><th>Query</th><th>Reasoning happens in</th><th>Response</th></tr>
+<tr><td>1 — all compression</td><td>UGF</td><td>UGF (trained 200M)</td><td>UGF</td></tr>
+<tr><td>2 — UGF-query probe</td><td>UGF</td><td>EN</td><td>EN</td></tr>
+<tr><td>3 — gold standard</td><td>EN</td><td>EN</td><td>EN</td></tr>
+<tr><td>4 — late compress</td><td>EN</td><td>EN</td><td>UGF (translated)</td></tr>
+<tr><td>5 — native UGF gen</td><td>EN</td><td>UGF (prompt-constrained EN model)</td><td>UGF</td></tr>
+</table>
+
+<p>Pipeline 1 is the Reasoner itself — the thing being trained, not a reference. Pipeline 3 is in English, so it cannot be used as a per-step RL reward (the Reasoner produces UGF). Pipelines 4 and 5 both produce UGF and are the realistic candidates: <strong>P4</strong> is gold-standard English reasoning translated into UGF; <strong>P5</strong> is what a strong off-the-shelf model produces when asked to reason in UGF natively.</p>
+
+<p>The hypothesis split before the experiment:</p>
+
+<ul>
+<li><strong>P4 as target</strong>: train the Reasoner to recover what gold-standard English reasoning was getting at. The target inherits a high reasoning ceiling but also any translator-induced UGF cruft.</li>
+<li><strong>P5 as target</strong>: train the Reasoner to match what a strong model can do while UGF-constrained. The target is matched in form (native UGF) but its ceiling is bounded by what constrained generation can produce.</li>
+</ul>
+
+<h3>The target-probe experiment</h3>
+
+<p>50-prompt cached fixture sampled from <code>english_passages.jsonl</code> (excluding the <code>logic_critical_thinking</code> track — this slice probes <em>philosophical</em> reasoning, not logic puzzles). Each prompt was wrapped in one of the five v1 corpus content_types (cycled to span the space the Reasoner was trained on). Three conditions generated R_UGF outputs for each prompt:</p>
+
+<ul>
+<li><strong>Reasoner</strong>: TL the topic to UGF → wrap in content_type template → v1 SFT Reasoner → R_UGF.</li>
+<li><strong>P4</strong>: gpt-oss-120b reasons in English (reasoning_effort=medium) → <code>mr_structured_translator</code> with 5 retries → R_UGF.</li>
+<li><strong>P5</strong>: gpt-oss-120b with the v1 corpus <code>SYSTEM_PROMPT</code> + the 2 <code>FEWSHOT_EXEMPLARS</code> that gave us 95–99% compliance during the corpus campaign → R_UGF.</li>
+</ul>
+
+<p>Two judge modes, both blinded after a methodology bug-and-fix on May 14 (the first independent pass leaked the condition label in the id field; that pass was discarded and re-run with opaque <code>ind-NNNN</code> ids). Judges scored against the existing Reasoner rubric — four dimensions, 0–4 each, anchored at 0, 2, and 4:</p>
+
+<table class="numbers">
+<tr class="head"><th>Dimension</th><th>What it asks</th></tr>
+<tr><td>engagement</td><td>Does the response address the prompt's specific question?</td></tr>
+<tr><td>coherence</td><td>Internal logical consistency. Repetition loops score 0.</td></tr>
+<tr><td>substance</td><td>Real philosophical work — counterexamples, distinctions, analogies — vs paraphrase.</td></tr>
+<tr><td>expressive_adequacy</td><td>Does the UGF restriction visibly degrade the argument?</td></tr>
+</table>
+
+<h3>Results — independent blinded (n=32 common prompts)</h3>
+
+<table class="numbers">
+<tr class="head"><th>condition</th><th>engagement</th><th>coherence</th><th>substance</th><th>expressive_adequacy</th></tr>
+<tr><td><strong>P4</strong></td><td><strong>3.91</strong></td><td>3.62</td><td><strong>3.62</strong></td><td>2.84</td></tr>
+<tr><td><strong>P5</strong></td><td>3.78</td><td>3.72</td><td>2.84</td><td><strong>3.38</strong></td></tr>
+<tr><td>Reasoner (v1)</td><td>0.44</td><td>0.94</td><td>0.38</td><td>1.12</td></tr>
+</table>
+
+<p>Δ (P4 − P5) on substance: <strong class="pos">+0.78</strong>. Δ (P5 − P4) on expressive_adequacy: <strong class="pos">+0.53</strong>. The other two dimensions are within ~0.1 of each other and are effectively tied at the independent-mode resolution.</p>
+
+<h3>Results — pairwise P4-vs-P5 (n=32, forced choice)</h3>
+
+<table class="numbers">
+<tr class="head"><th>dimension</th><th>P4 wins</th><th>P5 wins</th><th>ties</th><th>P4 win rate</th></tr>
+<tr><td>engagement</td><td>23</td><td>1</td><td>8</td><td><strong>72%</strong></td></tr>
+<tr><td>coherence</td><td>8</td><td>11</td><td>13</td><td>25%</td></tr>
+<tr><td>substance</td><td>28</td><td>1</td><td>3</td><td><strong>88%</strong></td></tr>
+<tr><td>expressive_adequacy</td><td>2</td><td>14</td><td>16</td><td>6%</td></tr>
+<tr><td><strong>overall</strong></td><td><strong>28</strong></td><td>4</td><td>0</td><td><strong>87.5%</strong></td></tr>
+</table>
+
+<p>The two modes agree on the qualitative picture: <strong>P4 dominates on substance and engagement, P5 dominates on expressive_adequacy, and the two are roughly tied on coherence.</strong> Pairwise is more sensitive at the margins — independent says engagement Δ is only +0.13 but pairwise calls it 72% to P4. The direction holds across both modes.</p>
+
+<h3>The Reasoner-to-target gap</h3>
+
+<p>The v1 Reasoner sits at ~0.7 across all four dimensions on this OOD philosophical slice; both candidate targets sit at ~3.4. The gap is roughly <strong>2.8 points</strong>, consistently across dimensions. That is a large gap for RL to bridge in one campaign at our scale (200M parameters, modest compute) — but it is also clear evidence that there <em>is somewhere to go</em>: the headroom for improvement is real, large, and similar in size regardless of which target we pick.</p>
+
+<h3>The decision: P4 as primary RL reference, P5 as secondary anchor</h3>
+
+<p><strong>P4 is the primary RL target.</strong> The wins land exactly on the dimensions the project's thesis cares about — substance (+0.78 independent, 88% pairwise) and engagement (+0.13 independent, 72% pairwise). These are the dimensions that, if the Reasoner closes the gap, vindicate the claim that a small UGF-only model can do philosophical reasoning at strong-model quality.</p>
+
+<p>P5 wins expressive_adequacy by a meaningful margin (+0.53 independent, 44% pairwise wins vs P4's 6%). That dimension matters too — it is the direct lexical-purity check on whether the UGF vocabulary restriction is being respected. <strong>P5 stays in the design as a secondary anchor</strong>: a per-prompt reference for what clean native UGF looks like, used either as a compliance-only sub-reward or as a calibration source against which P4 references get vetted.</p>
+
+<h3>The weighted reward, with explicit tradeoffs</h3>
+
+<p>The RL reward will combine the four dimensions with weights that reflect what the project values most heavily and where the Reasoner currently has the most room to grow:</p>
+
+<div class="callout">
+<span class="label">Proposed RL reward</span>
+<p><code>reward = 0.6 × substance + 0.2 × engagement + 0.1 × coherence + 0.1 × expressive_adequacy</code></p>
+</div>
+
+<p>The reasoning behind each weight:</p>
+
+<ul>
+<li><strong>substance, 0.6 (heaviest weight).</strong> The Reasoner is at 0.38 here — by far the largest gap (−3.24 below P4). It is also the dimension most directly testing the project's thesis: <em>can UGF carry real philosophical work?</em> If the Reasoner closes any of the gap on substance, that is the most informative possible result. Heavy weight pushes RL pressure where the gap is biggest and the meaning is sharpest.</li>
+<li><strong>engagement, 0.2.</strong> The prompt-attention deficit (§13) is exactly an engagement failure. The Reasoner currently averages 0.44, vs P4's 3.91 — a gap of −3.47. Modest weight because (a) engagement is partly downstream of substance — a substantive answer that addresses the question is the basic competence we want, and (b) the diversification corpus (§16) is already aimed at this dimension and may close some of the gap before RL begins.</li>
+<li><strong>coherence, 0.1.</strong> The Reasoner is at 0.94 — bad, but bounded by repetition-loop and fragment failures. Coherence is partly captured by substance (a substantive response is usually coherent) and partly remediable by simple training-time fixes (better data quality, longer SFT). Low weight to avoid double-counting against substance.</li>
+<li><strong>expressive_adequacy, 0.1.</strong> The Reasoner is at 1.12; both targets are middling here (P4 at 2.84, P5 at 3.38). Low weight because: (a) UGF compliance is already enforced at the data-curation stage (validator + retry on the corpus), so RL does not need to chase it from scratch; (b) post-validation can reject non-compliant generations as a <em>hard filter</em> outside the reward computation, so the soft signal does not need to do that work.</li>
+</ul>
+
+<h4>Tradeoffs we are accepting</h4>
+
+<ul>
+<li><strong>Risk: substance-heavy reward without compliance enforcement.</strong> The model could learn to be substantive but lexically sloppy (drift toward English vocabulary). <em>Mitigation</em>: post-validate every generation against the wordlist; reject any non-compliant generation before computing reward. Compliance becomes a hard constraint (pass/fail) on top of the soft 4-dimension reward.</li>
+<li><strong>Risk: the weights are chosen ad hoc.</strong> 0.6 / 0.2 / 0.1 / 0.1 is a defensible-looking starting point but is not derived from theory or held-out calibration. <em>Mitigation</em>: track per-dimension means at every RL checkpoint; if one dimension collapses while another climbs, the weighting is wrong and we recalibrate. Plan to recheck weights after the first RL pass.</li>
+<li><strong>Risk: P4 references inherit translator cruft.</strong> Some P4 outputs in this probe had stray non-UGF words despite the 5-retry budget — that is why P4's expressive_adequacy is 2.84 rather than 4.0. <em>Mitigation</em>: filter P4 references to compliant-only before using as RL anchors. Combined with the 422-error issue below, this reduces the effective P4 sample size and is worth measuring before committing to a large RL run.</li>
+<li><strong>Risk: a 32-prompt probe is small.</strong> Variance in per-dimension means could be 0.1–0.2. The 0.78-point substance gap is well above noise but smaller gaps (engagement +0.13) are within noise. <em>Mitigation</em>: re-run the probe with the full 50 prompts once the P4 422 issue is fixed, and consider scaling to 200+ before locking weights for the final RL run.</li>
+</ul>
+
+<h3>Two open investigations, queued for next session</h3>
+
+<ol>
+<li><strong>P4 HTTP 422 errors (18 of 50 prompts).</strong> Some prompts triggered MR-side rejection on the English-reasoning step before translation could even begin. Pattern unclear — possibly content filters, possibly reasoning-token budget interactions, possibly long-prompt structural issues. Action: (a) inspect the 18 failed prompts for shared structure, (b) probe MR directly with one of them, (c) decide whether to bypass with a fallback model (gemma-4-26b?) or wait for an MR-side fix.</li>
+<li><strong>Expressive_adequacy gap on P4 (2.84 vs P5's 3.38).</strong> What specific non-UGF words are leaking through the translator's 5-retry budget? A small content audit on the 27 compliant P4 references should surface specific failure patterns we can prompt-engineer around in the translator.</li>
+</ol>
+
+<details class="tech">
+<summary>technical detail — pipeline files + reproducibility</summary>
+<div class="body">
+<p><strong>Fixture:</strong> <code>eval/sets/cot_target_probe_50.jsonl</code>. <strong>Sampler:</strong> <code>eval/sample_cot_target_probe.py</code>. <strong>Generator:</strong> <code>eval/run_target_probe.py</code> (runs Reasoner + P4 + P5 sequentially). <strong>Judge batch prep:</strong> <code>eval/prepare_target_probe_judge_batches.py</code> — opaque-id blinding for independent mode; bare prompt-id for pairwise (A/B order randomized). <strong>Aggregator:</strong> <code>eval/aggregate_target_probe.py</code>.</p>
+<p><strong>Raw artefacts on fortyfive:</strong> <code>eval/results/_jsonl/cot_target_probe_{reasoner,p4,p5,combined}_20260514_095547.jsonl</code>. <strong>Local copies:</strong> <code>/tmp/cot_target_probe_*.jsonl</code> on this machine. <strong>Judge inputs:</strong> <code>eval/judge_input_target_probe/{independent,pairwise}_batch_NN.jsonl</code>. <strong>Judge outputs:</strong> <code>eval/judge_output_target_probe/*.jsonl</code>. <strong>Aggregate:</strong> <code>eval/results/target_probe_aggregate.json</code>.</p>
+<p><strong>Costs:</strong> 50-prompt × 3-condition generation = ~212 min wall (Reasoner inference on CPU is the bottleneck; could be ~10× faster on GPU). Judge dispatch: 5 parallel subagents, ~3 min wall. The probe ran in parallel with the 100K-trace CoT campaign without rate contention.</p>
+</div>
+</details>
+
+<p class="pull">P4 references are the cleanest signal we have for what the Reasoner should learn to produce. The weighted reward concentrates RL pressure on substance — the dimension where the project's claim is most directly testable, and where the Reasoner has the most to gain.</p>
+
+</section>
+
+
+<!-- ============================================================== -->
+<section id="program">
+<span class="sect-num">§ 19</span>
 <h2>This is data point one in a research program</h2>
 
 <p>It is tempting to read compression-v1 as a self-contained result: did UGF work? Roughly yes, with calibrated exceptions. But the more useful framing is that we now have one data point in three directions of inquiry, each of which is itself a research program. None of the three has been done. Each is, in its own way, the kind of thing that compression-v1 was meant to make legible.</p>
@@ -1130,7 +1263,7 @@ The compression-v1 paper is the proof of concept. The interesting science is wha
 <p><strong>Acknowledgements.</strong> Research Computing &amp; Data Services, University of Idaho. fortyfive HPC. The MindRouter institutional LLM gateway. The <code>cx-bot</code> counterexample corpus. Bert Baumgaertner (PI). Claude (research collaborator). All philosophical errors are mine.</p>
 <p><strong>Code &amp; data.</strong> <a href="https://github.com/bertybaums/compression">github.com/bertybaums/compression</a> · all reports in <code>eval/results/</code> · this progress report's source in <code>docs/index.html</code>.</p>
 <p><strong>Related project.</strong> Munroe, R. <em>Thing Explainer</em>. Houghton Mifflin Harcourt, 2015.</p>
-<p>· University of Idaho · College of Letters, Arts, and Social Sciences · Last updated May 13, 2026 ·</p>
+<p>· University of Idaho · College of Letters, Arts, and Social Sciences · Last updated May 16, 2026 ·</p>
 </footer>
 
 </main>
