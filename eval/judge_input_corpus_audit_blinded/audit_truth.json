@@ -1,0 +1,3598 @@
+{
+  "audit-0000": {
+    "original_id": "reasoning-0839728",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0001": {
+    "original_id": "gorgias_pair_287",
+    "corpus": "forms"
+  },
+  "audit-0002": {
+    "original_id": "cot-logic-0033516",
+    "corpus": "cot"
+  },
+  "audit-0003": {
+    "original_id": "reasoning-0989942",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0004": {
+    "original_id": "reasoning-1245637",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0005": {
+    "original_id": "aquinas_pair_339",
+    "corpus": "forms"
+  },
+  "audit-0006": {
+    "original_id": "cot-phil-0032315",
+    "corpus": "cot"
+  },
+  "audit-0007": {
+    "original_id": "reasoning-1191013",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0008": {
+    "original_id": "aquinas_pair_842",
+    "corpus": "forms"
+  },
+  "audit-0009": {
+    "original_id": "reasoning-0617845",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0010": {
+    "original_id": "cot-logic-0046568",
+    "corpus": "cot"
+  },
+  "audit-0011": {
+    "original_id": "reasoning-0286735",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0012": {
+    "original_id": "cot-logic-0001379",
+    "corpus": "cot"
+  },
+  "audit-0013": {
+    "original_id": "gorgias_pair_318",
+    "corpus": "forms"
+  },
+  "audit-0014": {
+    "original_id": "cot-logic-0023106",
+    "corpus": "cot"
+  },
+  "audit-0015": {
+    "original_id": "aquinas_pair_1472",
+    "corpus": "forms"
+  },
+  "audit-0016": {
+    "original_id": "cot-logic-0003416",
+    "corpus": "cot"
+  },
+  "audit-0017": {
+    "original_id": "reasoning-0791919",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0018": {
+    "original_id": "cot-logic-0010845",
+    "corpus": "cot"
+  },
+  "audit-0019": {
+    "original_id": "reasoning-1400164",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0020": {
+    "original_id": "aquinas_pair_371",
+    "corpus": "forms"
+  },
+  "audit-0021": {
+    "original_id": "aquinas_pair_464",
+    "corpus": "forms"
+  },
+  "audit-0022": {
+    "original_id": "cot-phil-0018254",
+    "corpus": "cot"
+  },
+  "audit-0023": {
+    "original_id": "cot-phil-0049152",
+    "corpus": "cot"
+  },
+  "audit-0024": {
+    "original_id": "reasoning-0175780",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0025": {
+    "original_id": "cot-logic-0029333",
+    "corpus": "cot"
+  },
+  "audit-0026": {
+    "original_id": "cot-phil-0046654",
+    "corpus": "cot"
+  },
+  "audit-0027": {
+    "original_id": "aquinas_pair_1250",
+    "corpus": "forms"
+  },
+  "audit-0028": {
+    "original_id": "meno_pair_082",
+    "corpus": "forms"
+  },
+  "audit-0029": {
+    "original_id": "gorgias_pair_201",
+    "corpus": "forms"
+  },
+  "audit-0030": {
+    "original_id": "aquinas_pair_870",
+    "corpus": "forms"
+  },
+  "audit-0031": {
+    "original_id": "cot-phil-0027486",
+    "corpus": "cot"
+  },
+  "audit-0032": {
+    "original_id": "reasoning-1710528",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0033": {
+    "original_id": "cot-logic-0045065",
+    "corpus": "cot"
+  },
+  "audit-0034": {
+    "original_id": "reasoning-0780380",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0035": {
+    "original_id": "aquinas_pair_1122",
+    "corpus": "forms"
+  },
+  "audit-0036": {
+    "original_id": "aquinas_pair_1004",
+    "corpus": "forms"
+  },
+  "audit-0037": {
+    "original_id": "reasoning-1460167",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0038": {
+    "original_id": "cot-logic-0002440",
+    "corpus": "cot"
+  },
+  "audit-0039": {
+    "original_id": "reasoning-1799719",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0040": {
+    "original_id": "cot-phil-0015248",
+    "corpus": "cot"
+  },
+  "audit-0041": {
+    "original_id": "cot-logic-0002452",
+    "corpus": "cot"
+  },
+  "audit-0042": {
+    "original_id": "cot-logic-0030740",
+    "corpus": "cot"
+  },
+  "audit-0043": {
+    "original_id": "reasoning-1648118",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0044": {
+    "original_id": "aquinas_pair_1291",
+    "corpus": "forms"
+  },
+  "audit-0045": {
+    "original_id": "cot-logic-0002688",
+    "corpus": "cot"
+  },
+  "audit-0046": {
+    "original_id": "aquinas_pair_013",
+    "corpus": "forms"
+  },
+  "audit-0047": {
+    "original_id": "cot-logic-0010028",
+    "corpus": "cot"
+  },
+  "audit-0048": {
+    "original_id": "cot-phil-0000472",
+    "corpus": "cot"
+  },
+  "audit-0049": {
+    "original_id": "reasoning-0723511",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0050": {
+    "original_id": "cot-phil-0044949",
+    "corpus": "cot"
+  },
+  "audit-0051": {
+    "original_id": "cot-logic-0048610",
+    "corpus": "cot"
+  },
+  "audit-0052": {
+    "original_id": "reasoning-0416847",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0053": {
+    "original_id": "cot-logic-0006720",
+    "corpus": "cot"
+  },
+  "audit-0054": {
+    "original_id": "cot-phil-0003221",
+    "corpus": "cot"
+  },
+  "audit-0055": {
+    "original_id": "reasoning-0301506",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0056": {
+    "original_id": "aquinas_pair_1436",
+    "corpus": "forms"
+  },
+  "audit-0057": {
+    "original_id": "aquinas_pair_1216",
+    "corpus": "forms"
+  },
+  "audit-0058": {
+    "original_id": "cot-phil-0020573",
+    "corpus": "cot"
+  },
+  "audit-0059": {
+    "original_id": "cot-logic-0007185",
+    "corpus": "cot"
+  },
+  "audit-0060": {
+    "original_id": "reasoning-0446552",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0061": {
+    "original_id": "theaetetus_pair_209",
+    "corpus": "forms"
+  },
+  "audit-0062": {
+    "original_id": "cot-logic-0000935",
+    "corpus": "cot"
+  },
+  "audit-0063": {
+    "original_id": "aquinas_pair_1075",
+    "corpus": "forms"
+  },
+  "audit-0064": {
+    "original_id": "aquinas_pair_1469",
+    "corpus": "forms"
+  },
+  "audit-0065": {
+    "original_id": "reasoning-1191657",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0066": {
+    "original_id": "cot-phil-0000840",
+    "corpus": "cot"
+  },
+  "audit-0067": {
+    "original_id": "reasoning-0606518",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0068": {
+    "original_id": "cot-logic-0006475",
+    "corpus": "cot"
+  },
+  "audit-0069": {
+    "original_id": "aquinas_pair_114",
+    "corpus": "forms"
+  },
+  "audit-0070": {
+    "original_id": "aquinas_pair_707",
+    "corpus": "forms"
+  },
+  "audit-0071": {
+    "original_id": "cot-logic-0029175",
+    "corpus": "cot"
+  },
+  "audit-0072": {
+    "original_id": "cot-logic-0024722",
+    "corpus": "cot"
+  },
+  "audit-0073": {
+    "original_id": "aquinas_pair_1003",
+    "corpus": "forms"
+  },
+  "audit-0074": {
+    "original_id": "cot-logic-0000721",
+    "corpus": "cot"
+  },
+  "audit-0100": {
+    "original_id": "euthyphro_pair_077",
+    "corpus": "forms"
+  },
+  "audit-0101": {
+    "original_id": "reasoning-0702400",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0102": {
+    "original_id": "cot-logic-0012777",
+    "corpus": "cot"
+  },
+  "audit-0103": {
+    "original_id": "cot-logic-0048801",
+    "corpus": "cot"
+  },
+  "audit-0104": {
+    "original_id": "reasoning-0154143",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0105": {
+    "original_id": "reasoning-0863497",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0106": {
+    "original_id": "aquinas_pair_1292",
+    "corpus": "forms"
+  },
+  "audit-0107": {
+    "original_id": "cot-logic-0027177",
+    "corpus": "cot"
+  },
+  "audit-0108": {
+    "original_id": "euthyphro_pair_080",
+    "corpus": "forms"
+  },
+  "audit-0109": {
+    "original_id": "aquinas_pair_1095",
+    "corpus": "forms"
+  },
+  "audit-0110": {
+    "original_id": "reasoning-1381726",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0111": {
+    "original_id": "reasoning-0622247",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0112": {
+    "original_id": "reasoning-1421422",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0113": {
+    "original_id": "reasoning-0506819",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0114": {
+    "original_id": "aquinas_pair_1204",
+    "corpus": "forms"
+  },
+  "audit-0115": {
+    "original_id": "cot-phil-0028529",
+    "corpus": "cot"
+  },
+  "audit-0116": {
+    "original_id": "gorgias_pair_061",
+    "corpus": "forms"
+  },
+  "audit-0117": {
+    "original_id": "cot-phil-0011612",
+    "corpus": "cot"
+  },
+  "audit-0118": {
+    "original_id": "aquinas_pair_181",
+    "corpus": "forms"
+  },
+  "audit-0119": {
+    "original_id": "cot-phil-0005681",
+    "corpus": "cot"
+  },
+  "audit-0120": {
+    "original_id": "aquinas_pair_1503",
+    "corpus": "forms"
+  },
+  "audit-0121": {
+    "original_id": "reasoning-0497493",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0122": {
+    "original_id": "reasoning-0057401",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0123": {
+    "original_id": "reasoning-0383133",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0124": {
+    "original_id": "cot-phil-0006953",
+    "corpus": "cot"
+  },
+  "audit-0125": {
+    "original_id": "reasoning-0834332",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0126": {
+    "original_id": "cot-logic-0035796",
+    "corpus": "cot"
+  },
+  "audit-0127": {
+    "original_id": "cot-logic-0031703",
+    "corpus": "cot"
+  },
+  "audit-0128": {
+    "original_id": "reasoning-1053242",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0129": {
+    "original_id": "theaetetus_pair_185",
+    "corpus": "forms"
+  },
+  "audit-0130": {
+    "original_id": "cot-logic-0028109",
+    "corpus": "cot"
+  },
+  "audit-0131": {
+    "original_id": "gorgias_pair_180",
+    "corpus": "forms"
+  },
+  "audit-0132": {
+    "original_id": "cot-phil-0028740",
+    "corpus": "cot"
+  },
+  "audit-0133": {
+    "original_id": "reasoning-0885121",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0134": {
+    "original_id": "cot-phil-0004863",
+    "corpus": "cot"
+  },
+  "audit-0135": {
+    "original_id": "aquinas_pair_212",
+    "corpus": "forms"
+  },
+  "audit-0136": {
+    "original_id": "aquinas_pair_336",
+    "corpus": "forms"
+  },
+  "audit-0137": {
+    "original_id": "cot-logic-0011113",
+    "corpus": "cot"
+  },
+  "audit-0138": {
+    "original_id": "aquinas_pair_134",
+    "corpus": "forms"
+  },
+  "audit-0139": {
+    "original_id": "reasoning-0367244",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0140": {
+    "original_id": "reasoning-0751536",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0141": {
+    "original_id": "sextus_pair_018",
+    "corpus": "forms"
+  },
+  "audit-0142": {
+    "original_id": "meno_pair_023",
+    "corpus": "forms"
+  },
+  "audit-0143": {
+    "original_id": "reasoning-0021580",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0144": {
+    "original_id": "aquinas_pair_1640",
+    "corpus": "forms"
+  },
+  "audit-0145": {
+    "original_id": "cot-phil-0006582",
+    "corpus": "cot"
+  },
+  "audit-0146": {
+    "original_id": "cot-logic-0032436",
+    "corpus": "cot"
+  },
+  "audit-0147": {
+    "original_id": "reasoning-0649479",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0148": {
+    "original_id": "theaetetus_pair_014",
+    "corpus": "forms"
+  },
+  "audit-0149": {
+    "original_id": "cot-phil-0018072",
+    "corpus": "cot"
+  },
+  "audit-0150": {
+    "original_id": "reasoning-0630212",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0151": {
+    "original_id": "aquinas_pair_040",
+    "corpus": "forms"
+  },
+  "audit-0152": {
+    "original_id": "meno_pair_017",
+    "corpus": "forms"
+  },
+  "audit-0153": {
+    "original_id": "cot-logic-0004828",
+    "corpus": "cot"
+  },
+  "audit-0154": {
+    "original_id": "reasoning-1173053",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0155": {
+    "original_id": "reasoning-0195379",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0156": {
+    "original_id": "reasoning-0935255",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0157": {
+    "original_id": "cot-logic-0004882",
+    "corpus": "cot"
+  },
+  "audit-0158": {
+    "original_id": "cot-phil-0011068",
+    "corpus": "cot"
+  },
+  "audit-0159": {
+    "original_id": "cot-logic-0044531",
+    "corpus": "cot"
+  },
+  "audit-0160": {
+    "original_id": "reasoning-0821628",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0161": {
+    "original_id": "reasoning-0842587",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0162": {
+    "original_id": "aquinas_pair_1328",
+    "corpus": "forms"
+  },
+  "audit-0163": {
+    "original_id": "cot-logic-0027981",
+    "corpus": "cot"
+  },
+  "audit-0164": {
+    "original_id": "theaetetus_pair_183",
+    "corpus": "forms"
+  },
+  "audit-0165": {
+    "original_id": "aquinas_pair_721",
+    "corpus": "forms"
+  },
+  "audit-0166": {
+    "original_id": "aquinas_pair_389",
+    "corpus": "forms"
+  },
+  "audit-0167": {
+    "original_id": "cot-logic-0049887",
+    "corpus": "cot"
+  },
+  "audit-0168": {
+    "original_id": "reasoning-1178139",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0169": {
+    "original_id": "cot-logic-0019990",
+    "corpus": "cot"
+  },
+  "audit-0170": {
+    "original_id": "reasoning-1760360",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0171": {
+    "original_id": "reasoning-0436977",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0172": {
+    "original_id": "sextus_pair_019",
+    "corpus": "forms"
+  },
+  "audit-0173": {
+    "original_id": "theaetetus_pair_254",
+    "corpus": "forms"
+  },
+  "audit-0174": {
+    "original_id": "reasoning-0613136",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0200": {
+    "original_id": "aquinas_pair_1402",
+    "corpus": "forms"
+  },
+  "audit-0201": {
+    "original_id": "aquinas_pair_1040",
+    "corpus": "forms"
+  },
+  "audit-0202": {
+    "original_id": "aquinas_pair_706",
+    "corpus": "forms"
+  },
+  "audit-0203": {
+    "original_id": "cot-logic-0046517",
+    "corpus": "cot"
+  },
+  "audit-0204": {
+    "original_id": "cot-logic-0043655",
+    "corpus": "cot"
+  },
+  "audit-0205": {
+    "original_id": "aquinas_pair_056",
+    "corpus": "forms"
+  },
+  "audit-0206": {
+    "original_id": "cot-logic-0029761",
+    "corpus": "cot"
+  },
+  "audit-0207": {
+    "original_id": "reasoning-1928358",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0208": {
+    "original_id": "cot-logic-0018070",
+    "corpus": "cot"
+  },
+  "audit-0209": {
+    "original_id": "reasoning-1494845",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0210": {
+    "original_id": "aquinas_pair_381",
+    "corpus": "forms"
+  },
+  "audit-0211": {
+    "original_id": "cot-phil-0046568",
+    "corpus": "cot"
+  },
+  "audit-0212": {
+    "original_id": "reasoning-0638324",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0213": {
+    "original_id": "theaetetus_pair_243",
+    "corpus": "forms"
+  },
+  "audit-0214": {
+    "original_id": "hume_pair_023",
+    "corpus": "forms"
+  },
+  "audit-0215": {
+    "original_id": "theaetetus_pair_264",
+    "corpus": "forms"
+  },
+  "audit-0216": {
+    "original_id": "aquinas_pair_987",
+    "corpus": "forms"
+  },
+  "audit-0217": {
+    "original_id": "cot-logic-0044097",
+    "corpus": "cot"
+  },
+  "audit-0218": {
+    "original_id": "cot-phil-0015545",
+    "corpus": "cot"
+  },
+  "audit-0219": {
+    "original_id": "cot-phil-0015464",
+    "corpus": "cot"
+  },
+  "audit-0220": {
+    "original_id": "cot-logic-0000008",
+    "corpus": "cot"
+  },
+  "audit-0221": {
+    "original_id": "reasoning-1150721",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0222": {
+    "original_id": "theaetetus_pair_355",
+    "corpus": "forms"
+  },
+  "audit-0223": {
+    "original_id": "reasoning-1330788",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0224": {
+    "original_id": "theaetetus_pair_012",
+    "corpus": "forms"
+  },
+  "audit-0225": {
+    "original_id": "aquinas_pair_1182",
+    "corpus": "forms"
+  },
+  "audit-0226": {
+    "original_id": "reasoning-0045582",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0227": {
+    "original_id": "aquinas_pair_1386",
+    "corpus": "forms"
+  },
+  "audit-0228": {
+    "original_id": "aquinas_pair_1456",
+    "corpus": "forms"
+  },
+  "audit-0229": {
+    "original_id": "euthyphro_pair_021",
+    "corpus": "forms"
+  },
+  "audit-0230": {
+    "original_id": "cot-logic-0034166",
+    "corpus": "cot"
+  },
+  "audit-0231": {
+    "original_id": "aquinas_pair_1023",
+    "corpus": "forms"
+  },
+  "audit-0232": {
+    "original_id": "cot-logic-0042846",
+    "corpus": "cot"
+  },
+  "audit-0233": {
+    "original_id": "aquinas_pair_995",
+    "corpus": "forms"
+  },
+  "audit-0234": {
+    "original_id": "reasoning-0198089",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0235": {
+    "original_id": "reasoning-1991156",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0236": {
+    "original_id": "reasoning-0522341",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0237": {
+    "original_id": "cot-logic-0023835",
+    "corpus": "cot"
+  },
+  "audit-0238": {
+    "original_id": "aquinas_pair_428",
+    "corpus": "forms"
+  },
+  "audit-0239": {
+    "original_id": "reasoning-0401730",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0240": {
+    "original_id": "cot-phil-0037276",
+    "corpus": "cot"
+  },
+  "audit-0241": {
+    "original_id": "reasoning-0722590",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0242": {
+    "original_id": "reasoning-0321418",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0243": {
+    "original_id": "reasoning-0580257",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0244": {
+    "original_id": "aquinas_pair_736",
+    "corpus": "forms"
+  },
+  "audit-0245": {
+    "original_id": "cot-logic-0022481",
+    "corpus": "cot"
+  },
+  "audit-0246": {
+    "original_id": "aquinas_pair_1407",
+    "corpus": "forms"
+  },
+  "audit-0247": {
+    "original_id": "reasoning-0010278",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0248": {
+    "original_id": "reasoning-0680477",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0249": {
+    "original_id": "cot-phil-0029315",
+    "corpus": "cot"
+  },
+  "audit-0250": {
+    "original_id": "reasoning-0702959",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0251": {
+    "original_id": "cot-phil-0034277",
+    "corpus": "cot"
+  },
+  "audit-0252": {
+    "original_id": "cot-logic-0029997",
+    "corpus": "cot"
+  },
+  "audit-0253": {
+    "original_id": "aquinas_pair_801",
+    "corpus": "forms"
+  },
+  "audit-0254": {
+    "original_id": "reasoning-1083850",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0255": {
+    "original_id": "reasoning-0277324",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0256": {
+    "original_id": "reasoning-1900956",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0257": {
+    "original_id": "aquinas_pair_535",
+    "corpus": "forms"
+  },
+  "audit-0258": {
+    "original_id": "cot-logic-0019216",
+    "corpus": "cot"
+  },
+  "audit-0259": {
+    "original_id": "aquinas_pair_227",
+    "corpus": "forms"
+  },
+  "audit-0260": {
+    "original_id": "hume_pair_026",
+    "corpus": "forms"
+  },
+  "audit-0261": {
+    "original_id": "aquinas_pair_686",
+    "corpus": "forms"
+  },
+  "audit-0262": {
+    "original_id": "aquinas_pair_370",
+    "corpus": "forms"
+  },
+  "audit-0263": {
+    "original_id": "aquinas_pair_1308",
+    "corpus": "forms"
+  },
+  "audit-0264": {
+    "original_id": "reasoning-1115225",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0265": {
+    "original_id": "reasoning-1719929",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0266": {
+    "original_id": "reasoning-0141487",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0267": {
+    "original_id": "reasoning-0661891",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0268": {
+    "original_id": "cot-logic-0027140",
+    "corpus": "cot"
+  },
+  "audit-0269": {
+    "original_id": "reasoning-1053925",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0270": {
+    "original_id": "cot-logic-0019709",
+    "corpus": "cot"
+  },
+  "audit-0271": {
+    "original_id": "aquinas_pair_548",
+    "corpus": "forms"
+  },
+  "audit-0272": {
+    "original_id": "cot-logic-0033590",
+    "corpus": "cot"
+  },
+  "audit-0273": {
+    "original_id": "cot-logic-0001360",
+    "corpus": "cot"
+  },
+  "audit-0274": {
+    "original_id": "meno_pair_131",
+    "corpus": "forms"
+  },
+  "audit-0300": {
+    "original_id": "theaetetus_pair_069",
+    "corpus": "forms"
+  },
+  "audit-0301": {
+    "original_id": "cot-logic-0041174",
+    "corpus": "cot"
+  },
+  "audit-0302": {
+    "original_id": "cot-logic-0006371",
+    "corpus": "cot"
+  },
+  "audit-0303": {
+    "original_id": "aquinas_pair_209",
+    "corpus": "forms"
+  },
+  "audit-0304": {
+    "original_id": "reasoning-1281687",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0305": {
+    "original_id": "cot-logic-0019302",
+    "corpus": "cot"
+  },
+  "audit-0306": {
+    "original_id": "aquinas_pair_076",
+    "corpus": "forms"
+  },
+  "audit-0307": {
+    "original_id": "cot-logic-0004667",
+    "corpus": "cot"
+  },
+  "audit-0308": {
+    "original_id": "reasoning-0926032",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0309": {
+    "original_id": "reasoning-0974131",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0310": {
+    "original_id": "reasoning-1358123",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0311": {
+    "original_id": "cot-phil-0012047",
+    "corpus": "cot"
+  },
+  "audit-0312": {
+    "original_id": "gorgias_pair_218",
+    "corpus": "forms"
+  },
+  "audit-0313": {
+    "original_id": "reasoning-0792923",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0314": {
+    "original_id": "aquinas_pair_014",
+    "corpus": "forms"
+  },
+  "audit-0315": {
+    "original_id": "reasoning-0184946",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0316": {
+    "original_id": "theaetetus_pair_126",
+    "corpus": "forms"
+  },
+  "audit-0317": {
+    "original_id": "gorgias_pair_119",
+    "corpus": "forms"
+  },
+  "audit-0318": {
+    "original_id": "gorgias_pair_186",
+    "corpus": "forms"
+  },
+  "audit-0319": {
+    "original_id": "cot-phil-0018271",
+    "corpus": "cot"
+  },
+  "audit-0320": {
+    "original_id": "aquinas_pair_1601",
+    "corpus": "forms"
+  },
+  "audit-0321": {
+    "original_id": "reasoning-1036130",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0322": {
+    "original_id": "aquinas_pair_072",
+    "corpus": "forms"
+  },
+  "audit-0323": {
+    "original_id": "aquinas_pair_1452",
+    "corpus": "forms"
+  },
+  "audit-0324": {
+    "original_id": "cot-phil-0048994",
+    "corpus": "cot"
+  },
+  "audit-0325": {
+    "original_id": "cot-phil-0019056",
+    "corpus": "cot"
+  },
+  "audit-0326": {
+    "original_id": "cot-phil-0001746",
+    "corpus": "cot"
+  },
+  "audit-0327": {
+    "original_id": "reasoning-0438285",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0328": {
+    "original_id": "cot-phil-0000783",
+    "corpus": "cot"
+  },
+  "audit-0329": {
+    "original_id": "reasoning-0393682",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0330": {
+    "original_id": "cot-phil-0039607",
+    "corpus": "cot"
+  },
+  "audit-0331": {
+    "original_id": "theaetetus_pair_306",
+    "corpus": "forms"
+  },
+  "audit-0332": {
+    "original_id": "euthyphro_pair_033",
+    "corpus": "forms"
+  },
+  "audit-0333": {
+    "original_id": "cot-logic-0018165",
+    "corpus": "cot"
+  },
+  "audit-0334": {
+    "original_id": "cot-logic-0024424",
+    "corpus": "cot"
+  },
+  "audit-0335": {
+    "original_id": "reasoning-1314819",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0336": {
+    "original_id": "aquinas_pair_075",
+    "corpus": "forms"
+  },
+  "audit-0337": {
+    "original_id": "reasoning-0204751",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0338": {
+    "original_id": "reasoning-1253446",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0339": {
+    "original_id": "aquinas_pair_206",
+    "corpus": "forms"
+  },
+  "audit-0340": {
+    "original_id": "cot-logic-0013828",
+    "corpus": "cot"
+  },
+  "audit-0341": {
+    "original_id": "reasoning-0015890",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0342": {
+    "original_id": "cot-logic-0001604",
+    "corpus": "cot"
+  },
+  "audit-0343": {
+    "original_id": "aquinas_pair_1091",
+    "corpus": "forms"
+  },
+  "audit-0344": {
+    "original_id": "cot-logic-0043291",
+    "corpus": "cot"
+  },
+  "audit-0345": {
+    "original_id": "cot-phil-0013474",
+    "corpus": "cot"
+  },
+  "audit-0346": {
+    "original_id": "cot-logic-0046296",
+    "corpus": "cot"
+  },
+  "audit-0347": {
+    "original_id": "cot-logic-0049549",
+    "corpus": "cot"
+  },
+  "audit-0348": {
+    "original_id": "aquinas_pair_184",
+    "corpus": "forms"
+  },
+  "audit-0349": {
+    "original_id": "reasoning-0744538",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0350": {
+    "original_id": "aquinas_pair_424",
+    "corpus": "forms"
+  },
+  "audit-0351": {
+    "original_id": "aquinas_pair_523",
+    "corpus": "forms"
+  },
+  "audit-0352": {
+    "original_id": "reasoning-0511046",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0353": {
+    "original_id": "cot-logic-0020007",
+    "corpus": "cot"
+  },
+  "audit-0354": {
+    "original_id": "reasoning-0280818",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0355": {
+    "original_id": "aquinas_pair_1648",
+    "corpus": "forms"
+  },
+  "audit-0356": {
+    "original_id": "reasoning-0937648",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0357": {
+    "original_id": "reasoning-0174103",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0358": {
+    "original_id": "reasoning-1142439",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0359": {
+    "original_id": "aquinas_pair_334",
+    "corpus": "forms"
+  },
+  "audit-0360": {
+    "original_id": "cot-logic-0007127",
+    "corpus": "cot"
+  },
+  "audit-0361": {
+    "original_id": "reasoning-0059435",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0362": {
+    "original_id": "reasoning-1452410",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0363": {
+    "original_id": "aquinas_pair_1034",
+    "corpus": "forms"
+  },
+  "audit-0364": {
+    "original_id": "reasoning-1421501",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0365": {
+    "original_id": "reasoning-0860734",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0366": {
+    "original_id": "reasoning-1264222",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0367": {
+    "original_id": "reasoning-0237922",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0368": {
+    "original_id": "reasoning-1715679",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0369": {
+    "original_id": "reasoning-1398026",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0370": {
+    "original_id": "aquinas_pair_558",
+    "corpus": "forms"
+  },
+  "audit-0371": {
+    "original_id": "aquinas_pair_689",
+    "corpus": "forms"
+  },
+  "audit-0372": {
+    "original_id": "cot-logic-0012637",
+    "corpus": "cot"
+  },
+  "audit-0373": {
+    "original_id": "aquinas_pair_1333",
+    "corpus": "forms"
+  },
+  "audit-0374": {
+    "original_id": "gorgias_pair_220",
+    "corpus": "forms"
+  },
+  "audit-0400": {
+    "original_id": "euthyphro_pair_002",
+    "corpus": "forms"
+  },
+  "audit-0401": {
+    "original_id": "aquinas_pair_1420",
+    "corpus": "forms"
+  },
+  "audit-0402": {
+    "original_id": "cot-logic-0009695",
+    "corpus": "cot"
+  },
+  "audit-0403": {
+    "original_id": "aquinas_pair_467",
+    "corpus": "forms"
+  },
+  "audit-0404": {
+    "original_id": "reasoning-1278611",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0405": {
+    "original_id": "cot-logic-0002085",
+    "corpus": "cot"
+  },
+  "audit-0406": {
+    "original_id": "cot-logic-0030575",
+    "corpus": "cot"
+  },
+  "audit-0407": {
+    "original_id": "cot-logic-0021518",
+    "corpus": "cot"
+  },
+  "audit-0408": {
+    "original_id": "meno_pair_058",
+    "corpus": "forms"
+  },
+  "audit-0409": {
+    "original_id": "meno_pair_140",
+    "corpus": "forms"
+  },
+  "audit-0410": {
+    "original_id": "reasoning-1021657",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0411": {
+    "original_id": "gorgias_pair_378",
+    "corpus": "forms"
+  },
+  "audit-0412": {
+    "original_id": "aquinas_pair_161",
+    "corpus": "forms"
+  },
+  "audit-0413": {
+    "original_id": "reasoning-1796636",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0414": {
+    "original_id": "aquinas_pair_949",
+    "corpus": "forms"
+  },
+  "audit-0415": {
+    "original_id": "aquinas_pair_1485",
+    "corpus": "forms"
+  },
+  "audit-0416": {
+    "original_id": "cot-logic-0027603",
+    "corpus": "cot"
+  },
+  "audit-0417": {
+    "original_id": "aquinas_pair_887",
+    "corpus": "forms"
+  },
+  "audit-0418": {
+    "original_id": "cot-phil-0010649",
+    "corpus": "cot"
+  },
+  "audit-0419": {
+    "original_id": "reasoning-1917167",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0420": {
+    "original_id": "cot-logic-0040185",
+    "corpus": "cot"
+  },
+  "audit-0421": {
+    "original_id": "cot-logic-0012366",
+    "corpus": "cot"
+  },
+  "audit-0422": {
+    "original_id": "aquinas_pair_1557",
+    "corpus": "forms"
+  },
+  "audit-0423": {
+    "original_id": "cot-logic-0000332",
+    "corpus": "cot"
+  },
+  "audit-0424": {
+    "original_id": "reasoning-1975369",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0425": {
+    "original_id": "reasoning-1342221",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0426": {
+    "original_id": "reasoning-0883691",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0427": {
+    "original_id": "cot-logic-0014415",
+    "corpus": "cot"
+  },
+  "audit-0428": {
+    "original_id": "reasoning-1570511",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0429": {
+    "original_id": "cot-logic-0004084",
+    "corpus": "cot"
+  },
+  "audit-0430": {
+    "original_id": "cot-logic-0029220",
+    "corpus": "cot"
+  },
+  "audit-0431": {
+    "original_id": "cot-logic-0019529",
+    "corpus": "cot"
+  },
+  "audit-0432": {
+    "original_id": "gorgias_pair_203",
+    "corpus": "forms"
+  },
+  "audit-0433": {
+    "original_id": "cot-phil-0003145",
+    "corpus": "cot"
+  },
+  "audit-0434": {
+    "original_id": "cot-logic-0046345",
+    "corpus": "cot"
+  },
+  "audit-0435": {
+    "original_id": "meno_pair_115",
+    "corpus": "forms"
+  },
+  "audit-0436": {
+    "original_id": "cot-logic-0032056",
+    "corpus": "cot"
+  },
+  "audit-0437": {
+    "original_id": "aquinas_pair_499",
+    "corpus": "forms"
+  },
+  "audit-0438": {
+    "original_id": "reasoning-1316771",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0439": {
+    "original_id": "cot-phil-0007352",
+    "corpus": "cot"
+  },
+  "audit-0440": {
+    "original_id": "cot-logic-0000069",
+    "corpus": "cot"
+  },
+  "audit-0441": {
+    "original_id": "reasoning-1052196",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0442": {
+    "original_id": "reasoning-1250875",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0443": {
+    "original_id": "reasoning-1661771",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0444": {
+    "original_id": "cot-logic-0017995",
+    "corpus": "cot"
+  },
+  "audit-0445": {
+    "original_id": "meno_pair_160",
+    "corpus": "forms"
+  },
+  "audit-0446": {
+    "original_id": "aquinas_pair_487",
+    "corpus": "forms"
+  },
+  "audit-0447": {
+    "original_id": "aquinas_pair_1191",
+    "corpus": "forms"
+  },
+  "audit-0448": {
+    "original_id": "reasoning-0091614",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0449": {
+    "original_id": "aquinas_pair_1343",
+    "corpus": "forms"
+  },
+  "audit-0450": {
+    "original_id": "aquinas_pair_1658",
+    "corpus": "forms"
+  },
+  "audit-0451": {
+    "original_id": "reasoning-1254726",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0452": {
+    "original_id": "reasoning-0753356",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0453": {
+    "original_id": "aquinas_pair_026",
+    "corpus": "forms"
+  },
+  "audit-0454": {
+    "original_id": "theaetetus_pair_269",
+    "corpus": "forms"
+  },
+  "audit-0455": {
+    "original_id": "reasoning-1002973",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0456": {
+    "original_id": "aquinas_pair_1239",
+    "corpus": "forms"
+  },
+  "audit-0457": {
+    "original_id": "aquinas_pair_1676",
+    "corpus": "forms"
+  },
+  "audit-0458": {
+    "original_id": "cot-phil-0034168",
+    "corpus": "cot"
+  },
+  "audit-0459": {
+    "original_id": "meno_pair_005",
+    "corpus": "forms"
+  },
+  "audit-0460": {
+    "original_id": "cot-logic-0010664",
+    "corpus": "cot"
+  },
+  "audit-0461": {
+    "original_id": "reasoning-0576231",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0462": {
+    "original_id": "reasoning-1856713",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0463": {
+    "original_id": "reasoning-1648300",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0464": {
+    "original_id": "theaetetus_pair_340",
+    "corpus": "forms"
+  },
+  "audit-0465": {
+    "original_id": "cot-phil-0047140",
+    "corpus": "cot"
+  },
+  "audit-0466": {
+    "original_id": "reasoning-0829068",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0467": {
+    "original_id": "reasoning-1378038",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0468": {
+    "original_id": "theaetetus_pair_248",
+    "corpus": "forms"
+  },
+  "audit-0469": {
+    "original_id": "reasoning-1722391",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0470": {
+    "original_id": "reasoning-1681357",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0471": {
+    "original_id": "theaetetus_pair_196",
+    "corpus": "forms"
+  },
+  "audit-0472": {
+    "original_id": "aquinas_pair_342",
+    "corpus": "forms"
+  },
+  "audit-0473": {
+    "original_id": "reasoning-0609600",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0474": {
+    "original_id": "cot-logic-0013322",
+    "corpus": "cot"
+  },
+  "audit-0500": {
+    "original_id": "reasoning-0029735",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0501": {
+    "original_id": "cot-logic-0011045",
+    "corpus": "cot"
+  },
+  "audit-0502": {
+    "original_id": "cot-logic-0043181",
+    "corpus": "cot"
+  },
+  "audit-0503": {
+    "original_id": "reasoning-1034422",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0504": {
+    "original_id": "aquinas_pair_660",
+    "corpus": "forms"
+  },
+  "audit-0505": {
+    "original_id": "aquinas_pair_1549",
+    "corpus": "forms"
+  },
+  "audit-0506": {
+    "original_id": "reasoning-1703603",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0507": {
+    "original_id": "cot-logic-0017137",
+    "corpus": "cot"
+  },
+  "audit-0508": {
+    "original_id": "reasoning-1015609",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0509": {
+    "original_id": "aquinas_pair_168",
+    "corpus": "forms"
+  },
+  "audit-0510": {
+    "original_id": "aquinas_pair_298",
+    "corpus": "forms"
+  },
+  "audit-0511": {
+    "original_id": "reasoning-0940834",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0512": {
+    "original_id": "cot-logic-0021230",
+    "corpus": "cot"
+  },
+  "audit-0513": {
+    "original_id": "cot-logic-0042698",
+    "corpus": "cot"
+  },
+  "audit-0514": {
+    "original_id": "cot-logic-0011884",
+    "corpus": "cot"
+  },
+  "audit-0515": {
+    "original_id": "reasoning-1029889",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0516": {
+    "original_id": "cot-logic-0034877",
+    "corpus": "cot"
+  },
+  "audit-0517": {
+    "original_id": "cot-phil-0036468",
+    "corpus": "cot"
+  },
+  "audit-0518": {
+    "original_id": "cot-logic-0008608",
+    "corpus": "cot"
+  },
+  "audit-0519": {
+    "original_id": "theaetetus_pair_215",
+    "corpus": "forms"
+  },
+  "audit-0520": {
+    "original_id": "aquinas_pair_1050",
+    "corpus": "forms"
+  },
+  "audit-0521": {
+    "original_id": "reasoning-0227454",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0522": {
+    "original_id": "gorgias_pair_038",
+    "corpus": "forms"
+  },
+  "audit-0523": {
+    "original_id": "reasoning-0578470",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0524": {
+    "original_id": "reasoning-1254033",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0525": {
+    "original_id": "reasoning-0677633",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0526": {
+    "original_id": "euthyphro_pair_028",
+    "corpus": "forms"
+  },
+  "audit-0527": {
+    "original_id": "cot-logic-0023638",
+    "corpus": "cot"
+  },
+  "audit-0528": {
+    "original_id": "cot-logic-0012751",
+    "corpus": "cot"
+  },
+  "audit-0529": {
+    "original_id": "cot-logic-0037589",
+    "corpus": "cot"
+  },
+  "audit-0530": {
+    "original_id": "theaetetus_pair_076",
+    "corpus": "forms"
+  },
+  "audit-0531": {
+    "original_id": "cot-logic-0017925",
+    "corpus": "cot"
+  },
+  "audit-0532": {
+    "original_id": "aquinas_pair_770",
+    "corpus": "forms"
+  },
+  "audit-0533": {
+    "original_id": "aquinas_pair_882",
+    "corpus": "forms"
+  },
+  "audit-0534": {
+    "original_id": "cot-logic-0047817",
+    "corpus": "cot"
+  },
+  "audit-0535": {
+    "original_id": "reasoning-1997111",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0536": {
+    "original_id": "reasoning-1023729",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0537": {
+    "original_id": "reasoning-0545346",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0538": {
+    "original_id": "reasoning-0425628",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0539": {
+    "original_id": "reasoning-0889828",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0540": {
+    "original_id": "cot-logic-0003466",
+    "corpus": "cot"
+  },
+  "audit-0541": {
+    "original_id": "cot-phil-0034490",
+    "corpus": "cot"
+  },
+  "audit-0542": {
+    "original_id": "cot-logic-0017425",
+    "corpus": "cot"
+  },
+  "audit-0543": {
+    "original_id": "reasoning-0368124",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0544": {
+    "original_id": "reasoning-1926253",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0545": {
+    "original_id": "cot-logic-0039308",
+    "corpus": "cot"
+  },
+  "audit-0546": {
+    "original_id": "aquinas_pair_724",
+    "corpus": "forms"
+  },
+  "audit-0547": {
+    "original_id": "reasoning-1218149",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0548": {
+    "original_id": "cot-logic-0033734",
+    "corpus": "cot"
+  },
+  "audit-0549": {
+    "original_id": "aquinas_pair_459",
+    "corpus": "forms"
+  },
+  "audit-0550": {
+    "original_id": "reasoning-1605365",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0551": {
+    "original_id": "cot-phil-0005598",
+    "corpus": "cot"
+  },
+  "audit-0552": {
+    "original_id": "cot-logic-0038405",
+    "corpus": "cot"
+  },
+  "audit-0553": {
+    "original_id": "reasoning-0966957",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0554": {
+    "original_id": "aquinas_pair_668",
+    "corpus": "forms"
+  },
+  "audit-0555": {
+    "original_id": "reasoning-0268504",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0556": {
+    "original_id": "reasoning-1418033",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0557": {
+    "original_id": "cot-logic-0018780",
+    "corpus": "cot"
+  },
+  "audit-0558": {
+    "original_id": "reasoning-1703272",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0559": {
+    "original_id": "reasoning-0017757",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0560": {
+    "original_id": "cot-phil-0049631",
+    "corpus": "cot"
+  },
+  "audit-0561": {
+    "original_id": "aquinas_pair_324",
+    "corpus": "forms"
+  },
+  "audit-0562": {
+    "original_id": "cot-phil-0022962",
+    "corpus": "cot"
+  },
+  "audit-0563": {
+    "original_id": "reasoning-0617274",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0564": {
+    "original_id": "theaetetus_pair_337",
+    "corpus": "forms"
+  },
+  "audit-0565": {
+    "original_id": "aquinas_pair_532",
+    "corpus": "forms"
+  },
+  "audit-0566": {
+    "original_id": "aquinas_pair_643",
+    "corpus": "forms"
+  },
+  "audit-0567": {
+    "original_id": "cot-logic-0041491",
+    "corpus": "cot"
+  },
+  "audit-0568": {
+    "original_id": "reasoning-1300020",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0569": {
+    "original_id": "reasoning-0382898",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0570": {
+    "original_id": "reasoning-0215063",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0571": {
+    "original_id": "reasoning-0580807",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0572": {
+    "original_id": "aquinas_pair_1199",
+    "corpus": "forms"
+  },
+  "audit-0573": {
+    "original_id": "cot-phil-0046552",
+    "corpus": "cot"
+  },
+  "audit-0574": {
+    "original_id": "cot-phil-0031539",
+    "corpus": "cot"
+  },
+  "audit-0600": {
+    "original_id": "cot-logic-0023070",
+    "corpus": "cot"
+  },
+  "audit-0601": {
+    "original_id": "cot-phil-0017350",
+    "corpus": "cot"
+  },
+  "audit-0602": {
+    "original_id": "reasoning-1088892",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0603": {
+    "original_id": "aquinas_pair_272",
+    "corpus": "forms"
+  },
+  "audit-0604": {
+    "original_id": "reasoning-0314233",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0605": {
+    "original_id": "cot-logic-0011499",
+    "corpus": "cot"
+  },
+  "audit-0606": {
+    "original_id": "reasoning-0557182",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0607": {
+    "original_id": "aquinas_pair_1668",
+    "corpus": "forms"
+  },
+  "audit-0608": {
+    "original_id": "cot-logic-0009594",
+    "corpus": "cot"
+  },
+  "audit-0609": {
+    "original_id": "theaetetus_pair_172",
+    "corpus": "forms"
+  },
+  "audit-0610": {
+    "original_id": "reasoning-0845300",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0611": {
+    "original_id": "meno_pair_125",
+    "corpus": "forms"
+  },
+  "audit-0612": {
+    "original_id": "cot-logic-0044406",
+    "corpus": "cot"
+  },
+  "audit-0613": {
+    "original_id": "reasoning-0521835",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0614": {
+    "original_id": "cot-phil-0041264",
+    "corpus": "cot"
+  },
+  "audit-0615": {
+    "original_id": "cot-logic-0046479",
+    "corpus": "cot"
+  },
+  "audit-0616": {
+    "original_id": "reasoning-0386808",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0617": {
+    "original_id": "cot-logic-0036662",
+    "corpus": "cot"
+  },
+  "audit-0618": {
+    "original_id": "reasoning-0794541",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0619": {
+    "original_id": "aquinas_pair_142",
+    "corpus": "forms"
+  },
+  "audit-0620": {
+    "original_id": "reasoning-0140926",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0621": {
+    "original_id": "aquinas_pair_1013",
+    "corpus": "forms"
+  },
+  "audit-0622": {
+    "original_id": "aquinas_pair_845",
+    "corpus": "forms"
+  },
+  "audit-0623": {
+    "original_id": "crito_pair_036",
+    "corpus": "forms"
+  },
+  "audit-0624": {
+    "original_id": "gorgias_pair_085",
+    "corpus": "forms"
+  },
+  "audit-0625": {
+    "original_id": "gorgias_pair_402",
+    "corpus": "forms"
+  },
+  "audit-0626": {
+    "original_id": "aquinas_pair_1186",
+    "corpus": "forms"
+  },
+  "audit-0627": {
+    "original_id": "cot-logic-0047561",
+    "corpus": "cot"
+  },
+  "audit-0628": {
+    "original_id": "aquinas_pair_827",
+    "corpus": "forms"
+  },
+  "audit-0629": {
+    "original_id": "cot-logic-0003508",
+    "corpus": "cot"
+  },
+  "audit-0630": {
+    "original_id": "cot-logic-0002503",
+    "corpus": "cot"
+  },
+  "audit-0631": {
+    "original_id": "meno_pair_105",
+    "corpus": "forms"
+  },
+  "audit-0632": {
+    "original_id": "cot-logic-0037202",
+    "corpus": "cot"
+  },
+  "audit-0633": {
+    "original_id": "aquinas_pair_1121",
+    "corpus": "forms"
+  },
+  "audit-0634": {
+    "original_id": "reasoning-1812746",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0635": {
+    "original_id": "reasoning-0865662",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0636": {
+    "original_id": "reasoning-1837097",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0637": {
+    "original_id": "reasoning-1073192",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0638": {
+    "original_id": "cot-phil-0001209",
+    "corpus": "cot"
+  },
+  "audit-0639": {
+    "original_id": "cot-phil-0007801",
+    "corpus": "cot"
+  },
+  "audit-0640": {
+    "original_id": "reasoning-0199897",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0641": {
+    "original_id": "reasoning-1290502",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0642": {
+    "original_id": "aquinas_pair_125",
+    "corpus": "forms"
+  },
+  "audit-0643": {
+    "original_id": "aquinas_pair_1046",
+    "corpus": "forms"
+  },
+  "audit-0644": {
+    "original_id": "cot-phil-0009875",
+    "corpus": "cot"
+  },
+  "audit-0645": {
+    "original_id": "aquinas_pair_1571",
+    "corpus": "forms"
+  },
+  "audit-0646": {
+    "original_id": "reasoning-1291744",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0647": {
+    "original_id": "cot-logic-0012966",
+    "corpus": "cot"
+  },
+  "audit-0648": {
+    "original_id": "cot-logic-0002772",
+    "corpus": "cot"
+  },
+  "audit-0649": {
+    "original_id": "aquinas_pair_1304",
+    "corpus": "forms"
+  },
+  "audit-0650": {
+    "original_id": "cot-logic-0017385",
+    "corpus": "cot"
+  },
+  "audit-0651": {
+    "original_id": "aquinas_pair_414",
+    "corpus": "forms"
+  },
+  "audit-0652": {
+    "original_id": "cot-logic-0031898",
+    "corpus": "cot"
+  },
+  "audit-0653": {
+    "original_id": "gorgias_pair_368",
+    "corpus": "forms"
+  },
+  "audit-0654": {
+    "original_id": "reasoning-1005805",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0655": {
+    "original_id": "cot-logic-0037506",
+    "corpus": "cot"
+  },
+  "audit-0656": {
+    "original_id": "reasoning-1156048",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0657": {
+    "original_id": "cot-logic-0047652",
+    "corpus": "cot"
+  },
+  "audit-0658": {
+    "original_id": "reasoning-0178764",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0659": {
+    "original_id": "cot-logic-0001435",
+    "corpus": "cot"
+  },
+  "audit-0660": {
+    "original_id": "aquinas_pair_243",
+    "corpus": "forms"
+  },
+  "audit-0661": {
+    "original_id": "reasoning-0217601",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0662": {
+    "original_id": "aquinas_pair_1380",
+    "corpus": "forms"
+  },
+  "audit-0663": {
+    "original_id": "meno_pair_146",
+    "corpus": "forms"
+  },
+  "audit-0664": {
+    "original_id": "reasoning-1823971",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0665": {
+    "original_id": "cot-logic-0013367",
+    "corpus": "cot"
+  },
+  "audit-0666": {
+    "original_id": "theaetetus_pair_197",
+    "corpus": "forms"
+  },
+  "audit-0667": {
+    "original_id": "cot-phil-0049629",
+    "corpus": "cot"
+  },
+  "audit-0668": {
+    "original_id": "cot-logic-0031356",
+    "corpus": "cot"
+  },
+  "audit-0669": {
+    "original_id": "cot-phil-0014389",
+    "corpus": "cot"
+  },
+  "audit-0670": {
+    "original_id": "cot-logic-0047700",
+    "corpus": "cot"
+  },
+  "audit-0671": {
+    "original_id": "cot-logic-0025784",
+    "corpus": "cot"
+  },
+  "audit-0672": {
+    "original_id": "cot-logic-0000498",
+    "corpus": "cot"
+  },
+  "audit-0673": {
+    "original_id": "cot-logic-0047412",
+    "corpus": "cot"
+  },
+  "audit-0674": {
+    "original_id": "aquinas_pair_1092",
+    "corpus": "forms"
+  },
+  "audit-0700": {
+    "original_id": "cot-logic-0024598",
+    "corpus": "cot"
+  },
+  "audit-0701": {
+    "original_id": "cot-logic-0018400",
+    "corpus": "cot"
+  },
+  "audit-0702": {
+    "original_id": "reasoning-1570583",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0703": {
+    "original_id": "cot-phil-0014411",
+    "corpus": "cot"
+  },
+  "audit-0704": {
+    "original_id": "reasoning-0381645",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0705": {
+    "original_id": "aquinas_pair_344",
+    "corpus": "forms"
+  },
+  "audit-0706": {
+    "original_id": "reasoning-1530295",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0707": {
+    "original_id": "cot-phil-0018329",
+    "corpus": "cot"
+  },
+  "audit-0708": {
+    "original_id": "theaetetus_pair_252",
+    "corpus": "forms"
+  },
+  "audit-0709": {
+    "original_id": "cot-phil-0047803",
+    "corpus": "cot"
+  },
+  "audit-0710": {
+    "original_id": "gorgias_pair_183",
+    "corpus": "forms"
+  },
+  "audit-0711": {
+    "original_id": "aquinas_pair_153",
+    "corpus": "forms"
+  },
+  "audit-0712": {
+    "original_id": "reasoning-1083399",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0713": {
+    "original_id": "aquinas_pair_905",
+    "corpus": "forms"
+  },
+  "audit-0714": {
+    "original_id": "reasoning-0582470",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0715": {
+    "original_id": "cot-logic-0031570",
+    "corpus": "cot"
+  },
+  "audit-0716": {
+    "original_id": "aquinas_pair_1283",
+    "corpus": "forms"
+  },
+  "audit-0717": {
+    "original_id": "reasoning-0499885",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0718": {
+    "original_id": "cot-logic-0045950",
+    "corpus": "cot"
+  },
+  "audit-0719": {
+    "original_id": "cot-logic-0036315",
+    "corpus": "cot"
+  },
+  "audit-0720": {
+    "original_id": "aquinas_pair_472",
+    "corpus": "forms"
+  },
+  "audit-0721": {
+    "original_id": "reasoning-1866739",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0722": {
+    "original_id": "aquinas_pair_055",
+    "corpus": "forms"
+  },
+  "audit-0723": {
+    "original_id": "cot-logic-0037391",
+    "corpus": "cot"
+  },
+  "audit-0724": {
+    "original_id": "reasoning-0653033",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0725": {
+    "original_id": "reasoning-1818607",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0726": {
+    "original_id": "reasoning-0614648",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0727": {
+    "original_id": "reasoning-0924732",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0728": {
+    "original_id": "gorgias_pair_197",
+    "corpus": "forms"
+  },
+  "audit-0729": {
+    "original_id": "cot-logic-0049096",
+    "corpus": "cot"
+  },
+  "audit-0730": {
+    "original_id": "cot-logic-0049978",
+    "corpus": "cot"
+  },
+  "audit-0731": {
+    "original_id": "reasoning-0845339",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0732": {
+    "original_id": "gorgias_pair_376",
+    "corpus": "forms"
+  },
+  "audit-0733": {
+    "original_id": "reasoning-0006411",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0734": {
+    "original_id": "aquinas_pair_1448",
+    "corpus": "forms"
+  },
+  "audit-0735": {
+    "original_id": "aquinas_pair_1572",
+    "corpus": "forms"
+  },
+  "audit-0736": {
+    "original_id": "cot-logic-0012902",
+    "corpus": "cot"
+  },
+  "audit-0737": {
+    "original_id": "reasoning-0958339",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0738": {
+    "original_id": "cot-logic-0039393",
+    "corpus": "cot"
+  },
+  "audit-0739": {
+    "original_id": "cot-logic-0025193",
+    "corpus": "cot"
+  },
+  "audit-0740": {
+    "original_id": "cot-logic-0031780",
+    "corpus": "cot"
+  },
+  "audit-0741": {
+    "original_id": "cot-phil-0030326",
+    "corpus": "cot"
+  },
+  "audit-0742": {
+    "original_id": "gorgias_pair_344",
+    "corpus": "forms"
+  },
+  "audit-0743": {
+    "original_id": "reasoning-0960093",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0744": {
+    "original_id": "reasoning-0690664",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0745": {
+    "original_id": "aquinas_pair_540",
+    "corpus": "forms"
+  },
+  "audit-0746": {
+    "original_id": "cot-logic-0026429",
+    "corpus": "cot"
+  },
+  "audit-0747": {
+    "original_id": "cot-phil-0044000",
+    "corpus": "cot"
+  },
+  "audit-0748": {
+    "original_id": "aquinas_pair_1256",
+    "corpus": "forms"
+  },
+  "audit-0749": {
+    "original_id": "reasoning-0825466",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0750": {
+    "original_id": "reasoning-0314125",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0751": {
+    "original_id": "aquinas_pair_070",
+    "corpus": "forms"
+  },
+  "audit-0752": {
+    "original_id": "cot-phil-0046428",
+    "corpus": "cot"
+  },
+  "audit-0753": {
+    "original_id": "reasoning-1947209",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0754": {
+    "original_id": "reasoning-0150393",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0755": {
+    "original_id": "reasoning-1250687",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0756": {
+    "original_id": "cot-logic-0044845",
+    "corpus": "cot"
+  },
+  "audit-0757": {
+    "original_id": "cot-logic-0025878",
+    "corpus": "cot"
+  },
+  "audit-0758": {
+    "original_id": "reasoning-1793265",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0759": {
+    "original_id": "reasoning-0512309",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0760": {
+    "original_id": "reasoning-1387627",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0761": {
+    "original_id": "aquinas_pair_1660",
+    "corpus": "forms"
+  },
+  "audit-0762": {
+    "original_id": "gorgias_pair_141",
+    "corpus": "forms"
+  },
+  "audit-0763": {
+    "original_id": "reasoning-0690469",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0764": {
+    "original_id": "aquinas_pair_607",
+    "corpus": "forms"
+  },
+  "audit-0765": {
+    "original_id": "cot-phil-0005503",
+    "corpus": "cot"
+  },
+  "audit-0766": {
+    "original_id": "reasoning-0885565",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0767": {
+    "original_id": "aquinas_pair_1265",
+    "corpus": "forms"
+  },
+  "audit-0768": {
+    "original_id": "cot-logic-0005064",
+    "corpus": "cot"
+  },
+  "audit-0769": {
+    "original_id": "cot-phil-0023783",
+    "corpus": "cot"
+  },
+  "audit-0770": {
+    "original_id": "reasoning-1003251",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0771": {
+    "original_id": "cot-logic-0016876",
+    "corpus": "cot"
+  },
+  "audit-0772": {
+    "original_id": "euthyphro_pair_072",
+    "corpus": "forms"
+  },
+  "audit-0773": {
+    "original_id": "reasoning-0702643",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0774": {
+    "original_id": "cot-phil-0014784",
+    "corpus": "cot"
+  },
+  "audit-0800": {
+    "original_id": "cot-phil-0005274",
+    "corpus": "cot"
+  },
+  "audit-0801": {
+    "original_id": "reasoning-0697685",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0802": {
+    "original_id": "cot-logic-0026253",
+    "corpus": "cot"
+  },
+  "audit-0803": {
+    "original_id": "aquinas_pair_158",
+    "corpus": "forms"
+  },
+  "audit-0804": {
+    "original_id": "reasoning-0721609",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0805": {
+    "original_id": "reasoning-0438074",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0806": {
+    "original_id": "reasoning-0177773",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0807": {
+    "original_id": "aquinas_pair_431",
+    "corpus": "forms"
+  },
+  "audit-0808": {
+    "original_id": "reasoning-1106901",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0809": {
+    "original_id": "aquinas_pair_051",
+    "corpus": "forms"
+  },
+  "audit-0810": {
+    "original_id": "reasoning-0778150",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0811": {
+    "original_id": "aquinas_pair_1053",
+    "corpus": "forms"
+  },
+  "audit-0812": {
+    "original_id": "aquinas_pair_262",
+    "corpus": "forms"
+  },
+  "audit-0813": {
+    "original_id": "reasoning-1367447",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0814": {
+    "original_id": "cot-logic-0006344",
+    "corpus": "cot"
+  },
+  "audit-0815": {
+    "original_id": "gorgias_pair_335",
+    "corpus": "forms"
+  },
+  "audit-0816": {
+    "original_id": "meno_pair_121",
+    "corpus": "forms"
+  },
+  "audit-0817": {
+    "original_id": "cot-logic-0029800",
+    "corpus": "cot"
+  },
+  "audit-0818": {
+    "original_id": "cot-logic-0040146",
+    "corpus": "cot"
+  },
+  "audit-0819": {
+    "original_id": "reasoning-1232910",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0820": {
+    "original_id": "cot-logic-0043761",
+    "corpus": "cot"
+  },
+  "audit-0821": {
+    "original_id": "reasoning-0463471",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0822": {
+    "original_id": "aquinas_pair_649",
+    "corpus": "forms"
+  },
+  "audit-0823": {
+    "original_id": "cot-logic-0036273",
+    "corpus": "cot"
+  },
+  "audit-0824": {
+    "original_id": "gorgias_pair_230",
+    "corpus": "forms"
+  },
+  "audit-0825": {
+    "original_id": "reasoning-1857876",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0826": {
+    "original_id": "reasoning-0231241",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0827": {
+    "original_id": "cot-logic-0045385",
+    "corpus": "cot"
+  },
+  "audit-0828": {
+    "original_id": "cot-phil-0041729",
+    "corpus": "cot"
+  },
+  "audit-0829": {
+    "original_id": "aquinas_pair_067",
+    "corpus": "forms"
+  },
+  "audit-0830": {
+    "original_id": "theaetetus_pair_110",
+    "corpus": "forms"
+  },
+  "audit-0831": {
+    "original_id": "aquinas_pair_844",
+    "corpus": "forms"
+  },
+  "audit-0832": {
+    "original_id": "reasoning-1127266",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0833": {
+    "original_id": "cot-phil-0004871",
+    "corpus": "cot"
+  },
+  "audit-0834": {
+    "original_id": "reasoning-1791093",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0835": {
+    "original_id": "reasoning-1542776",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0836": {
+    "original_id": "theaetetus_pair_090",
+    "corpus": "forms"
+  },
+  "audit-0837": {
+    "original_id": "reasoning-1440725",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0838": {
+    "original_id": "reasoning-0013591",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0839": {
+    "original_id": "aquinas_pair_452",
+    "corpus": "forms"
+  },
+  "audit-0840": {
+    "original_id": "cot-logic-0034443",
+    "corpus": "cot"
+  },
+  "audit-0841": {
+    "original_id": "gorgias_pair_223",
+    "corpus": "forms"
+  },
+  "audit-0842": {
+    "original_id": "aquinas_pair_831",
+    "corpus": "forms"
+  },
+  "audit-0843": {
+    "original_id": "aquinas_pair_194",
+    "corpus": "forms"
+  },
+  "audit-0844": {
+    "original_id": "reasoning-0849556",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0845": {
+    "original_id": "cot-phil-0043830",
+    "corpus": "cot"
+  },
+  "audit-0846": {
+    "original_id": "cot-logic-0007886",
+    "corpus": "cot"
+  },
+  "audit-0847": {
+    "original_id": "reasoning-1078270",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0848": {
+    "original_id": "theaetetus_pair_287",
+    "corpus": "forms"
+  },
+  "audit-0849": {
+    "original_id": "cot-logic-0017456",
+    "corpus": "cot"
+  },
+  "audit-0850": {
+    "original_id": "cot-logic-0010423",
+    "corpus": "cot"
+  },
+  "audit-0851": {
+    "original_id": "reasoning-0772889",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0852": {
+    "original_id": "aquinas_pair_640",
+    "corpus": "forms"
+  },
+  "audit-0853": {
+    "original_id": "aquinas_pair_1340",
+    "corpus": "forms"
+  },
+  "audit-0854": {
+    "original_id": "cot-logic-0024387",
+    "corpus": "cot"
+  },
+  "audit-0855": {
+    "original_id": "cot-logic-0010359",
+    "corpus": "cot"
+  },
+  "audit-0856": {
+    "original_id": "euthyphro_pair_053",
+    "corpus": "forms"
+  },
+  "audit-0857": {
+    "original_id": "reasoning-0545100",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0858": {
+    "original_id": "cot-logic-0012209",
+    "corpus": "cot"
+  },
+  "audit-0859": {
+    "original_id": "meno_pair_107",
+    "corpus": "forms"
+  },
+  "audit-0860": {
+    "original_id": "cot-phil-0036716",
+    "corpus": "cot"
+  },
+  "audit-0861": {
+    "original_id": "aquinas_pair_1526",
+    "corpus": "forms"
+  },
+  "audit-0862": {
+    "original_id": "aquinas_pair_585",
+    "corpus": "forms"
+  },
+  "audit-0863": {
+    "original_id": "cot-logic-0028771",
+    "corpus": "cot"
+  },
+  "audit-0864": {
+    "original_id": "aquinas_pair_1180",
+    "corpus": "forms"
+  },
+  "audit-0865": {
+    "original_id": "euthyphro_pair_098",
+    "corpus": "forms"
+  },
+  "audit-0866": {
+    "original_id": "cot-logic-0029407",
+    "corpus": "cot"
+  },
+  "audit-0867": {
+    "original_id": "reasoning-0391981",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0868": {
+    "original_id": "cot-logic-0000925",
+    "corpus": "cot"
+  },
+  "audit-0869": {
+    "original_id": "cot-logic-0018912",
+    "corpus": "cot"
+  },
+  "audit-0870": {
+    "original_id": "aquinas_pair_064",
+    "corpus": "forms"
+  },
+  "audit-0871": {
+    "original_id": "aquinas_pair_1623",
+    "corpus": "forms"
+  },
+  "audit-0872": {
+    "original_id": "reasoning-0740679",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0873": {
+    "original_id": "meno_pair_041",
+    "corpus": "forms"
+  },
+  "audit-0874": {
+    "original_id": "reasoning-0573338",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0900": {
+    "original_id": "aquinas_pair_862",
+    "corpus": "forms"
+  },
+  "audit-0901": {
+    "original_id": "cot-phil-0037998",
+    "corpus": "cot"
+  },
+  "audit-0902": {
+    "original_id": "cot-logic-0023450",
+    "corpus": "cot"
+  },
+  "audit-0903": {
+    "original_id": "cot-phil-0004786",
+    "corpus": "cot"
+  },
+  "audit-0904": {
+    "original_id": "theaetetus_pair_278",
+    "corpus": "forms"
+  },
+  "audit-0905": {
+    "original_id": "cot-phil-0041218",
+    "corpus": "cot"
+  },
+  "audit-0906": {
+    "original_id": "reasoning-0273937",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0907": {
+    "original_id": "theaetetus_pair_102",
+    "corpus": "forms"
+  },
+  "audit-0908": {
+    "original_id": "reasoning-0440650",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0909": {
+    "original_id": "reasoning-1453198",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0910": {
+    "original_id": "reasoning-0203149",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0911": {
+    "original_id": "aquinas_pair_023",
+    "corpus": "forms"
+  },
+  "audit-0912": {
+    "original_id": "reasoning-0397153",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0913": {
+    "original_id": "reasoning-1298708",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0914": {
+    "original_id": "gorgias_pair_316",
+    "corpus": "forms"
+  },
+  "audit-0915": {
+    "original_id": "cot-phil-0039436",
+    "corpus": "cot"
+  },
+  "audit-0916": {
+    "original_id": "aquinas_pair_1630",
+    "corpus": "forms"
+  },
+  "audit-0917": {
+    "original_id": "cot-logic-0024116",
+    "corpus": "cot"
+  },
+  "audit-0918": {
+    "original_id": "aquinas_pair_1082",
+    "corpus": "forms"
+  },
+  "audit-0919": {
+    "original_id": "theaetetus_pair_154",
+    "corpus": "forms"
+  },
+  "audit-0920": {
+    "original_id": "cot-logic-0018056",
+    "corpus": "cot"
+  },
+  "audit-0921": {
+    "original_id": "cot-logic-0022482",
+    "corpus": "cot"
+  },
+  "audit-0922": {
+    "original_id": "cot-logic-0002466",
+    "corpus": "cot"
+  },
+  "audit-0923": {
+    "original_id": "aquinas_pair_1673",
+    "corpus": "forms"
+  },
+  "audit-0924": {
+    "original_id": "cot-logic-0030444",
+    "corpus": "cot"
+  },
+  "audit-0925": {
+    "original_id": "reasoning-0995280",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0926": {
+    "original_id": "reasoning-0904256",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0927": {
+    "original_id": "reasoning-1761840",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0928": {
+    "original_id": "cot-phil-0015387",
+    "corpus": "cot"
+  },
+  "audit-0929": {
+    "original_id": "reasoning-0711047",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0930": {
+    "original_id": "aquinas_pair_053",
+    "corpus": "forms"
+  },
+  "audit-0931": {
+    "original_id": "reasoning-0151756",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0932": {
+    "original_id": "cot-phil-0007029",
+    "corpus": "cot"
+  },
+  "audit-0933": {
+    "original_id": "cot-phil-0013968",
+    "corpus": "cot"
+  },
+  "audit-0934": {
+    "original_id": "reasoning-0941777",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0935": {
+    "original_id": "cot-phil-0025706",
+    "corpus": "cot"
+  },
+  "audit-0936": {
+    "original_id": "reasoning-0614928",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0937": {
+    "original_id": "cot-logic-0027642",
+    "corpus": "cot"
+  },
+  "audit-0938": {
+    "original_id": "cot-phil-0020618",
+    "corpus": "cot"
+  },
+  "audit-0939": {
+    "original_id": "cot-logic-0037364",
+    "corpus": "cot"
+  },
+  "audit-0940": {
+    "original_id": "reasoning-0498720",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0941": {
+    "original_id": "cot-phil-0037024",
+    "corpus": "cot"
+  },
+  "audit-0942": {
+    "original_id": "theaetetus_pair_313",
+    "corpus": "forms"
+  },
+  "audit-0943": {
+    "original_id": "euthyphro_pair_027",
+    "corpus": "forms"
+  },
+  "audit-0944": {
+    "original_id": "reasoning-0551485",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0945": {
+    "original_id": "cot-logic-0012190",
+    "corpus": "cot"
+  },
+  "audit-0946": {
+    "original_id": "reasoning-1227908",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0947": {
+    "original_id": "gorgias_pair_152",
+    "corpus": "forms"
+  },
+  "audit-0948": {
+    "original_id": "theaetetus_pair_057",
+    "corpus": "forms"
+  },
+  "audit-0949": {
+    "original_id": "reasoning-1281845",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0950": {
+    "original_id": "reasoning-1602880",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0951": {
+    "original_id": "gorgias_pair_009",
+    "corpus": "forms"
+  },
+  "audit-0952": {
+    "original_id": "meno_pair_110",
+    "corpus": "forms"
+  },
+  "audit-0953": {
+    "original_id": "reasoning-0462680",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0954": {
+    "original_id": "theaetetus_pair_089",
+    "corpus": "forms"
+  },
+  "audit-0955": {
+    "original_id": "cot-logic-0038303",
+    "corpus": "cot"
+  },
+  "audit-0956": {
+    "original_id": "cot-logic-0044765",
+    "corpus": "cot"
+  },
+  "audit-0957": {
+    "original_id": "cot-phil-0023294",
+    "corpus": "cot"
+  },
+  "audit-0958": {
+    "original_id": "reasoning-0632926",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0959": {
+    "original_id": "reasoning-0350434",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0960": {
+    "original_id": "reasoning-1439849",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0961": {
+    "original_id": "aquinas_pair_1576",
+    "corpus": "forms"
+  },
+  "audit-0962": {
+    "original_id": "meno_pair_050",
+    "corpus": "forms"
+  },
+  "audit-0963": {
+    "original_id": "reasoning-1323349",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0964": {
+    "original_id": "gorgias_pair_315",
+    "corpus": "forms"
+  },
+  "audit-0965": {
+    "original_id": "aquinas_pair_904",
+    "corpus": "forms"
+  },
+  "audit-0966": {
+    "original_id": "reasoning-0315190",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0967": {
+    "original_id": "reasoning-1183159",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0968": {
+    "original_id": "aquinas_pair_1209",
+    "corpus": "forms"
+  },
+  "audit-0969": {
+    "original_id": "aquinas_pair_071",
+    "corpus": "forms"
+  },
+  "audit-0970": {
+    "original_id": "theaetetus_pair_170",
+    "corpus": "forms"
+  },
+  "audit-0971": {
+    "original_id": "cot-phil-0007986",
+    "corpus": "cot"
+  },
+  "audit-0972": {
+    "original_id": "reasoning-0040299",
+    "corpus": "existing_reasoning"
+  },
+  "audit-0973": {
+    "original_id": "cot-phil-0012964",
+    "corpus": "cot"
+  },
+  "audit-0974": {
+    "original_id": "meno_pair_053",
+    "corpus": "forms"
+  },
+  "audit-1000": {
+    "original_id": "cot-logic-0010467",
+    "corpus": "cot"
+  },
+  "audit-1001": {
+    "original_id": "aquinas_pair_1336",
+    "corpus": "forms"
+  },
+  "audit-1002": {
+    "original_id": "meno_pair_163",
+    "corpus": "forms"
+  },
+  "audit-1003": {
+    "original_id": "reasoning-0170920",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1004": {
+    "original_id": "reasoning-0357898",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1005": {
+    "original_id": "aquinas_pair_1080",
+    "corpus": "forms"
+  },
+  "audit-1006": {
+    "original_id": "reasoning-0854262",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1007": {
+    "original_id": "reasoning-1656001",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1008": {
+    "original_id": "reasoning-0678326",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1009": {
+    "original_id": "reasoning-0572715",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1010": {
+    "original_id": "theaetetus_pair_339",
+    "corpus": "forms"
+  },
+  "audit-1011": {
+    "original_id": "reasoning-1972569",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1012": {
+    "original_id": "reasoning-1395534",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1013": {
+    "original_id": "reasoning-0955408",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1014": {
+    "original_id": "reasoning-0913404",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1015": {
+    "original_id": "reasoning-0426143",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1016": {
+    "original_id": "aquinas_pair_362",
+    "corpus": "forms"
+  },
+  "audit-1017": {
+    "original_id": "cot-logic-0039238",
+    "corpus": "cot"
+  },
+  "audit-1018": {
+    "original_id": "aquinas_pair_237",
+    "corpus": "forms"
+  },
+  "audit-1019": {
+    "original_id": "cot-logic-0012399",
+    "corpus": "cot"
+  },
+  "audit-1020": {
+    "original_id": "cot-logic-0037025",
+    "corpus": "cot"
+  },
+  "audit-1021": {
+    "original_id": "aquinas_pair_495",
+    "corpus": "forms"
+  },
+  "audit-1022": {
+    "original_id": "cot-logic-0012835",
+    "corpus": "cot"
+  },
+  "audit-1023": {
+    "original_id": "reasoning-1760172",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1024": {
+    "original_id": "reasoning-1482690",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1025": {
+    "original_id": "reasoning-0692779",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1026": {
+    "original_id": "reasoning-0952252",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1027": {
+    "original_id": "reasoning-1122921",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1028": {
+    "original_id": "theaetetus_pair_255",
+    "corpus": "forms"
+  },
+  "audit-1029": {
+    "original_id": "reasoning-0693604",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1030": {
+    "original_id": "aquinas_pair_1131",
+    "corpus": "forms"
+  },
+  "audit-1031": {
+    "original_id": "reasoning-0201152",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1032": {
+    "original_id": "reasoning-0017107",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1033": {
+    "original_id": "reasoning-0208011",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1034": {
+    "original_id": "reasoning-1937048",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1035": {
+    "original_id": "gorgias_pair_137",
+    "corpus": "forms"
+  },
+  "audit-1036": {
+    "original_id": "cot-logic-0040654",
+    "corpus": "cot"
+  },
+  "audit-1037": {
+    "original_id": "reasoning-1606132",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1038": {
+    "original_id": "reasoning-1031306",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1039": {
+    "original_id": "cot-phil-0042670",
+    "corpus": "cot"
+  },
+  "audit-1040": {
+    "original_id": "reasoning-1715145",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1041": {
+    "original_id": "aquinas_pair_1269",
+    "corpus": "forms"
+  },
+  "audit-1042": {
+    "original_id": "cot-logic-0025196",
+    "corpus": "cot"
+  },
+  "audit-1043": {
+    "original_id": "cot-phil-0016740",
+    "corpus": "cot"
+  },
+  "audit-1044": {
+    "original_id": "cot-logic-0011547",
+    "corpus": "cot"
+  },
+  "audit-1045": {
+    "original_id": "gorgias_pair_163",
+    "corpus": "forms"
+  },
+  "audit-1046": {
+    "original_id": "reasoning-1234678",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1047": {
+    "original_id": "meno_pair_006",
+    "corpus": "forms"
+  },
+  "audit-1048": {
+    "original_id": "cot-logic-0022167",
+    "corpus": "cot"
+  },
+  "audit-1049": {
+    "original_id": "meno_pair_073",
+    "corpus": "forms"
+  },
+  "audit-1050": {
+    "original_id": "cot-logic-0004068",
+    "corpus": "cot"
+  },
+  "audit-1051": {
+    "original_id": "cot-logic-0004880",
+    "corpus": "cot"
+  },
+  "audit-1052": {
+    "original_id": "cot-logic-0016074",
+    "corpus": "cot"
+  },
+  "audit-1053": {
+    "original_id": "reasoning-0605887",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1054": {
+    "original_id": "cot-logic-0018540",
+    "corpus": "cot"
+  },
+  "audit-1055": {
+    "original_id": "gorgias_pair_113",
+    "corpus": "forms"
+  },
+  "audit-1056": {
+    "original_id": "cot-logic-0044884",
+    "corpus": "cot"
+  },
+  "audit-1057": {
+    "original_id": "cot-logic-0037822",
+    "corpus": "cot"
+  },
+  "audit-1058": {
+    "original_id": "gorgias_pair_291",
+    "corpus": "forms"
+  },
+  "audit-1059": {
+    "original_id": "reasoning-0640892",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1060": {
+    "original_id": "cot-logic-0046127",
+    "corpus": "cot"
+  },
+  "audit-1061": {
+    "original_id": "cot-logic-0019460",
+    "corpus": "cot"
+  },
+  "audit-1062": {
+    "original_id": "cot-logic-0032462",
+    "corpus": "cot"
+  },
+  "audit-1063": {
+    "original_id": "theaetetus_pair_167",
+    "corpus": "forms"
+  },
+  "audit-1064": {
+    "original_id": "cot-logic-0022918",
+    "corpus": "cot"
+  },
+  "audit-1065": {
+    "original_id": "reasoning-1466929",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1066": {
+    "original_id": "cot-phil-0044173",
+    "corpus": "cot"
+  },
+  "audit-1067": {
+    "original_id": "reasoning-0694434",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1068": {
+    "original_id": "aquinas_pair_1453",
+    "corpus": "forms"
+  },
+  "audit-1069": {
+    "original_id": "cot-logic-0046159",
+    "corpus": "cot"
+  },
+  "audit-1070": {
+    "original_id": "cot-phil-0026354",
+    "corpus": "cot"
+  },
+  "audit-1071": {
+    "original_id": "cot-phil-0027218",
+    "corpus": "cot"
+  },
+  "audit-1072": {
+    "original_id": "aquinas_pair_1271",
+    "corpus": "forms"
+  },
+  "audit-1073": {
+    "original_id": "aquinas_pair_943",
+    "corpus": "forms"
+  },
+  "audit-1074": {
+    "original_id": "reasoning-0788547",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1100": {
+    "original_id": "reasoning-1020533",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1101": {
+    "original_id": "cot-phil-0011266",
+    "corpus": "cot"
+  },
+  "audit-1102": {
+    "original_id": "reasoning-0659716",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1103": {
+    "original_id": "cot-logic-0049346",
+    "corpus": "cot"
+  },
+  "audit-1104": {
+    "original_id": "cot-logic-0033533",
+    "corpus": "cot"
+  },
+  "audit-1105": {
+    "original_id": "euthyphro_pair_020",
+    "corpus": "forms"
+  },
+  "audit-1106": {
+    "original_id": "reasoning-1758153",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1107": {
+    "original_id": "gorgias_pair_154",
+    "corpus": "forms"
+  },
+  "audit-1108": {
+    "original_id": "cot-logic-0001132",
+    "corpus": "cot"
+  },
+  "audit-1109": {
+    "original_id": "reasoning-0896604",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1110": {
+    "original_id": "reasoning-0897617",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1111": {
+    "original_id": "cot-logic-0035619",
+    "corpus": "cot"
+  },
+  "audit-1112": {
+    "original_id": "reasoning-0397523",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1113": {
+    "original_id": "cot-logic-0028036",
+    "corpus": "cot"
+  },
+  "audit-1114": {
+    "original_id": "cot-phil-0024442",
+    "corpus": "cot"
+  },
+  "audit-1115": {
+    "original_id": "gorgias_pair_020",
+    "corpus": "forms"
+  },
+  "audit-1116": {
+    "original_id": "reasoning-0099635",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1117": {
+    "original_id": "gorgias_pair_172",
+    "corpus": "forms"
+  },
+  "audit-1118": {
+    "original_id": "theaetetus_pair_336",
+    "corpus": "forms"
+  },
+  "audit-1119": {
+    "original_id": "reasoning-1610246",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1120": {
+    "original_id": "reasoning-0167742",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1121": {
+    "original_id": "meno_pair_042",
+    "corpus": "forms"
+  },
+  "audit-1122": {
+    "original_id": "cot-phil-0020984",
+    "corpus": "cot"
+  },
+  "audit-1123": {
+    "original_id": "aquinas_pair_1373",
+    "corpus": "forms"
+  },
+  "audit-1124": {
+    "original_id": "reasoning-0337523",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1125": {
+    "original_id": "reasoning-0088399",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1126": {
+    "original_id": "gorgias_pair_037",
+    "corpus": "forms"
+  },
+  "audit-1127": {
+    "original_id": "reasoning-1358982",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1128": {
+    "original_id": "euthyphro_pair_004",
+    "corpus": "forms"
+  },
+  "audit-1129": {
+    "original_id": "reasoning-1643947",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1130": {
+    "original_id": "reasoning-1279562",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1131": {
+    "original_id": "aquinas_pair_020",
+    "corpus": "forms"
+  },
+  "audit-1132": {
+    "original_id": "cot-phil-0038497",
+    "corpus": "cot"
+  },
+  "audit-1133": {
+    "original_id": "reasoning-0637130",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1134": {
+    "original_id": "cot-logic-0013330",
+    "corpus": "cot"
+  },
+  "audit-1135": {
+    "original_id": "euthyphro_pair_090",
+    "corpus": "forms"
+  },
+  "audit-1136": {
+    "original_id": "cot-logic-0011037",
+    "corpus": "cot"
+  },
+  "audit-1137": {
+    "original_id": "aquinas_pair_485",
+    "corpus": "forms"
+  },
+  "audit-1138": {
+    "original_id": "reasoning-0029639",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1139": {
+    "original_id": "reasoning-0444020",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1140": {
+    "original_id": "meno_pair_044",
+    "corpus": "forms"
+  },
+  "audit-1141": {
+    "original_id": "theaetetus_pair_134",
+    "corpus": "forms"
+  },
+  "audit-1142": {
+    "original_id": "theaetetus_pair_173",
+    "corpus": "forms"
+  },
+  "audit-1143": {
+    "original_id": "euthyphro_pair_073",
+    "corpus": "forms"
+  },
+  "audit-1144": {
+    "original_id": "cot-logic-0001199",
+    "corpus": "cot"
+  },
+  "audit-1145": {
+    "original_id": "reasoning-0036845",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1146": {
+    "original_id": "aquinas_pair_709",
+    "corpus": "forms"
+  },
+  "audit-1147": {
+    "original_id": "cot-logic-0048834",
+    "corpus": "cot"
+  },
+  "audit-1148": {
+    "original_id": "cot-phil-0033030",
+    "corpus": "cot"
+  },
+  "audit-1149": {
+    "original_id": "aquinas_pair_1068",
+    "corpus": "forms"
+  },
+  "audit-1150": {
+    "original_id": "cot-logic-0036061",
+    "corpus": "cot"
+  },
+  "audit-1151": {
+    "original_id": "theaetetus_pair_094",
+    "corpus": "forms"
+  },
+  "audit-1152": {
+    "original_id": "cot-logic-0012810",
+    "corpus": "cot"
+  },
+  "audit-1153": {
+    "original_id": "cot-phil-0005914",
+    "corpus": "cot"
+  },
+  "audit-1154": {
+    "original_id": "cot-logic-0000131",
+    "corpus": "cot"
+  },
+  "audit-1155": {
+    "original_id": "theaetetus_pair_184",
+    "corpus": "forms"
+  },
+  "audit-1156": {
+    "original_id": "reasoning-1966418",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1157": {
+    "original_id": "reasoning-0908023",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1158": {
+    "original_id": "reasoning-0206110",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1159": {
+    "original_id": "theaetetus_pair_260",
+    "corpus": "forms"
+  },
+  "audit-1160": {
+    "original_id": "cot-logic-0037485",
+    "corpus": "cot"
+  },
+  "audit-1161": {
+    "original_id": "cot-logic-0004261",
+    "corpus": "cot"
+  },
+  "audit-1162": {
+    "original_id": "theaetetus_pair_165",
+    "corpus": "forms"
+  },
+  "audit-1163": {
+    "original_id": "theaetetus_pair_242",
+    "corpus": "forms"
+  },
+  "audit-1164": {
+    "original_id": "reasoning-1809486",
+    "corpus": "existing_reasoning"
+  },
+  "audit-1165": {
+    "original_id": "gorgias_pair_142",
+    "corpus": "forms"
+  },
+  "audit-1166": {
+    "original_id": "gorgias_pair_375",
+    "corpus": "forms"
+  },
+  "audit-1167": {
+    "original_id": "aquinas_pair_902",
+    "corpus": "forms"
+  },
+  "audit-1168": {
+    "original_id": "cot-logic-0002675",
+    "corpus": "cot"
+  },
+  "audit-1169": {
+    "original_id": "cot-phil-0039499",
+    "corpus": "cot"
+  },
+  "audit-1170": {
+    "original_id": "theaetetus_pair_024",
+    "corpus": "forms"
+  },
+  "audit-1171": {
+    "original_id": "aquinas_pair_393",
+    "corpus": "forms"
+  },
+  "audit-1172": {
+    "original_id": "cot-logic-0036313",
+    "corpus": "cot"
+  },
+  "audit-1173": {
+    "original_id": "aquinas_pair_491",
+    "corpus": "forms"
+  }
+}

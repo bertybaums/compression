@@ -1,0 +1,50 @@
+[
+  {
+    "label": "t5_may5",
+    "batch": 1,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_translator/t5_may5_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_translator/t5_may5_batch_01.jsonl",
+    "source_file": "eval/results/_jsonl/logic_bench_20260505_143235.jsonl"
+  },
+  {
+    "label": "t5_may5",
+    "batch": 2,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_translator/t5_may5_batch_02.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_translator/t5_may5_batch_02.jsonl",
+    "source_file": "eval/results/_jsonl/logic_bench_20260505_143235.jsonl"
+  },
+  {
+    "label": "t5_may5",
+    "batch": 3,
+    "n_items": 35,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_translator/t5_may5_batch_03.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_translator/t5_may5_batch_03.jsonl",
+    "source_file": "eval/results/_jsonl/logic_bench_20260505_143235.jsonl"
+  },
+  {
+    "label": "mr_120b",
+    "batch": 1,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_translator/mr_120b_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_translator/mr_120b_batch_01.jsonl",
+    "source_file": "eval/results/_jsonl/logic_bench_mr_structured_20260513_135033.jsonl"
+  },
+  {
+    "label": "mr_120b",
+    "batch": 2,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_translator/mr_120b_batch_02.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_translator/mr_120b_batch_02.jsonl",
+    "source_file": "eval/results/_jsonl/logic_bench_mr_structured_20260513_135033.jsonl"
+  },
+  {
+    "label": "mr_120b",
+    "batch": 3,
+    "n_items": 35,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_translator/mr_120b_batch_03.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_translator/mr_120b_batch_03.jsonl",
+    "source_file": "eval/results/_jsonl/logic_bench_mr_structured_20260513_135033.jsonl"
+  }
+]

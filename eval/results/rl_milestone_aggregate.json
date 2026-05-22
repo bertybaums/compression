@@ -1,0 +1,152 @@
+{
+  "stress": {
+    "rl": {
+      "engagement": {
+        "mean": 0.1,
+        "stdev": 0.305,
+        "n": 30
+      },
+      "coherence": {
+        "mean": 1.9,
+        "stdev": 0.548,
+        "n": 30
+      },
+      "substance": {
+        "mean": 0.9,
+        "stdev": 0.403,
+        "n": 30
+      },
+      "expressive_adequacy": {
+        "mean": 1.833,
+        "stdev": 0.461,
+        "n": 30
+      }
+    },
+    "sftv2": {
+      "engagement": {
+        "mean": 0.5,
+        "stdev": 0.82,
+        "n": 30
+      },
+      "coherence": {
+        "mean": 1.767,
+        "stdev": 0.679,
+        "n": 30
+      },
+      "substance": {
+        "mean": 0.9,
+        "stdev": 0.607,
+        "n": 30
+      },
+      "expressive_adequacy": {
+        "mean": 1.667,
+        "stdev": 0.802,
+        "n": 30
+      }
+    },
+    "_rl_parse_success_rate": 1.0,
+    "_rl_parse_n": 30,
+    "_sftv2_parse_success_rate": 0.9667,
+    "_sftv2_parse_n": 30
+  },
+  "cx_patched": {
+    "sftv2": {
+      "engagement": {
+        "mean": 0.9,
+        "stdev": 0.707,
+        "n": 50
+      },
+      "coherence": {
+        "mean": 1.46,
+        "stdev": 0.646,
+        "n": 50
+      },
+      "substance": {
+        "mean": 1.16,
+        "stdev": 0.766,
+        "n": 50
+      },
+      "expressive_adequacy": {
+        "mean": 1.62,
+        "stdev": 0.667,
+        "n": 50
+      }
+    },
+    "rl": {
+      "engagement": {
+        "mean": 0.1,
+        "stdev": 0.364,
+        "n": 50
+      },
+      "coherence": {
+        "mean": 1.7,
+        "stdev": 0.505,
+        "n": 50
+      },
+      "substance": {
+        "mean": 0.12,
+        "stdev": 0.385,
+        "n": 50
+      },
+      "expressive_adequacy": {
+        "mean": 2.12,
+        "stdev": 0.746,
+        "n": 50
+      }
+    },
+    "_sftv2_parse_success_rate": 1.0,
+    "_sftv2_parse_n": 50,
+    "_rl_parse_success_rate": 1.0,
+    "_rl_parse_n": 50
+  },
+  "holdout": {
+    "rl": {
+      "engagement": {
+        "mean": 1.629,
+        "stdev": 1.685,
+        "n": 170
+      },
+      "coherence": {
+        "mean": 2.082,
+        "stdev": 0.788,
+        "n": 170
+      },
+      "substance": {
+        "mean": 1.665,
+        "stdev": 0.91,
+        "n": 170
+      },
+      "expressive_adequacy": {
+        "mean": 2.729,
+        "stdev": 0.703,
+        "n": 170
+      }
+    },
+    "sftv2": {
+      "engagement": {
+        "mean": 2.465,
+        "stdev": 1.255,
+        "n": 170
+      },
+      "coherence": {
+        "mean": 2.224,
+        "stdev": 0.783,
+        "n": 170
+      },
+      "substance": {
+        "mean": 2.129,
+        "stdev": 0.818,
+        "n": 170
+      },
+      "expressive_adequacy": {
+        "mean": 2.565,
+        "stdev": 0.768,
+        "n": 170
+      }
+    },
+    "_rl_parse_success_rate": 0.9588,
+    "_rl_parse_n": 170,
+    "_sftv2_parse_success_rate": 0.9706,
+    "_sftv2_parse_n": 170
+  }
+}

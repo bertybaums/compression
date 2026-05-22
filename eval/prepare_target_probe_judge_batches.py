@@ -68,6 +68,13 @@ def main():
     manifest: list[dict] = []
 
     # ---- Mode A: independent blinded (3 conditions × N prompts, shuffled) ----
+    #
+    # IMPORTANT BLINDING: the id field the judge sees is an opaque
+    # serial number — NOT a composition of prompt id + condition.
+    # Leaking the condition in the id (e.g. "probe-032::p5") allows the
+    # judge to pattern-match by source system, which biases scores.
+    # The (judge_id -> prompt_id, condition) mapping lives only in
+    # independent_truth.json, which the judge does not read.
     print("\n=== Mode A: independent blinded ===")
     all_items: list[dict] = []
     for cond, store in [("reasoner", reasoner), ("p4", p4), ("p5", p5)]:
@@ -77,13 +84,16 @@ def main():
             if not ugf or ugf.startswith("<"):
                 continue
             all_items.append({
-                "id": f"{pid}::{cond}",
                 "_prompt_id": pid,
                 "_condition": cond,  # NOT written to judge files
                 "english_query": r["english_query"],
                 "ugf_response": ugf,
             })
     rng.shuffle(all_items)
+    # Assign opaque sequential ids ONLY after shuffling, so the id order
+    # doesn't telegraph the condition either.
+    for i, it in enumerate(all_items):
+        it["id"] = f"ind-{i:04d}"
     print(f"  {len(all_items)} items across all 3 conditions")
 
     independent_truth: dict[str, str] = {}  # item_id -> condition

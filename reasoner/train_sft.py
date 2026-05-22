@@ -27,6 +27,7 @@ from torch.utils.data import ConcatDataset, DataLoader
 
 from reasoner.model import Reasoner, ReasonerConfig
 from reasoner.data_sft import UGFSFTDataset, sft_collate_fn
+from reasoner.data_sft_v2 import UGFSFTv2Dataset, sft_v2_collate_fn
 from reasoner.train import get_lr, save_checkpoint, load_checkpoint
 from tokenizer.ugf_tokenizer import UGFTokenizer
 from eval.training_probes import (
@@ -53,11 +54,21 @@ def main():
     train_cfg = cfg.get("training", {})
     data_cfg = cfg.get("data", {})
 
-    if data_cfg.get("dataset_type") != "sft":
+    dataset_type = data_cfg.get("dataset_type")
+    if dataset_type not in ("sft", "sft_v2"):
         raise ValueError(
-            f"reasoner.train_sft expects dataset_type: sft in config, got "
-            f"{data_cfg.get('dataset_type')!r}. Use reasoner.train for pretraining."
+            f"reasoner.train_sft expects dataset_type: sft or sft_v2 in config, "
+            f"got {dataset_type!r}. Use reasoner.train for pretraining."
         )
+    is_v2 = (dataset_type == "sft_v2")
+    if is_v2:
+        dataset_cls = UGFSFTv2Dataset
+        _collate = sft_v2_collate_fn
+        print("SFT v2 (purist think-answer with 'So my answer is:' marker)")
+    else:
+        dataset_cls = UGFSFTDataset
+        _collate = sft_collate_fn
+        print("SFT v1 (5-template format anchoring)")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Device: {device}")
@@ -106,7 +117,7 @@ def main():
     random_val_fraction = data_cfg.get("random_val_fraction", 0.0)
 
     def _make_sft_dataset(path: str, include_only_heldout: bool = False):
-        return UGFSFTDataset(
+        return dataset_cls(
             path, tokenizer, max_seq_len=max_seq_len,
             heldout_ids_path=heldout_ids_path,
             include_only_heldout=include_only_heldout,
@@ -114,7 +125,8 @@ def main():
         )
 
     def _source_label(path: str) -> str:
-        return f"sft/{Path(path).stem}"
+        prefix = "sft_v2" if is_v2 else "sft"
+        return f"{prefix}/{Path(path).stem}"
 
     train_datasets = []
     val_loaders: dict[str, DataLoader] = {}
@@ -128,7 +140,7 @@ def main():
                 val_loaders[_source_label(path)] = DataLoader(
                     val_ds, batch_size=batch_size, shuffle=False,
                     num_workers=num_workers,
-                    collate_fn=lambda batch: sft_collate_fn(batch, pad_id=tokenizer.pad_token_id),
+                    collate_fn=lambda batch: _collate(batch, pad_id=tokenizer.pad_token_id),
                     pin_memory=True, drop_last=False,
                 )
                 print(f"    val: {len(val_ds)} held-out pairs")

@@ -1,0 +1,70 @@
+# Reasoner RL v1 (GRPO) configuration
+#
+# Self-play GRPO with Nemotron-3-Super-120b as judge, weighted reward on
+# answer span only (after the "So my answer is:" marker), structural gates
+# (UGF compliance, parse_ok, doom-loop n-gram, answer length floor), and an
+# SFT-mix anchor on the CoT corpus.
+#
+# Full design + rationale: docs/rl-design-2026-05-18.md
+# Memory pointer: memory/rl_design_2026-05-18.md
+#
+# Path conventions strict-separated from SFT:
+#   - checkpoint_dir: checkpoints/reasoner_rl_v1
+#   - log_dir:        logs/reasoner_rl_v1
+# Initializes from checkpoints/reasoner_sft_v2/final.pt.
+
+model:
+  d_model: 1024
+  n_layers: 16
+  n_heads: 16
+  n_kv_heads: 4
+  d_ff: 3072
+  max_seq_len: 512
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  lr: 4.0e-6              # bumped from 1e-6 after smoke v1 showed policy barely moved (KL stayed ~0.004)
+  weight_decay: 0.0
+  sft_batch_size: 4
+  log_dir: logs/reasoner_rl_v2
+  checkpoint_dir: checkpoints/reasoner_rl_v2
+
+rl:
+  max_steps: 100              # smoke-test length; production run will bump
+  batch_prompts: 4            # prompts per gradient step
+  n_rollouts: 8               # rollouts per prompt
+  max_new_tokens: 400
+
+  # Sampling (matches v2 bench-generation defaults).
+  temperature: 0.8
+  top_k: 50
+  top_p: 0.9
+  repetition_penalty: 1.2     # anti-doom-loop decode-time control
+  no_repeat_ngram_size: 4
+
+  # GRPO objective.
+  ppo_epochs: 4               # gradient updates per rollout batch (smoke v1 used 1 -> policy didn't move)
+  clip_ratio: 0.2             # PPO-style clip
+  kl_coef: 0.05               # KL penalty against frozen ref policy
+  sft_anchor_coef: 0.1        # lowered from 0.5 (smoke v1: anchor pinned the model in place)
+
+  # Judge.
+  judge_model: Nemotron-3-Super-120b
+  judge_jury: 3               # 3 parallel jurors per rollout
+  judge_rate_per_sec: 1.0     # 60 rpm (well under 200 rpm cap; conservative)
+  judge_burst: 10
+
+  # Saving + logging.
+  save_interval: 25           # save every 25 steps
+  sample_log_every: 10        # write 3 sample rollouts every 10 steps
+
+data:
+  # English prompts for RL rollouts. CoT-corpus held-out slice is a natural
+  # choice — these are real prompts with verifiable structure.
+  train_prompts: corpus/processed/rl_train_prompts.jsonl
+  # SFT-mix anchor data (same format as SFT v2 input).
+  sft_anchor: corpus/processed/ugf_cot.jsonl
+
+mindrouter:
+  base_url: https://mindrouter.uidaho.edu/v1

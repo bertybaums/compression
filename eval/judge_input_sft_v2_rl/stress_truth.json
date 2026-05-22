@@ -1,0 +1,362 @@
+{
+  "rl-stress-00-00": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-counterfactual-001",
+    "parse_ok": true
+  },
+  "rl-stress-00-01": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-counterfactual-002",
+    "parse_ok": true
+  },
+  "rl-stress-00-02": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-vagueness-003",
+    "parse_ok": true
+  },
+  "rl-stress-00-03": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-self_reference-003",
+    "parse_ok": true
+  },
+  "rl-stress-00-04": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-modal-001",
+    "parse_ok": true
+  },
+  "rl-stress-00-05": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-use_mention-001",
+    "parse_ok": true
+  },
+  "rl-stress-00-06": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-phenomenal-003",
+    "parse_ok": true
+  },
+  "rl-stress-00-07": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-phenomenal-002",
+    "parse_ok": true
+  },
+  "rl-stress-00-08": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-phenomenal-003",
+    "parse_ok": true
+  },
+  "rl-stress-00-09": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-supervenience-001",
+    "parse_ok": true
+  },
+  "rl-stress-00-10": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-abstract-001",
+    "parse_ok": true
+  },
+  "rl-stress-00-11": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-use_mention-003",
+    "parse_ok": true
+  },
+  "rl-stress-00-12": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-modal-001",
+    "parse_ok": true
+  },
+  "rl-stress-00-13": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-self_reference-002",
+    "parse_ok": true
+  },
+  "rl-stress-00-14": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-intensional-002",
+    "parse_ok": true
+  },
+  "rl-stress-00-15": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-counterfactual-003",
+    "parse_ok": true
+  },
+  "rl-stress-00-16": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-modal-003",
+    "parse_ok": true
+  },
+  "rl-stress-00-17": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-modal-003",
+    "parse_ok": true
+  },
+  "rl-stress-00-18": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-abstract-001",
+    "parse_ok": true
+  },
+  "rl-stress-00-19": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-counterfactual-002",
+    "parse_ok": true
+  },
+  "rl-stress-00-20": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-use_mention-002",
+    "parse_ok": true
+  },
+  "rl-stress-00-21": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-use_mention-002",
+    "parse_ok": true
+  },
+  "rl-stress-00-22": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-self_reference-003",
+    "parse_ok": true
+  },
+  "rl-stress-00-23": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-deontic-002",
+    "parse_ok": true
+  },
+  "rl-stress-00-24": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-abstract-002",
+    "parse_ok": true
+  },
+  "rl-stress-00-25": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-use_mention-003",
+    "parse_ok": true
+  },
+  "rl-stress-00-26": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-counterfactual-003",
+    "parse_ok": true
+  },
+  "rl-stress-00-27": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-modal-002",
+    "parse_ok": true
+  },
+  "rl-stress-00-28": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-self_reference-002",
+    "parse_ok": true
+  },
+  "rl-stress-00-29": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-supervenience-003",
+    "parse_ok": true
+  },
+  "rl-stress-01-00": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-vagueness-003",
+    "parse_ok": true
+  },
+  "rl-stress-01-01": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-self_reference-001",
+    "parse_ok": true
+  },
+  "rl-stress-01-02": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-phenomenal-001",
+    "parse_ok": true
+  },
+  "rl-stress-01-03": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-deontic-001",
+    "parse_ok": true
+  },
+  "rl-stress-01-04": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-counterfactual-001",
+    "parse_ok": true
+  },
+  "rl-stress-01-05": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-deontic-002",
+    "parse_ok": true
+  },
+  "rl-stress-01-06": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-deontic-003",
+    "parse_ok": true
+  },
+  "rl-stress-01-07": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-intensional-002",
+    "parse_ok": true
+  },
+  "rl-stress-01-08": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-supervenience-002",
+    "parse_ok": true
+  },
+  "rl-stress-01-09": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-use_mention-001",
+    "parse_ok": true
+  },
+  "rl-stress-01-10": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-intensional-003",
+    "parse_ok": true
+  },
+  "rl-stress-01-11": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-vagueness-002",
+    "parse_ok": true
+  },
+  "rl-stress-01-12": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-vagueness-001",
+    "parse_ok": true
+  },
+  "rl-stress-01-13": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-supervenience-001",
+    "parse_ok": true
+  },
+  "rl-stress-01-14": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-phenomenal-002",
+    "parse_ok": true
+  },
+  "rl-stress-01-15": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-self_reference-001",
+    "parse_ok": true
+  },
+  "rl-stress-01-16": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-modal-002",
+    "parse_ok": true
+  },
+  "rl-stress-01-17": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-supervenience-002",
+    "parse_ok": false
+  },
+  "rl-stress-01-18": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-intensional-003",
+    "parse_ok": true
+  },
+  "rl-stress-01-19": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-vagueness-002",
+    "parse_ok": true
+  },
+  "rl-stress-01-20": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-vagueness-001",
+    "parse_ok": true
+  },
+  "rl-stress-01-21": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-deontic-001",
+    "parse_ok": true
+  },
+  "rl-stress-01-22": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-abstract-002",
+    "parse_ok": true
+  },
+  "rl-stress-01-23": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-abstract-003",
+    "parse_ok": true
+  },
+  "rl-stress-01-24": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-intensional-001",
+    "parse_ok": true
+  },
+  "rl-stress-01-25": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-deontic-003",
+    "parse_ok": true
+  },
+  "rl-stress-01-26": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-phenomenal-001",
+    "parse_ok": true
+  },
+  "rl-stress-01-27": {
+    "system": "rl",
+    "bench": "stress",
+    "original_id": "stress-abstract-003",
+    "parse_ok": true
+  },
+  "rl-stress-01-28": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-supervenience-003",
+    "parse_ok": true
+  },
+  "rl-stress-01-29": {
+    "system": "sftv2",
+    "bench": "stress",
+    "original_id": "stress-intensional-001",
+    "parse_ok": true
+  }
+}

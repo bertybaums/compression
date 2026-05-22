@@ -1,0 +1,66 @@
+# Reasoner SFT v2 (purist think-answer) configuration
+#
+# Reverses v1's format-anchoring recipe. Trains explicit think → answer
+# separation using the pure-UGF phrasal marker "So my answer is:". No new
+# tokens, no tokenizer change. Starts from the pretrain checkpoint (NOT
+# v1-SFT) for clean experimental control.
+#
+# Design rationale and frontier-divergence considerations:
+#   docs/sft-v2-design-2026-05-18.md
+# Memory pointer:
+#   memory/sft_v2_purist_2026-05-18.md
+#
+# Path conventions (strict separation from v1):
+#   - checkpoint_dir: checkpoints/reasoner_sft_v2  (vs v1: reasoner_sft_v1)
+#   - log_dir:        logs/reasoner_sft_v2         (vs v1: logs/reasoner_sft)
+#   - sample_log_dir: logs/reasoner_sft_v2/samples
+#   - dataset_type:   sft_v2                        (vs v1: sft)
+
+model:
+  # MUST match the pretrain checkpoint architecture. Loading those weights.
+  d_model: 1024
+  n_layers: 16
+  n_heads: 16
+  n_kv_heads: 4
+  d_ff: 3072
+  max_seq_len: 512
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  batch_size: 8
+  grad_accum_steps: 8        # effective batch = 64
+  max_lr: 5.0e-5             # 6x lower than pretrain's 3e-4 (typical SFT discount, mirrors v1)
+  min_lr: 5.0e-6
+  weight_decay: 0.05         # mirrors v1-SFT
+  warmup_steps: 500          # mirrors v1-SFT
+  max_steps: 20000           # CoT corpus is smaller (~64.5K compliant); ~1.25 epochs at eff. batch 64
+  gradient_checkpointing: true
+  use_amp: true
+
+  log_interval: 50
+  save_interval: 2000
+  eval_interval: 500
+  sample_probe_every_n_evals: 4
+
+  max_checkpoints: 3
+  checkpoint_dir: checkpoints/reasoner_sft_v2
+  log_dir: logs/reasoner_sft_v2
+  sample_log_dir: logs/reasoner_sft_v2/samples
+
+data:
+  # SFT v2 uses ONLY the CoT corpus, which has a clean reasoning + verdict|conclusion
+  # schema that maps cleanly to think-answer separation. The v1 reasoning corpus
+  # is excluded for v2 (open question for v3: how to extract clean think-answer
+  # spans from the 5-template content_types).
+  train_paths:
+    - corpus/processed/ugf_cot.jsonl
+
+  per_source_val: true
+  sample_prompts_path: eval/sets/sample_prompts.jsonl
+
+  dataset_type: sft_v2
+  num_workers: 4
+
+  heldout_ids_path: corpus/processed/heldout_ids.json
+  random_val_fraction: 0.05

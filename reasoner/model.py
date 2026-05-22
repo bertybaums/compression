@@ -317,8 +317,20 @@ class Reasoner(nn.Module):
         top_k: int = 50,
         top_p: float = 0.9,
         eos_token_id: int | None = None,
+        repetition_penalty: float = 1.0,
+        no_repeat_ngram_size: int = 0,
     ) -> torch.Tensor:
-        """Autoregressive generation with top-k/top-p sampling."""
+        """Autoregressive generation with top-k/top-p sampling.
+
+        Optional anti-repetition controls (HuggingFace-compatible semantics):
+          - repetition_penalty: divide positive logits / multiply negative logits
+            for tokens that already appeared in the context. 1.0 = no effect;
+            1.2-1.5 is typical. Catches token-level repetition.
+          - no_repeat_ngram_size: forbid producing tokens that would create an
+            n-gram already in the sequence. 0 = disabled; 3-5 typical. Catches
+            phrase-level repetition (doom loops).
+        Both currently assume batch_size=1 (the bench-generation case).
+        """
         self.eval()
 
         for _ in range(max_new_tokens):
@@ -327,6 +339,28 @@ class Reasoner(nn.Module):
 
             result = self(idx_cond)
             logits = result["logits"][:, -1, :]  # last position
+
+            # Anti-repetition: token-level penalty (HF-compatible).
+            if repetition_penalty != 1.0 and input_ids.shape[1] > 0:
+                seen = set(input_ids[0].tolist())
+                for tok in seen:
+                    if logits[0, tok] > 0:
+                        logits[0, tok] = logits[0, tok] / repetition_penalty
+                    else:
+                        logits[0, tok] = logits[0, tok] * repetition_penalty
+
+            # Anti-repetition: forbid tokens that would create a repeat n-gram.
+            if no_repeat_ngram_size > 0 and input_ids.shape[1] >= no_repeat_ngram_size - 1:
+                seq = input_ids[0].tolist()
+                n = no_repeat_ngram_size
+                prefix = tuple(seq[-(n - 1):]) if n > 1 else ()
+                if n > 1:
+                    forbidden = set()
+                    for i in range(len(seq) - n + 1):
+                        if tuple(seq[i:i + n - 1]) == prefix:
+                            forbidden.add(seq[i + n - 1])
+                    for tok in forbidden:
+                        logits[0, tok] = float("-inf")
 
             if temperature > 0:
                 logits = logits / temperature

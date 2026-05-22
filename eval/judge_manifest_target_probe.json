@@ -1,0 +1,37 @@
+[
+  {
+    "mode": "independent",
+    "batch": 1,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_target_probe/independent_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_target_probe/independent_batch_01.jsonl"
+  },
+  {
+    "mode": "independent",
+    "batch": 2,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_target_probe/independent_batch_02.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_target_probe/independent_batch_02.jsonl"
+  },
+  {
+    "mode": "independent",
+    "batch": 3,
+    "n_items": 16,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_target_probe/independent_batch_03.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_target_probe/independent_batch_03.jsonl"
+  },
+  {
+    "mode": "pairwise",
+    "batch": 1,
+    "n_items": 25,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_target_probe/pairwise_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_target_probe/pairwise_batch_01.jsonl"
+  },
+  {
+    "mode": "pairwise",
+    "batch": 2,
+    "n_items": 7,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_target_probe/pairwise_batch_02.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_target_probe/pairwise_batch_02.jsonl"
+  }
+]

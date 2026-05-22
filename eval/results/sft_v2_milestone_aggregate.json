@@ -1,0 +1,146 @@
+{
+  "stress": {
+    "v1": {
+      "engagement": {
+        "mean": 0.367,
+        "stdev": 0.669,
+        "n": 30
+      },
+      "coherence": {
+        "mean": 2.567,
+        "stdev": 0.774,
+        "n": 30
+      },
+      "substance": {
+        "mean": 1.6,
+        "stdev": 0.814,
+        "n": 30
+      },
+      "expressive_adequacy": {
+        "mean": 2.8,
+        "stdev": 0.551,
+        "n": 30
+      }
+    },
+    "v2": {
+      "engagement": {
+        "mean": 0.2,
+        "stdev": 0.484,
+        "n": 30
+      },
+      "coherence": {
+        "mean": 1.367,
+        "stdev": 0.809,
+        "n": 30
+      },
+      "substance": {
+        "mean": 0.733,
+        "stdev": 0.691,
+        "n": 30
+      },
+      "expressive_adequacy": {
+        "mean": 2,
+        "stdev": 0.947,
+        "n": 30
+      }
+    },
+    "_v2_parse_success_rate": 0.9333,
+    "_v2_parse_n": 30
+  },
+  "cx_patched": {
+    "v1": {
+      "engagement": {
+        "mean": 0.08,
+        "stdev": 0.274,
+        "n": 50
+      },
+      "coherence": {
+        "mean": 2.7,
+        "stdev": 0.909,
+        "n": 50
+      },
+      "substance": {
+        "mean": 1.08,
+        "stdev": 1.066,
+        "n": 50
+      },
+      "expressive_adequacy": {
+        "mean": 2.68,
+        "stdev": 0.978,
+        "n": 50
+      }
+    },
+    "v2": {
+      "engagement": {
+        "mean": 0.16,
+        "stdev": 0.37,
+        "n": 50
+      },
+      "coherence": {
+        "mean": 1.12,
+        "stdev": 0.689,
+        "n": 50
+      },
+      "substance": {
+        "mean": 0.42,
+        "stdev": 0.642,
+        "n": 50
+      },
+      "expressive_adequacy": {
+        "mean": 1.62,
+        "stdev": 0.753,
+        "n": 50
+      }
+    },
+    "_v2_parse_success_rate": 0.96,
+    "_v2_parse_n": 50
+  },
+  "holdout": {
+    "v2": {
+      "engagement": {
+        "mean": 1.724,
+        "stdev": 1.472,
+        "n": 170
+      },
+      "coherence": {
+        "mean": 1.706,
+        "stdev": 1.113,
+        "n": 170
+      },
+      "substance": {
+        "mean": 1.5,
+        "stdev": 1.198,
+        "n": 170
+      },
+      "expressive_adequacy": {
+        "mean": 2.324,
+        "stdev": 1.041,
+        "n": 170
+      }
+    },
+    "v1": {
+      "engagement": {
+        "mean": 2.341,
+        "stdev": 1.504,
+        "n": 170
+      },
+      "coherence": {
+        "mean": 3.382,
+        "stdev": 0.587,
+        "n": 170
+      },
+      "substance": {
+        "mean": 2.788,
+        "stdev": 0.858,
+        "n": 170
+      },
+      "expressive_adequacy": {
+        "mean": 3.653,
+        "stdev": 0.513,
+        "n": 170
+      }
+    },
+    "_v2_parse_success_rate": 0.9588,
+    "_v2_parse_n": 170
+  }
+}

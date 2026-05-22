@@ -1,126 +1,103 @@
 ---
 title: Pickup list for next session
-date: May 16, 2026
+date: May 22, 2026
 audience: future-Bert + future-Claude
 ---
 
-# Pickup list — next session start
+# Pickup list — after RL v3, pivoting to Option B
 
-This is the authoritative "what to do first" list. Created at end of May 16 session.
+Supersedes the May-20 version. Read `memory/session_status.md` first, then
+`memory/rl_v3_outcome_2026-05-22.md`, then this.
 
-## Read before doing anything
+## Where we are
 
-1. **`memory/session_status.md`** — current state, headline numbers, locked decisions.
-2. **`memory/target_probe_rl_decision.md`** — the RL target + reward weighting decision and tradeoffs.
-3. **This file** for the action queue.
+The self-play GRPO experiment (Option A) is **done and decisively failed both
+pre-registered checks** (training reward never crossed 0.28; held-out RL-vs-SFT-v2
+bench eval has RL behind on substance −0.50 and engagement −0.68 via off-topic
+boilerplate mode collapse). Full result: `docs/rl-v3-results-2026-05-22.md`,
+progress-report §19, and `memory/rl_v3_outcome_2026-05-22.md`.
 
-## Critical-path actions (in order)
+**SFT-v2 (`checkpoints/reasoner_sft_v2/final.pt`) remains the best deployable
+Reasoner.** The RL v3 checkpoint is not promoted.
 
-### 1. Verify CoT generation completed
+The decision is to **pivot to Option B**: regenerated P4 references as a *fixed
+reference distribution* the policy is pulled toward, instead of pure self-play.
+Spec sketch in `docs/rl-design-2026-05-18.md` §"Option B fallback".
 
-Tmux session `cot` on fortyfive was at 90.2% (90,200/100,000) last checked May 14 16:11 PT. It should be done.
-
-```bash
-ssh fortyfive.hpc.uidaho.edu 'tmux ls; wc -l ~/compression/corpus/processed/ugf_cot.jsonl; tail -5 ~/compression/logs/cot_gen_latest.log'
-```
-
-Expected: ~100,000 records. Compliance ~73%, logic-accuracy ~90%. If the run died early, check the log and decide whether to restart for the remaining items.
-
-### 2. Run Step 3 corpus audit
-
-After CoT is verified complete:
-
-```bash
-# On fortyfive: pull CoT sample local first (sample is enough; full file is huge)
-ssh fortyfive.hpc.uidaho.edu 'head -1000 ~/compression/corpus/processed/ugf_cot.jsonl > /tmp/cot_sample.jsonl; head -300 ~/compression/corpus/processed/ugf_forms_corpus.jsonl > /tmp/forms_sample.jsonl; head -3000 ~/compression/corpus/processed/ugf_reasoning.jsonl > /tmp/reasoning_sample.jsonl'
-scp 'fortyfive.hpc.uidaho.edu:/tmp/cot_sample.jsonl' /tmp/
-scp 'fortyfive.hpc.uidaho.edu:/tmp/forms_sample.jsonl' /tmp/
-scp 'fortyfive.hpc.uidaho.edu:/tmp/reasoning_sample.jsonl' /tmp/
-
-# Prep audit batches
-python3 -m eval.prepare_corpus_audit_v2 \
-  --existing-reasoning /tmp/reasoning_sample.jsonl \
-  --forms /tmp/forms_sample.jsonl \
-  --cot /tmp/cot_sample.jsonl \
-  --n-per-corpus 300
-```
-
-Then dispatch parallel Claude subagents to score the batches against the Reasoner rubric (4-dim). Same pattern as May 13 head-to-head, with **opaque ids** — do NOT include the corpus label in the id field. (Lesson learned May 14.)
-
-After all subagents complete, write/run an aggregator that gives per-corpus per-dimension means + comparison against the v1 Reasoner's own holdout scores. The headline question: **is corpus quality high enough that the v1 Reasoner is the bottleneck, or is the v1 Reasoner already at parity with its training data?**
-
-### 3. Investigate the 18 P4 HTTP 422 errors
-
-From the May 14 target-probe, these prompt ids triggered HTTP 422 from MR on the English-reasoning step:
+## Step 0 — re-auth SSH (if stale)
 
 ```
-probe-002, 003, 004, 009, 013, 016, 017, 018, 019, 024, 026, 029, 034, 035, 039, 046, 047, 049
+! ssh -fN fortyfive.hpc.uidaho.edu
 ```
+(Bert runs this; triggers the Duo/password prompt in-session.)
 
-Steps:
-1. Look up those prompts in `eval/sets/cot_target_probe_50.jsonl`.
-2. Inspect for shared structure (length, content_type, track, specific words).
-3. Probe MR with one of them via curl to get the actual response body (not just HTTP code):
+## Step 1 — design the Option B reference-generation pipeline
 
-```bash
-ssh fortyfive.hpc.uidaho.edu 'KEY=$(grep MINDROUTER_API_KEY ~/compression/.env | cut -d= -f2); curl -s -k -X POST -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" -d "{\"model\":\"openai/gpt-oss-120b\",\"messages\":[{\"role\":\"user\",\"content\":\"<failed prompt text>\"}],\"max_tokens\":4000,\"reasoning_effort\":\"medium\"}" https://mindrouter.uidaho.edu/v1/chat/completions | python3 -m json.tool'
-```
+Option B was only ever sketched, not specified. Decisions to lock before building:
 
-4. If pattern is clear (e.g., a specific filter): adjust prompt format and re-run.
-5. If pattern is unclear: bypass with gemma-4-26b as a fallback model for P4's English-reasoning step.
-6. Re-run the failed prompts and update target-probe stats.
+1. **Prompt set.** Which prompts get P4 references? Start from the RL training
+   prompt source (`eval/prepare_rl_prompts.py`). Decide count (a few thousand is
+   plenty for a reference CE term) and source mix (logic vs philosophy).
+2. **Reasoning/claim split.** P4 = gpt-oss-120b English reasoning →
+   split into reasoning + final claim → translate each to UGF via
+   `translator/mr_structured_translator.py` → wrap with the v2 marker
+   ("So my answer is:"). The split heuristic on the English output is the noisy
+   part; spec it explicitly (e.g. last paragraph / explicit "answer:" cue).
+3. **Compliance filter.** Reject any reference whose UGF isn't wordlist-compliant
+   *and* doesn't parse (single marker, non-empty answer span). Measure the
+   yield — the May-14 probe lost ~36% of P4 to 422s + non-compliance, so budget
+   for it.
+4. **How the reference enters the loss.** Per the design doc, either a separate
+   CE term `total = grpo_loss + λ_sft·CE(sft) + λ_ref·CE(ref)`, or treat the
+   P4 reference as the SFT-mix example itself (simpler — swap the anchor source
+   from CoT corpus to P4 refs). Lean toward the latter first; it's one knob.
+5. **Rate limits.** Reference generation goes through MR (gpt-oss-120b +
+   translator). Respect the `AsyncTokenBucket` cap; don't run concurrent MR
+   generation. This is offline + cached, so it's a one-time cost.
 
-### 4. Investigate the P4 expressive_adequacy gap
+## Step 2 — build + smoke-test
 
-P4 scored 2.84 on expressive_adequacy vs P5's 3.38 on the May 14 target-probe (with 5 translator retries). The translator's cruft is leaking through. Steps:
+- New config `configs/reasoner_rl_v4.yaml` (Option B); reference cache path;
+  `λ_ref` (start ~0.3–0.5).
+- Reuse `reasoner/train_rl.py`; add the reference-CE path (or reference-as-anchor).
+- Smoke: ~100 steps from SFT-v2. **Pre-registered bar (carry over): beat the
+  SFT-v2 answer-span baseline by ≥ 0.05 reward by step 100, AND don't regress
+  parse-rate.** If it clears, run longer; if not, RL is done for v1 and SFT-v2 is
+  final.
+- Eval exactly as for v3: `slurm/eval_rl_v3_bench.sbatch` (point `CKPT` at the v4
+  final), then `eval/prepare_rl_milestone_judge_batches.py` (sftv2 vs the v4
+  outputs) + parallel Claude judges + `eval/aggregate_rl_milestone.py`.
 
-1. Audit the 27 compliant P4 references at `/tmp/cot_target_probe_p4_20260514_095547.jsonl` — what non-UGF words show up? (Wait, those were technically "compliant" — let me re-clarify: those 27 PASS the validator. The expressive_adequacy LOSS comes from judge perception of clunky paraphrases, not lexical violations per se. The 5 non-compliant P4 references DO have lexical issues.)
-2. Re-run validate_ugf on all 32 with verbose output to see violation patterns on the 5 non-compliant.
-3. Inspect the judge's `expressive_adequacy` justifications for the low-scoring P4 items — what specifically did the judge flag?
-4. If common patterns emerge (specific stray words, awkward circumlocutions): add to translator's correction-prompt forbidden-word list.
-5. Re-run target probe with tighter translator; check whether P4 expressive_adequacy closes toward P5's.
+## The fork to keep in view
 
-## After the critical-path: design the RL training loop
+If Option B also fails to beat SFT-v2 on held-out benches, the honest call is:
+**SFT-v2 is the final v1 Reasoner**, and the RL-negative result + the
+prompt-attention-deficit story (§13, §16, §19) becomes a clean paper finding.
+Don't keep iterating RL recipes past two genuine attempts at this scale.
 
-With the corpus quality audit, the 422 fix, and the expressive_adequacy probe complete, the next major work is designing the RL loop:
-
-1. Reference generation: P4 references for all RL training prompts (filtered to compliant-only after the expressive_adequacy work). Generate offline, cache.
-2. Compliance hard filter on Reasoner generations: reject any non-compliant rollout before reward computation.
-3. Soft reward: the weighted combination locked in `memory/target_probe_rl_decision.md`:
-   ```
-   reward = 0.6 × substance + 0.2 × engagement + 0.1 × coherence + 0.1 × expressive_adequacy
-   ```
-   Per-rollout judge call against the Reasoner rubric.
-4. RL algorithm choice: most likely GRPO or REINFORCE with SFT-mixing (per the Numerals project's lessons — see `Numerals/writeup.md` references in the project CLAUDE.md).
-5. Per-dimension tracking at every RL checkpoint — recalibrate weights if any dimension collapses.
-
-This is a big next phase. Approach it after the audit + the two open investigations land.
-
-## Things still running on fortyfive at session end
-
-- **tmux session `cot`** — should complete on its own; verify and then archive logs.
-- Nothing else.
-
-## Files that survive the session boundary (locations)
+## Key files
 
 | Artefact | Path |
 |---|---|
-| Cached probe fixture | `eval/sets/cot_target_probe_50.jsonl` |
-| Target-probe raw outputs (fortyfive) | `~/compression/eval/results/_jsonl/cot_target_probe_*_20260514_095547.jsonl` |
-| Target-probe local copies | `/tmp/cot_target_probe_*.jsonl` |
-| Target-probe judge inputs | `eval/judge_input_target_probe/` |
-| Target-probe judge outputs | `eval/judge_output_target_probe/` |
-| Target-probe aggregate | `eval/results/target_probe_aggregate.json` |
-| Progress report | `docs/index.html` (live at https://bertybaums.github.io/compression/) |
-| Admin probe writeup | `docs/mindrouter-structured-outputs-2026-05-13.md` |
-| MR-based translator | `translator/mr_structured_translator.py` |
-| Audit prep script | `eval/prepare_corpus_audit_v2.py` |
+| RL v3 results writeup | `docs/rl-v3-results-2026-05-22.md` |
+| RL design (+ Option B sketch) | `docs/rl-design-2026-05-18.md` |
+| GRPO trainer | `reasoner/train_rl.py` |
+| Reward (gates + weighted) | `reasoner/rl_reward.py` |
+| Judge client (Nemotron jury) | `reasoner/rl_judge.py` |
+| Rollout buffer | `reasoner/rl_rollout.py` |
+| RL prompt prep | `eval/prepare_rl_prompts.py` |
+| Structured translator (for P4) | `translator/mr_structured_translator.py` |
+| Bench eval pipeline | `slurm/eval_rl_v3_bench.sbatch`, `eval/prepare_rl_milestone_judge_batches.py`, `eval/aggregate_rl_milestone.py` |
+| Best Reasoner | `checkpoints/reasoner_sft_v2/final.pt` (fortyfive) |
 
-## Open task IDs at session end
+## Gotchas carried forward
 
-#64 (Step 2c CoT generation runner) — in progress; mark completed once you verify the run completed.
-#66 (Step 3 corpus audit) — pending; the next critical-path item.
-#69 (Target-probe experiment) — in progress; mark completed once §18 ships and reward decision is locked (it's locked here).
-Plus the two followups should be queued as new tasks at session start: P4 422 investigation, P4 expressive_adequacy probe.
-
-Good luck.
+- **Decode anti-rep is mandatory** for v2/RL generation: `--repetition-penalty 1.2
+  --no-repeat-ngram-size 4`. Doom-loops are a decode-time issue.
+- **RL training judge is MR Nemotron-3-Super-120b**, calibrated against Claude;
+  bench-eval judge is Claude subagents. Don't run other MR generation while RL
+  judging runs.
+- **Heredoc/sbatch logs land in the submit dir** (`~/compression/`); the sbatch
+  `mv`s them to `logs/` on clean exit only.
+- **System python on fortyfive is 3.6; activate `~/venvs/compression` (3.11).**
+- **Blinded judging needs opaque ids** (no system label in the id field).

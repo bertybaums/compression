@@ -4,6 +4,7 @@ __pycache__/
 dist/
 build/
 .env
+.DS_Store
 *.pt
 *.bin
 *.safetensors
@@ -11,8 +12,11 @@ checkpoints/
 logs/
 wandb/
 corpus/processed/*.jsonl
+corpus/processed/*.json
 corpus/processed/forms_progress.json
 corpus/processed/reasoning_progress.json
+# Claude-teacher pilot data (485 traces + batch results); documented artifact only.
+corpus/processed/claude_pilot/
 corpus/sources/
 !corpus/sources/.gitkeep
 # Source-text raw files (Project Gutenberg) — auto-downloaded by parsers

@@ -1,0 +1,602 @@
+{
+  "v2-cx_patched-00-00": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-social-philosophy-obligation-2726-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-01": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-religion-problem-of-evil-3271-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-02": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-law-causation-2328-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-03": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-metaphysics-space-1701-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-04": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-social-philosophy-obligation-2726-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-05": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-language-meaning-4170-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-06": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-political-philosophy-sovereignty-2125-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-07": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-logic-definability-4773-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-08": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-epistemology-epistemic-virtue-0004-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-09": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-cardinality-3056-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-10": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-history-historical-explanation-3504-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-11": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-metaphysics-identity-metaphysical-1703-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-12": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-cardinality-3056-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-13": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-ethics-promise-keeping-0457-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-14": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-history-revolution-historical-3757-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-15": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-religion-existence-of-god-0200-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-16": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-social-philosophy-cooperation-2210-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-17": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-logic-tautology-2665-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-18": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-history-revolution-historical-3757-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-19": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-logic-definability-4773-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-20": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-logic-consistency-4772-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-21": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-history-narrative-3505-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-22": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-mind-perception-1374-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-23": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-epistemology-a-priori-0023-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-24": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-language-translation-2423-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-25": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-language-naming-4159-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-00-26": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-epistemology-belief-0002-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-27": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-aesthetics-representation-4724-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-28": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-religion-problem-of-evil-3271-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-00-29": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-law-restitution-3578-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-00": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-mind-perception-1374-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-01": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-connectedness-4506-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-02": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-cardinality-3557-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-03": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-history-historical-explanation-3504-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-04": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-history-progress-4627-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-05": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-natural-science-element-1606-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-06": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-natural-science-element-1606-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-07": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-history-narrative-3505-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-08": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-mathematics-primality-0501-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-09": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-metaphysics-space-1701-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-10": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-aesthetics-representation-4724-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-11": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-science-classification-2003-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-12": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-ethics-temperance-0200-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-13": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-natural-science-instinct-2615-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-14": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-religion-existence-of-god-4440-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-15": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-continuity-1306-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-16": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-metaphysics-modality-3209-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-17": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-continuity-1306-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-18": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-mathematics-completeness-1319-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-19": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-history-periodisation-3512-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-20": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-political-philosophy-sovereignty-2125-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-21": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-law-property-1351-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-22": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-language-naming-4159-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-23": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-epistemology-a-priori-0023-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-24": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-logic-consistency-4772-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-25": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-history-progress-4627-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-26": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-language-translation-2423-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-27": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-epistemology-perception-0008-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-01-28": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-ethics-temperance-0200-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-01-29": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-natural-science-instinct-2615-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-00": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-mathematics-primality-0501-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-01": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-logic-validity-2910-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-02": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-natural-science-element-3863-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-03": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-science-classification-2003-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-04": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-logic-validity-2910-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-05": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-epistemology-perception-0008-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-06": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-law-property-1351-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-07": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-metaphysics-modality-3209-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-08": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-ethics-promise-keeping-0457-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-09": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-law-causation-2328-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-10": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-language-meaning-4170-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-11": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-metaphysics-time-1702-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-12": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-metaphysics-time-1702-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-13": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-law-restitution-3578-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-14": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-ethics-virtue-theory-3800-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-15": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-language-presupposition-0100-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-16": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-logic-induction-logical-3669-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-17": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-social-philosophy-trust-1507-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-18": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-epistemology-epistemic-virtue-0004-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-19": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-history-periodisation-3512-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-20": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-religion-existence-of-god-4440-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-21": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-mathematics-completeness-1319-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-22": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-social-philosophy-cooperation-2210-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-23": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-social-philosophy-social-contract-3210-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-24": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-natural-science-climate-0100-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-25": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-logic-induction-logical-3669-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-26": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-natural-science-climate-0100-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-27": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-religion-existence-of-god-0200-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-02-28": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-logic-tautology-2665-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-02-29": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-language-presupposition-0100-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-03-00": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-ethics-virtue-theory-3800-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-03-01": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-social-philosophy-social-contract-3210-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-03-02": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-metaphysics-identity-metaphysical-1703-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-03-03": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-metaphysics-mereology-2207-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-03-04": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-natural-science-element-3863-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-03-05": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-epistemology-belief-0002-reasoning",
+    "parse_ok": true
+  },
+  "v2-cx_patched-03-06": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-connectedness-4506-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-03-07": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-defcx-defcx-metaphysics-mereology-2207-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-03-08": {
+    "system": "v1",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-social-philosophy-trust-1507-reasoning",
+    "parse_ok": null
+  },
+  "v2-cx_patched-03-09": {
+    "system": "v2",
+    "bench": "cx_patched",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-cardinality-3557-reasoning",
+    "parse_ok": true
+  }
+}

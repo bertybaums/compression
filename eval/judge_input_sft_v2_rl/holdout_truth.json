@@ -1,0 +1,2042 @@
+{
+  "rl-holdout-00-00": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-abstraction-scientific-physics-0011-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-01": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-legal-cross-jurisdictional-0012-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-02": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-language-translation-2423-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-03": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-probabilistic-causal-social-causation-0035-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-04": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-law-restitution-3578-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-05": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1385783",
+    "parse_ok": true
+  },
+  "rl-holdout-00-06": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0458920",
+    "parse_ok": true
+  },
+  "rl-holdout-00-07": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-legal-procedural-0010-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-08": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-analogy-proper-everyday-cooking-and-craft-0001-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-09": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1911972",
+    "parse_ok": true
+  },
+  "rl-holdout-00-10": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0719158",
+    "parse_ok": true
+  },
+  "rl-holdout-00-11": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0426175",
+    "parse_ok": true
+  },
+  "rl-holdout-00-12": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-mathematics-completeness-1319-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-13": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-history-revolution-historical-3757-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-14": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-epistemology-a-priori-0023-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-15": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-social-philosophy-social-contract-3210-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-16": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-literal-similarity-philosophical-philosophy-of-mind-0042-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-17": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1541752",
+    "parse_ok": true
+  },
+  "rl-holdout-00-18": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-epistemology-epistemic-virtue-0004-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-19": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1022732",
+    "parse_ok": true
+  },
+  "rl-holdout-00-20": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0050535",
+    "parse_ok": true
+  },
+  "rl-holdout-00-21": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-material-epistemic-inductive-0019-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-22": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0937599",
+    "parse_ok": true
+  },
+  "rl-holdout-00-23": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-ethics-virtue-theory-3800-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-24": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1407386",
+    "parse_ok": true
+  },
+  "rl-holdout-00-25": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0050535",
+    "parse_ok": true
+  },
+  "rl-holdout-00-26": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0348063",
+    "parse_ok": true
+  },
+  "rl-holdout-00-27": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-continuity-1306-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-00-28": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1688842",
+    "parse_ok": true
+  },
+  "rl-holdout-00-29": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1959722",
+    "parse_ok": true
+  },
+  "rl-holdout-01-00": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-probabilistic-everyday-games-and-sport-0054-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-01": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-abstraction-literary-allegory-0013-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-02": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-metaphysics-time-1702-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-03": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-logical-predicate-0014-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-04": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1416414",
+    "parse_ok": true
+  },
+  "rl-holdout-01-05": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-religion-existence-of-god-0200-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-06": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-metaphysics-mereology-2207-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-07": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-law-property-1351-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-08": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1685381",
+    "parse_ok": false
+  },
+  "rl-holdout-01-09": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-natural-science-element-3863-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-10": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-analogy-proper-scientific-physics-0012-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-11": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-cardinality-3056-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-12": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-literal-similarity-literary-allegory-0022-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-13": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0944885",
+    "parse_ok": true
+  },
+  "rl-holdout-01-14": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-history-narrative-3505-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-15": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0025535",
+    "parse_ok": true
+  },
+  "rl-holdout-01-16": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0114498",
+    "parse_ok": true
+  },
+  "rl-holdout-01-17": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-logic-definability-4773-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-18": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1370024",
+    "parse_ok": true
+  },
+  "rl-holdout-01-19": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-social-philosophy-trust-1507-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-20": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-literal-similarity-philosophical-philosophy-of-mind-0042-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-21": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-history-periodisation-3512-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-22": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0939499",
+    "parse_ok": true
+  },
+  "rl-holdout-01-23": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-language-meaning-4170-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-24": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1198480",
+    "parse_ok": false
+  },
+  "rl-holdout-01-25": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-metaphysics-modality-3209-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-26": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0285731",
+    "parse_ok": true
+  },
+  "rl-holdout-01-27": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-legal-statutory-0032-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-28": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-cardinality-3557-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-01-29": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-material-moral-deontological-0001-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-00": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-material-moral-deontological-0001-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-01": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0557271",
+    "parse_ok": true
+  },
+  "rl-holdout-02-02": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-strict-epistemic-evidential-0011-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-03": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-epistemic-perceptual-0035-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-04": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-social-philosophy-obligation-2726-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-05": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-natural-science-element-1606-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-06": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-language-presupposition-0100-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-07": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1901467",
+    "parse_ok": true
+  },
+  "rl-holdout-02-08": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0283363",
+    "parse_ok": true
+  },
+  "rl-holdout-02-09": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0821717",
+    "parse_ok": true
+  },
+  "rl-holdout-02-10": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-analogy-proper-mathematical-algebraic-0006-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-11": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0691380",
+    "parse_ok": true
+  },
+  "rl-holdout-02-12": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-metaphysics-identity-metaphysical-1703-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-13": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1409391",
+    "parse_ok": true
+  },
+  "rl-holdout-02-14": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0738206",
+    "parse_ok": true
+  },
+  "rl-holdout-02-15": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0191495",
+    "parse_ok": true
+  },
+  "rl-holdout-02-16": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1245697",
+    "parse_ok": true
+  },
+  "rl-holdout-02-17": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-literal-similarity-philosophical-ethics-thought-experiments-0039-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-18": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-literal-similarity-mathematical-analytical-0041-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-19": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-analogy-proper-everyday-cooking-and-craft-0001-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-20": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0937599",
+    "parse_ok": true
+  },
+  "rl-holdout-02-21": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1770376",
+    "parse_ok": true
+  },
+  "rl-holdout-02-22": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1218945",
+    "parse_ok": false
+  },
+  "rl-holdout-02-23": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-logic-induction-logical-3669-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-24": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-history-periodisation-3512-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-25": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-logic-induction-logical-3669-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-26": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-history-historical-explanation-3504-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-27": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1464360",
+    "parse_ok": true
+  },
+  "rl-holdout-02-28": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-moral-consequentialist-0027-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-02-29": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1404680",
+    "parse_ok": true
+  },
+  "rl-holdout-03-00": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-strict-everyday-navigation-and-travel-0016-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-01": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-moral-consequentialist-0027-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-02": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-literal-similarity-everyday-mechanical-and-repair-0018-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-03": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0308355",
+    "parse_ok": true
+  },
+  "rl-holdout-03-04": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1128200",
+    "parse_ok": true
+  },
+  "rl-holdout-03-05": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1516996",
+    "parse_ok": true
+  },
+  "rl-holdout-03-06": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-probabilistic-everyday-child-rearing-0021-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-07": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-material-epistemic-evidential-0031-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-08": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-material-epistemic-testimonial-0027-reasoning",
+    "parse_ok": false
+  },
+  "rl-holdout-03-09": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-probabilistic-everyday-child-rearing-0021-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-10": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-social-philosophy-cooperation-2210-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-11": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-connectedness-4506-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-12": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1635477",
+    "parse_ok": true
+  },
+  "rl-holdout-03-13": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0110030",
+    "parse_ok": true
+  },
+  "rl-holdout-03-14": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-continuity-1306-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-15": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1516996",
+    "parse_ok": true
+  },
+  "rl-holdout-03-16": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-abstraction-scientific-physics-0011-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-17": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1022732",
+    "parse_ok": true
+  },
+  "rl-holdout-03-18": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-metaphysics-space-1701-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-19": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-literal-similarity-philosophical-metaphysics-0014-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-20": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0191495",
+    "parse_ok": true
+  },
+  "rl-holdout-03-21": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-science-classification-2003-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-22": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-natural-science-climate-0100-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-23": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0169190",
+    "parse_ok": true
+  },
+  "rl-holdout-03-24": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1948754",
+    "parse_ok": true
+  },
+  "rl-holdout-03-25": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-law-causation-2328-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-26": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0719158",
+    "parse_ok": true
+  },
+  "rl-holdout-03-27": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-abstraction-everyday-mechanical-and-repair-0017-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-28": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-ethics-promise-keeping-0457-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-03-29": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-logic-definability-4773-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-00": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0328268",
+    "parse_ok": true
+  },
+  "rl-holdout-04-01": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1948754",
+    "parse_ok": true
+  },
+  "rl-holdout-04-02": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-ethics-temperance-0200-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-03": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1973176",
+    "parse_ok": true
+  },
+  "rl-holdout-04-04": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-probabilistic-everyday-games-and-sport-0054-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-05": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-material-everyday-weather-and-planning-0002-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-06": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0481042",
+    "parse_ok": true
+  },
+  "rl-holdout-04-07": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-literal-similarity-philosophical-metaphysics-0014-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-08": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-everyday-child-rearing-0006-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-09": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-mathematics-primality-0501-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-10": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-literal-similarity-philosophical-ethics-thought-experiments-0039-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-11": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-mathematical-combinatorial-0023-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-12": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-metaphysics-time-1702-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-13": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-social-philosophy-cooperation-2210-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-14": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-logic-validity-2910-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-15": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1198480",
+    "parse_ok": true
+  },
+  "rl-holdout-04-16": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0371690",
+    "parse_ok": false
+  },
+  "rl-holdout-04-17": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-religion-existence-of-god-4440-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-18": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0169190",
+    "parse_ok": true
+  },
+  "rl-holdout-04-19": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-strict-everyday-navigation-and-travel-0016-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-20": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-mathematical-geometric-0016-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-21": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0829829",
+    "parse_ok": true
+  },
+  "rl-holdout-04-22": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-strict-everyday-agricultural-0033-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-23": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-philosophical-epistemology-0022-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-24": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0821717",
+    "parse_ok": true
+  },
+  "rl-holdout-04-25": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-analogy-proper-legal-precedent-0001-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-26": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-epistemology-belief-0002-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-27": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-ethics-promise-keeping-0457-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-28": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-material-epistemic-testimonial-0027-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-04-29": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-everyday-mechanical-and-repair-0038-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-00": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-cardinality-3056-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-01": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-epistemology-epistemic-virtue-0004-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-02": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-history-narrative-3505-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-03": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-political-philosophy-sovereignty-2125-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-04": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-material-moral-consequentialist-0027-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-05": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-language-naming-4159-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-06": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-metaphysics-identity-metaphysical-1703-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-07": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-probabilistic-logical-modal-0005-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-08": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-language-translation-2423-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-09": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1404680",
+    "parse_ok": true
+  },
+  "rl-holdout-05-10": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-history-progress-4627-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-11": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1685381",
+    "parse_ok": true
+  },
+  "rl-holdout-05-12": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1385783",
+    "parse_ok": true
+  },
+  "rl-holdout-05-13": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-language-meaning-4170-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-14": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0025535",
+    "parse_ok": false
+  },
+  "rl-holdout-05-15": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1286061",
+    "parse_ok": true
+  },
+  "rl-holdout-05-16": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-metaphysics-mereology-2207-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-17": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-science-classification-2003-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-18": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-language-naming-4159-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-19": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1370024",
+    "parse_ok": true
+  },
+  "rl-holdout-05-20": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1949031",
+    "parse_ok": true
+  },
+  "rl-holdout-05-21": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1737368",
+    "parse_ok": true
+  },
+  "rl-holdout-05-22": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1416414",
+    "parse_ok": true
+  },
+  "rl-holdout-05-23": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-scientific-experimental-0011-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-24": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1911972",
+    "parse_ok": true
+  },
+  "rl-holdout-05-25": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1440516",
+    "parse_ok": true
+  },
+  "rl-holdout-05-26": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0371690",
+    "parse_ok": true
+  },
+  "rl-holdout-05-27": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-law-restitution-3578-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-28": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-history-historical-explanation-3504-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-05-29": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1519170",
+    "parse_ok": true
+  },
+  "rl-holdout-06-00": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1752402",
+    "parse_ok": true
+  },
+  "rl-holdout-06-01": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-strict-epistemic-inductive-0009-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-02": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-everyday-mechanical-and-repair-0038-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-03": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-logic-consistency-4772-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-04": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1544472",
+    "parse_ok": true
+  },
+  "rl-holdout-06-05": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0285731",
+    "parse_ok": true
+  },
+  "rl-holdout-06-06": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-analogy-proper-philosophical-epistemology-0020-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-07": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-logic-validity-2910-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-08": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-everyday-weather-and-planning-0039-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-09": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-literal-similarity-mathematical-analytical-0041-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-10": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-social-philosophy-social-contract-3210-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-11": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1218945",
+    "parse_ok": true
+  },
+  "rl-holdout-06-12": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-logic-tautology-2665-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-13": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-natural-science-instinct-2615-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-14": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0829829",
+    "parse_ok": true
+  },
+  "rl-holdout-06-15": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-ethics-virtue-theory-3800-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-16": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-logic-consistency-4772-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-17": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-probabilistic-legal-criminal-0033-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-18": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-law-property-1351-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-19": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-strict-epistemic-evidential-0011-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-20": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-material-everyday-weather-and-planning-0002-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-21": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0328268",
+    "parse_ok": true
+  },
+  "rl-holdout-06-22": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-mathematics-completeness-1319-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-23": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1982540",
+    "parse_ok": true
+  },
+  "rl-holdout-06-24": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-legal-statutory-0032-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-06-25": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1872523",
+    "parse_ok": true
+  },
+  "rl-holdout-06-26": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1294236",
+    "parse_ok": true
+  },
+  "rl-holdout-06-27": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1294236",
+    "parse_ok": true
+  },
+  "rl-holdout-06-28": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1081897",
+    "parse_ok": true
+  },
+  "rl-holdout-06-29": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-epistemic-perceptual-0035-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-00": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-probabilistic-causal-social-causation-0035-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-01": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-natural-science-element-3863-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-02": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0944885",
+    "parse_ok": true
+  },
+  "rl-holdout-07-03": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-religion-problem-of-evil-3271-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-04": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-probabilistic-epistemic-perceptual-0028-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-05": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-legal-cross-jurisdictional-0012-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-06": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1407386",
+    "parse_ok": true
+  },
+  "rl-holdout-07-07": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1737368",
+    "parse_ok": true
+  },
+  "rl-holdout-07-08": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0458920",
+    "parse_ok": true
+  },
+  "rl-holdout-07-09": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-abstraction-literary-allegory-0013-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-10": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-cardinality-3557-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-11": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-legal-criminal-0012-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-12": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0738206",
+    "parse_ok": true
+  },
+  "rl-holdout-07-13": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1081897",
+    "parse_ok": true
+  },
+  "rl-holdout-07-14": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0477551",
+    "parse_ok": true
+  },
+  "rl-holdout-07-15": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-logical-predicate-0014-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-16": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1245697",
+    "parse_ok": true
+  },
+  "rl-holdout-07-17": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1920560",
+    "parse_ok": true
+  },
+  "rl-holdout-07-18": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-religion-existence-of-god-0200-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-19": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-epistemology-perception-0008-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-20": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-mathematical-geometric-0016-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-21": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-natural-science-climate-0100-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-22": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1445098",
+    "parse_ok": true
+  },
+  "rl-holdout-07-23": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1478100",
+    "parse_ok": false
+  },
+  "rl-holdout-07-24": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0348063",
+    "parse_ok": true
+  },
+  "rl-holdout-07-25": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-aesthetics-representation-4724-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-26": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1069845",
+    "parse_ok": true
+  },
+  "rl-holdout-07-27": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-analogy-proper-mathematical-algebraic-0006-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-07-28": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1770376",
+    "parse_ok": true
+  },
+  "rl-holdout-07-29": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-moral-deontological-0026-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-00": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-strict-epistemic-perceptual-0028-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-01": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0584165",
+    "parse_ok": true
+  },
+  "rl-holdout-08-02": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1901467",
+    "parse_ok": true
+  },
+  "rl-holdout-08-03": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-analogy-proper-legal-precedent-0001-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-04": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0308355",
+    "parse_ok": false
+  },
+  "rl-holdout-08-05": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1445098",
+    "parse_ok": true
+  },
+  "rl-holdout-08-06": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-ethics-temperance-0200-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-07": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-strict-epistemic-inductive-0009-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-08": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-social-philosophy-trust-1507-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-09": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1635477",
+    "parse_ok": true
+  },
+  "rl-holdout-08-10": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-abstraction-everyday-mechanical-and-repair-0017-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-11": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1286061",
+    "parse_ok": false
+  },
+  "rl-holdout-08-12": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1979605",
+    "parse_ok": true
+  },
+  "rl-holdout-08-13": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-legal-cross-jurisdictional-0013-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-14": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1959722",
+    "parse_ok": true
+  },
+  "rl-holdout-08-15": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-literary-metaphor-0011-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-16": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-epistemology-belief-0002-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-17": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-material-epistemic-evidential-0031-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-18": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-mind-perception-1374-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-19": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1328525",
+    "parse_ok": true
+  },
+  "rl-holdout-08-20": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1949031",
+    "parse_ok": true
+  },
+  "rl-holdout-08-21": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1519170",
+    "parse_ok": true
+  },
+  "rl-holdout-08-22": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-everyday-child-rearing-0006-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-23": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1398052",
+    "parse_ok": true
+  },
+  "rl-holdout-08-24": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-abstraction-philosophical-epistemology-0012-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-25": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-philosophical-epistemology-0022-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-26": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-history-progress-4627-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-08-27": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1982540",
+    "parse_ok": true
+  },
+  "rl-holdout-08-28": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1594790",
+    "parse_ok": true
+  },
+  "rl-holdout-08-29": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1594790",
+    "parse_ok": false
+  },
+  "rl-holdout-09-00": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-literal-similarity-literary-allegory-0022-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-01": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-legal-criminal-0012-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-02": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1688842",
+    "parse_ok": true
+  },
+  "rl-holdout-09-03": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-analogy-proper-philosophical-epistemology-0020-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-04": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0584165",
+    "parse_ok": true
+  },
+  "rl-holdout-09-05": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-analogy-proper-scientific-physics-0012-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-06": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0110030",
+    "parse_ok": true
+  },
+  "rl-holdout-09-07": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1752402",
+    "parse_ok": true
+  },
+  "rl-holdout-09-08": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0691380",
+    "parse_ok": true
+  },
+  "rl-holdout-09-09": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-philosophical-philosophy-of-mind-0038-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-10": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-mind-perception-1374-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-11": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-probabilistic-epistemic-perceptual-0028-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-12": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-social-philosophy-obligation-2726-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-13": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0051444",
+    "parse_ok": true
+  },
+  "rl-holdout-09-14": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-literary-metaphor-0011-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-15": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-literal-similarity-everyday-mechanical-and-repair-0018-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-16": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-philosophical-philosophy-of-mind-0038-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-17": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-material-epistemic-inductive-0019-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-18": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-law-causation-2328-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-19": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-religion-problem-of-evil-3271-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-20": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1464360",
+    "parse_ok": true
+  },
+  "rl-holdout-09-21": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-natural-science-element-1606-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-22": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-mathematics-connectedness-4506-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-23": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-abstraction-philosophical-epistemology-0012-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-24": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-scientific-experimental-0011-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-25": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1920560",
+    "parse_ok": true
+  },
+  "rl-holdout-09-26": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-aesthetics-representation-4724-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-09-27": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1979605",
+    "parse_ok": true
+  },
+  "rl-holdout-09-28": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1544472",
+    "parse_ok": true
+  },
+  "rl-holdout-09-29": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0114498",
+    "parse_ok": true
+  },
+  "rl-holdout-10-00": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-probabilistic-logical-modal-0005-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-01": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-strict-epistemic-perceptual-0028-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-02": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-legal-cross-jurisdictional-0013-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-03": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-mathematics-primality-0501-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-04": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-language-presupposition-0100-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-05": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1398052",
+    "parse_ok": true
+  },
+  "rl-holdout-10-06": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0283363",
+    "parse_ok": true
+  },
+  "rl-holdout-10-07": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0477551",
+    "parse_ok": true
+  },
+  "rl-holdout-10-08": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0939499",
+    "parse_ok": true
+  },
+  "rl-holdout-10-09": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0220182",
+    "parse_ok": true
+  },
+  "rl-holdout-10-10": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-analogies-analogy-anomaly-mathematical-combinatorial-0023-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-11": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1328525",
+    "parse_ok": true
+  },
+  "rl-holdout-10-12": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1440516",
+    "parse_ok": true
+  },
+  "rl-holdout-10-13": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-0426175",
+    "parse_ok": true
+  },
+  "rl-holdout-10-14": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-logic-tautology-2665-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-15": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0481042",
+    "parse_ok": true
+  },
+  "rl-holdout-10-16": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-epistemology-a-priori-0023-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-17": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-material-moral-consequentialist-0027-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-18": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-legal-procedural-0010-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-19": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0557271",
+    "parse_ok": true
+  },
+  "rl-holdout-10-20": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1128200",
+    "parse_ok": true
+  },
+  "rl-holdout-10-21": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-natural-science-instinct-2615-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-22": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1541752",
+    "parse_ok": true
+  },
+  "rl-holdout-10-23": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-moral-deontological-0026-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-24": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-strict-everyday-agricultural-0033-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-25": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-metaphysics-modality-3209-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-26": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-political-philosophy-sovereignty-2125-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-27": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-probabilistic-legal-criminal-0033-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-28": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "misc-conditionals-cond-indicative-everyday-weather-and-planning-0039-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-10-29": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0220182",
+    "parse_ok": true
+  },
+  "rl-holdout-11-00": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1973176",
+    "parse_ok": true
+  },
+  "rl-holdout-11-01": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1478100",
+    "parse_ok": true
+  },
+  "rl-holdout-11-02": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-1069845",
+    "parse_ok": false
+  },
+  "rl-holdout-11-03": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-defcx-defcx-philosophy-of-religion-existence-of-god-4440-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-11-04": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-metaphysics-space-1701-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-11-05": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1409391",
+    "parse_ok": false
+  },
+  "rl-holdout-11-06": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-epistemology-perception-0008-reasoning",
+    "parse_ok": true
+  },
+  "rl-holdout-11-07": {
+    "system": "rl",
+    "bench": "holdout",
+    "original_id": "reasoning-1872523",
+    "parse_ok": true
+  },
+  "rl-holdout-11-08": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "reasoning-0051444",
+    "parse_ok": true
+  },
+  "rl-holdout-11-09": {
+    "system": "sftv2",
+    "bench": "holdout",
+    "original_id": "cxbot-abdcx-abdcx-philosophy-of-history-revolution-historical-3757-reasoning",
+    "parse_ok": true
+  }
+}

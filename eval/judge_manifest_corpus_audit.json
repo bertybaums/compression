@@ -1,0 +1,170 @@
+[
+  {
+    "label": "existing_reasoning",
+    "batch": 1,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/existing_reasoning_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/existing_reasoning_batch_01.jsonl"
+  },
+  {
+    "label": "existing_reasoning",
+    "batch": 2,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/existing_reasoning_batch_02.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/existing_reasoning_batch_02.jsonl"
+  },
+  {
+    "label": "existing_reasoning",
+    "batch": 3,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/existing_reasoning_batch_03.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/existing_reasoning_batch_03.jsonl"
+  },
+  {
+    "label": "existing_reasoning",
+    "batch": 4,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/existing_reasoning_batch_04.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/existing_reasoning_batch_04.jsonl"
+  },
+  {
+    "label": "existing_reasoning",
+    "batch": 5,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/existing_reasoning_batch_05.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/existing_reasoning_batch_05.jsonl"
+  },
+  {
+    "label": "existing_reasoning",
+    "batch": 6,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/existing_reasoning_batch_06.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/existing_reasoning_batch_06.jsonl"
+  },
+  {
+    "label": "existing_reasoning",
+    "batch": 7,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/existing_reasoning_batch_07.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/existing_reasoning_batch_07.jsonl"
+  },
+  {
+    "label": "existing_reasoning",
+    "batch": 8,
+    "n_items": 20,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/existing_reasoning_batch_08.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/existing_reasoning_batch_08.jsonl"
+  },
+  {
+    "label": "forms",
+    "batch": 1,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/forms_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/forms_batch_01.jsonl"
+  },
+  {
+    "label": "forms",
+    "batch": 2,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/forms_batch_02.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/forms_batch_02.jsonl"
+  },
+  {
+    "label": "forms",
+    "batch": 3,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/forms_batch_03.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/forms_batch_03.jsonl"
+  },
+  {
+    "label": "forms",
+    "batch": 4,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/forms_batch_04.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/forms_batch_04.jsonl"
+  },
+  {
+    "label": "forms",
+    "batch": 5,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/forms_batch_05.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/forms_batch_05.jsonl"
+  },
+  {
+    "label": "forms",
+    "batch": 6,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/forms_batch_06.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/forms_batch_06.jsonl"
+  },
+  {
+    "label": "forms",
+    "batch": 7,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/forms_batch_07.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/forms_batch_07.jsonl"
+  },
+  {
+    "label": "forms",
+    "batch": 8,
+    "n_items": 19,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/forms_batch_08.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/forms_batch_08.jsonl"
+  },
+  {
+    "label": "cot",
+    "batch": 1,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/cot_batch_01.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/cot_batch_01.jsonl"
+  },
+  {
+    "label": "cot",
+    "batch": 2,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/cot_batch_02.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/cot_batch_02.jsonl"
+  },
+  {
+    "label": "cot",
+    "batch": 3,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/cot_batch_03.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/cot_batch_03.jsonl"
+  },
+  {
+    "label": "cot",
+    "batch": 4,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/cot_batch_04.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/cot_batch_04.jsonl"
+  },
+  {
+    "label": "cot",
+    "batch": 5,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/cot_batch_05.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/cot_batch_05.jsonl"
+  },
+  {
+    "label": "cot",
+    "batch": 6,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/cot_batch_06.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/cot_batch_06.jsonl"
+  },
+  {
+    "label": "cot",
+    "batch": 7,
+    "n_items": 40,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/cot_batch_07.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/cot_batch_07.jsonl"
+  },
+  {
+    "label": "cot",
+    "batch": 8,
+    "n_items": 20,
+    "input_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_corpus_audit/cot_batch_08.jsonl",
+    "output_path": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_corpus_audit/cot_batch_08.jsonl"
+  }
+]

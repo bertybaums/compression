@@ -1,0 +1,191 @@
+{
+  "independent": {
+    "per_condition": {
+      "p5": {
+        "n": 32,
+        "mean": {
+          "engagement": 3.781,
+          "coherence": 3.719,
+          "substance": 2.844,
+          "expressive_adequacy": 3.375
+        },
+        "stdev": {
+          "engagement": 0.491,
+          "coherence": 0.457,
+          "substance": 0.808,
+          "expressive_adequacy": 0.492
+        },
+        "hist": {
+          "engagement": {
+            "0": 0,
+            "1": 0,
+            "2": 1,
+            "3": 5,
+            "4": 26
+          },
+          "coherence": {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 9,
+            "4": 23
+          },
+          "substance": {
+            "0": 0,
+            "1": 1,
+            "2": 10,
+            "3": 14,
+            "4": 7
+          },
+          "expressive_adequacy": {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 20,
+            "4": 12
+          }
+        }
+      },
+      "p4": {
+        "n": 32,
+        "mean": {
+          "engagement": 3.906,
+          "coherence": 3.625,
+          "substance": 3.625,
+          "expressive_adequacy": 2.844
+        },
+        "stdev": {
+          "engagement": 0.296,
+          "coherence": 0.554,
+          "substance": 0.554,
+          "expressive_adequacy": 0.448
+        },
+        "hist": {
+          "engagement": {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 3,
+            "4": 29
+          },
+          "coherence": {
+            "0": 0,
+            "1": 0,
+            "2": 1,
+            "3": 10,
+            "4": 21
+          },
+          "substance": {
+            "0": 0,
+            "1": 0,
+            "2": 1,
+            "3": 10,
+            "4": 21
+          },
+          "expressive_adequacy": {
+            "0": 0,
+            "1": 0,
+            "2": 6,
+            "3": 25,
+            "4": 1
+          }
+        }
+      },
+      "reasoner": {
+        "n": 32,
+        "mean": {
+          "engagement": 0.438,
+          "coherence": 0.938,
+          "substance": 0.375,
+          "expressive_adequacy": 1.125
+        },
+        "stdev": {
+          "engagement": 0.669,
+          "coherence": 1.162,
+          "substance": 0.609,
+          "expressive_adequacy": 1.157
+        },
+        "hist": {
+          "engagement": {
+            "0": 21,
+            "1": 8,
+            "2": 3,
+            "3": 0,
+            "4": 0
+          },
+          "coherence": {
+            "0": 18,
+            "1": 2,
+            "2": 8,
+            "3": 4,
+            "4": 0
+          },
+          "substance": {
+            "0": 22,
+            "1": 8,
+            "2": 2,
+            "3": 0,
+            "4": 0
+          },
+          "expressive_adequacy": {
+            "0": 14,
+            "1": 5,
+            "2": 8,
+            "3": 5,
+            "4": 0
+          }
+        }
+      }
+    },
+    "deltas": {
+      "p5 \u2212 p4": {
+        "engagement": -0.125,
+        "coherence": 0.094,
+        "substance": -0.781,
+        "expressive_adequacy": 0.531
+      },
+      "p5 \u2212 reasoner": {
+        "engagement": 3.343,
+        "coherence": 2.781,
+        "substance": 2.469,
+        "expressive_adequacy": 2.25
+      },
+      "p4 \u2212 reasoner": {
+        "engagement": 3.468,
+        "coherence": 2.687,
+        "substance": 3.25,
+        "expressive_adequacy": 1.719
+      }
+    }
+  },
+  "pairwise": {
+    "n": 32,
+    "overall": {
+      "p4": 28,
+      "p5": 4,
+      "tie": 0
+    },
+    "per_dimension": {
+      "engagement": {
+        "p4": 23,
+        "p5": 1,
+        "tie": 8
+      },
+      "coherence": {
+        "p4": 8,
+        "p5": 11,
+        "tie": 13
+      },
+      "substance": {
+        "p4": 28,
+        "p5": 1,
+        "tie": 3
+      },
+      "expressive_adequacy": {
+        "p4": 2,
+        "p5": 14,
+        "tie": 16
+      }
+    }
+  }
+}

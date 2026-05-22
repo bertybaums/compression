@@ -1,0 +1,64 @@
+# Reasoner RL v3 — continuation of the v2 GRPO run from its step-100 checkpoint.
+#
+# Same GRPO recipe as v2 (the config that made the policy actually move:
+# 4 PPO epochs, sft_anchor 0.1, lr 4e-6). Resumes from
+# checkpoints/reasoner_rl_v2/final.pt (= step 100) to give the weak-but-positive
+# reward trend room to accumulate. KL reference re-anchors to step-100 (correct
+# iterative-RL behavior). Optimizer momentum restored from the v2 checkpoint.
+#
+# Stopping criterion (pre-registered): if by step 250 (i.e. 150 more steps) the
+# 10-step-block reward mean has not crossed ~0.28 (clearly above the v2 plateau
+# of 0.21-0.24), conclude self-play has limited headroom and pivot to Option B
+# (regenerated P4 references; see docs/rl-design-2026-05-18.md).
+#
+# Design doc: docs/rl-design-2026-05-18.md
+
+model:
+  d_model: 1024
+  n_layers: 16
+  n_heads: 16
+  n_kv_heads: 4
+  d_ff: 3072
+  max_seq_len: 512
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  lr: 4.0e-6
+  weight_decay: 0.0
+  sft_batch_size: 4
+  log_dir: logs/reasoner_rl_v3
+  checkpoint_dir: checkpoints/reasoner_rl_v3
+
+rl:
+  max_steps: 250              # 250 more steps (step 100 -> ~350 total RL steps)
+  batch_prompts: 4
+  n_rollouts: 8
+  max_new_tokens: 400
+
+  temperature: 0.8
+  top_k: 50
+  top_p: 0.9
+  repetition_penalty: 1.2
+  no_repeat_ngram_size: 4
+
+  ppo_epochs: 4
+  clip_ratio: 0.2
+  kl_coef: 0.05
+  sft_anchor_coef: 0.1
+  resume_optimizer: true      # restore AdamW momentum from the v2 step-100 checkpoint
+
+  judge_model: Nemotron-3-Super-120b
+  judge_jury: 3
+  judge_rate_per_sec: 1.0
+  judge_burst: 10
+
+  save_interval: 25
+  sample_log_every: 10
+
+data:
+  train_prompts: corpus/processed/rl_train_prompts.jsonl
+  sft_anchor: corpus/processed/ugf_cot.jsonl
+
+mindrouter:
+  base_url: https://mindrouter.uidaho.edu/v1

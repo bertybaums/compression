@@ -368,6 +368,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
     <li><a href="#diversify">The diversification campaign</a></li>
     <li><a href="#translator-v2">Closing the Translator gap</a></li>
     <li><a href="#rl-target">Choosing the RL reference target</a></li>
+    <li><a href="#rl-selfplay">The RL attempt — and why self-play failed</a></li>
     <li><a href="#program">A research program</a></li>
   </ol>
 </nav>
@@ -378,7 +379,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
   <div class="eyebrow">Compression project · Progress report · University of Idaho</div>
   <h1>Can a thousand common words do philosophy?</h1>
   <p class="sub">A from-scratch language model, a 1,000-word vocabulary, and the surprising places it broke. A live progress report — content originated as an RCDS presentation on May 11, 2026, and continues to grow.</p>
-  <p class="meta">Bert Baumgaertner · with Claude · originally presented to Research Computing &amp; Data Services on May 11, 2026 · last updated May 16, 2026</p>
+  <p class="meta">Bert Baumgaertner · with Claude · originally presented to Research Computing &amp; Data Services on May 11, 2026 · last updated May 22, 2026</p>
 </header>
 
 <!-- ============================================================== -->
@@ -1227,8 +1228,78 @@ Up Goer Five appears expressively adequate for practical philosophical reasoning
 
 
 <!-- ============================================================== -->
-<section id="program">
+<section id="rl-selfplay">
 <span class="sect-num">§ 19</span>
+<h2>The RL attempt — and why self-play failed</h2>
+
+<p>With P4 chosen as the eventual target (§18), we first tried the <em>cleaner</em> experiment. Before bolting an external reference distribution onto the model, the single-knob version of RL is <strong>self-play</strong>: let the Reasoner generate, judge the answer it commits to, reward the good ones, and anchor it to its training distribution so it doesn't forget how to write UGF. No external target, one moving part. If that worked, it would be the most attributable possible result. It did not work — and the way it failed is itself the finding.</p>
+
+<p>The recipe was GRPO: group-relative advantage over eight rollouts per prompt, PPO-clipped, with a small SFT-mix anchor on the CoT corpus and a KL leash to the SFT-v2 checkpoint it started from. The reward is the §18 weighted sum — 0.6 substance, 0.2 engagement, 0.1 each coherence and expressive adequacy — scored by a fast non-teacher jury (Nemotron-3-Super-120b, calibrated against Claude) on the <em>answer span only</em>. Two checks were pre-registered before the run: a training-reward bar, and a held-out bench test against the model we started from.</p>
+
+<h3>Check one: the reward never moved</h3>
+
+<p>Over 250 steps the per-block reward sat at 0.24–0.26 and never crossed the pre-registered 0.28 bar. That alone is a soft fail. The hard tell is what the policy was doing <em>while</em> the reward stood still: the KL divergence from the starting checkpoint climbed roughly fiftyfold (0.009 → ~0.45) for a reward gain of +0.02. The model wandered a long way from where it began and earned almost nothing for the trip — the signature of a reward with a flat region the policy can drift into for free.</p>
+
+<h3>Check two: on held-out prompts, RL is worse than where it started</h3>
+
+<p>We generated the RL-final model's answers on all three milestone benches (stress, counterexample-patched, holdout — 250 prompts), pooled them with the SFT-v2 model's answers on the same prompts, stripped the system labels, and had a panel of blinded Claude judges score all 500 on the four-dimension rubric. Split back out by system:</p>
+
+<table class="numbers">
+<tr class="head"><th>dimension (reward weight)</th><th>stress</th><th>cx-patched</th><th>holdout</th><th>mean Δ</th></tr>
+<tr><td>substance (0.6)</td><td>+0.00</td><td class="neg">−1.04</td><td class="neg">−0.46</td><td class="neg">−0.50</td></tr>
+<tr><td>engagement (0.2)</td><td class="neg">−0.40</td><td class="neg">−0.80</td><td class="neg">−0.84</td><td class="neg">−0.68</td></tr>
+<tr><td>coherence (0.1)</td><td class="pos">+0.13</td><td class="pos">+0.24</td><td class="neg">−0.14</td><td>+0.08</td></tr>
+<tr><td>expressive adequacy (0.1)</td><td class="pos">+0.17</td><td class="pos">+0.50</td><td class="pos">+0.16</td><td class="pos">+0.28</td></tr>
+</table>
+
+<p>(Δ = RL minus SFT-v2.) The model is <strong>behind on both dimensions that carry 80% of the reward weight</strong>, on every bench — engagement everywhere, substance at parity-or-worse. Its only gains are on the two 0.1-weighted form dimensions. On the counterexample bench, substance fell from 1.16 to 0.12: the RL model had essentially stopped producing counterexamples.</p>
+
+<h3>What the model learned instead</h3>
+
+<p>The blinded judges, reading the answers without knowing which model produced them, kept flagging the same thing in the RL outputs: a single, near-verbatim paragraph about loss aversion —</p>
+
+<div class="callout warn">
+<span class="label">The attractor</span>
+<p>"People care more about keeping what they have because losing feels worse than winning helps them."</p>
+</div>
+
+<p>— emitted regardless of the question. It shows up on prompts about prime numbers, naming, the problem of evil, perception, topology, the Liar paradox. It clusters hardest exactly where the model has no on-topic template to reach for: the formal-logic and "give a counterexample to this definition" prompts.</p>
+
+<p>This one attractor explains the whole shape of the table. The paragraph is <em>fluent, internally consistent UGF</em> — so it scores 2–3 on coherence and expressive adequacy, the only dimensions RL "wins." It is also <em>not an answer to the question</em> — so engagement and substance fall through the floor. Expressive adequacy here is a decoy: the vocabulary never breaks; the content simply isn't a response. The RL answers are also shorter than SFT-v2's (roughly 80–145 words against 170–185), consistent with collapsing onto one short fixed move.</p>
+
+<p>So self-play did not gently plateau. It actively traded away the substance and engagement it had for a clean-looking paragraph the reward tolerated and the policy could reach with the least effort. The flat reward and the rising KL were that drift, caught in progress.</p>
+
+<h3>Why this is a result, not a dead end</h3>
+
+<p>Three things follow, and the most important is good news for the central thesis.</p>
+
+<ul>
+<li><strong>The bottleneck is not the vocabulary.</strong> RL collapsed engagement and substance — whether the model <em>answers</em> — while expressive adequacy, whether UGF can <em>carry</em> an answer, held or rose. That is the same verdict the corpus audit reached from the other side (the model sits below its own training data). The thousand words are not what's failing; tracking the prompt is.</li>
+<li><strong>Small distilled models in a narrow vocabulary reward-hack self-play.</strong> Given only a learned reward and a leash to its own distribution, a 200M from-scratch model finds a fluent off-topic local optimum rather than reasoning harder. The KL-up / reward-flat pattern is a cheap, reusable diagnostic for it.</li>
+<li><strong>It points at the real fix.</strong> Self-play gave the policy no external pull toward on-topic answers, so it drifted. The next attempt (Option B) supplies that pull directly: regenerated P4 references as a fixed target the policy is drawn toward, not just a reward it can game. And more deeply, the prompt-attention deficit is a <em>training-form</em> problem (§13, §16) — not something a reward knob bolted onto a model that never learned to read the prompt can fix.</li>
+</ul>
+
+<div class="callout">
+<span class="label">Decision</span>
+<p>Self-play GRPO is retired at this scale; the RL checkpoint is not promoted. <strong>SFT-v2 remains the best Reasoner we have.</strong> The next RL attempt is Option B — P4 references as a fixed reference distribution.</p>
+</div>
+
+<details class="tech">
+<summary>technical detail — pipeline + reproducibility</summary>
+<div class="body">
+<p><strong>Training:</strong> <code>reasoner/train_rl.py</code> (GRPO + PPO inner loop + SFT anchor), reward in <code>reasoner/rl_reward.py</code>, Nemotron jury client in <code>reasoner/rl_judge.py</code>, rollout buffer in <code>reasoner/rl_rollout.py</code>, config <code>configs/reasoner_rl_v3.yaml</code>. v3 was a 150-step continuation of the v2 step-100 checkpoint (job 5146497, ~22h on an A6000). Metrics: <code>logs/reasoner_rl_v3/rl_metrics.jsonl</code> (250 rows).</p>
+<p><strong>Bench eval:</strong> generation via <code>slurm/eval_rl_v3_bench.sbatch</code> → <code>eval/run_sft_v2_bench.py</code> with anti-repetition decode (penalty 1.2, no-repeat 4-gram). Blinding + batches: <code>eval/prepare_rl_milestone_judge_batches.py</code>; seven parallel Claude subagent judges over <code>eval/judge_input_sft_v2_rl/</code>; aggregation <code>eval/aggregate_rl_milestone.py</code> → <code>eval/results/rl_milestone_aggregate.json</code>. Full writeup: <code>docs/rl-v3-results-2026-05-22.md</code>.</p>
+</div>
+</details>
+
+<p class="pull">Self-play RL didn't make the small model reason better — it found the cleanest way to stop answering. The vocabulary held; the prompt-tracking is what gave way. That is the same frontier the rest of the project keeps arriving at, reached now from a new direction.</p>
+
+</section>
+
+
+<!-- ============================================================== -->
+<section id="program">
+<span class="sect-num">§ 20</span>
 <h2>This is data point one in a research program</h2>
 
 <p>It is tempting to read compression-v1 as a self-contained result: did UGF work? Roughly yes, with calibrated exceptions. But the more useful framing is that we now have one data point in three directions of inquiry, each of which is itself a research program. None of the three has been done. Each is, in its own way, the kind of thing that compression-v1 was meant to make legible.</p>

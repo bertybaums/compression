@@ -50,10 +50,21 @@ MR_URL = f"{CONFIG['mindrouter']['base_url']}/chat/completions"
 MR_KEY = os.environ.get("MINDROUTER_API_KEY", "")
 
 
+_TRANSIENT_RETRY_STATUSES = (422, 429, 500, 502, 503, 504)
+_TRANSIENT_RETRY_BACKOFFS = (30, 60, 120)
+
+
 def mr_chat(messages: list[dict], model: str = "openai/gpt-oss-120b",
             max_tokens: int = 2000, reasoning_effort: str = "low",
             temperature: float = 0.7, timeout: int = 120) -> dict:
-    """Generic MindRouter chat-completion call. No structured-output constraint."""
+    """Generic MindRouter chat-completion call. No structured-output constraint.
+
+    Retries with exponential backoff on transient MR responses (422/429/5xx).
+    The 422 case is the load-bearing one: MR exhibits time-windowed 422
+    rejections that resolve within a minute or two — see
+    `memory/p4_findings_2026-05-18.md` for the May-14 18/50 P4-failure root
+    cause that motivated this.
+    """
     payload = {
         "model": model,
         "messages": messages,
@@ -68,20 +79,30 @@ def mr_chat(messages: list[dict], model: str = "openai/gpt-oss-120b",
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
-    req = urllib.request.Request(
-        MR_URL,
-        data=json.dumps(payload).encode("utf-8"),
-        headers=headers,
-        method="POST",
-    )
+    data = json.dumps(payload).encode("utf-8")
     t0 = time.time()
-    with urllib.request.urlopen(req, context=ctx, timeout=timeout) as resp:
-        body = json.loads(resp.read())
-    content = (body.get("choices") or [{}])[0].get("message", {}).get("content", "")
-    return {
-        "content": (content or "").strip(),
-        "latency_s": round(time.time() - t0, 2),
-    }
+    attempts = list(_TRANSIENT_RETRY_BACKOFFS) + [None]  # final attempt has no sleep after
+    last_err: Exception | None = None
+    for i, sleep_after in enumerate(attempts):
+        req = urllib.request.Request(MR_URL, data=data, headers=headers, method="POST")
+        try:
+            with urllib.request.urlopen(req, context=ctx, timeout=timeout) as resp:
+                body = json.loads(resp.read())
+            content = (body.get("choices") or [{}])[0].get("message", {}).get("content", "")
+            return {
+                "content": (content or "").strip(),
+                "latency_s": round(time.time() - t0, 2),
+                "retries": i,
+            }
+        except urllib.error.HTTPError as e:
+            last_err = e
+            if e.code not in _TRANSIENT_RETRY_STATUSES or sleep_after is None:
+                raise
+            print(f"  mr_chat: {e.code} on attempt {i+1}/{len(attempts)}, sleeping {sleep_after}s",
+                  flush=True)
+            time.sleep(sleep_after)
+    assert last_err is not None
+    raise last_err
 
 
 def generate_p4(english_query: str,
