@@ -1,0 +1,42 @@
+# Reasoner Stage-1 preference tuning — DPO / APO-zero.
+#
+# The Labonne "Stage 1" we skipped before GRPO. Contrastive objective on
+# (chosen, rejected) pairs: chosen = P4 reference (on-topic gold) / best on-policy
+# rollout; rejected = the model's own off-topic / doom-looped rollout (v3's
+# failure mode put explicitly on the 'bad' side).
+#
+# Init policy + frozen reference from SFT-v2 (NOT the v3 RL checkpoint).
+# Design + rationale: docs/dpo-stage1-design-2026-05-22.md
+#
+# Run:
+#   python3 -u -m reasoner.train_dpo --config configs/reasoner_dpo_v1.yaml \
+#       --resume checkpoints/reasoner_sft_v2/final.pt
+
+model:
+  d_model: 1024
+  n_layers: 16
+  n_heads: 16
+  n_kv_heads: 4
+  d_ff: 3072
+  max_seq_len: 512
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  lr: 1.0e-6                 # 10-20x below SFT LR (5_preference.md / AlexWa2026)
+  weight_decay: 0.0
+  grad_accum: 8
+  epochs: 1                  # preference tuning: one epoch typical
+  log_dir: logs/reasoner_dpo_v1
+  checkpoint_dir: checkpoints/reasoner_dpo_v1
+
+data:
+  pairs: corpus/processed/dpo_pairs.jsonl
+
+dpo:
+  variant: apo_zero          # apo_zero (default, OOD edge) | dpo
+  beta: 0.3                  # higher end: judge-labelled pairs are noisy
+  length_normalize: false    # sum log-probs (standard). If true, RAISE beta (SimPO-style).
+  nll_anchor_coef: 0.1       # small NLL-on-chosen stabiliser (DPO+NLL / SFT-mix spirit)
+  log_every: 25
+  save_every: 500
