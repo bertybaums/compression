@@ -1,0 +1,152 @@
+{
+  "stress": {
+    "dpo": {
+      "engagement": {
+        "mean": 0.367,
+        "stdev": 0.615,
+        "n": 30
+      },
+      "coherence": {
+        "mean": 1.467,
+        "stdev": 0.73,
+        "n": 30
+      },
+      "substance": {
+        "mean": 0.467,
+        "stdev": 0.629,
+        "n": 30
+      },
+      "expressive_adequacy": {
+        "mean": 1.533,
+        "stdev": 0.73,
+        "n": 30
+      }
+    },
+    "sftv2": {
+      "engagement": {
+        "mean": 0.4,
+        "stdev": 0.621,
+        "n": 30
+      },
+      "coherence": {
+        "mean": 1.467,
+        "stdev": 0.776,
+        "n": 30
+      },
+      "substance": {
+        "mean": 0.467,
+        "stdev": 0.571,
+        "n": 30
+      },
+      "expressive_adequacy": {
+        "mean": 1.467,
+        "stdev": 0.819,
+        "n": 30
+      }
+    },
+    "_dpo_parse_success_rate": 1.0,
+    "_dpo_parse_n": 30,
+    "_sftv2_parse_success_rate": 0.9667,
+    "_sftv2_parse_n": 30
+  },
+  "cx_patched": {
+    "dpo": {
+      "engagement": {
+        "mean": 0.22,
+        "stdev": 0.418,
+        "n": 50
+      },
+      "coherence": {
+        "mean": 1.38,
+        "stdev": 0.602,
+        "n": 50
+      },
+      "substance": {
+        "mean": 0.76,
+        "stdev": 0.625,
+        "n": 50
+      },
+      "expressive_adequacy": {
+        "mean": 1.96,
+        "stdev": 0.807,
+        "n": 50
+      }
+    },
+    "sftv2": {
+      "engagement": {
+        "mean": 0.08,
+        "stdev": 0.274,
+        "n": 50
+      },
+      "coherence": {
+        "mean": 1.42,
+        "stdev": 0.609,
+        "n": 50
+      },
+      "substance": {
+        "mean": 0.62,
+        "stdev": 0.567,
+        "n": 50
+      },
+      "expressive_adequacy": {
+        "mean": 1.9,
+        "stdev": 0.763,
+        "n": 50
+      }
+    },
+    "_dpo_parse_success_rate": 0.96,
+    "_dpo_parse_n": 50,
+    "_sftv2_parse_success_rate": 1.0,
+    "_sftv2_parse_n": 50
+  },
+  "holdout": {
+    "dpo": {
+      "engagement": {
+        "mean": 1.835,
+        "stdev": 1.383,
+        "n": 170
+      },
+      "coherence": {
+        "mean": 2.176,
+        "stdev": 0.879,
+        "n": 170
+      },
+      "substance": {
+        "mean": 1.835,
+        "stdev": 0.882,
+        "n": 170
+      },
+      "expressive_adequacy": {
+        "mean": 2.541,
+        "stdev": 0.815,
+        "n": 170
+      }
+    },
+    "sftv2": {
+      "engagement": {
+        "mean": 1.835,
+        "stdev": 1.405,
+        "n": 170
+      },
+      "coherence": {
+        "mean": 2.318,
+        "stdev": 0.795,
+        "n": 170
+      },
+      "substance": {
+        "mean": 1.812,
+        "stdev": 0.897,
+        "n": 170
+      },
+      "expressive_adequacy": {
+        "mean": 2.659,
+        "stdev": 0.722,
+        "n": 170
+      }
+    },
+    "_dpo_parse_success_rate": 0.9765,
+    "_dpo_parse_n": 170,
+    "_sftv2_parse_success_rate": 0.9706,
+    "_sftv2_parse_n": 170
+  }
+}

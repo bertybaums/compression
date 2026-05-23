@@ -1,0 +1,45 @@
+# Reasoner Stage-1 preference tuning — DPO/APO-zero, scaled run (v2).
+#
+# v1 smoke (200 prompts → 330 pairs) came in at PARITY with SFT-v2 (substance
+# +0.05, engagement +0.04 — met the bar, no real gain). This scaled run is the
+# decisive parity-vs-underpowered test:
+#   - full 500-prompt P4 refs (build_p4_refs --resume) -> ~800 pairs
+#   - stronger NLL-on-chosen anchor (0.1 -> 0.3): the v1 collapse monitor showed
+#     d_w drifting below the reference in the final ~50 steps; the NLL term pushes
+#     chosen back up and should counter that drift.
+#   - save_every 100 (was 500 > steps, so v1 only saved final.pt): capture earlier
+#     checkpoints so we can pick the best, not just the last.
+#
+# Design: docs/dpo-stage1-design-2026-05-22.md
+# Run:
+#   python3 -u -m reasoner.train_dpo --config configs/reasoner_dpo_v2.yaml \
+#       --resume checkpoints/reasoner_sft_v2/final.pt
+
+model:
+  d_model: 1024
+  n_layers: 16
+  n_heads: 16
+  n_kv_heads: 4
+  d_ff: 3072
+  max_seq_len: 512
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  lr: 1.0e-6
+  weight_decay: 0.0
+  grad_accum: 8
+  epochs: 1
+  log_dir: logs/reasoner_dpo_v2
+  checkpoint_dir: checkpoints/reasoner_dpo_v2
+
+data:
+  pairs: corpus/processed/dpo_pairs.jsonl
+
+dpo:
+  variant: apo_zero
+  beta: 0.3
+  length_normalize: false
+  nll_anchor_coef: 0.3       # up from 0.1 — counter the v1 late-training d_w dip
+  log_every: 25
+  save_every: 100            # capture earlier checkpoints (v1 had save_every>steps)
