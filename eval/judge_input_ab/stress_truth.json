@@ -1,0 +1,224 @@
+{
+  "formpilot-stress-00-00": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-vagueness-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-01": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-phenomenal-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-02": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-deontic-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-03": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-supervenience-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-04": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-vagueness-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-05": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-intensional-002",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-06": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-phenomenal-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-07": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-use_mention-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-08": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-intensional-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-09": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-self_reference-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-10": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-counterfactual-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-11": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-phenomenal-002",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-12": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-modal-002",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-13": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-modal-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-14": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-counterfactual-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-15": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-use_mention-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-16": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-intensional-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-17": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-modal-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-18": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-self_reference-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-19": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-deontic-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-20": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-use_mention-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-21": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-intensional-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-22": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-supervenience-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-23": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-vagueness-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-24": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-counterfactual-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-25": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-supervenience-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-26": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-phenomenal-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-27": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-deontic-002",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-28": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-deontic-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-00-29": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-use_mention-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-01-00": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-use_mention-002",
+    "parse_ok": false
+  },
+  "formpilot-stress-01-01": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-self_reference-002",
+    "parse_ok": false
+  },
+  "formpilot-stress-01-02": {
+    "system": "form",
+    "bench": "stress",
+    "original_id": "stress-deontic-003",
+    "parse_ok": false
+  },
+  "formpilot-stress-01-03": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-intensional-002",
+    "parse_ok": false
+  },
+  "formpilot-stress-01-04": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-phenomenal-001",
+    "parse_ok": false
+  },
+  "formpilot-stress-01-05": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-phenomenal-002",
+    "parse_ok": false
+  },
+  "formpilot-stress-01-06": {
+    "system": "essay",
+    "bench": "stress",
+    "original_id": "stress-vagueness-003",
+    "parse_ok": false
+  }
+}

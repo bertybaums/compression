@@ -1,0 +1,122 @@
+{
+  "stress": {
+    "essay": {
+      "engagement": {
+        "mean": 0.444,
+        "n": 18
+      },
+      "coherence": {
+        "mean": 2.167,
+        "n": 18
+      },
+      "substance": {
+        "mean": 0.833,
+        "n": 18
+      },
+      "expressive_adequacy": {
+        "mean": 2.222,
+        "n": 18
+      }
+    },
+    "form": {
+      "engagement": {
+        "mean": 0.368,
+        "n": 19
+      },
+      "coherence": {
+        "mean": 0.737,
+        "n": 19
+      },
+      "substance": {
+        "mean": 0,
+        "n": 19
+      },
+      "expressive_adequacy": {
+        "mean": 1.211,
+        "n": 19
+      }
+    },
+    "_essay_parse": 0.0,
+    "_form_parse": 0.0
+  },
+  "cx_patched": {
+    "essay": {
+      "engagement": {
+        "mean": 0.449,
+        "n": 49
+      },
+      "coherence": {
+        "mean": 1.551,
+        "n": 49
+      },
+      "substance": {
+        "mean": 0.918,
+        "n": 49
+      },
+      "expressive_adequacy": {
+        "mean": 1.878,
+        "n": 49
+      }
+    },
+    "form": {
+      "engagement": {
+        "mean": 0.408,
+        "n": 49
+      },
+      "coherence": {
+        "mean": 0.918,
+        "n": 49
+      },
+      "substance": {
+        "mean": 0.388,
+        "n": 49
+      },
+      "expressive_adequacy": {
+        "mean": 1.245,
+        "n": 49
+      }
+    },
+    "_essay_parse": 0.0,
+    "_form_parse": 0.0
+  },
+  "holdout": {
+    "form": {
+      "engagement": {
+        "mean": 1.365,
+        "n": 170
+      },
+      "coherence": {
+        "mean": 1.3,
+        "n": 170
+      },
+      "substance": {
+        "mean": 1.082,
+        "n": 170
+      },
+      "expressive_adequacy": {
+        "mean": 1.571,
+        "n": 170
+      }
+    },
+    "essay": {
+      "engagement": {
+        "mean": 2.224,
+        "n": 170
+      },
+      "coherence": {
+        "mean": 2.276,
+        "n": 170
+      },
+      "substance": {
+        "mean": 2.053,
+        "n": 170
+      },
+      "expressive_adequacy": {
+        "mean": 2.512,
+        "n": 170
+      }
+    },
+    "_form_parse": 0.0,
+    "_essay_parse": 0.0
+  }
+}
