@@ -243,7 +243,7 @@
     "system": "dpo",
     "bench": "cx_patched",
     "original_id": "cxbot-defcx-defcx-social-philosophy-obligation-2726-reasoning",
-    "parse_ok": false
+    "parse_ok": true
   },
   "dpo-cx_patched-01-11": {
     "system": "dpo",
@@ -447,7 +447,7 @@
     "system": "dpo",
     "bench": "cx_patched",
     "original_id": "cxbot-defcx-defcx-metaphysics-identity-metaphysical-1703-reasoning",
-    "parse_ok": false
+    "parse_ok": true
   },
   "dpo-cx_patched-02-15": {
     "system": "sftv2",

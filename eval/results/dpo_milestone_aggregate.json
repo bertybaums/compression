@@ -2,45 +2,45 @@
   "stress": {
     "dpo": {
       "engagement": {
-        "mean": 0.367,
-        "stdev": 0.615,
+        "mean": 0.1,
+        "stdev": 0.305,
         "n": 30
       },
       "coherence": {
-        "mean": 1.467,
-        "stdev": 0.73,
+        "mean": 1.6,
+        "stdev": 0.814,
         "n": 30
       },
       "substance": {
-        "mean": 0.467,
-        "stdev": 0.629,
+        "mean": 1.233,
+        "stdev": 0.626,
         "n": 30
       },
       "expressive_adequacy": {
-        "mean": 1.533,
-        "stdev": 0.73,
+        "mean": 2.367,
+        "stdev": 0.809,
         "n": 30
       }
     },
     "sftv2": {
       "engagement": {
-        "mean": 0.4,
-        "stdev": 0.621,
+        "mean": 0.167,
+        "stdev": 0.461,
         "n": 30
       },
       "coherence": {
         "mean": 1.467,
-        "stdev": 0.776,
+        "stdev": 0.819,
         "n": 30
       },
       "substance": {
-        "mean": 0.467,
-        "stdev": 0.571,
+        "mean": 1.3,
+        "stdev": 0.596,
         "n": 30
       },
       "expressive_adequacy": {
-        "mean": 1.467,
-        "stdev": 0.819,
+        "mean": 2.3,
+        "stdev": 0.75,
         "n": 30
       }
     },
@@ -52,49 +52,49 @@
   "cx_patched": {
     "dpo": {
       "engagement": {
-        "mean": 0.22,
-        "stdev": 0.418,
+        "mean": 0.24,
+        "stdev": 0.431,
         "n": 50
       },
       "coherence": {
-        "mean": 1.38,
-        "stdev": 0.602,
+        "mean": 1.72,
+        "stdev": 0.73,
         "n": 50
       },
       "substance": {
-        "mean": 0.76,
-        "stdev": 0.625,
+        "mean": 0.9,
+        "stdev": 0.544,
         "n": 50
       },
       "expressive_adequacy": {
-        "mean": 1.96,
-        "stdev": 0.807,
+        "mean": 2.02,
+        "stdev": 0.82,
         "n": 50
       }
     },
     "sftv2": {
       "engagement": {
-        "mean": 0.08,
-        "stdev": 0.274,
+        "mean": 0.14,
+        "stdev": 0.351,
         "n": 50
       },
       "coherence": {
-        "mean": 1.42,
-        "stdev": 0.609,
+        "mean": 1.72,
+        "stdev": 0.834,
         "n": 50
       },
       "substance": {
-        "mean": 0.62,
-        "stdev": 0.567,
+        "mean": 0.92,
+        "stdev": 0.601,
         "n": 50
       },
       "expressive_adequacy": {
-        "mean": 1.9,
-        "stdev": 0.763,
+        "mean": 1.98,
+        "stdev": 0.845,
         "n": 50
       }
     },
-    "_dpo_parse_success_rate": 0.96,
+    "_dpo_parse_success_rate": 1.0,
     "_dpo_parse_n": 50,
     "_sftv2_parse_success_rate": 1.0,
     "_sftv2_parse_n": 50
@@ -102,45 +102,45 @@
   "holdout": {
     "dpo": {
       "engagement": {
-        "mean": 1.835,
-        "stdev": 1.383,
+        "mean": 1.865,
+        "stdev": 1.397,
         "n": 170
       },
       "coherence": {
-        "mean": 2.176,
-        "stdev": 0.879,
+        "mean": 2.229,
+        "stdev": 0.877,
         "n": 170
       },
       "substance": {
-        "mean": 1.835,
-        "stdev": 0.882,
+        "mean": 1.865,
+        "stdev": 0.784,
         "n": 170
       },
       "expressive_adequacy": {
-        "mean": 2.541,
+        "mean": 2.471,
         "stdev": 0.815,
         "n": 170
       }
     },
     "sftv2": {
       "engagement": {
-        "mean": 1.835,
-        "stdev": 1.405,
+        "mean": 1.824,
+        "stdev": 1.436,
         "n": 170
       },
       "coherence": {
-        "mean": 2.318,
-        "stdev": 0.795,
+        "mean": 2.206,
+        "stdev": 0.806,
         "n": 170
       },
       "substance": {
-        "mean": 1.812,
-        "stdev": 0.897,
+        "mean": 1.782,
+        "stdev": 0.86,
         "n": 170
       },
       "expressive_adequacy": {
-        "mean": 2.659,
-        "stdev": 0.722,
+        "mean": 2.471,
+        "stdev": 0.739,
         "n": 170
       }
     },

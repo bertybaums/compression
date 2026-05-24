@@ -135,7 +135,7 @@
     "system": "dpo",
     "bench": "holdout",
     "original_id": "misc-analogies-analogy-anomaly-mathematical-combinatorial-0023-reasoning",
-    "parse_ok": false
+    "parse_ok": true
   },
   "dpo-holdout-00-23": {
     "system": "sftv2",
@@ -321,7 +321,7 @@
     "system": "dpo",
     "bench": "holdout",
     "original_id": "reasoning-0283363",
-    "parse_ok": false
+    "parse_ok": true
   },
   "dpo-holdout-01-24": {
     "system": "dpo",
@@ -639,7 +639,7 @@
     "system": "dpo",
     "bench": "holdout",
     "original_id": "misc-conditionals-cond-material-epistemic-inductive-0019-reasoning",
-    "parse_ok": false
+    "parse_ok": true
   },
   "dpo-holdout-03-17": {
     "system": "dpo",
@@ -675,7 +675,7 @@
     "system": "dpo",
     "bench": "holdout",
     "original_id": "cxbot-abdcx-abdcx-social-philosophy-cooperation-2210-reasoning",
-    "parse_ok": true
+    "parse_ok": false
   },
   "dpo-holdout-03-23": {
     "system": "sftv2",
@@ -1791,7 +1791,7 @@
     "system": "dpo",
     "bench": "holdout",
     "original_id": "cxbot-defcx-defcx-epistemology-a-priori-0023-reasoning",
-    "parse_ok": false
+    "parse_ok": true
   },
   "dpo-holdout-09-29": {
     "system": "dpo",
@@ -1833,7 +1833,7 @@
     "system": "dpo",
     "bench": "holdout",
     "original_id": "reasoning-0939499",
-    "parse_ok": true
+    "parse_ok": false
   },
   "dpo-holdout-10-06": {
     "system": "sftv2",
@@ -1935,7 +1935,7 @@
     "system": "dpo",
     "bench": "holdout",
     "original_id": "reasoning-1478100",
-    "parse_ok": true
+    "parse_ok": false
   },
   "dpo-holdout-10-23": {
     "system": "dpo",
@@ -1989,7 +1989,7 @@
     "system": "dpo",
     "bench": "holdout",
     "original_id": "cxbot-defcx-defcx-philosophy-of-language-translation-2423-reasoning",
-    "parse_ok": true
+    "parse_ok": false
   },
   "dpo-holdout-11-02": {
     "system": "sftv2",
