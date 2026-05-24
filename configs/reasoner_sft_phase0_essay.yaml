@@ -1,0 +1,49 @@
+# Form-diverse pilot — CONTROL arm (Phase 0).
+#
+# Size-matched v1-essay control for the form-diverse A/B. Identical to
+# reasoner_sft_phase0_form.yaml except the training corpus and output dirs, so
+# the only difference between arms is corpus form (essay vs dialogue/objection).
+# Build the corpus first: python3 -m reasoner.build_phase0_essay_control
+# Design: docs/form-diverse-retrain-design-2026-05-24.md
+#
+# Run:
+#   python3 -u -m reasoner.train_sft --config configs/reasoner_sft_phase0_essay.yaml \
+#       --resume checkpoints/reasoner_pretrain_v1/final.pt
+
+model:
+  d_model: 1024
+  n_layers: 16
+  n_heads: 16
+  n_kv_heads: 4
+  d_ff: 3072
+  max_seq_len: 512
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  batch_size: 8
+  grad_accum_steps: 8
+  max_lr: 5.0e-5
+  min_lr: 5.0e-6
+  weight_decay: 0.05
+  warmup_steps: 50
+  max_steps: 3500
+  gradient_checkpointing: true
+  use_amp: true
+
+  log_interval: 50
+  save_interval: 700
+  eval_interval: 999999
+  max_checkpoints: 8
+  checkpoint_dir: checkpoints/reasoner_sft_essay
+  log_dir: logs/reasoner_sft_essay
+  sample_log_dir: logs/reasoner_sft_essay/samples
+
+data:
+  train_paths:
+    - corpus/processed/phase0_essay_control.jsonl
+  dataset_type: sft_plain
+  per_source_val: false
+  random_val_fraction: 0.0
+  num_workers: 4
+  sample_prompts_path: eval/sets/sample_prompts.jsonl

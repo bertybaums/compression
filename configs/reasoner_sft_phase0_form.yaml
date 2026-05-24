@@ -1,0 +1,50 @@
+# Form-diverse pilot — TREATMENT arm (Phase 0).
+#
+# Controlled A/B test of the form-as-prompt-attention hypothesis. Both arms init
+# from the SAME pretrain checkpoint, same hyperparameters, same ~2,766-pair size,
+# plain (prompt->response) format. The ONLY difference is corpus form:
+#   - this (form):  ugf_forms_corpus.jsonl  (dialogue / objection-reply turns)
+#   - control:      phase0_essay_control.jsonl  (size-matched v1 essays)
+# Design: docs/form-diverse-retrain-design-2026-05-24.md
+#
+# Run:
+#   python3 -u -m reasoner.train_sft --config configs/reasoner_sft_phase0_form.yaml \
+#       --resume checkpoints/reasoner_pretrain_v1/final.pt
+
+model:
+  d_model: 1024
+  n_layers: 16
+  n_heads: 16
+  n_kv_heads: 4
+  d_ff: 3072
+  max_seq_len: 512
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  batch_size: 8
+  grad_accum_steps: 8        # effective batch 64, mirrors v1 SFT
+  max_lr: 5.0e-5
+  min_lr: 5.0e-6
+  weight_decay: 0.05
+  warmup_steps: 50           # short — tiny corpus, good init
+  max_steps: 3500            # ~10 epochs over 2,766 pairs at batch 8
+  gradient_checkpointing: true
+  use_amp: true
+
+  log_interval: 50
+  save_interval: 700         # checkpoints at 700/1400/2100/2800/final to pick best
+  eval_interval: 999999      # no val split for the pilot; we judge on the bench
+  max_checkpoints: 8
+  checkpoint_dir: checkpoints/reasoner_sft_form
+  log_dir: logs/reasoner_sft_form
+  sample_log_dir: logs/reasoner_sft_form/samples
+
+data:
+  train_paths:
+    - corpus/processed/ugf_forms_corpus.jsonl
+  dataset_type: sft_plain
+  per_source_val: false
+  random_val_fraction: 0.0
+  num_workers: 4
+  sample_prompts_path: eval/sets/sample_prompts.jsonl

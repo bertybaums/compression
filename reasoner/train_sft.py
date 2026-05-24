@@ -26,7 +26,7 @@ import yaml
 from torch.utils.data import ConcatDataset, DataLoader
 
 from reasoner.model import Reasoner, ReasonerConfig
-from reasoner.data_sft import UGFSFTDataset, sft_collate_fn
+from reasoner.data_sft import UGFSFTDataset, UGFSFTPlainDataset, sft_collate_fn
 from reasoner.data_sft_v2 import UGFSFTv2Dataset, sft_v2_collate_fn
 from reasoner.train import get_lr, save_checkpoint, load_checkpoint
 from tokenizer.ugf_tokenizer import UGFTokenizer
@@ -55,9 +55,9 @@ def main():
     data_cfg = cfg.get("data", {})
 
     dataset_type = data_cfg.get("dataset_type")
-    if dataset_type not in ("sft", "sft_v2"):
+    if dataset_type not in ("sft", "sft_v2", "sft_plain"):
         raise ValueError(
-            f"reasoner.train_sft expects dataset_type: sft or sft_v2 in config, "
+            f"reasoner.train_sft expects dataset_type: sft, sft_v2, or sft_plain in config, "
             f"got {dataset_type!r}. Use reasoner.train for pretraining."
         )
     is_v2 = (dataset_type == "sft_v2")
@@ -65,6 +65,10 @@ def main():
         dataset_cls = UGFSFTv2Dataset
         _collate = sft_v2_collate_fn
         print("SFT v2 (purist think-answer with 'So my answer is:' marker)")
+    elif dataset_type == "sft_plain":
+        dataset_cls = UGFSFTPlainDataset
+        _collate = sft_collate_fn
+        print("SFT plain (direct prompt->response; form-diverse corpora)")
     else:
         dataset_cls = UGFSFTDataset
         _collate = sft_collate_fn

@@ -187,6 +187,77 @@ class UGFSFTDataset(Dataset):
         return {"input_ids": input_ids, "labels": labels}
 
 
+class UGFSFTPlainDataset(UGFSFTDataset):
+    """Like UGFSFTDataset, but reads `prompt` and `response` directly from each
+    record instead of building the prompt from a content_type template.
+
+    For form-diverse corpora (dialogue / objection-reply) whose `prompt` field is
+    already the specific turn or objection, not a topic phrase to be wrapped. The
+    tokenization, prompt-masking, and collate are identical to the parent; only
+    record loading differs. Records are kept iff they carry both a non-empty
+    `prompt` and `response` (and, when filter_compliant, compliant != False).
+    """
+
+    def __init__(
+        self,
+        data_path,
+        tokenizer: UGFTokenizer,
+        max_seq_len: int = 512,
+        filter_compliant: bool = True,
+        heldout_ids_path=None,
+        include_only_heldout: bool = False,
+        random_val_fraction: float = 0.0,
+    ):
+        self.tokenizer = tokenizer
+        self.max_seq_len = max_seq_len
+        self.records: list[tuple[str, str]] = []
+
+        heldout_doc_ids: set[str] = set()
+        if heldout_ids_path is not None and Path(heldout_ids_path).exists():
+            with open(heldout_ids_path) as f:
+                passage_ids = json.load(f)["heldout_passage_ids"]
+            heldout_doc_ids = {pid.rsplit("-", 1)[0] for pid in passage_ids}
+
+        n_skipped = 0
+        n_dropped = 0
+        with open(data_path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                record = json.loads(line)
+                if filter_compliant and not record.get("compliant", True):
+                    continue
+                rid = record.get("id", "")
+                doc_key = rid.rsplit("-", 1)[0] if rid else ""
+                is_heldout = (
+                    (bool(heldout_doc_ids) and doc_key in heldout_doc_ids)
+                    or _stable_hash_in_val(rid, random_val_fraction)
+                )
+                if include_only_heldout:
+                    if not is_heldout:
+                        n_skipped += 1
+                        continue
+                else:
+                    if is_heldout:
+                        n_skipped += 1
+                        continue
+
+                prompt = (record.get("prompt") or "").strip()
+                response = (record.get("response") or "").strip()
+                if not prompt or not response:
+                    n_dropped += 1
+                    continue
+                self.records.append((prompt, response))
+
+        if (heldout_ids_path is not None or random_val_fraction > 0) and n_skipped:
+            mode = "kept-only" if include_only_heldout else "skipped"
+            print(f"Hold-out: {mode} {n_skipped} plain-SFT records ({data_path})")
+        if n_dropped:
+            print(f"Plain-SFT: dropped {n_dropped} records missing prompt/response ({data_path})")
+        print(f"Plain-SFT: loaded {len(self.records)} (prompt, response) pairs ({data_path})")
+
+
 def sft_collate_fn(batch: list[dict], pad_id: int = 0) -> dict[str, torch.Tensor]:
     """Pad SFT batch. Pads input_ids with pad_id, labels with -100, mask with 0."""
     max_len = max(item["input_ids"].shape[0] for item in batch)
