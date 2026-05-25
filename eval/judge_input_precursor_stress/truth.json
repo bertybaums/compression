@@ -1,0 +1,242 @@
+{
+  "prec-stress-0000": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-deontic-003"
+  },
+  "prec-stress-0001": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-supervenience-003"
+  },
+  "prec-stress-0002": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-use_mention-001"
+  },
+  "prec-stress-0003": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-intensional-003"
+  },
+  "prec-stress-0004": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-phenomenal-002"
+  },
+  "prec-stress-0005": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-self_reference-003"
+  },
+  "prec-stress-0006": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-use_mention-002"
+  },
+  "prec-stress-0007": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-vagueness-002"
+  },
+  "prec-stress-0008": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-counterfactual-001"
+  },
+  "prec-stress-0009": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-self_reference-002"
+  },
+  "prec-stress-0010": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-intensional-001"
+  },
+  "prec-stress-0011": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-deontic-001"
+  },
+  "prec-stress-0012": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-abstract-002"
+  },
+  "prec-stress-0013": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-phenomenal-001"
+  },
+  "prec-stress-0014": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-abstract-001"
+  },
+  "prec-stress-0015": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-self_reference-002"
+  },
+  "prec-stress-0016": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-counterfactual-001"
+  },
+  "prec-stress-0017": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-supervenience-001"
+  },
+  "prec-stress-0018": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-self_reference-003"
+  },
+  "prec-stress-0019": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-counterfactual-002"
+  },
+  "prec-stress-0020": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-vagueness-003"
+  },
+  "prec-stress-0021": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-intensional-002"
+  },
+  "prec-stress-0022": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-vagueness-003"
+  },
+  "prec-stress-0023": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-supervenience-002"
+  },
+  "prec-stress-0024": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-intensional-003"
+  },
+  "prec-stress-0025": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-use_mention-001"
+  },
+  "prec-stress-0026": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-abstract-001"
+  },
+  "prec-stress-0027": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-modal-003"
+  },
+  "prec-stress-0028": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-use_mention-002"
+  },
+  "prec-stress-0029": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-supervenience-002"
+  },
+  "prec-stress-0030": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-self_reference-001"
+  },
+  "prec-stress-0031": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-vagueness-002"
+  },
+  "prec-stress-0032": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-intensional-001"
+  },
+  "prec-stress-0033": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-use_mention-003"
+  },
+  "prec-stress-0034": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-self_reference-001"
+  },
+  "prec-stress-0035": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-modal-001"
+  },
+  "prec-stress-0036": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-counterfactual-003"
+  },
+  "prec-stress-0037": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-modal-001"
+  },
+  "prec-stress-0038": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-abstract-003"
+  },
+  "prec-stress-0039": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-supervenience-003"
+  },
+  "prec-stress-0040": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-modal-002"
+  },
+  "prec-stress-0041": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-phenomenal-002"
+  },
+  "prec-stress-0042": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-vagueness-001"
+  },
+  "prec-stress-0043": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-abstract-003"
+  },
+  "prec-stress-0044": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-vagueness-001"
+  },
+  "prec-stress-0045": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-deontic-002"
+  },
+  "prec-stress-0046": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-counterfactual-003"
+  },
+  "prec-stress-0047": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-counterfactual-002"
+  },
+  "prec-stress-0048": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-supervenience-001"
+  },
+  "prec-stress-0049": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-modal-002"
+  },
+  "prec-stress-0050": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-deontic-001"
+  },
+  "prec-stress-0051": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-use_mention-003"
+  },
+  "prec-stress-0052": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-deontic-003"
+  },
+  "prec-stress-0053": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-modal-003"
+  },
+  "prec-stress-0054": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-phenomenal-001"
+  },
+  "prec-stress-0055": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-phenomenal-003"
+  },
+  "prec-stress-0056": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-phenomenal-003"
+  },
+  "prec-stress-0057": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-abstract-002"
+  },
+  "prec-stress-0058": {
+    "condition": "p3_gold_english",
+    "prompt_id": "stress-deontic-002"
+  },
+  "prec-stress-0059": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "stress-intensional-002"
+  }
+}

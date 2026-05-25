@@ -1,0 +1,30 @@
+{
+  "comparison": "stress",
+  "n_parsed": 60,
+  "n_bad_lines": 0,
+  "n_unique_ids": 60,
+  "n_missing_truth": 0,
+  "per_condition": {
+    "p3_gold_english": {
+      "engagement": 3.833,
+      "coherence": 3.967,
+      "substance": 3.6,
+      "expressive_adequacy": null
+    },
+    "teacher_in_ugf": {
+      "engagement": 3.2,
+      "coherence": 3.567,
+      "substance": 1.867,
+      "expressive_adequacy": 2.933
+    }
+  },
+  "n_per_condition": {
+    "p3_gold_english": 30,
+    "teacher_in_ugf": 30
+  },
+  "vocabulary_tax_p3_minus_ugf": {
+    "engagement": 0.633,
+    "coherence": 0.4,
+    "substance": 1.733
+  }
+}

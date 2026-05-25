@@ -1,0 +1,258 @@
+{
+  "prec-targetprobe-0000": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-037"
+  },
+  "prec-targetprobe-0001": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-040"
+  },
+  "prec-targetprobe-0002": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-011"
+  },
+  "prec-targetprobe-0003": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-036"
+  },
+  "prec-targetprobe-0004": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-022"
+  },
+  "prec-targetprobe-0005": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-001"
+  },
+  "prec-targetprobe-0006": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-031"
+  },
+  "prec-targetprobe-0007": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-042"
+  },
+  "prec-targetprobe-0008": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-023"
+  },
+  "prec-targetprobe-0009": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-014"
+  },
+  "prec-targetprobe-0010": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-012"
+  },
+  "prec-targetprobe-0011": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-030"
+  },
+  "prec-targetprobe-0012": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-015"
+  },
+  "prec-targetprobe-0013": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-048"
+  },
+  "prec-targetprobe-0014": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-027"
+  },
+  "prec-targetprobe-0015": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-033"
+  },
+  "prec-targetprobe-0016": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-007"
+  },
+  "prec-targetprobe-0017": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-014"
+  },
+  "prec-targetprobe-0018": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-044"
+  },
+  "prec-targetprobe-0019": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-032"
+  },
+  "prec-targetprobe-0020": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-020"
+  },
+  "prec-targetprobe-0021": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-030"
+  },
+  "prec-targetprobe-0022": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-011"
+  },
+  "prec-targetprobe-0023": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-027"
+  },
+  "prec-targetprobe-0024": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-006"
+  },
+  "prec-targetprobe-0025": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-045"
+  },
+  "prec-targetprobe-0026": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-038"
+  },
+  "prec-targetprobe-0027": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-037"
+  },
+  "prec-targetprobe-0028": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-007"
+  },
+  "prec-targetprobe-0029": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-040"
+  },
+  "prec-targetprobe-0030": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-036"
+  },
+  "prec-targetprobe-0031": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-028"
+  },
+  "prec-targetprobe-0032": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-015"
+  },
+  "prec-targetprobe-0033": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-000"
+  },
+  "prec-targetprobe-0034": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-043"
+  },
+  "prec-targetprobe-0035": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-043"
+  },
+  "prec-targetprobe-0036": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-021"
+  },
+  "prec-targetprobe-0037": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-041"
+  },
+  "prec-targetprobe-0038": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-032"
+  },
+  "prec-targetprobe-0039": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-021"
+  },
+  "prec-targetprobe-0040": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-006"
+  },
+  "prec-targetprobe-0041": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-033"
+  },
+  "prec-targetprobe-0042": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-010"
+  },
+  "prec-targetprobe-0043": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-000"
+  },
+  "prec-targetprobe-0044": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-041"
+  },
+  "prec-targetprobe-0045": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-022"
+  },
+  "prec-targetprobe-0046": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-031"
+  },
+  "prec-targetprobe-0047": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-045"
+  },
+  "prec-targetprobe-0048": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-005"
+  },
+  "prec-targetprobe-0049": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-042"
+  },
+  "prec-targetprobe-0050": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-008"
+  },
+  "prec-targetprobe-0051": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-008"
+  },
+  "prec-targetprobe-0052": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-005"
+  },
+  "prec-targetprobe-0053": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-038"
+  },
+  "prec-targetprobe-0054": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-020"
+  },
+  "prec-targetprobe-0055": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-010"
+  },
+  "prec-targetprobe-0056": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-044"
+  },
+  "prec-targetprobe-0057": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-012"
+  },
+  "prec-targetprobe-0058": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-048"
+  },
+  "prec-targetprobe-0059": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-025"
+  },
+  "prec-targetprobe-0060": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-028"
+  },
+  "prec-targetprobe-0061": {
+    "condition": "teacher_in_ugf",
+    "prompt_id": "probe-025"
+  },
+  "prec-targetprobe-0062": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-001"
+  },
+  "prec-targetprobe-0063": {
+    "condition": "p3_gold_english",
+    "prompt_id": "probe-023"
+  }
+}

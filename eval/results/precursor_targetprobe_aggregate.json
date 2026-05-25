@@ -1,0 +1,30 @@
+{
+  "comparison": "targetprobe",
+  "n_parsed": 64,
+  "n_bad_lines": 0,
+  "n_unique_ids": 64,
+  "n_missing_truth": 0,
+  "per_condition": {
+    "p3_gold_english": {
+      "engagement": 3.906,
+      "coherence": 3.938,
+      "substance": 3,
+      "expressive_adequacy": null
+    },
+    "teacher_in_ugf": {
+      "engagement": 3.031,
+      "coherence": 3.062,
+      "substance": 1.75,
+      "expressive_adequacy": 2.344
+    }
+  },
+  "n_per_condition": {
+    "p3_gold_english": 32,
+    "teacher_in_ugf": 32
+  },
+  "vocabulary_tax_p3_minus_ugf": {
+    "engagement": 0.875,
+    "coherence": 0.876,
+    "substance": 1.25
+  }
+}
