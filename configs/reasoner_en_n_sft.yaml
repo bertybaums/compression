@@ -1,0 +1,47 @@
+# English-N SFT (Phase 2) -- 200M English-vocab baseline, English arm.
+# Initializes from checkpoints/reasoner_en_n_pretrain/final.pt (--resume).
+# Matched 1:1 with reasoner_ugf_n_sft.yaml; the ONLY difference is the vocabulary.
+# docs/english-baseline-design-2026-05-24.md
+
+tokenizer:
+  vocab_path: wordlist/vocab_english_40k.json   # English, 40,027 tokens
+
+model:
+  d_model: 1024
+  n_layers: 16
+  n_heads: 16
+  n_kv_heads: 4
+  d_ff: 3072
+  max_seq_len: 512
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  batch_size: 8
+  grad_accum_steps: 8        # effective batch = 64
+  max_lr: 5.0e-5
+  min_lr: 5.0e-6
+  weight_decay: 0.05
+  warmup_steps: 500
+  max_steps: 30000           # v1 recipe; matched across arms.
+  gradient_checkpointing: true
+  use_amp: true
+
+  log_interval: 50
+  save_interval: 5000
+  eval_interval: 500
+  sample_probe_every_n_evals: 4
+  max_checkpoints: 8         # full span (5K..30K) for best-by-val recovery
+
+  checkpoint_dir: checkpoints/reasoner_en_n_sft
+  log_dir: logs/reasoner_en_n_sft
+  sample_log_dir: logs/reasoner_en_n_sft/samples
+
+data:
+  train_paths:
+    - corpus/processed/english_n_sft.jsonl
+  dataset_type: sft_plain    # UGFSFTPlainDataset: reads pre-rendered prompt/response
+  per_source_val: true
+  random_val_fraction: 0.10  # same matched val carve as the pretrain config
+  sample_prompts_path: eval/sets/sample_prompts.jsonl
+  num_workers: 4

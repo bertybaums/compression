@@ -88,8 +88,13 @@ def main():
     print(f"Device: {device}")
 
     # --- Tokenizer ---
-    tokenizer = UGFTokenizer()
-    print(f"Tokenizer vocab size: {tokenizer.vocab_size}")
+    # tokenizer.vocab_path lets an experiment swap the vocabulary (e.g. the
+    # English-vocab baseline, docs/english-baseline-design-2026-05-24.md).
+    # Absent -> UGFTokenizer's default UGF vocab (back-compatible with v1 configs).
+    tok_cfg = cfg.get("tokenizer", {})
+    tokenizer = UGFTokenizer(vocab_path=tok_cfg.get("vocab_path"))
+    print(f"Tokenizer vocab size: {tokenizer.vocab_size} "
+          f"(vocab_path={tok_cfg.get('vocab_path') or 'UGF default'})")
 
     # --- Model ---
     config = ReasonerConfig(
@@ -139,10 +144,15 @@ def main():
     # the heldout JSON doesn't naturally include any matching IDs (notably the
     # main `reasoning-NNNNNNN` corpus, which has no source-passage parents).
     random_val_fraction = data_cfg.get("random_val_fraction", 0.0)
+    # text_field selects which JSON field holds the trace text for the "reasoning"
+    # dataset (UGF arm: ugf_text or response; English baseline: english_text).
+    # Default preserves v1 behavior.
+    text_field = data_cfg.get("text_field", "ugf_text")
 
     def _make_dataset(path: str, ds_type: str, include_only_heldout: bool = False):
         if ds_type == "reasoning":
             return UGFDataset(path, tokenizer, max_seq_len=max_seq_len,
+                              text_field=text_field,
                               heldout_ids_path=heldout_ids_path,
                               include_only_heldout=include_only_heldout,
                               random_val_fraction=random_val_fraction)

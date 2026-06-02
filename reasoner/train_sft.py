@@ -78,8 +78,13 @@ def main():
     print(f"Device: {device}")
 
     # --- Tokenizer ---
-    tokenizer = UGFTokenizer()
-    print(f"Tokenizer vocab size: {tokenizer.vocab_size}")
+    # tokenizer.vocab_path lets an experiment swap the vocabulary (e.g. the
+    # English-vocab baseline, docs/english-baseline-design-2026-05-24.md).
+    # Absent -> UGFTokenizer's default UGF vocab (back-compatible with v1 configs).
+    tok_cfg = cfg.get("tokenizer", {})
+    tokenizer = UGFTokenizer(vocab_path=tok_cfg.get("vocab_path"))
+    print(f"Tokenizer vocab size: {tokenizer.vocab_size} "
+          f"(vocab_path={tok_cfg.get('vocab_path') or 'UGF default'})")
 
     # --- Model ---
     config = ReasonerConfig(

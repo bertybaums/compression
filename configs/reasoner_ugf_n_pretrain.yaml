@@ -1,0 +1,62 @@
+# UGF-N pretrain (Phase 1) -- 200M English-vocab baseline, UGF arm.
+# docs/english-baseline-design-2026-05-24.md
+#
+# Matched 1:1 with reasoner_en_n_pretrain.yaml: IDENTICAL transformer block and
+# recipe; the ONLY difference is the vocabulary (tokenizer.vocab_path + data).
+#
+# Param accounting (tied embeddings):
+#   transformer block (non-embedding) = 192,971,776   <- IDENTICAL across arms
+#   embedding   = 3,643 x 1024        =   3,730,432
+#   total                             = 196,702,208   (~196.7M)
+#   [English arm total ~234.0M; the +37M is the embedding, the variable itself]
+
+tokenizer:
+  vocab_path: wordlist/vocab_final.json   # UGF, 3,643 tokens
+
+model:
+  d_model: 1024
+  n_layers: 16
+  n_heads: 16
+  n_kv_heads: 4
+  d_ff: 3072
+  max_seq_len: 512
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  batch_size: 8
+  grad_accum_steps: 8        # effective batch = 64
+  max_lr: 3.0e-4
+  min_lr: 3.0e-5
+  weight_decay: 0.1
+  warmup_steps: 1000
+  max_steps: 100000          # v1 recipe. NOTE: over ~379K train records this is
+                             # ~16 epochs (v1-at-2M was ~3.3). Matched across arms.
+  gradient_checkpointing: true
+  use_amp: true
+
+  log_interval: 50
+  save_interval: 10000
+  eval_interval: 1000
+  sample_probe_every_n_evals: 5
+  max_checkpoints: 10        # keep a full span (10K..100K) for best-by-val recovery
+
+  checkpoint_dir: checkpoints/reasoner_ugf_n_pretrain
+  log_dir: logs/reasoner_ugf_n_pretrain
+  sample_log_dir: logs/reasoner_ugf_n_pretrain/samples
+
+data:
+  # Pretrain on the flat teacher responses of the matched-N set.
+  train_paths:
+    - corpus/processed/ugf_n_sft_400k.jsonl
+  text_field: response
+  dataset_type: reasoning
+
+  per_source_val: true
+  # The matched-N set already excluded the global 5% heldout/val (hash buckets
+  # <500), so a 0.05 carve would be empty. 0.10 holds out buckets [500,1000) =
+  # ~5.3% of the present records as a matched val split (identical ids both arms).
+  random_val_fraction: 0.10
+
+  sample_prompts_path: eval/sets/sample_prompts.jsonl
+  num_workers: 4
