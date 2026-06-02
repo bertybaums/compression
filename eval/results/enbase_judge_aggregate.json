@@ -1,0 +1,54 @@
+{
+  "means": {
+    "ugf_n/stress": {
+      "engagement": 0.067,
+      "coherence": 1.933,
+      "substance": 0.4
+    },
+    "ugf_n/holdout": {
+      "engagement": 1.676,
+      "coherence": 2.506,
+      "substance": 2.159
+    },
+    "ugf_n/cx_patched": {
+      "engagement": 0.3,
+      "coherence": 1.86,
+      "substance": 0.78
+    },
+    "en_n/stress": {
+      "engagement": 0.067,
+      "coherence": 2.3,
+      "substance": 0.033
+    },
+    "en_n/holdout": {
+      "engagement": 1.606,
+      "coherence": 2.159,
+      "substance": 1.771
+    },
+    "en_n/cx_patched": {
+      "engagement": 0.26,
+      "coherence": 2.46,
+      "substance": 1.38
+    }
+  },
+  "deltas": {
+    "stress": {
+      "engagement": 0.0,
+      "coherence": 0.367,
+      "substance": -0.367
+    },
+    "holdout": {
+      "engagement": -0.07,
+      "coherence": -0.347,
+      "substance": -0.388
+    },
+    "cx_patched": {
+      "engagement": -0.04,
+      "coherence": 0.6,
+      "substance": 0.6
+    }
+  },
+  "stress_engagement_delta": 0.0,
+  "stress_substance_delta": -0.367,
+  "verdict": "VOCABULARY EXONERATED -- English-N ~= UGF-N on stress engagement (deficit is form/capacity, not the restricted vocabulary). Strengthens the expressive-adequacy thesis."
+}

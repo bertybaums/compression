@@ -1,0 +1,114 @@
+[
+  {
+    "batch": "batch_001",
+    "arm": "ugf_n",
+    "bench": "stress",
+    "n": 30,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_001.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_001.jsonl"
+  },
+  {
+    "batch": "batch_002",
+    "arm": "ugf_n",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_002.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_002.jsonl"
+  },
+  {
+    "batch": "batch_003",
+    "arm": "ugf_n",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_003.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_003.jsonl"
+  },
+  {
+    "batch": "batch_004",
+    "arm": "ugf_n",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_004.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_004.jsonl"
+  },
+  {
+    "batch": "batch_005",
+    "arm": "ugf_n",
+    "bench": "holdout",
+    "n": 35,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_005.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_005.jsonl"
+  },
+  {
+    "batch": "batch_006",
+    "arm": "ugf_n",
+    "bench": "cx_patched",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_006.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_006.jsonl"
+  },
+  {
+    "batch": "batch_007",
+    "arm": "ugf_n",
+    "bench": "cx_patched",
+    "n": 5,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_007.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_007.jsonl"
+  },
+  {
+    "batch": "batch_008",
+    "arm": "en_n",
+    "bench": "stress",
+    "n": 30,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_008.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_008.jsonl"
+  },
+  {
+    "batch": "batch_009",
+    "arm": "en_n",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_009.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_009.jsonl"
+  },
+  {
+    "batch": "batch_010",
+    "arm": "en_n",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_010.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_010.jsonl"
+  },
+  {
+    "batch": "batch_011",
+    "arm": "en_n",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_011.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_011.jsonl"
+  },
+  {
+    "batch": "batch_012",
+    "arm": "en_n",
+    "bench": "holdout",
+    "n": 35,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_012.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_012.jsonl"
+  },
+  {
+    "batch": "batch_013",
+    "arm": "en_n",
+    "bench": "cx_patched",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_013.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_013.jsonl"
+  },
+  {
+    "batch": "batch_014",
+    "arm": "en_n",
+    "bench": "cx_patched",
+    "n": 5,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_enbase/batch_014.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_enbase/batch_014.jsonl"
+  }
+]
