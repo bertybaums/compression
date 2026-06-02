@@ -13,7 +13,7 @@ model:
   n_heads: 16
   n_kv_heads: 4
   d_ff: 3072
-  max_seq_len: 512
+  max_seq_len: 1024          # raised from v1's 512 (June 1); matched across arms
   dropout: 0.0
   tie_embeddings: true
 
