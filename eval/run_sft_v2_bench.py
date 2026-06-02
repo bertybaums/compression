@@ -104,6 +104,10 @@ def main():
     parser.add_argument("--no-repeat-ngram-size", type=int, default=0,
                         help="Forbid n-grams already in sequence. 0=off; 3-5 typical anti-loop.")
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--vocab-path", default=None,
+                        help="Tokenizer vocab JSON. None=UGF default; the English-vocab "
+                             "baseline English arm uses wordlist/vocab_english_40k.json. "
+                             "MUST match the checkpoint's vocab_size.")
     args = parser.parse_args()
 
     torch.manual_seed(args.seed)
@@ -120,8 +124,9 @@ def main():
         items = items[: args.limit]
     print(f"Benchmark: {len(items)} items from {args.bench}")
 
-    tokenizer = UGFTokenizer()
-    print(f"Loading reasoner v2 from {args.reasoner}...")
+    tokenizer = UGFTokenizer(vocab_path=args.vocab_path)
+    print(f"Tokenizer: {tokenizer.vocab_size} tokens (vocab_path={args.vocab_path or 'UGF default'})")
+    print(f"Loading reasoner from {args.reasoner}...")
     ckpt = torch.load(args.reasoner, map_location="cpu", weights_only=False)
     config = ReasonerConfig(**ckpt["config"]) if isinstance(ckpt["config"], dict) else ckpt["config"]
     reasoner = Reasoner(config)
