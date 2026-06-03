@@ -346,7 +346,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
 <nav class="toc">
   <div class="brand">
     <b>Compression Project</b>
-    <span>Progress report · Updated May 16, 2026</span>
+    <span>Progress report · Updated June 2, 2026</span>
   </div>
   <h2>Contents</h2>
   <ol>
@@ -369,6 +369,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
     <li><a href="#translator-v2">Closing the Translator gap</a></li>
     <li><a href="#rl-target">Choosing the RL reference target</a></li>
     <li><a href="#rl-selfplay">The RL attempt — and why self-play failed</a></li>
+    <li><a href="#english-baseline">Is it the vocabulary? An English baseline</a></li>
     <li><a href="#program">A research program</a></li>
   </ol>
 </nav>
@@ -379,7 +380,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
   <div class="eyebrow">Compression project · Progress report · University of Idaho</div>
   <h1>Can a thousand common words do philosophy?</h1>
   <p class="sub">A from-scratch language model, a 1,000-word vocabulary, and the surprising places it broke. A live progress report — content originated as an RCDS presentation on May 11, 2026, and continues to grow.</p>
-  <p class="meta">Bert Baumgaertner · with Claude · originally presented to Research Computing &amp; Data Services on May 11, 2026 · last updated May 22, 2026</p>
+  <p class="meta">Bert Baumgaertner · with Claude · originally presented to Research Computing &amp; Data Services on May 11, 2026 · last updated June 2, 2026</p>
 </header>
 
 <!-- ============================================================== -->
@@ -1298,8 +1299,62 @@ Up Goer Five appears expressively adequate for practical philosophical reasoning
 
 
 <!-- ============================================================== -->
-<section id="program">
+<section id="english-baseline">
 <span class="sect-num">§ 20</span>
+<h2>Is it the vocabulary? A matched English baseline says no</h2>
+
+<p>There is one objection this whole project has to answer, and until now we could only answer it halfway. Every time we showed that the deficit is the <em>model</em> and not the <em>thousand words</em>, we leaned on the same evidence: the teacher, told to write in Up Goer Five, does just fine. But the teacher is a 120-billion-parameter model. That a model that large is comfortable in UGF doesn't prove that a 200-million-parameter model's trouble is vocabulary-independent. Maybe the restriction only bites when you're small — when you have no spare capacity for the longer, clumsier derivations a thousand words sometimes force.</p>
+
+<p>The only way to settle it is to change the vocabulary <em>at the small model's own scale</em>, holding everything else fixed. So we did. We trained a <strong>second 200M model from scratch</strong> — same prompts, same teachers, same recipe, the same transformer down to the parameter — and changed exactly one thing: instead of the ~1,000-word UGF vocabulary, it gets a <strong>~40,000-word English vocabulary</strong>. Eleven times the words, fully fluent English, everything else identical.</p>
+
+<div class="callout">
+<span class="label">The one variable</span>
+Two from-scratch 200M models. Identical transformer block — 192,971,776 parameters, to the digit. The <em>only</em> difference is the size of the word list: 3,643 UGF tokens vs 40,027 English tokens. If the restricted vocabulary is what breaks the model, the English model should not break.
+</div>
+
+<p>It broke in exactly the same place. On the stress benchmark — the prompts that first exposed the deficit — the two models score <strong>identically</strong> on engagement: 0.07 and 0.07, a difference of zero. The match holds on the other benchmarks too. The English model, free to use eleven times the vocabulary, does the same thing the UGF model does: it writes a fluent, well-organized little essay about something other than what was asked.</p>
+
+<table class="numbers">
+<tr class="head"><th>Engagement (0–4)</th><th>UGF model</th><th>English model</th><th>Δ</th></tr>
+<tr><td>Stress (the deficit bench)</td><td>0.07</td><td>0.07</td><td class="strong">+0.00</td></tr>
+<tr><td>Holdout</td><td>1.68</td><td>1.61</td><td class="neg">−0.07</td></tr>
+<tr><td>Counterexample-patched</td><td>0.30</td><td>0.26</td><td class="neg">−0.04</td></tr>
+</table>
+
+<p>Those deltas are all within judging noise. And the richer vocabulary didn't even buy more <em>substance</em>: across the three benchmarks the substance scores come out a wash, with no consistent edge to the English model. At the teacher's scale, writing in UGF costs you some philosophical depth; at the student's scale, the model can't turn the extra words into extra work. The constraint that matters at 200M isn't the size of the dictionary.</p>
+
+<div class="example">
+<span class="label">Same prompt, both models · stress bench</span>
+<p class="prompt">Walk me through what makes something necessarily true versus only sometimes true. Use a concrete example for each.</p>
+<p style="margin:12px 0 4px"><strong>UGF model →</strong></p>
+<div class="resp bad">… a strong feeling of being sure comes from the mind. It may be a hope, a fear, a thing we do again and again … other people watch what we say and may listen to their words too, which can make the first person feel more safe …</div>
+<p style="margin:12px 0 4px"><strong>English model →</strong></p>
+<div class="resp bad">… you have gathered enough pieces of information that, on their own, give them a solid picture of how the world works … the more you reveal, the richer the network becomes, and the less you can produce insights that are not needed …</div>
+<p class="scores">Neither touches necessity vs. contingency. Both fluent, both about something else. Engagement: 0 and 0.</p>
+</div>
+
+<div class="callout good">
+<span class="label">Verdict — vocabulary exonerated</span>
+The prompt-attention deficit travels to a full English vocabulary unchanged. So the thousand-word restriction is not what breaks the model — the bottleneck is the model's capacity and the form of its training, not the size of its vocabulary. That is the result the rest of the project predicted, and it <em>strengthens</em> the headline claim: Up Goer Five is expressively adequate relative to the thing that actually limits a small reasoner.
+</div>
+
+<p>This is the cleanest of the upstream tests, and it closes the vocabulary question at this scale. What it leaves open is the <em>size</em> question — whether the deficit is a wall that more parameters would dissolve. That is the very first program in the next section.</p>
+
+<details class="tech">
+<summary>How the matched pair was built and judged</summary>
+<div class="body">
+<p><strong>Models.</strong> Both fresh 200M, v1 recipe (100K pretrain + 30K SFT). Transformer block identical; with tied embeddings the vocabulary enters the parameter count once, so totals are ~197M (UGF) vs ~234M (English). Configs <code>configs/reasoner_{ugf,en}_n_{pretrain,sft}.yaml</code>; both trained cleanly, no overfitting (pretrain validation plateaued on both arms).</p>
+<p><strong>Corpus.</strong> 400K matched <code>(topic, content_type)</code> prompts; the English arm answers the same prompts with the same teacher per prompt, in unrestricted English (Unicode typography normalized to ASCII so the 40K word-list isn't unfairly penalized). The fresh UGF arm independently reproduces the v1 deficit (stress engagement 0.07 ≈ v1's 0.13) — a check that the comparison is sound.</p>
+<p><strong>Judging.</strong> 500 generations, blinded, scored in <em>isolation</em> (UGF and English never in the same batch, so cross-register contrast can't depress the restricted arm) by 14 parallel Claude subagents on engagement / coherence / substance. Pipeline <code>eval/{prepare,aggregate}_enbase_judge*.py</code>; writeup <code>docs/english-baseline-result-2026-06-02.md</code>.</p>
+</div>
+</details>
+
+</section>
+
+
+<!-- ============================================================== -->
+<section id="program">
+<span class="sect-num">§ 21</span>
 <h2>This is data point one in a research program</h2>
 
 <p>It is tempting to read compression-v1 as a self-contained result: did UGF work? Roughly yes, with calibrated exceptions. But the more useful framing is that we now have one data point in three directions of inquiry, each of which is itself a research program. None of the three has been done. Each is, in its own way, the kind of thing that compression-v1 was meant to make legible.</p>
@@ -1334,7 +1389,7 @@ The compression-v1 paper is the proof of concept. The interesting science is wha
 <p><strong>Acknowledgements.</strong> Research Computing &amp; Data Services, University of Idaho. fortyfive HPC. The MindRouter institutional LLM gateway. The <code>cx-bot</code> counterexample corpus. Bert Baumgaertner (PI). Claude (research collaborator). All philosophical errors are mine.</p>
 <p><strong>Code &amp; data.</strong> <a href="https://github.com/bertybaums/compression">github.com/bertybaums/compression</a> · all reports in <code>eval/results/</code> · this progress report's source in <code>docs/index.html</code>.</p>
 <p><strong>Related project.</strong> Munroe, R. <em>Thing Explainer</em>. Houghton Mifflin Harcourt, 2015.</p>
-<p>· University of Idaho · College of Letters, Arts, and Social Sciences · Last updated May 16, 2026 ·</p>
+<p>· University of Idaho · College of Letters, Arts, and Social Sciences · Last updated June 2, 2026 ·</p>
 </footer>
 
 </main>
