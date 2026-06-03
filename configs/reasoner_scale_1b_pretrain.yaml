@@ -1,0 +1,53 @@
+# Scale study — 1.03B pretrain (Phase 1). High end of the capacity curve.
+# docs/scale-study-design-2026-06-03.md
+#
+# IDENTICAL to v1 (configs/reasoner.yaml) except model dims, batch split, output dirs.
+# Params: d_model 2048 x 22 layers ~= 1.03B (transformer ~1021M + embed 7.46M).
+# batch_size 4 / grad_accum 16 (vs v1's 8/8) keeps effective batch = 64 while
+# halving peak activation memory -- 1B at seq 512 fits an A6000 (48GB) with room;
+# NB gradient_checkpointing is a no-op in this codebase, so memory = full activations.
+
+model:
+  d_model: 2048
+  n_layers: 22
+  n_heads: 16
+  n_kv_heads: 8            # GQA: 2 query heads per KV head; head_dim 128
+  d_ff: 5504
+  max_seq_len: 512
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  batch_size: 4
+  grad_accum_steps: 16     # effective batch = 64 (matches v1 + the 52M arm)
+  max_lr: 3.0e-4
+  min_lr: 3.0e-5
+  weight_decay: 0.1
+  warmup_steps: 1000
+  max_steps: 100000
+  gradient_checkpointing: true
+  use_amp: true
+
+  log_interval: 50
+  save_interval: 5000
+  eval_interval: 1000
+  sample_probe_every_n_evals: 5
+  max_checkpoints: 3
+
+  checkpoint_dir: checkpoints/reasoner_scale_1b_pretrain
+  log_dir: logs/reasoner_scale_1b_pretrain
+  sample_log_dir: logs/reasoner_scale_1b_pretrain/samples
+
+data:
+  train_paths:
+    - corpus/processed/ugf_reasoning.jsonl
+    - corpus/processed/ugf_reasoning_cxbot.jsonl
+    - corpus/processed/ugf_reasoning_misccorpora.jsonl
+  parallel_train_paths:
+    - corpus/processed/parallel_corpus.jsonl
+  per_source_val: true
+  sample_prompts_path: eval/sets/sample_prompts.jsonl
+  dataset_type: reasoning
+  num_workers: 4
+  heldout_ids_path: corpus/processed/heldout_ids.json
+  random_val_fraction: 0.05

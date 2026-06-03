@@ -1,0 +1,52 @@
+# Scale study — 52M pretrain (Phase 1). Low end of the capacity curve.
+# docs/scale-study-design-2026-06-03.md
+#
+# IDENTICAL to v1 (configs/reasoner.yaml) except the model dims and output dirs.
+# The scale study varies ONLY model size (52M / 197M=v1 / 1.03B) on the same 2M
+# corpus + v1 recipe. UGF vocab held constant (no tokenizer section -> UGFTokenizer
+# default). Params: d_model 768 x 8 layers ~= 52M (transformer ~49.5M + embed 2.8M).
+
+model:
+  d_model: 768
+  n_layers: 8
+  n_heads: 12
+  n_kv_heads: 3            # GQA: 4 query heads per KV head
+  d_ff: 2048
+  max_seq_len: 512
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  batch_size: 8
+  grad_accum_steps: 8      # effective batch = 64 (matches v1 + the 1B arm)
+  max_lr: 3.0e-4
+  min_lr: 3.0e-5
+  weight_decay: 0.1
+  warmup_steps: 1000
+  max_steps: 100000
+  gradient_checkpointing: true
+  use_amp: true
+
+  log_interval: 50
+  save_interval: 5000
+  eval_interval: 1000
+  sample_probe_every_n_evals: 5
+  max_checkpoints: 3
+
+  checkpoint_dir: checkpoints/reasoner_scale_50m_pretrain
+  log_dir: logs/reasoner_scale_50m_pretrain
+  sample_log_dir: logs/reasoner_scale_50m_pretrain/samples
+
+data:
+  train_paths:
+    - corpus/processed/ugf_reasoning.jsonl
+    - corpus/processed/ugf_reasoning_cxbot.jsonl
+    - corpus/processed/ugf_reasoning_misccorpora.jsonl
+  parallel_train_paths:
+    - corpus/processed/parallel_corpus.jsonl
+  per_source_val: true
+  sample_prompts_path: eval/sets/sample_prompts.jsonl
+  dataset_type: reasoning
+  num_workers: 4
+  heldout_ids_path: corpus/processed/heldout_ids.json
+  random_val_fraction: 0.05
