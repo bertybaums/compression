@@ -39,7 +39,10 @@ def main():
                 line = line.strip()
                 if not line:
                     continue
-                s = json.loads(line)
+                try:
+                    s = json.loads(line)
+                except json.JSONDecodeError:
+                    continue  # skip stray non-JSON lines (e.g. an agent's summary)
                 key = (m["arm"], m["bench"]); iid = s.get("id", "")
                 if iid in seen[key]:
                     continue

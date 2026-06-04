@@ -1,0 +1,170 @@
+[
+  {
+    "batch": "batch_001",
+    "arm": "50m",
+    "bench": "stress",
+    "n": 30,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_001.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_001.jsonl"
+  },
+  {
+    "batch": "batch_002",
+    "arm": "50m",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_002.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_002.jsonl"
+  },
+  {
+    "batch": "batch_003",
+    "arm": "50m",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_003.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_003.jsonl"
+  },
+  {
+    "batch": "batch_004",
+    "arm": "50m",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_004.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_004.jsonl"
+  },
+  {
+    "batch": "batch_005",
+    "arm": "50m",
+    "bench": "holdout",
+    "n": 35,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_005.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_005.jsonl"
+  },
+  {
+    "batch": "batch_006",
+    "arm": "50m",
+    "bench": "cx_patched",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_006.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_006.jsonl"
+  },
+  {
+    "batch": "batch_007",
+    "arm": "50m",
+    "bench": "cx_patched",
+    "n": 5,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_007.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_007.jsonl"
+  },
+  {
+    "batch": "batch_008",
+    "arm": "200m",
+    "bench": "stress",
+    "n": 30,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_008.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_008.jsonl"
+  },
+  {
+    "batch": "batch_009",
+    "arm": "200m",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_009.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_009.jsonl"
+  },
+  {
+    "batch": "batch_010",
+    "arm": "200m",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_010.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_010.jsonl"
+  },
+  {
+    "batch": "batch_011",
+    "arm": "200m",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_011.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_011.jsonl"
+  },
+  {
+    "batch": "batch_012",
+    "arm": "200m",
+    "bench": "holdout",
+    "n": 35,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_012.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_012.jsonl"
+  },
+  {
+    "batch": "batch_013",
+    "arm": "200m",
+    "bench": "cx_patched",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_013.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_013.jsonl"
+  },
+  {
+    "batch": "batch_014",
+    "arm": "200m",
+    "bench": "cx_patched",
+    "n": 5,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_014.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_014.jsonl"
+  },
+  {
+    "batch": "batch_015",
+    "arm": "1b",
+    "bench": "stress",
+    "n": 30,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_015.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_015.jsonl"
+  },
+  {
+    "batch": "batch_016",
+    "arm": "1b",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_016.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_016.jsonl"
+  },
+  {
+    "batch": "batch_017",
+    "arm": "1b",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_017.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_017.jsonl"
+  },
+  {
+    "batch": "batch_018",
+    "arm": "1b",
+    "bench": "holdout",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_018.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_018.jsonl"
+  },
+  {
+    "batch": "batch_019",
+    "arm": "1b",
+    "bench": "holdout",
+    "n": 35,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_019.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_019.jsonl"
+  },
+  {
+    "batch": "batch_020",
+    "arm": "1b",
+    "bench": "cx_patched",
+    "n": 45,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_020.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_020.jsonl"
+  },
+  {
+    "batch": "batch_021",
+    "arm": "1b",
+    "bench": "cx_patched",
+    "n": 5,
+    "input": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_input_scale/batch_021.jsonl",
+    "output": "/Users/bbaum/Documents/_RCDS/compression/eval/judge_output_scale/batch_021.jsonl"
+  }
+]

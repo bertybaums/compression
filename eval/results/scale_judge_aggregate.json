@@ -1,0 +1,57 @@
+{
+  "means": {
+    "50m/stress": {
+      "engagement": 0.067,
+      "coherence": 0.6,
+      "substance": 0.1
+    },
+    "50m/holdout": {
+      "engagement": 1.288,
+      "coherence": 2.006,
+      "substance": 1.771
+    },
+    "50m/cx_patched": {
+      "engagement": 0.38,
+      "coherence": 1.24,
+      "substance": 0.64
+    },
+    "200m/stress": {
+      "engagement": 0,
+      "coherence": 0.233,
+      "substance": 0
+    },
+    "200m/holdout": {
+      "engagement": 1.635,
+      "coherence": 1.818,
+      "substance": 1.276
+    },
+    "200m/cx_patched": {
+      "engagement": 0.5,
+      "coherence": 0.88,
+      "substance": 0.22
+    },
+    "1b/stress": {
+      "engagement": 0.1,
+      "coherence": 0.3,
+      "substance": 0.067
+    },
+    "1b/holdout": {
+      "engagement": 1.735,
+      "coherence": 2.412,
+      "substance": 2.029
+    },
+    "1b/cx_patched": {
+      "engagement": 0.22,
+      "coherence": 1.98,
+      "substance": 1.12
+    }
+  },
+  "stress_engagement_by_size": {
+    "50m": 0.067,
+    "200m": 0,
+    "1b": 0.1
+  },
+  "delta_1b_minus_200m": 0.1,
+  "spread": 0.1,
+  "verdict": "CAPACITY EXONERATED -- stress engagement is flat across sizes (52M 0.07 / 200M 0.00 / 1B 0.10; spread 0.10). A 20x model trained the same way fails the same way -> the deficit is training-form. Caveat: the 1B is undertrained at the iso-step budget (val above 200M), so a compute-optimal 1B is the cleaner follow-up before calling capacity fully dead."
+}
