@@ -346,7 +346,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
 <nav class="toc">
   <div class="brand">
     <b>Compression Project</b>
-    <span>Progress report · Updated June 2, 2026</span>
+    <span>Progress report · Updated June 3, 2026</span>
   </div>
   <h2>Contents</h2>
   <ol>
@@ -370,6 +370,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
     <li><a href="#rl-target">Choosing the RL reference target</a></li>
     <li><a href="#rl-selfplay">The RL attempt — and why self-play failed</a></li>
     <li><a href="#english-baseline">Is it the vocabulary? An English baseline</a></li>
+    <li><a href="#scale">Is it the size? A parameter scan</a></li>
     <li><a href="#program">A research program</a></li>
   </ol>
 </nav>
@@ -380,7 +381,7 @@ footer code { background: var(--code); padding: 1px 5px; border-radius: 3px; fon
   <div class="eyebrow">Compression project · Progress report · University of Idaho</div>
   <h1>Can a thousand common words do philosophy?</h1>
   <p class="sub">A from-scratch language model, a 1,000-word vocabulary, and the surprising places it broke. A live progress report — content originated as an RCDS presentation on May 11, 2026, and continues to grow.</p>
-  <p class="meta">Bert Baumgaertner · with Claude · originally presented to Research Computing &amp; Data Services on May 11, 2026 · last updated June 2, 2026</p>
+  <p class="meta">Bert Baumgaertner · with Claude · originally presented to Research Computing &amp; Data Services on May 11, 2026 · last updated June 3, 2026</p>
 </header>
 
 <!-- ============================================================== -->
@@ -1353,8 +1354,48 @@ The prompt-attention deficit travels to a full English vocabulary unchanged. So 
 
 
 <!-- ============================================================== -->
-<section id="program">
+<section id="scale">
 <span class="sect-num">§ 21</span>
+<h2>Is it the size? A parameter scan</h2>
+
+<p>The English baseline ruled out the words. That leaves the other obvious suspect on the capability side: maybe 200M parameters is just too few, and a bigger model would climb the wall. So we ran the matching experiment on the <em>size</em> axis — same vocabulary, same corpus, same recipe, only the parameter count changes.</p>
+
+<p>We trained two more models from scratch and bracketed the original 200M by <strong>20× end to end</strong>: a <strong>52M</strong> model at the bottom and a <strong>1.03B</strong> model at the top. The 200M sits in the middle, re-scored through the same blinded pipeline so all three are judged identically.</p>
+
+<table class="numbers">
+<tr class="head"><th>Engagement (0–4)</th><th>52M</th><th>200M</th><th>1B</th></tr>
+<tr><td>Stress (out-of-distribution — the deficit)</td><td>0.07</td><td>0.00</td><td>0.10</td></tr>
+<tr><td>Holdout (in-distribution)</td><td>1.29</td><td>1.64</td><td class="pos">1.74</td></tr>
+</table>
+
+<p>On the stress prompts — the out-of-distribution forms that expose the deficit — engagement is <strong>flat along the floor</strong>: 0.07, 0.00, 0.10, across a twentyfold span. Twenty times the parameters does not buy the model out of the deficit.</p>
+
+<div class="callout warn">
+<span class="label">But the scan is not inert</span>
+On the <em>in-distribution</em> holdout prompts the 1B is clearly the best reasoner of the three — it tops the 200M on engagement, coherence, and substance. So the capacity is real and the model uses it. It just spends all of it reasoning <em>within</em> the distribution it was trained on, and none of it on recognizing what an <em>unfamiliar</em> prompt is asking.
+</div>
+
+<p>That is the sharpest localization of the deficit yet: it is a failure of <strong>input-recognition under distribution shift</strong>, orthogonal to both the vocabulary and the parameter budget. A bigger model is a better reasoner; it is not a better <em>reader of unfamiliar prompts</em>.</p>
+
+<div class="callout good">
+<span class="label">Where this leaves the hunt</span>
+Four suspects, four eliminations. The deficit is <em>not</em> the corpus quality (the model sits below its own training data), <em>not</em> a post-training-objective problem (RL worse, preference-tuning twice at parity), <em>not</em> the restricted vocabulary (§20), and <em>not</em> raw capacity (this scan). By elimination, what is left is the <strong>form</strong> of the training corpus — the short-prompt→long-essay shape the model learned. That is the next, and most pointed, experiment.
+</div>
+
+<details class="tech">
+<summary>The scan, and an honest caveat about the 1B</summary>
+<div class="body">
+<p><strong>Setup.</strong> 52M (d_model 768 / 8 layers), 200M (= the v1 model), 1.03B (d_model 2048 / 22 layers); same 2M-trace corpus and v1 recipe (100K pretrain + 30K SFT), only model size varies. Param counts verified at 52,356,096 / 196,702,208 / 1,028,341,760. Blinded isolation judging, 750 generations.</p>
+<p><strong>Caveat.</strong> At a fixed 100K-step / ~580M-token budget, a 1B model is well short of compute-optimal (its held-out perplexity sits just above the 200M's), so it is undertrained for its size. The clean claim is therefore the budget-matched one: <em>at a matched training budget</em>, 20× parameters does not fix the deficit. The in-distribution win guards against "it was just undertrained" — a model too undertrained to show capacity would not have beaten the 200M on holdout. A compute-optimal 1B is the rigorous follow-up. Full writeup: <code>docs/scale-study-result-2026-06-03.md</code>.</p>
+</div>
+</details>
+
+</section>
+
+
+<!-- ============================================================== -->
+<section id="program">
+<span class="sect-num">§ 22</span>
 <h2>This is data point one in a research program</h2>
 
 <p>It is tempting to read compression-v1 as a self-contained result: did UGF work? Roughly yes, with calibrated exceptions. But the more useful framing is that we now have one data point in three directions of inquiry, each of which is itself a research program. None of the three has been done. Each is, in its own way, the kind of thing that compression-v1 was meant to make legible.</p>
@@ -1389,7 +1430,7 @@ The compression-v1 paper is the proof of concept. The interesting science is wha
 <p><strong>Acknowledgements.</strong> Research Computing &amp; Data Services, University of Idaho. fortyfive HPC. The MindRouter institutional LLM gateway. The <code>cx-bot</code> counterexample corpus. Bert Baumgaertner (PI). Claude (research collaborator). All philosophical errors are mine.</p>
 <p><strong>Code &amp; data.</strong> <a href="https://github.com/bertybaums/compression">github.com/bertybaums/compression</a> · all reports in <code>eval/results/</code> · this progress report's source in <code>docs/index.html</code>.</p>
 <p><strong>Related project.</strong> Munroe, R. <em>Thing Explainer</em>. Houghton Mifflin Harcourt, 2015.</p>
-<p>· University of Idaho · College of Letters, Arts, and Social Sciences · Last updated June 2, 2026 ·</p>
+<p>· University of Idaho · College of Letters, Arts, and Social Sciences · Last updated June 3, 2026 ·</p>
 </footer>
 
 </main>
