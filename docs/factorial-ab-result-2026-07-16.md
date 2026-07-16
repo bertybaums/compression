@@ -81,6 +81,60 @@ constraint sits upstream of vocabulary in the corpus itself.
 That is the case for ARM C. It is the first arm in which conditioning on the
 prompt can pay off at all.
 
+## The sharpest result: the model is a 380-way bucket classifier
+
+ARM B's holdout bench (170 items) was judged in full. The aggregate — engagement
+**1.38** against ARM A's 1.68 — hides the actual finding. Broken out by content
+type, the distribution is **bimodal with nothing in between**:
+
+| content type | n | engagement | present in SFT? | source |
+|---|---:|---:|---|---|
+| argument_analysis | 9 | **3.33** | yes (80,256 ex) | main |
+| thought_experiment | 7 | **3.29** | yes (78,430 ex) | main |
+| chain_of_thought | 14 | **3.29** | yes (81,428 ex) | main |
+| socratic_dialogue | 15 | **3.13** | yes (80,699 ex) | main |
+| concept_explanation | 25 | **3.04** | yes (79,187 ex) | main |
+| conditional_analysis | 27 | **0.22** | **no — pretraining only** | misccorpora |
+| analogical_analysis | 23 | **0.13** | **no — pretraining only** | misccorpora |
+| counterexample_analysis | 50 | **0.06** | **no — pretraining only** | cx-bot |
+| **SFT types** | **70** | **3.17** | | |
+| **pretraining-only types** | **100** | **0.12** | | |
+| | | **gap +3.05** | | |
+
+Verified: both SFT corpora (`ugf_n_sft_400k.jsonl`, `ugf_form_n.jsonl`) contain
+**only** the five main content types. The other three appear **only in the
+pretraining corpora** (`ugf_reasoning_cxbot.jsonl`: 4,266 counterexample_analysis;
+`ugf_reasoning_misccorpora.jsonl`: 951 analogical + 869 conditional), as raw
+`ugf_text` with no prompt→response pairing.
+
+**Read what this says.** Inside its SFT buckets the model is *near teacher-quality*
+— 3.17 of 4, not a deficient model at all. Outside them it scores 0.12, a floor.
+There is no gradient between the two regimes. Pretraining exposure to a reasoning
+type confers **zero** ability to answer a prompt of that type.
+
+So "the prompt-attention deficit" is a misnomer, and the misnomer has been steering
+the project. The model does not have weak prompt-attention. **It learned a 380-way
+bucket classifier plus a per-bucket essay generator** — which is exactly the optimal
+policy for a corpus of 380 prompts each mapped to ~1,053 different responses. Under
+that corpus, reading the prompt beyond bucket-ID is not merely unrewarded, it is
+*wasted capacity*. The model is not failing. It learned precisely what it was paid
+to learn.
+
+That reframes every prior null. Capacity, vocabulary, DPO, RL and form were all
+attempts to make a bucket classifier read prompts. None of them changed the thing
+that made bucket classification optimal.
+
+**Honest caveat.** SFT-presence is confounded with *source*: the three absent types
+come from cx-bot and misccorpora ingests, the five present types from the main
+corpus. It is not impossible that cx-bot/misccorpora prompts are simply harder. Two
+things argue against that reading: (a) the three auxiliary types come from **two
+different ingest pipelines** yet score 0.06 / 0.13 / 0.22 — a shared floor, not
+source-specific difficulty; (b) 0.12 is not "harder", it is *absent* — the model is
+not scoring 1.5 on a stretch, it is producing nothing relevant at all. A clean
+disambiguation is cheap and worth doing: hold out one of the five main types from an
+SFT run and see whether it falls to the same floor. That is a direct test of the
+bucket account and it does not need new generation.
+
 ## The deficit is out-of-distribution, not a broken model
 
 ARM A's June scores across benches locate the failure precisely:

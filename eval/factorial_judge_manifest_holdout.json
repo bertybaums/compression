@@ -1,0 +1,38 @@
+[
+  {
+    "batch": "batch_001",
+    "arm": "form_n",
+    "bench": "holdout",
+    "n": 45,
+    "src": "eval/results/factorial_form_n_holdout_20260716_070441.jsonl",
+    "input": "eval/judge_input_factorial_holdout/batch_001.jsonl",
+    "output": "eval/judge_output_factorial_holdout/batch_001.jsonl"
+  },
+  {
+    "batch": "batch_002",
+    "arm": "form_n",
+    "bench": "holdout",
+    "n": 35,
+    "src": "eval/results/factorial_form_n_holdout_20260716_070441.jsonl",
+    "input": "eval/judge_input_factorial_holdout/batch_002.jsonl",
+    "output": "eval/judge_output_factorial_holdout/batch_002.jsonl"
+  },
+  {
+    "batch": "batch_003",
+    "arm": "form_n",
+    "bench": "holdout",
+    "n": 45,
+    "src": "eval/results/factorial_form_n_holdout_20260716_070441.jsonl",
+    "input": "eval/judge_input_factorial_holdout/batch_003.jsonl",
+    "output": "eval/judge_output_factorial_holdout/batch_003.jsonl"
+  },
+  {
+    "batch": "batch_004",
+    "arm": "form_n",
+    "bench": "holdout",
+    "n": 45,
+    "src": "eval/results/factorial_form_n_holdout_20260716_070441.jsonl",
+    "input": "eval/judge_input_factorial_holdout/batch_004.jsonl",
+    "output": "eval/judge_output_factorial_holdout/batch_004.jsonl"
+  }
+]
