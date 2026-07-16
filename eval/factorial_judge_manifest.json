@@ -1,0 +1,20 @@
+[
+  {
+    "batch": "batch_001",
+    "arm": "ugf_n",
+    "bench": "stress",
+    "n": 30,
+    "src": "eval/results/enbase_ugf_n_stress_20260602_081559.jsonl",
+    "input": "eval/judge_input_factorial/batch_001.jsonl",
+    "output": "eval/judge_output_factorial/batch_001.jsonl"
+  },
+  {
+    "batch": "batch_002",
+    "arm": "form_n",
+    "bench": "stress",
+    "n": 30,
+    "src": "eval/results/factorial_form_n_stress_20260716_070441.jsonl",
+    "input": "eval/judge_input_factorial/batch_002.jsonl",
+    "output": "eval/judge_output_factorial/batch_002.jsonl"
+  }
+]
