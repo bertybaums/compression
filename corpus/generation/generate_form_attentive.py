@@ -5,7 +5,9 @@ Option B: POINTED prompts + prompt-attentive responses. For each matched prompt 
 generate a UGF response that must engage the SPECIFIC question (restate it, work it
 on a concrete case, raise and meet the specific objection), not a generic essay.
 Same prompts/teachers as the essay arm (matched_prompts_400k.jsonl), routed to the
-same teacher per prompt; length-matched to the essay arm's ~317-word median.
+same teacher per prompt. Responses are generated NATURAL (no length instruction);
+length is measured per record and gated downstream by check_length_match.py --
+see the length-policy note below and the design doc's July 16 second amendment.
 
 Reuses generate_reasoning's UGF system prompt + few-shot + validate/retry, and
 generate_english_parallel's matched routing + producer-consumer + shared rate
@@ -88,19 +90,18 @@ POINTED_CONTENT_TYPES = {
     ),
 }
 
-# Length control -- the whole point of the clean design. The May-24 pilot was
-# confounded by length (form responses median ~49w against the essays' ~317w), so
-# the form arm must track the essay arm's length distribution. Two halves, per
-# docs/form-retrain-clean-design-2026-06-03.md: by instruction (here) and verified
-# post-hoc against the essay arm before training (n_words is recorded per record so
-# that check needs no re-read). Default target is the essay arm's median; pass
-# --target-words if a fresh measurement of ugf_n_sft_400k.jsonl disagrees.
-TARGET_WORDS_DEFAULT = 317
-LENGTH_CLAUSE = (
-    " Make the whole answer about {target} words long: a full, developed answer at "
-    "that length, not a short note and not a long piece."
-)
-
+# Length policy (decided July 16, 2026; see the design doc's second amendment).
+# The form arm is generated NATURAL -- no word-target instruction -- for three
+# reasons: (1) in a restricted vocabulary, length is partly constitutive of form
+# (prompt-specific engagement costs periphrasis under ~1K words -- the Sheffer
+# point), so clamping length conditions on a mediator and can suppress the very
+# treatment under test; (2) the essay arm was generated with no length
+# instruction, so instructing only this arm would make the arms differ in two
+# ways; (3) the pointed prompt is stored as the training prompt, so a length
+# clause would become a systematic prompt-side artifact absent at eval.
+# Length is MEASURED instead (n_words per record, live distribution below) and
+# any dilation is handled at training time (token-budget equalization), gated by
+# check_length_match.py. The within-prompt dilation ratio is itself a result.
 _RATE_LIMITER: AsyncTokenBucket | None = None
 
 
@@ -151,11 +152,9 @@ async def api_call(session: aiohttp.ClientSession, messages: list[dict], teacher
     return None
 
 
-async def generate_one_form(session: aiohttp.ClientSession, a: dict, teacher: dict,
-                            target_words: int) -> dict | None:
+async def generate_one_form(session: aiohttp.ClientSession, a: dict, teacher: dict) -> dict | None:
     """Pointed-prompt, prompt-attentive UGF response with validate-and-retry."""
-    pointed = (POINTED_CONTENT_TYPES[a["content_type"]].format(topic=a["topic"])
-               + LENGTH_CLAUSE.format(target=target_words))
+    pointed = POINTED_CONTENT_TYPES[a["content_type"]].format(topic=a["topic"])
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
     for ex_user, ex_assistant in FEWSHOT_EXEMPLARS:   # UGF-compliance anchors
         messages.append({"role": "user", "content": ex_user})
@@ -173,8 +172,7 @@ async def generate_one_form(session: aiohttp.ClientSession, a: dict, teacher: di
         correction = (
             f"Your response contains words or symbols not in the allowed list: "
             f"{', '.join(repr(v) for v in violations[:15])}. "
-            f"Rewrite the entire response, keeping it about the same specific question and "
-            f"about {target_words} words long. Two "
+            f"Rewrite the entire response, keeping it about the same specific question. Two "
             f"fixes: (a) replace each disallowed word with a description using only allowed "
             f"words; (b) remove all markdown -- plain running prose only."
         )
@@ -245,7 +243,7 @@ async def main(args):
             except asyncio.QueueEmpty:
                 return
             try:
-                res = await generate_one_form(session, a, teacher, args.target_words)
+                res = await generate_one_form(session, a, teacher)
             except Exception as e:
                 print(f"  worker err ({teacher['id']}): {type(e).__name__}: {e}", flush=True)
                 res = None
@@ -269,26 +267,27 @@ async def main(args):
                     out_f.flush(); last_flush = done
                 if done - last_save >= 200:
                     stats["completed"] = len(completed)
-                    # Surface the length distribution live: a form arm drifting off the
-                    # essay arm's median re-introduces the very confound this run exists
-                    # to kill, and it is far cheaper to catch that now than after ~2 days.
+                    # Surface the natural length distribution live. This measures, it does
+                    # not enforce -- but a form arm collapsing to short turns (the May-24
+                    # failure) should be visible in minutes, not after ~2 days of spend.
+                    drift_txt = ""
                     if lengths:
                         stats["len_median"] = round(statistics.median(lengths), 1)
                         stats["len_mean"] = round(statistics.fmean(lengths), 1)
-                        stats["len_target"] = args.target_words
-                        stats["len_within_20pct"] = round(
-                            sum(1 for n in lengths
-                                if 0.8 * args.target_words <= n <= 1.2 * args.target_words)
-                            / len(lengths), 3)
+                        if args.reference_median:
+                            stats["len_drift_vs_ref"] = round(
+                                (stats["len_median"] - args.reference_median)
+                                / args.reference_median, 3)
+                            drift_txt = (f", drift vs essay median {args.reference_median}: "
+                                         f"{stats['len_drift_vs_ref']:+.1%}")
                     save_progress(Path(args.progress), completed, stats)
                     last_save = done
                     rate = done / (time.time() - t_start) * 60
                     print(f"  [{done}/{total}] ({done/total*100:.1f}%) compliant={stats['compliant']} "
                           f"non_compliant={stats['non_compliant']} failed={stats['failed']} "
                           f"{rate:.1f}/min "
-                          f"| words med={stats.get('len_median')} "
-                          f"(target {args.target_words}, "
-                          f"within20%={stats.get('len_within_20pct')})", flush=True)
+                          f"| words med={stats.get('len_median')}"
+                          f"{drift_txt}", flush=True)
             out_f.flush()
 
     connector = aiohttp.TCPConnector(limit=0)
@@ -314,7 +313,7 @@ if __name__ == "__main__":
     ap.add_argument("--output", required=True)
     ap.add_argument("--progress", required=True)
     ap.add_argument("--limit", type=int, default=None)
-    ap.add_argument("--target-words", type=int, default=TARGET_WORDS_DEFAULT,
-                    help="Word-length target for the form arm; must match the essay arm's "
-                         "median (measure ugf_n_sft_400k.jsonl rather than trusting the default).")
+    ap.add_argument("--reference-median", type=int, default=None,
+                    help="Essay arm's measured median word count (285 as of July 16, 2026), "
+                         "for live drift MONITORING only -- never injected into prompts.")
     asyncio.run(main(ap.parse_args()))
