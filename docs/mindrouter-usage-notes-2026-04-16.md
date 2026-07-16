@@ -34,6 +34,16 @@ token budget, content=null ~95% of the time), `Nemotron-3-Super-120b`
 (73% fail rate at concurrency 10, short outputs), `phi4-reasoning:14b`
 (41% compliance), `magistral:24b` (26% compliance).
 
+> **Resolution (June 5, 2026):** The `qwen3.5-122b` and `Nemotron-3-Super-120b` failures
+> above were a **parameterization** problem with our high-throughput setup, not model defects
+> (confirmed with the MindRouter operator). qwen3.5-122b's `content=null` came from a too-tight
+> `max_tokens` vs its verbose thinking — give it ample budget (or omit `max_tokens`; MindRouter
+> auto-sizes the response to the context window), or disable thinking for bulk work. Nemotron is
+> currently 1 GPU at ~6-way concurrency, so our 10-way runs overran it; keep concurrency ≤ 6.
+> Both are reliable workhorses when used correctly. These notes are kept as-is for the record —
+> please don't cite the "dropped"/failure-rate figures as model verdicts. See
+> `claude-projects/MINDROUTER-GUIDE.md`.
+
 ## Usage pattern
 
 - Async Python (aiohttp) client on the `fortyfive` login node.
