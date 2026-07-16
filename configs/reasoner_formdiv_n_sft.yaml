@@ -1,0 +1,75 @@
+# FORMDIV-N SFT (Phase 2) -- ARM C of the form x prompt-diversity factorial.
+#
+# Matched 1:1 with reasoner_form_n_sft.yaml (ARM B) and reasoner_ugf_n_sft.yaml
+# (ARM A). Same pretrain init, same vocab, same hyperparameters, same 30K steps.
+# The ONLY difference from ARM B is the training corpus:
+#   ARM B (form, generic prompts) : ugf_form_n.jsonl      -- 380 unique prompts
+#   ARM C (form, diverse prompts) : ugf_formdiv_n.jsonl   -- ~400K unique prompts
+#
+# Both arms use the SAME POINTED templates and the SAME form instructions; ARM C
+# merely fills the template's slot with a distinct specific case per example
+# instead of one of 76 recycled general topics. So:
+#   A vs B = response form      (at fixed prompt diversity)
+#   B vs C = prompt diversity   (at fixed response form)
+#
+# WHY ARM C EXISTS: docs/form-retrain-clean-design-2026-06-03.md, THIRD AMENDMENT.
+# Arms A and B carry 380 unique prompts across ~400K examples (~1,053 distinct
+# responses per prompt), so p(response|prompt) is ~unconditional within a topic
+# bucket and prompt-attention earns nothing in training loss. Every prior lever
+# (capacity, vocabulary, DPO, RL) was varied while this stayed fixed at 380. ARM C
+# is the first arm in which conditioning on the prompt can actually pay off.
+#
+# BEFORE TRAINING, verify the corpus is what this arm claims to be:
+#   python3 -m corpus.generation.audit_prompt_diversity corpus/processed/ugf_formdiv_n.jsonl
+# It must NOT be flagged prompt-uninformative. Arms A/B score 0.0009
+# prompt:example; ARM C is only a real treatment if it scores far higher (the
+# achieved ratio is printed by build_specific_assignments.py). If the case pool
+# saturated well short of 1.0 coverage, say so in the write-up -- the arm is still
+# valid at, say, 0.2 (a ~200x change), but the number must be reported, not assumed.
+#
+# Run:
+#   sbatch slurm/train_formdiv_n_sft.sbatch
+
+tokenizer:
+  vocab_path: wordlist/vocab_final.json   # UGF, 3,643 tokens
+
+model:
+  # MUST match the pretrain checkpoint architecture (loading those weights).
+  d_model: 1024
+  n_layers: 16
+  n_heads: 16
+  n_kv_heads: 4
+  d_ff: 3072
+  max_seq_len: 1024          # matched across arms
+  dropout: 0.0
+  tie_embeddings: true
+
+training:
+  batch_size: 8
+  grad_accum_steps: 8        # effective batch = 64
+  max_lr: 5.0e-5
+  min_lr: 5.0e-6
+  weight_decay: 0.05
+  warmup_steps: 500
+  max_steps: 30000           # identical to ARMS A and B
+  gradient_checkpointing: true
+  use_amp: true
+
+  log_interval: 50
+  save_interval: 5000
+  eval_interval: 500
+  sample_probe_every_n_evals: 4
+  max_checkpoints: 8
+
+  checkpoint_dir: checkpoints/reasoner_formdiv_n_sft
+  log_dir: logs/reasoner_formdiv_n_sft
+  sample_log_dir: logs/reasoner_formdiv_n_sft/samples
+
+data:
+  train_paths:
+    - corpus/processed/ugf_formdiv_n.jsonl
+  dataset_type: sft_plain
+  per_source_val: true
+  random_val_fraction: 0.10  # matched to ARMS A and B
+  sample_prompts_path: eval/sets/sample_prompts.jsonl
+  num_workers: 4
