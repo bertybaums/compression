@@ -2,8 +2,40 @@
 title: "Form-controlled retrain — the last lever (length-controlled, matched-pair)"
 date: June 3, 2026
 updated: July 16, 2026
-status: SIGNED OFF (July 16, 2026) — scope (A), existing essay control. Cleared to run.
+status: ON HOLD (July 16, 2026) — the form arm is ALREADY GENERATED (June 9), but a corpus audit shows this design cannot deliver its treatment as stated. Read the third amendment FIRST.
 ---
+
+> # THIRD AMENDMENT (July 16, 2026) — READ BEFORE RUNNING ANYTHING
+>
+> **Two discoveries, one of which voids the experiment as specified.**
+>
+> ## 1. The campaign is already done
+> `corpus/processed/ugf_form_n.jsonl` — **399,984 examples, generated June 9, 2026**, 97.4% UGF-compliant, word median 263. The "~2 days of MR generation" this doc budgets was already spent five weeks ago. Both arms exist on disk; only training + eval remain (~1 day each, parallel). Do not regenerate.
+>
+> ## 2. The corpus makes prompt-attention unlearnable — in BOTH arms
+> Audited July 16:
+>
+> | corpus | examples | unique prompts | repeats/prompt |
+> |---|---|---|---|
+> | `ugf_n_sft_400k.jsonl` (essay arm) | 400,000 | **380** | ~1,053 |
+> | `ugf_form_n.jsonl` (form arm) | 399,984 | **380** | ~1,053 |
+>
+> 380 = 76 topics × 5 content_types. Responses are ~all distinct (399,999/400,000 in the essay arm), so **each prompt maps to ~1,053 different responses**. `p(response | prompt)` is effectively unconditional *within* a bucket: the prompt identifies a topic bucket, not a target. Attending to prompt detail beyond bucket-ID earns the model **nothing** in training loss — so it doesn't learn to.
+>
+> Meanwhile the stress bench is 30 items, **30 unique, specific, multi-part prompts** ("Walk me through what makes something necessarily true versus only sometimes true. Use a concrete example for each."). That is the distribution shift: 380 memorizable buckets at SFT → novel prompts that must actually be read at eval. (The 2M pretraining corpus `ugf_reasoning.jsonl` is raw `ugf_text` with no prompts at all, so SFT is the only stage where prompt-conditioning could be learned.)
+>
+> **Why this voids the design.** §"Why this experiment" argues: *"a corpus of short-prompt→long-essay pairs never teaches the model to condition strongly on the specific prompt. A corpus whose form makes prompt-attention constitutive might."* But the form arm reuses the **same 76 topics** through 5 pointed templates — still 380 prompts, still ~1,053 repeats. The pointed templates change the *response* style; they do not put any specifics **into the prompt**. Worse, the topics are general subjects ("what makes a good reason for believing something"), so the template "Someone makes this exact case: {topic}" is a category error — the teacher must **invent** the specific case and then engage its own invention. Prompt-attention is therefore *not* constitutive in the form arm either. It is not merely un-taught; it is **unlearnable from this corpus**.
+>
+> **The likely reason every prior lever came out flat.** Capacity (52M/197M/1.03B), vocabulary (English baseline), DPO, and RL were all varied *while holding prompt diversity fixed at 380*. If prompt-uninformativeness is the binding constraint, every one of those controls was downstream of it — and flat results are exactly what you'd expect. The elimination chain never touched the live variable.
+>
+> ## Consequence for the decision rule
+> The pre-registered rule says form ≈ essay → *"the deficit looks like a deep property of short-prompt→long-essay distillation at this scale."* **Do not draw that conclusion from this pair.** A null here licenses only the narrower claim: *form-at-fixed-prompt-diversity (380 buckets) is not the fix.* Reading it as a structural limit of distillation would close the project's last lever on a confound.
+>
+> ## Revised path
+> - **A vs B — free, run now.** Both corpora exist. Train the two arms (identical recipe) and eval. Zero generation cost, ~1 day. Answers "does response form help at fixed prompt diversity?" under the **narrowed** interpretation above.
+> - **C — the untested lever: prompt informativeness.** Generate a corpus whose prompts *carry the specifics* (~400K distinct claims/cases/questions rather than 76 recycled topics), so conditioning on the prompt actually pays off in training loss. B vs C isolates diversity at fixed form. This is the hypothesis the audit promotes to first place.
+> - **Length note.** The existing form arm's median is 263 vs the essay arm's 285 → **−7.7%**, which trips the −5% short-side gate in `check_length_match.py`. Not the May-24 catastrophe (6.5× short), but handle it: token-equalize, or train on a pairwise length-matched subset, and report it. A fresh 2K natural pilot (killed early, July 16) independently reproduced this at −6.0%, so the drift is real, not sampling noise.
+> - **Re-examine May-24.** The old form corpus (`ugf_forms_corpus.jsonl`) has **2,858 unique prompts / 2,873 examples** — genuinely diverse. So the May-24 pilot varied form **and** prompt diversity **and** size **and** length simultaneously. Its "form is worse" reading is not safe either.
 
 > **Sign-off (July 16, 2026).** The three open choices in §"Open choices to confirm with Bert" are settled:
 >
