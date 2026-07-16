@@ -1,8 +1,19 @@
 ---
 title: "Form-controlled retrain — the last lever (length-controlled, matched-pair)"
 date: June 3, 2026
-status: design (pre-build), for Bert's sign-off on scope before the GPU/MR spend
+updated: July 16, 2026
+status: SIGNED OFF (July 16, 2026) — scope (A), existing essay control. Cleared to run.
 ---
+
+> **Sign-off (July 16, 2026).** The three open choices in §"Open choices to confirm with Bert" are settled:
+>
+> 1. **Scope: (A)** the matched-pair clean test (~400K prompt-attentive regeneration, both arms trained fresh, ~1 week).
+> 2. **Generation instruction:** design pass done — see the amendment below. A **length-control defect was found and fixed** before any spend.
+> 3. **Essay control: reuse the existing `ugf_n_sft_400k.jsonl`.** No fresh essay regeneration. It is the corpus v1 actually learned, and it costs no MR time; the teachers/run drift against a freshly-generated form arm is accepted as a small, noted confound.
+>
+> **Amendment — the length control was specified but not implemented.** §"Design" requires the form arm be length-matched "by instruction *and* verified post-hoc," and this is the confound that invalidated the May-24 pilot (form median ~49w vs essays ~317w). As built, `generate_form_attentive.py` did **neither**: the pointed templates asked only for "a full, developed answer" with no word target, and no word counts were recorded, so the post-hoc check was impossible. Running 400K generations that way risked re-confounding the experiment and rendering a null uninterpretable — the precise ambiguity this design exists to remove. Now fixed: an explicit word target in every pointed template (and in the UGF correction retry), `n_words` recorded per record, and the live length distribution (median / mean / % within 20% of target) written to the progress file and printed every 200 completions, so drift surfaces in minutes rather than after ~2 days of spend.
+>
+> **Pre-flight, still required:** `--target-words` defaults to 317 from this doc's prose. **Measure the essay arm's true median** (`corpus/processed/ugf_n_sft_400k.jsonl`) and pass the measured value; do not trust the default. The post-hoc distribution comparison against the essay arm remains a gate before either arm is trained.
 
 # Form-controlled retrain: the clean, length-controlled test
 

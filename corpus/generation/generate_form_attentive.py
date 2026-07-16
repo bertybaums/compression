@@ -25,6 +25,7 @@ Usage (fortyfive, in tmux, unbuffered + tee):
 import argparse
 import asyncio
 import json
+import statistics
 import sys
 import time
 from collections import Counter
@@ -87,7 +88,24 @@ POINTED_CONTENT_TYPES = {
     ),
 }
 
+# Length control -- the whole point of the clean design. The May-24 pilot was
+# confounded by length (form responses median ~49w against the essays' ~317w), so
+# the form arm must track the essay arm's length distribution. Two halves, per
+# docs/form-retrain-clean-design-2026-06-03.md: by instruction (here) and verified
+# post-hoc against the essay arm before training (n_words is recorded per record so
+# that check needs no re-read). Default target is the essay arm's median; pass
+# --target-words if a fresh measurement of ugf_n_sft_400k.jsonl disagrees.
+TARGET_WORDS_DEFAULT = 317
+LENGTH_CLAUSE = (
+    " Make the whole answer about {target} words long: a full, developed answer at "
+    "that length, not a short note and not a long piece."
+)
+
 _RATE_LIMITER: AsyncTokenBucket | None = None
+
+
+def word_count(text: str) -> int:
+    return len(text.split())
 
 
 async def api_call(session: aiohttp.ClientSession, messages: list[dict], teacher: dict) -> str | None:
@@ -133,9 +151,11 @@ async def api_call(session: aiohttp.ClientSession, messages: list[dict], teacher
     return None
 
 
-async def generate_one_form(session: aiohttp.ClientSession, a: dict, teacher: dict) -> dict | None:
+async def generate_one_form(session: aiohttp.ClientSession, a: dict, teacher: dict,
+                            target_words: int) -> dict | None:
     """Pointed-prompt, prompt-attentive UGF response with validate-and-retry."""
-    pointed = POINTED_CONTENT_TYPES[a["content_type"]].format(topic=a["topic"])
+    pointed = (POINTED_CONTENT_TYPES[a["content_type"]].format(topic=a["topic"])
+               + LENGTH_CLAUSE.format(target=target_words))
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
     for ex_user, ex_assistant in FEWSHOT_EXEMPLARS:   # UGF-compliance anchors
         messages.append({"role": "user", "content": ex_user})
@@ -153,7 +173,8 @@ async def generate_one_form(session: aiohttp.ClientSession, a: dict, teacher: di
         correction = (
             f"Your response contains words or symbols not in the allowed list: "
             f"{', '.join(repr(v) for v in violations[:15])}. "
-            f"Rewrite the entire response, keeping it about the same specific question. Two "
+            f"Rewrite the entire response, keeping it about the same specific question and "
+            f"about {target_words} words long. Two "
             f"fixes: (a) replace each disallowed word with a description using only allowed "
             f"words; (b) remove all markdown -- plain running prose only."
         )
@@ -168,6 +189,7 @@ async def generate_one_form(session: aiohttp.ClientSession, a: dict, teacher: di
         "id": a["id"], "prompt": pointed, "response": text,
         "content_type": a["content_type"], "topic": a["topic"],
         "source_model": teacher["id"], "compliant": ok,
+        "n_words": word_count(text),
     }
 
 
@@ -223,7 +245,7 @@ async def main(args):
             except asyncio.QueueEmpty:
                 return
             try:
-                res = await generate_one_form(session, a, teacher)
+                res = await generate_one_form(session, a, teacher, args.target_words)
             except Exception as e:
                 print(f"  worker err ({teacher['id']}): {type(e).__name__}: {e}", flush=True)
                 res = None
@@ -231,6 +253,7 @@ async def main(args):
 
     async def writer(total):
         done = last_save = last_flush = 0
+        lengths: list[int] = []
         with open(args.output, "a", encoding="utf-8") as out_f:
             while done < total:
                 a, res = await results_queue.get()
@@ -241,16 +264,31 @@ async def main(args):
                     out_f.write(json.dumps(res, ensure_ascii=False) + "\n")
                     completed.add(res["id"])
                     stats["compliant" if res["compliant"] else "non_compliant"] += 1
+                    lengths.append(res["n_words"])
                 if done - last_flush >= 50:
                     out_f.flush(); last_flush = done
                 if done - last_save >= 200:
                     stats["completed"] = len(completed)
+                    # Surface the length distribution live: a form arm drifting off the
+                    # essay arm's median re-introduces the very confound this run exists
+                    # to kill, and it is far cheaper to catch that now than after ~2 days.
+                    if lengths:
+                        stats["len_median"] = round(statistics.median(lengths), 1)
+                        stats["len_mean"] = round(statistics.fmean(lengths), 1)
+                        stats["len_target"] = args.target_words
+                        stats["len_within_20pct"] = round(
+                            sum(1 for n in lengths
+                                if 0.8 * args.target_words <= n <= 1.2 * args.target_words)
+                            / len(lengths), 3)
                     save_progress(Path(args.progress), completed, stats)
                     last_save = done
                     rate = done / (time.time() - t_start) * 60
                     print(f"  [{done}/{total}] ({done/total*100:.1f}%) compliant={stats['compliant']} "
                           f"non_compliant={stats['non_compliant']} failed={stats['failed']} "
-                          f"{rate:.1f}/min", flush=True)
+                          f"{rate:.1f}/min "
+                          f"| words med={stats.get('len_median')} "
+                          f"(target {args.target_words}, "
+                          f"within20%={stats.get('len_within_20pct')})", flush=True)
             out_f.flush()
 
     connector = aiohttp.TCPConnector(limit=0)
@@ -276,4 +314,7 @@ if __name__ == "__main__":
     ap.add_argument("--output", required=True)
     ap.add_argument("--progress", required=True)
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--target-words", type=int, default=TARGET_WORDS_DEFAULT,
+                    help="Word-length target for the form arm; must match the essay arm's "
+                         "median (measure ugf_n_sft_400k.jsonl rather than trusting the default).")
     asyncio.run(main(ap.parse_args()))
