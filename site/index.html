@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doing Philosophy in a Thousand Words</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <p class="kicker">A research story you can poke at</p>
+  <h1>Doing Philosophy in a Thousand Words</h1>
+  <p class="sub">We tried to build a machine that reasons about philosophy using only the
+  thousand most common English words. It failed in a way we misdiagnosed for months.
+  This is the story of the misdiagnosis — and of how we caught it.</p>
+  <p class="meta">Baumgaertner Lab · University of Idaho · <span id="build-date"></span></p>
+</header>
+
+<nav id="toc">
+  <a href="#question">1 · The question</a>
+  <a href="#wall">2 · The naming wall</a>
+  <a href="#instrument">3 · The instrument</a>
+  <a href="#works">4 · It works. Sort of.</a>
+  <a href="#hunt">5 · The hunt</a>
+  <a href="#youare">6 · You are the model</a>
+  <a href="#twist">7 · The twist</a>
+  <a href="#method">8 · What this teaches</a>
+</nav>
+
+<!-- ══════════════════════════════════════════════ -->
+<section id="question">
+<h2>1 · The question</h2>
+
+<p>In 1913, Henry Sheffer proved something startling: every operation in classical
+logic — <em>and</em>, <em>or</em>, <em>not</em>, all of it — can be built from a single
+connective. One stroke. You lose nothing you could say. You only pay in length: what
+took one line now takes twenty.</p>
+
+<p>That trade — <strong>lose vocabulary, keep meaning, pay in length</strong> — is the
+question this project asks about ordinary language. Take the roughly one thousand most
+common English words. Randall Munroe called this <em>Up Goer Five</em>, and used it to
+describe a Saturn V rocket without the word "rocket."</p>
+
+<p class="q">Can you do <em>philosophy</em> in it? Not describe philosophy — <em>do</em>
+it. Draw a distinction. Raise a counterexample. Follow an argument where it goes.</p>
+
+<details class="primer">
+<summary>Primer: what "the thousand words" actually means here</summary>
+<p>Our word list has <strong id="vocab-n"></strong> entries, of which
+<strong id="vocab-w"></strong> are alphabetic words (the rest are punctuation and
+digits). It is bigger than exactly 1,000 because it includes inflections — "think",
+"thinks", "thinking" are separate entries. The spirit is Munroe's: only words a
+general audience uses without thinking about them.</p>
+</details>
+
+<div class="tool">
+  <h3>Try it: the word list is stricter than you think</h3>
+  <p class="tool-hint">Type any sentence. Words outside the list are marked. This runs
+  the <em>exact</em> check our corpus pipeline runs — same word list, same rules.</p>
+  <textarea id="v-in" rows="3" spellcheck="false">A philosopher argues that knowledge requires justification.</textarea>
+  <div id="v-out" class="v-out"></div>
+  <div class="chips">
+    <button class="chip" data-t="A philosopher argues that knowledge requires justification.">philosophy jargon</button>
+    <button class="chip" data-t="The man in the white shirt gave the small silver key to the woman in the black dress.">a described scene</button>
+    <button class="chip" data-t="Ali told the doctor about his wallet at noon.">names and things</button>
+    <button class="chip" data-t="If a car must hit one person or five people, should the driver turn the wheel?">the trolley problem</button>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<section id="wall">
+<h2>2 · The naming wall</h2>
+
+<p>Here is the first thing we did not expect, and we found it by accident — while trying
+to get a large model to write us specific philosophical cases in Up Goer Five. About
+<strong>92% of what it wrote was rejected.</strong> Not for being vague. For naming things.</p>
+
+<p>Try to write one <em>specific</em> case below — a particular situation, with particulars.
+Not "when helping others costs you," but one case, with details that make it <em>that</em>
+case.</p>
+
+<div class="tool">
+  <h3>Try it: write one specific case</h3>
+  <p class="tool-hint">Give it a real go before reading on. The point is what you hit.</p>
+  <textarea id="w-in" rows="3" spellcheck="false" placeholder="e.g. a specific situation where someone must choose…"></textarea>
+  <div id="w-out" class="v-out"></div>
+  <div id="w-verdict" class="verdict"></div>
+</div>
+
+<p>If you reached for a name — Ali, Maria, John — it was rejected. Every time. There is
+<strong>not one proper name</strong> in the entire word list.</p>
+
+<p>Some other things go too, but be careful about why. <code>farmer</code>,
+<code>wallet</code>, <code>charity</code> and <code>noon</code> are all rejected — yet
+<code>doctor</code>, <code>car</code>, <code>school</code> and <code>teacher</code> are
+perfectly fine. That's not a principle; that's just word frequency. A thousand words
+happens to include "doctor" and happens not to include "farmer."</p>
+
+<p class="q">But the names are not a frequency accident. There are <strong>zero</strong>.
+A thousand-word vocabulary <strong>cannot name at all.</strong> It can only describe.</p>
+
+<p>But look at what our generator produced once it stopped fighting this. These are real
+cases from the corpus, and they are <em>perfectly</em> particular:</p>
+
+<blockquote>
+<p>"The man in the white shirt will give the small silver key to the woman in the black
+dress at the station."</p>
+<p>"If a car must hit one person or five people, should the driver turn the wheel?"</p>
+</blockquote>
+
+<p>The trolley problem, nameless. Particularity survives — but it has to arrive as
+<em>definite description</em> rather than as a name. Which is to say: the word list
+enforces <a href="https://plato.stanford.edu/entries/descriptions/">Russell's theory of
+descriptions</a> — not as a philosophical position you argue for, but as the only way
+left to talk.</p>
+
+<details class="primer">
+<summary>Primer: Russell's theory of descriptions, in one paragraph</summary>
+<p>Bertrand Russell argued in 1905 that phrases like "the present King of France" don't
+work by pointing at a thing. They work by <em>describing</em>: there is exactly one thing
+that is a King and is of France, and it is bald. Philosophers have argued about whether
+names are secretly descriptions ever since. Here that argument doesn't get to happen — a
+thousand words contains almost no names, so description is not a theory. It's the only
+road.</p>
+</details>
+
+<p class="aside">This is the Sheffer trade showing up in an unexpected place. We expected
+to pay in <em>length</em>. We also paid in <em>reference</em>.</p>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<section id="instrument">
+<h2>3 · The instrument</h2>
+
+<p>To test the question we built a small language model — about 200 million parameters,
+trained from scratch, that has never read a word outside the list. Two stages:</p>
+
+<ol class="steps">
+  <li><strong>Pretraining.</strong> Read ~2 million passages of Up Goer Five reasoning.
+  Learn what the language looks like.</li>
+  <li><strong>Instruction tuning (SFT).</strong> See ~400,000 pairs of
+  <em>prompt → response</em>. Learn to answer when asked.</li>
+</ol>
+
+<p>Then we test it on prompts it has never seen, and a blinded judge scores every answer
+0–4 on three things: does it <strong>engage</strong> the question actually asked, is it
+<strong>coherent</strong>, does it have <strong>substance</strong>.</p>
+
+<details class="primer">
+<summary>Primer: why "blinded" and why it matters more than it sounds</summary>
+<p>The judge never learns which model wrote what — the files have opaque names and no
+labels. That's standard. Less standard, and something we measured: we re-scored
+<em>identical</em> text six weeks apart and the scores moved differently by dimension.
+"Did it answer the question?" replicated exactly. "Was there real philosophical work?"
+moved by more than a full point on a four-point scale. Objective-ish questions are stable;
+taste questions drift. We report the stable one as the headline.</p>
+<div id="drift-table"></div>
+</details>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<section id="works">
+<h2>4 · It works. Sort of.</h2>
+
+<p>Ask it something in the shape it was trained on, and it is genuinely good — close to
+the 120-billion-parameter teacher that taught it. Ask it something in a new shape and it
+produces fluent, well-formed, grammatical Up Goer Five <em>about something else entirely</em>.</p>
+
+<div class="tool">
+  <h3>Look at what it actually said</h3>
+  <p class="tool-hint">Real prompts from the test set, real model output. Nothing cherry-picked
+  against the model — these are the first items in the file.</p>
+  <div id="samples"></div>
+</div>
+
+<p>We called this the <strong>prompt-attention deficit</strong>. That name turned out to be
+the problem — but it took us months to see that, so let's keep it for now, the way we had it.</p>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<section id="hunt">
+<h2>5 · The hunt</h2>
+
+<p>If the model won't read the prompt, something must be stopping it. We spent months
+eliminating suspects. Each row below is weeks of work and real compute.</p>
+
+<div id="levers" class="levers"></div>
+
+<p id="lever-punch" class="q hidden">Five suspects. Five acquittals. That should have been
+the clue.</p>
+
+<details class="primer">
+<summary>Primer: what "eliminating a suspect" means</summary>
+<p>You change <em>one</em> thing and hold everything else fixed. If the failure doesn't
+move, that thing wasn't the cause. It's the logic of a controlled experiment, and it's
+sound — with one catch that this whole page is about. Eliminating suspects only works if
+the real culprit is <em>among</em> the suspects. Five acquittals can mean you've narrowed
+it down. Or it can mean you're searching the wrong building.</p>
+</details>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<section id="youare">
+<h2>6 · You are the model</h2>
+
+<p>Before we show you the answer, take the model's job for a moment. This is the honest
+version of its situation — the real numbers from our training corpus.</p>
+
+<div class="tool game">
+  <h3>Your training data</h3>
+  <div id="game-facts"></div>
+  <p class="tool-hint">You will be scored only on predicting the response. What's your
+  strategy?</p>
+  <div id="game-opts"></div>
+  <div id="game-verdict" class="verdict"></div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<section id="twist">
+<h2>7 · The twist</h2>
+
+<p>Our 400,000 training examples contained <strong id="uniq-prompts"></strong> different
+prompts. Each one appeared about <strong id="repeats"></strong> times, paired with a
+<em>different</em> answer every time.</p>
+
+<p>So the prompt never identified an answer. It identified a <em>bucket</em>. And reading
+it any more closely than "which of the 380 is this?" earned the model exactly nothing.
+Not a little. Nothing.</p>
+
+<p class="q">The model didn't fail to learn prompt-attention. It learned that
+prompt-attention was <strong>worthless</strong> — because in that corpus, it was.</p>
+
+<p>Here is the evidence that settles it. Our test set happens to contain two kinds of
+question: five types the model saw during instruction tuning, and three types it saw
+<em>only</em> in pretraining. Same model, same test, same day:</p>
+
+<div id="bucket-table"></div>
+
+<p>Not a gradient. A cliff. Inside its buckets the model is <strong id="core-eng"></strong>
+out of 4 — nearly teacher quality. Outside them, <strong id="aux-eng"></strong>. Nothing
+in between.</p>
+
+<p>It isn't a broken reasoner. <strong>It's a 380-way classifier with an essay generator
+bolted to each slot</strong> — which is the <em>optimal</em> policy for the data we gave
+it. It learned exactly what we paid it to learn. We just hadn't noticed what we were
+paying for.</p>
+
+<p>And now re-read the hunt. Capacity, vocabulary, two kinds of post-training, response
+form — every one of them was an attempt to make a lookup table read. Not one of them
+changed the thing that made lookup optimal. Five acquittals, because the culprit was
+never in the lineup.</p>
+
+<details class="primer">
+<summary>Being honest about this result</summary>
+<p>The three types the model can't do also come from different source files than the five
+it can. So "wasn't in instruction tuning" is tangled with "came from somewhere else," and
+we can't fully separate them from this data alone. Two things make us think the bucket
+story is right anyway: the three failing types come from <em>two different</em> pipelines
+yet land on the same floor, and 0.12 out of 4 isn't "harder" — it's absent. But the clean
+test is cheap and we're running it: drop one of the five good types out of training and
+see whether it falls off the same cliff. If it doesn't, we're wrong.</p>
+</details>
+
+<p class="aside">The decisive experiment is running as you read this: a corpus with
+<em>hundreds of thousands</em> of different prompts instead of 380. If prompt-reading was
+never worth anything before, is it worth something now? We don't know yet. That's what
+makes it worth running.</p>
+</section>
+
+<!-- ══════════════════════════════════════════════ -->
+<section id="method">
+<h2>8 · What this teaches</h2>
+
+<p>The result is interesting. The <em>mistake</em> is more useful.</p>
+
+<div class="lessons">
+<div class="lesson">
+<h3>Check what the data rewarded</h3>
+<p>Before concluding a system <em>can't</em> do something, ask whether anything it was
+trained on ever made doing it worthwhile. We asked "why won't it read prompts?" for months.
+The answer was: because we never once paid it to.</p>
+</div>
+<div class="lesson">
+<h3>A name is a hypothesis</h3>
+<p>We called it the "prompt-attention deficit." <em>Deficit</em> means a weak thing to
+strengthen — so we spent months trying to strengthen it. The model didn't have a weak
+capability. It had a rational strategy. Every lever we picked was picked by the name.</p>
+</div>
+<div class="lesson">
+<h3>Don't control a mediator</h3>
+<p>We nearly forced the machine to write fixed-length answers to remove a confound. But in
+a thousand-word vocabulary, length is <em>part of</em> what we're studying — saying
+something specific costs words. Clamping it would have hidden the effect we were looking
+for.</p>
+</div>
+<div class="lesson">
+<h3>Measure it; don't inherit it</h3>
+<p>Our own design document said the training answers ran "about 317 words." They run 285.
+317 is the median of a <em>different</em> experiment, copied across at some point and never
+checked. Every number on this page is computed from the data files at build time, because
+the alternative is how 317 happened.</p>
+</div>
+</div>
+
+<p class="closing">None of these are lessons about language models. They're lessons about
+looking. The model was never confused. We were.</p>
+</section>
+
+<footer>
+  <p>Every figure on this page is generated from the project's data files by
+  <code>site/build_site_data.py</code>. Nothing here is typed by hand.</p>
+  <p>Part of <em>Bounded Instruments</em> · <span id="build-date-2"></span></p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
