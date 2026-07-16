@@ -74,17 +74,48 @@ CASE_KIND = {
     "thought_experiment": "a specific situation, stated concretely with particulars",
 }
 
+# Individuation by DESCRIPTION, not by name. Measured July 16, 2026: asking for
+# "specific cases" without this guidance yields ~92% UGF violations, because
+# particularity naturally reaches for exactly what the ~1K-word vocabulary lacks --
+# proper names ('Ali', 'Bo'), objects ('wallet', 'dollars'), roles ('farmer',
+# 'patients'), institutions ('charity'), times ('noon'). The cases that DO survive
+# individuate the only way UGF permits: by definite description ("the man in the
+# white shirt"), which is Russell's theory of descriptions enforced by vocabulary.
+# These exemplars are real survivors from that smoke run; showing them teaches the
+# pattern up front instead of paying a 12x rejection tax to discover it.
+CASE_FEWSHOT = (
+    "Here is the style to follow. These are good because each one is about ONE "
+    "case with details that make it that case and not another, and each uses only "
+    "allowed words:\n"
+    "  - The man in the white shirt will give the small silver key to the woman in "
+    "the black dress at the station.\n"
+    "  - If a car must hit one person or five people, should the driver turn the wheel?\n"
+    "  - A girl sees one dark cloud and thinks it will rain on her whole street.\n"
+    "  - A man puts too much water in his garden, so the whole street has no water "
+    "for drinking.\n"
+)
+
 BATCH_PROMPT = (
     "Topic area: {topic}\n\n"
     "Write {n} DIFFERENT examples of {kind}, all within that topic area.\n\n"
-    "Rules:\n"
-    "- Each one must be PARTICULAR, not general. Name a concrete person, thing, "
-    "situation, number, or claim. Someone should be able to answer THAT one and "
-    "not just talk about the topic area.\n"
+    + CASE_FEWSHOT +
+    "\nRules:\n"
+    "- Each one must be PARTICULAR, not general: one case, with details that make "
+    "it THAT case. Someone should be able to answer that one case, not just talk "
+    "about the topic area.\n"
+    "- Use only the ten hundred most used words. This matters most, and it is where "
+    "these go wrong:\n"
+    "    * NO names for people. Not 'Ali', not 'Bo'. Say 'the man in the white "
+    "shirt', 'the girl with the red bag', 'the older brother'.\n"
+    "    * NO words for particular things or jobs that are not simple words. Not "
+    "'wallet', 'farmer', 'charity', 'doctor', 'noon'. Describe them instead: 'the "
+    "thing he keeps his money in', 'the man who grows food', 'a group that gives "
+    "help away', 'the woman who helps sick people', 'the middle of the day'.\n"
+    "- Get the particular from DETAILS you can say in simple words -- what someone "
+    "is wearing, how many, which one, what just happened -- not from names.\n"
     "- Each must be one or two sentences.\n"
-    "- Make them differ from each other: different cases, different angles, "
-    "different particulars. Do not restate the topic area {n} times.\n"
-    "- Use only simple, common words (the ten hundred most used words).\n"
+    "- Make them differ from each other: different cases, different angles. Do not "
+    "restate the topic area {n} times.\n"
     "- No markdown. Number them 1. to {n}. and write nothing else."
 )
 
