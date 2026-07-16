@@ -36,6 +36,22 @@ status: ON HOLD (July 16, 2026) — the form arm is ALREADY GENERATED (June 9), 
 > - **C — the untested lever: prompt informativeness.** Generate a corpus whose prompts *carry the specifics* (~400K distinct claims/cases/questions rather than 76 recycled topics), so conditioning on the prompt actually pays off in training loss. B vs C isolates diversity at fixed form. This is the hypothesis the audit promotes to first place.
 > - **Length note.** The existing form arm's median is 263 vs the essay arm's 285 → **−7.7%**, which trips the −5% short-side gate in `check_length_match.py`. Not the May-24 catastrophe (6.5× short), but handle it: token-equalize, or train on a pairwise length-matched subset, and report it. A fresh 2K natural pilot (killed early, July 16) independently reproduced this at −6.0%, so the drift is real, not sampling noise.
 > - **Re-examine May-24.** The old form corpus (`ugf_forms_corpus.jsonl`) has **2,858 unique prompts / 2,873 examples** — genuinely diverse. So the May-24 pilot varied form **and** prompt diversity **and** size **and** length simultaneously. Its "form is worse" reading is not safe either.
+>
+> ## Addendum (July 16, later) — UGF cannot name, only describe
+>
+> Building arm C's case pool surfaced a result worth the paper's attention in its own right. Asking teachers for *specific cases* under the UGF wordlist produced a **~92% vocabulary-violation rate** (2,819 rejected vs 249 kept). The rejections are not random — they are exactly the machinery of particularity:
+>
+> | rejected token | category |
+> |---|---|
+> | `Ali`, `Bo` | proper names |
+> | `wallet`, `dollars` | particular objects, money |
+> | `farmer`, `patients`, `doctor` | occupations, roles |
+> | `charity` | institutions |
+> | `noon` | specific times |
+>
+> **A ~1,000-word vocabulary cannot individuate by naming.** The cases that survive individuate the only way UGF permits — by *definite description*: "the man in the white shirt will give the small silver key to the woman in the black dress at the station"; "if a car must hit one person or five people, should the driver turn the wheel?" The wordlist enforces **Russell's theory of descriptions** as a matter of expressive necessity rather than philosophical preference. Particularity survives; naming does not; the cost is periphrasis.
+>
+> This is the Sheffer-stroke thesis landing in a second place, and it sharpens the Ch 6 argument: the earlier finding was that a restricted vocabulary dilates *expression*; this one is that it relocates *reference* from names to descriptions. Teaching the pattern up front (few-shot with real survivors + explicit anti-patterns and their periphrastic repairs) lifted the pass rate **8.1% → 26.8%**, which is the difference between a ~2-day and a ~5–10-hour case-pool campaign — but the underlying constraint is a property of the vocabulary, not of the prompt.
 
 > **Sign-off (July 16, 2026).** The three open choices in §"Open choices to confirm with Bert" are settled:
 >
