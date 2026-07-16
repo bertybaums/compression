@@ -59,8 +59,7 @@ async def call_mr(session, sem, key, messages, max_tokens, timeout_s=360):
         try:
             async with session.post(f"{MR_BASE_URL}/chat/completions", json=payload,
                                     headers=headers,
-                                    timeout=aiohttp.ClientTimeout(total=timeout_s),
-                                    ssl=False) as resp:
+                                    timeout=aiohttp.ClientTimeout(total=timeout_s)) as resp:
                 dt = time.time() - t0
                 if resp.status != 200:
                     return None, dt, f"HTTP {resp.status}: {(await resp.text())[:200]}"
@@ -102,7 +101,7 @@ async def main_async(args):
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
 
     sem = asyncio.Semaphore(args.concurrency)
-    conn = aiohttp.TCPConnector(limit=args.concurrency, ssl=False)
+    conn = aiohttp.TCPConnector(limit=args.concurrency)
     async with aiohttp.ClientSession(connector=conn,
                                      timeout=aiohttp.ClientTimeout(total=None)) as session:
         t0 = time.time()

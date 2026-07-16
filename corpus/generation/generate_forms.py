@@ -457,7 +457,7 @@ async def main(
                 save_progress(progress_path, completed_ids, stats)
         save_progress(progress_path, completed_ids, stats)
 
-    connector = aiohttp.TCPConnector(ssl=False, limit=0)
+    connector = aiohttp.TCPConnector(limit=0)
     async with aiohttp.ClientSession(connector=connector) as session:
         worker_tasks = [asyncio.create_task(teacher_worker(t, session)) for t in teachers]
         writer_task = asyncio.create_task(writer(len(remaining)))

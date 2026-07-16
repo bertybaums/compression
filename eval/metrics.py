@@ -290,7 +290,7 @@ class LLMJudgeMetric:
         import re
 
         scores = []
-        connector = aiohttp.TCPConnector(ssl=False)
+        connector = aiohttp.TCPConnector()
 
         async with aiohttp.ClientSession(connector=connector) as session:
             for orig, recon in zip(originals, reconstructed):

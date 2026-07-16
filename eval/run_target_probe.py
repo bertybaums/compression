@@ -21,7 +21,6 @@ Usage:
 import argparse
 import json
 import os
-import ssl
 import sys
 import time
 import urllib.request
@@ -76,9 +75,6 @@ def mr_chat(messages: list[dict], model: str = "openai/gpt-oss-120b",
         "Authorization": f"Bearer {MR_KEY}",
         "Content-Type": "application/json",
     }
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
     data = json.dumps(payload).encode("utf-8")
     t0 = time.time()
     attempts = list(_TRANSIENT_RETRY_BACKOFFS) + [None]  # final attempt has no sleep after
@@ -86,7 +82,7 @@ def mr_chat(messages: list[dict], model: str = "openai/gpt-oss-120b",
     for i, sleep_after in enumerate(attempts):
         req = urllib.request.Request(MR_URL, data=data, headers=headers, method="POST")
         try:
-            with urllib.request.urlopen(req, context=ctx, timeout=timeout) as resp:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
                 body = json.loads(resp.read())
             content = (body.get("choices") or [{}])[0].get("message", {}).get("content", "")
             return {

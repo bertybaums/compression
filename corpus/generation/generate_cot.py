@@ -420,7 +420,7 @@ async def run(output_path: Path, progress_path: Path,
     }
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    connector = aiohttp.TCPConnector(ssl=False, limit=0)
+    connector = aiohttp.TCPConnector(limit=0)
 
     async def teacher_worker(teacher, session):
         q = per_teacher_queues[teacher["id"]]

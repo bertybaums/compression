@@ -195,7 +195,7 @@ async def main(args):
                           f"failed={stats['failed']} {rate:.1f}/min", flush=True)
             out_f.flush()
 
-    connector = aiohttp.TCPConnector(ssl=False, limit=0)
+    connector = aiohttp.TCPConnector(limit=0)
     async with aiohttp.ClientSession(connector=connector) as session:
         worker_tasks = []
         for t in teachers:

@@ -24,7 +24,6 @@ advantage magnitudes and destabilizes training).
 
 import asyncio
 import json
-import ssl
 import time
 from pathlib import Path
 from typing import Any
@@ -82,9 +81,6 @@ class MRJudge:
         self.reasoning_effort = reasoning_effort
         self.request_timeout = request_timeout
         self.max_retries = max_retries
-        self._ssl = ssl.create_default_context()
-        self._ssl.check_hostname = False
-        self._ssl.verify_mode = ssl.CERT_NONE
 
     async def _single_judge_call(
         self, session: aiohttp.ClientSession, prompt: str, response: str
@@ -111,7 +107,6 @@ class MRJudge:
                     self.api_url,
                     json=payload,
                     headers=headers,
-                    ssl=self._ssl,
                     timeout=aiohttp.ClientTimeout(total=self.request_timeout),
                 ) as resp:
                     if resp.status == 200:

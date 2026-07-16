@@ -319,9 +319,7 @@ async def main(
     # Open output file in append mode
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
-    # MindRouter uses a self-signed certificate (campus-internal service)
-    ssl_ctx = False  # disable SSL verification for aiohttp
-    connector = aiohttp.TCPConnector(ssl=ssl_ctx)
+    connector = aiohttp.TCPConnector()
     async with aiohttp.ClientSession(connector=connector) as session:
         # Process in batches to manage memory and save progress
         batch_size = 100

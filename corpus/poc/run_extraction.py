@@ -203,7 +203,7 @@ async def main():
     sem = asyncio.Semaphore(MAX_CONCURRENT)
     t0 = time.monotonic()
 
-    connector = aiohttp.TCPConnector(ssl=False, limit=0)
+    connector = aiohttp.TCPConnector(limit=0)
     async with aiohttp.ClientSession(connector=connector) as session:
         async def one(pair: dict) -> tuple[dict, dict]:
             user = build_user_message(args.form, pair)

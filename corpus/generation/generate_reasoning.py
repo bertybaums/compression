@@ -585,9 +585,8 @@ async def main(
     # of the writer (prevents unbounded memory use if the writer gets slow).
     results_queue: asyncio.Queue = asyncio.Queue(maxsize=1024)
 
-    # MindRouter uses a self-signed certificate (campus-internal service).
     # limit=0 disables aiohttp's per-host connection cap.
-    connector = aiohttp.TCPConnector(ssl=False, limit=0)
+    connector = aiohttp.TCPConnector(limit=0)
     save_interval = 100
     flush_interval = 50  # fsync to disk every N results (durability vs overhead)
 

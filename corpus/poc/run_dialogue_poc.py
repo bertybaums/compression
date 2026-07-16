@@ -237,7 +237,7 @@ async def main():
     sem = asyncio.Semaphore(MAX_CONCURRENT)
     t0 = time.monotonic()
 
-    connector = aiohttp.TCPConnector(ssl=False, limit=0)  # MR uses self-signed cert
+    connector = aiohttp.TCPConnector(limit=0)
     async with aiohttp.ClientSession(connector=connector) as session:
         results = await asyncio.gather(*[call_mr(session, p, sem) for p in pairs])
 

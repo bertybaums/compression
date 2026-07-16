@@ -16,7 +16,6 @@ consumer runner instead.
 import json
 import os
 import re
-import ssl
 import sys
 import time
 import urllib.request
@@ -60,16 +59,13 @@ USER_TEMPLATE = "Rewrite this in Up Goer Five:\n\n{english}"
 
 
 def _http_post(url: str, payload: dict, headers: dict, timeout: int = 120) -> dict:
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
     req = urllib.request.Request(
         url,
         data=json.dumps(payload).encode("utf-8"),
         headers=headers,
         method="POST",
     )
-    with urllib.request.urlopen(req, context=ctx, timeout=timeout) as resp:
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
         return json.loads(resp.read())
 
 

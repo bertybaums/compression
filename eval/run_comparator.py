@@ -285,7 +285,6 @@ async def call_mr(
                 f"{MR_BASE_URL}/chat/completions",
                 json=payload, headers=headers,
                 timeout=aiohttp.ClientTimeout(total=timeout_s),
-                ssl=False,
             ) as resp:
                 dt = time.time() - t0
                 if resp.status != 200:
@@ -368,7 +367,7 @@ async def main_async(args):
 
     # Run with concurrency
     semaphore = asyncio.Semaphore(args.concurrency)
-    connector = aiohttp.TCPConnector(limit=args.concurrency, ssl=False)
+    connector = aiohttp.TCPConnector(limit=args.concurrency)
     timeout = aiohttp.ClientTimeout(total=None)
     async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
         t_start = time.time()
