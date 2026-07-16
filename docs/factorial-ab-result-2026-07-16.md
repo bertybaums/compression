@@ -81,13 +81,43 @@ constraint sits upstream of vocabulary in the corpus itself.
 That is the case for ARM C. It is the first arm in which conditioning on the
 prompt can pay off at all.
 
+## The deficit is out-of-distribution, not a broken model
+
+ARM A's June scores across benches locate the failure precisely:
+
+| ARM A / bench | n | engagement | coherence | substance |
+|---|---:|---:|---:|---:|
+| stress (OOD prompt forms) | 30 | **0.07** | 1.93 | 0.40 |
+| holdout (in-distribution) | 170 | **1.68** | 2.51 | 2.16 |
+| cx_patched | 50 | 0.30 | 1.86 | 0.78 |
+
+Engagement 1.68 in-distribution against 0.07 on stress. The model is not broken;
+it works when the prompt resembles its 380 training buckets and collapses when the
+prompt must actually be read. That is the deficit, localized — and it is precisely
+the profile a corpus with 380 prompts and ~1,053 responses each would produce.
+
 ## Method notes
 
-- **Judge drift controlled.** ARM A was *re-judged* from its existing June 2
-  generation files rather than reusing its June scores: the judge is a Claude
-  subagent, and June's instance is not today's. On a 30-item bench read to ~0.3
-  resolution that confound is not affordable. A's generations were re-scored, not
-  regenerated.
+- **Judge drift controlled — and it mattered.** ARM A was *re-judged* from its
+  existing June 2 generation files rather than reusing its June scores: the judge is
+  a Claude subagent, and June's instance is not today's. On a 30-item bench read to
+  ~0.3 resolution that confound is not affordable. A's generations were re-scored,
+  not regenerated. The re-judge shows the drift is **dimension-specific**:
+
+  | ARM A / stress | June | July re-judge | drift |
+  |---|---:|---:|---:|
+  | engagement | 0.07 | **0.07** | **0.00** |
+  | coherence | 1.93 | 1.77 | 0.16 |
+  | substance | **0.40** | **1.57** | **1.17** |
+
+  Engagement replicated *exactly*; substance moved 1.17 — nearly 30% of the scale.
+  So the headline (engagement) is judge-stable and safely comparable even across
+  instances, while **substance is not**: any substance delta drawn against a
+  differently-judged arm is unsafe, including the enbase §4.6 substance figures if
+  re-used later. Report substance deltas only within a single judging pass. This
+  also retroactively supports the decision to re-judge rather than reuse — had we
+  reused June, the A→B substance delta would have been reported as roughly +1.2
+  instead of −0.30, a sign error.
 - **Isolation.** One arm + one bench per batch. The precursor showed cross-register
   contrast depresses the restricted arm ~1 substance point on *identical* text.
 - **Blinding.** Opaque batch filenames, `{id, prompt, response}` only, batch order
